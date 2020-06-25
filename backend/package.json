@@ -1,0 +1,13 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/dianaxime/ProyectoVE.git",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "generate-password": "^1.5.1",
+    "nodemailer": "^6.4.10",
+    "nodemon": "^2.0.4"
+  }
+}
