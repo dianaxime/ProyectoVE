@@ -1,10 +1,10 @@
-import jwt from 'jsonwebtoken';
-import dotenv from 'dotenv';
-import {
+const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+const {
     errorMessage,
     status,
-} from '../helpers/status';
-import env from '../../env';
+} = require('../helpers/status');
+const env = require('../../env');
 
 dotenv.config();
 
@@ -16,7 +16,7 @@ dotenv.config();
  * @returns {object|void} response object 
 */
 
-const verifyToken = async (req, res, next) => {
+module.exports = async function (req, res, next) {
     const { token } = req.headers;
     if (!token) {
         errorMessage.error = 'Token not provided';
@@ -37,5 +37,3 @@ const verifyToken = async (req, res, next) => {
         return res.status(status.unauthorized).send(errorMessage);
     }
 };
-
-export default verifyToken;

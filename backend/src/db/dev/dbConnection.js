@@ -1,4 +1,4 @@
-import pool from './pool';
+const pool = require('./pool');
 
 pool.on('connect', () => {
     console.log('connected to the db');
@@ -135,7 +135,7 @@ pool.on('remove', () => {
     process.exit(0);
 });
 
-export {
+module.exports = {
     createAllTables,
     dropAllTables,
 };

@@ -16,7 +16,7 @@ const trip_statuses = {
     cancelled: 2.00,
 };
 
-export {
+module.exports = {
     successMessage,
     errorMessage,
     status,

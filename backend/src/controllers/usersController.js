@@ -1,21 +1,21 @@
-import moment from 'moment';
+const moment = require('moment');
 
-import dbQuery from '../db/dev/dbQuery';
+const dbQuery = require('../db/dev/dbQuery');
 
-import {
+const {
     hashPassword,
     comparePassword,
     isValidEmail,
     validatePassword,
     isEmpty,
     generateUserToken,
-} from '../helpers/validation';
+} = require('../helpers/validation');
 
-import {
+const {
     errorMessage,
     successMessage,
     status,
-} from '../helpers/status';
+} = require('../helpers/status');
 
 /**
  * Create A User
@@ -102,7 +102,7 @@ const siginUser = async (req, res) => {
         return res.status(status.bad).send(errorMessage);
     }
 
-    const signinUserQuery = 'SELECT * FROM users WHERE email = $1';
+    const signinUserQuery = 'SELECT * = require(users WHERE email = $1';
     try {
         const { rows } = await dbQuery.query(signinUserQuery, [email]);
         const dbResponse = rows[0];
@@ -128,7 +128,7 @@ const siginUser = async (req, res) => {
     }
 };
 
-export {
+module.exports = {
     createUser,
     siginUser,
 };

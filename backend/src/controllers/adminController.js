@@ -1,17 +1,17 @@
-import moment from 'moment';
-import dbQuery from '../db/dev/dbQuery';
-import {
+const moment = require('moment');
+const dbQuery = require('../db/dev/dbQuery');
+const {
     hashPassword,
     isValidEmail,
     validatePassword,
     isEmpty,
     generateUserToken,
-} from '../helpers/validation';
-import {
+} = require('../helpers/validation');
+const {
     errorMessage,
     successMessage,
     status,
-} from '../helpers/status';
+} = require('../helpers/status');
 
 /**
  * Create A Admin
@@ -136,7 +136,7 @@ const updateUserToAdmin = async (req, res) => {
     }
 };
 
-export {
+module.exports = {
     createAdmin,
     updateUserToAdmin,
 };

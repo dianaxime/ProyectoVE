@@ -1,10 +1,10 @@
-import pool from '../db/dev/pool';
-import {
+const pool = require('../db/dev/pool');
+const {
     hashPassword,
-  } from '../helpers/validations';
-import {
+  } = require('../helpers/validation');
+const {
   status,
-} from '../helpers/status';
+} = require('../helpers/status');
 
 /**
    * Create A User
@@ -13,7 +13,7 @@ import {
    * @returns {object} reflection object
 */
 
-const seedUser = async (req, res) => {
+module.exports = async function(req, res) {
   const seedUserQuery = `INSERT INTO
   users VALUES 
   ( default, 'dianaxime0@gmail.com', 'Prueba', 'Prueba', '${hashPassword('123456')}', default, NOW())`;
@@ -29,5 +29,3 @@ const seedUser = async (req, res) => {
     return res.status(status.error).send('An Error occured try later');
   }
 };
-
-export default seedUser;

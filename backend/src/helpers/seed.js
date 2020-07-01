@@ -1,4 +1,4 @@
-import pool from '../db/dev/pool';
+const pool = require('../db/dev/pool');
 
 pool.on('connect', () => {
   console.log('connected to the db');
@@ -28,7 +28,7 @@ const seed = () => {
  * Seed users
 */
 
-const seedUser = () => {
+module.exports = function() { 
   seed();
 };
 
@@ -37,6 +37,5 @@ pool.on('remove', () => {
   process.exit(0);
 });
 
-export { seedUser };
 
 require('make-runnable');

@@ -1,10 +1,9 @@
-import express from 'express';
-import 'babel-polyfill';
-import cors from 'cors';
-import env from './env';
+const express = require('express');
+const cors = require( 'cors');
+const env = require('./env');
 
-import usersRoute from './routes/usersRoute';
-import seedRoute from './app/routes/seedRoute';
+const usersRoute = require('./routes/usersRoute');
+const seedRoute = require('./routes/seedRoute');
 
 const app = express();
 
@@ -21,5 +20,3 @@ app.use('/api/v1', seedRoute);
 app.listen(env.port).on('listening', () => {
     console.log(`are live on ${env.port}`);
 });
-
-export default app;
