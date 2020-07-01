@@ -7,6 +7,4 @@ dotenv.config();
 const databaseConfig = { connectionString: process.env.DATABASE_URL };
 const pool = new pg.Pool(databaseConfig);
 
-module.exports = {
-    pool,
-};
+module.exports = pool;

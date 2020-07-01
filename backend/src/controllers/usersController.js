@@ -102,7 +102,7 @@ const siginUser = async (req, res) => {
         return res.status(status.bad).send(errorMessage);
     }
 
-    const signinUserQuery = 'SELECT * = require(users WHERE email = $1';
+    const signinUserQuery = 'SELECT * FROM users WHERE email = $1';
     try {
         const { rows } = await dbQuery.query(signinUserQuery, [email]);
         const dbResponse = rows[0];
@@ -123,6 +123,7 @@ const siginUser = async (req, res) => {
         successMessage.data.token = token;
         return res.status(status.success).send(successMessage);
     } catch (error) {
+        console.log(error);
         errorMessage.error = 'Operation was not successful';
         return res.status(status.error).send(errorMessage);
     }

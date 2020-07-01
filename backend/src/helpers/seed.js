@@ -1,4 +1,7 @@
 const pool = require('../db/dev/pool');
+const {
+  hashPassword,
+} = require('../helpers/validation');
 
 pool.on('connect', () => {
   console.log('connected to the db');
@@ -8,10 +11,10 @@ pool.on('connect', () => {
  * SEED Admin User
 */
 
-const seed = () => {
+module.exports = function() {
   const seedUserQuery = `INSERT INTO
     users VALUES 
-    ( default, 'dianaxime0@gmail.com', 'Prueba', 'Prueba', '123456', default, NOW())`;
+    ( default, 'dianaxime0@gmail.com', 'Prueba', 'Prueba', '${hashPassword('123456789')}', NOW())`;
 
   pool.query(seedUserQuery)
     .then((res) => {
@@ -22,14 +25,6 @@ const seed = () => {
       console.log(err);
       pool.end();
     });
-};
-
-/**
- * Seed users
-*/
-
-module.exports = function() { 
-  seed();
 };
 
 pool.on('remove', () => {
