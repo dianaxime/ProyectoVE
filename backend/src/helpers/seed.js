@@ -14,7 +14,7 @@ pool.on('connect', () => {
 module.exports = function() {
   const seedUserQuery = `INSERT INTO
     users VALUES 
-    ( default, 'dianaxime0@gmail.com', 'Prueba', 'Prueba', '${hashPassword('123456789')}', NOW())`;
+    ( default, 'prueba0@gmail.com','Prueba', 'Prueba', '${hashPassword('123456789')}', '12345', 'F', 'prueba', 'prueba', 'prueba',  NOW(), NOW())`;
 
   pool.query(seedUserQuery)
     .then((res) => {

@@ -31,14 +31,25 @@ const createUser = async (req, res) => {
         email,
         first_name,
         last_name,
+        carne, 
+        genre,
+        type,
+        career,
+        faculty,
     } = req.body;
 
     const created_on = moment(new Date());
+    const modified_on = moment(new Date());
 
     const password = generator.generate({
         length: 10,
         numbers: true
     });
+
+    console.log(password);
+    console.log(email);
+    console.log(first_name);
+    console.log(last_name);
 
     if (isEmpty(email) || isEmpty(first_name) || isEmpty(last_name) || isEmpty(password)) {
         errorMessage.error = 'Email, password, first name and last name field cannot be empty';
@@ -58,16 +69,22 @@ const createUser = async (req, res) => {
     const hashedPassword = hashPassword(password);
 
     const createUserQuery = `INSERT INTO
-    users(email, first_name, last_name, password, created_on)
-    VALUES ($1, $2, $3, $4, $5)
+    users(email, first_name, last_name, password, carne, genre, type, career, faculty, created_on, modified_on)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
     returning *`;
 
     const values = [
         email,
         first_name,
         last_name,
+        carne, 
+        genre,
+        type,
+        career,
+        faculty,
         hashedPassword,
         created_on,
+        modified_on,
     ];
 
     try {
@@ -130,6 +147,7 @@ const createUser = async (req, res) => {
             return res.status(status.conflict).send(errorMessage);
         }
         errorMessage.error = 'Operation was not successful';
+        console.log(error)
         return res.status(status.error).send(errorMessage);
     }
 };
@@ -215,7 +233,7 @@ const createRegister = async (req, res) => {
     }
 
     const createRegisterQuery = `INSERT INTO
-    users(email, first_name, last_name, carne, genre, type, career, faculty, status, created_on, authorized_on)
+    registers(email, first_name, last_name, carne, genre, type, career, faculty, status, created_on, authorized_on)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
     returning *`;
 
@@ -244,6 +262,7 @@ const createRegister = async (req, res) => {
             return res.status(status.conflict).send(errorMessage);
         }
         errorMessage.error = 'Operation was not successful';
+        console.log(error);
         return res.status(status.error).send(errorMessage);
     }
 };
@@ -251,4 +270,5 @@ const createRegister = async (req, res) => {
 module.exports = {
     createUser,
     loginUser,
+    createRegister
 };

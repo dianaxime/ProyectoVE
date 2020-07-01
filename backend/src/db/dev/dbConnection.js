@@ -9,7 +9,7 @@ pool.on('connect', () => {
 */
 
 const createUserTable = () => {
-    const userCreateQuery = `CREATE TABLE IF NOT EXISTS users
+    /*const userCreateQuery = `CREATE TABLE IF NOT EXISTS users
     (
         id SERIAL PRIMARY KEY,
         email VARCHAR(100) UNIQUE NOT NULL,
@@ -17,9 +17,9 @@ const createUserTable = () => {
         last_name VARCHAR(100),
         password VARCHAR(100) NOT NULL,
         created_on DATE NOT NULL
-    )`;
+    )`;*/
     
-    /*const userCreateQuery = `CREATE TABLE IF NOT EXISTS users
+    const userCreateQuery = `CREATE TABLE IF NOT EXISTS users
     (
         id SERIAL PRIMARY KEY,
         email VARCHAR(100) UNIQUE NOT NULL,
@@ -33,7 +33,7 @@ const createUserTable = () => {
         faculty VARCHAR(200) NOT NULL,
         created_on DATE NOT NULL,
         modified_on DATE NOT NULL
-    )`;*/
+    )`;
 
     pool.query(userCreateQuery)
     .then((res) => {
