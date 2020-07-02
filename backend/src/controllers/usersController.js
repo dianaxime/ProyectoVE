@@ -27,15 +27,9 @@ const {
 */
 
 const createUser = async (req, res) => {
+    
     const {
         email,
-        first_name,
-        last_name,
-        carne, 
-        genre,
-        type,
-        career,
-        faculty,
     } = req.body;
 
     const created_on = moment(new Date());
@@ -46,51 +40,50 @@ const createUser = async (req, res) => {
         numbers: true
     });
 
-    console.log(password);
-    console.log(email);
-    console.log(first_name);
-    console.log(last_name);
-
-    if (isEmpty(email) || isEmpty(first_name) || isEmpty(last_name) || isEmpty(password)) {
-        errorMessage.error = 'Email, password, first name and last name field cannot be empty';
-        return res.status(status.bad).send(errorMessage);
-    }
-
-    if (!isValidEmail(email)) {
-        errorMessage.error = 'Please enter a valid Email';
-        return res.status(status.bad).send(errorMessage);
-    }
-
-    if (!validatePassword(password)) {
-        errorMessage.error = 'Password must be more than eight(8) characters';
-        return res.status(status.bad).send(errorMessage);
-    }
-
     const hashedPassword = hashPassword(password);
+
+    const searchRegisterQuery = 'SELECT * FROM registers WHERE email=$1 ORDER BY id DESC';
+
+    const updateRegisterQuery = 'UPDATE registers SET status=$1 WHERE email=$2 returning *';
 
     const createUserQuery = `INSERT INTO
     users(email, first_name, last_name, password, carne, genre, type, career, faculty, created_on, modified_on)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
     returning *`;
-
-    const values = [
-        email,
-        first_name,
-        last_name,
-        carne, 
-        genre,
-        type,
-        career,
-        faculty,
-        hashedPassword,
-        created_on,
-        modified_on,
+    
+    let values = [
+        email
     ];
+    console.log(values);
 
     try {
-        const { rows } = await dbQuery.query(createUserQuery, values);
+        await dbQuery.query('BEGIN');
+        const { rows } = await dbQuery.query(searchRegisterQuery, values);
+        const user_info = rows;
+        console.log(Object.values(user_info[0]));
+        const user_values = Object.values(user_info[0]);
+        values = [
+            'authorized',
+            email,
+        ];
+        const { update } = await dbQuery.query(updateRegisterQuery, values);
+        values = [
+            user_values[1],
+            user_values[2],
+            user_values[3],
+            hashedPassword,
+            user_values[4],
+            user_values[5],
+            user_values[6],
+            user_values[7],
+            user_values[8],
+            created_on,
+            modified_on,
+        ];
+        const { create } = await dbQuery.query(createUserQuery, values);
+        const complete = await dbQuery.query('COMMIT');
         const dbResponse = rows[0];
-        delete dbResponse.password;
+        console.log(dbResponse);
         successMessage.data = dbResponse;
         
         /**
@@ -128,16 +121,15 @@ const createUser = async (req, res) => {
             from: 'proyectoplataformas2019@gmail.com',
             to: dbResponse.email,
             subject: 'Welcome to VE platform!',
-            //text: 'That was easy!'
             html: output //html body
           };
           
           transporter.sendMail(mailOptions, function(error, info){
             if (error) {
-              console.log(error);
+                console.log(error);
             } else {
-              console.log('Email sent: ' + info.response);
-              return res.status(status.created).send(successMessage);
+                console.log('Email sent: ' + info.response);
+                return res.status(status.created).send(successMessage);
             }
         });
 
@@ -146,6 +138,7 @@ const createUser = async (req, res) => {
             errorMessage.error = 'User with that EMAIL already exist';
             return res.status(status.conflict).send(errorMessage);
         }
+        finish = await dbQuery.query('ROLLBACK');
         errorMessage.error = 'Operation was not successful';
         console.log(error)
         return res.status(status.error).send(errorMessage);
