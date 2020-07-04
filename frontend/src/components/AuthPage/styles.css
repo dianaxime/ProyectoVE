@@ -1,0 +1,20 @@
+body, html {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(204deg, rgba(34,115,69,0.8071603641456583) 45%, rgba(63,62,64,1) 100%);
+    background-repeat: cover;
+    background-size: 100%;
+}
+
+.auth-container {
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}

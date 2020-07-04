@@ -47,7 +47,7 @@ const createUser = async (req, res) => {
     const updateRegisterQuery = 'UPDATE registers SET status=$1 WHERE email=$2 returning *';
 
     const createUserQuery = `INSERT INTO
-    users(email, first_name, last_name, password, carne, genre, type, career, faculty, created_on, modified_on)
+    users(email, first_name, last_name, password, carne, sex, type, career, faculty, created_on, modified_on)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
     returning *`;
     
@@ -205,7 +205,7 @@ const createRegister = async (req, res) => {
         first_name,
         last_name,
         carne,
-        genre,
+        sex,
         type,
         career,
         faculty,
@@ -215,8 +215,8 @@ const createRegister = async (req, res) => {
     const authorized_on = moment(new Date());
     const state = 'pending';
 
-    if (isEmpty(email) || isEmpty(first_name) || isEmpty(last_name) || isEmpty(carne) || isEmpty(genre) || isEmpty(type) || isEmpty(career) || isEmpty(faculty)) {
-        errorMessage.error = 'Email, password, first name, last name, carne, genre, type, career and faculty field cannot be empty';
+    if (isEmpty(email) || isEmpty(first_name) || isEmpty(last_name) || isEmpty(carne) || isEmpty(sex) || isEmpty(type) || isEmpty(career) || isEmpty(faculty)) {
+        errorMessage.error = 'Email, password, first name, last name, carne, sex, type, career and faculty field cannot be empty';
         return res.status(status.bad).send(errorMessage);
     }
 
@@ -226,7 +226,7 @@ const createRegister = async (req, res) => {
     }
 
     const createRegisterQuery = `INSERT INTO
-    registers(email, first_name, last_name, carne, genre, type, career, faculty, status, created_on, authorized_on)
+    registers(email, first_name, last_name, carne, sex, type, career, faculty, status, created_on, authorized_on)
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
     returning *`;
 
@@ -235,7 +235,7 @@ const createRegister = async (req, res) => {
         first_name,
         last_name,
         carne,
-        genre,
+        sex,
         type,
         career,
         faculty,
