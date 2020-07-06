@@ -2,9 +2,11 @@ import { combineReducers } from 'redux';
 import {reducer as formReducer} from 'redux-form';
 
 import auth, * as authSelectors from './auth';
+import changeDrawer, * as changeDrawerSelectors from './changeDrawer';
 
 const reducer = combineReducers({
   auth,
+  changeDrawer,
   form: formReducer,
 });
 
@@ -23,3 +25,5 @@ export const getAuthUsername = state => authSelectors.getAuthUsername(state.auth
 export const getIsRefreshingToken = state => authSelectors.getIsRefreshingToken(state.auth);
 export const getRefreshingError = state => authSelectors.getRefreshingError(state.auth);
 export const getRegisteringCompleted = state => authSelectors.getRegisteringCompleted(state.auth);
+/* Drawer */
+export const getIsOpen = state => changeDrawerSelectors.getIsOpen(state.changeDrawer);

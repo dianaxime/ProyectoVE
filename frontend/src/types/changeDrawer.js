@@ -1,0 +1,1 @@
+export const DRAWER_OPENED = 'DRAWER_OPENED';

@@ -1,22 +1,27 @@
-import Login from "../LoginForm";
-import SignUp from "../SigninForm";
 import React from "react";
-import { MDBContainer, MDBRow, MDBCol } from 'mdbreact';
+import Login from "../LoginForm";
+import SignIn from "../SigninForm";
+import { connect } from 'react-redux';
+import { getAuthToken } from '../../reducers';
+import { URL } from '../../settings';
 import "./styles.css";
 
 const Auth = () => (
     <div className="auth-container">
         <Login/>
-        <SignUp/>
-        <MDBContainer>
-            <MDBRow middle={true}>
-                <MDBCol md="6">
-                </MDBCol>
-                <MDBCol md="6">
-                </MDBCol>
-            </MDBRow>
-        </MDBContainer>
+        <SignIn/>
     </div>
 );
 
-export default Auth;
+export default connect(
+    state => ({
+        isAuth: getAuthToken(state) !== null,
+      }),
+    undefined,
+    (stateProps, disptachProps) => {
+        if(stateProps.isAuth){
+            window.location.href = URL;
+        }
+        return {disptachProps};
+    }
+)(Auth);
