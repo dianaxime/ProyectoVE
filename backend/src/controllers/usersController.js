@@ -1,8 +1,9 @@
+require('dotenv').config();
 const moment = require('moment');
 const generator = require('generate-password');
 const nodemailer = require('nodemailer');
 
-const dbQuery = require('../db/dev/dbQuery');
+const db = require('../db/config');
 
 const {
     hashPassword,
@@ -18,6 +19,19 @@ const {
     successMessage,
     status,
 } = require('../helpers/status');
+
+const SEARCH_REGISTER = 'SELECT * FROM registers WHERE email=$1 ORDER BY id DESC';
+const UPDATE_REGISTER = 'UPDATE registers SET status=$1 WHERE email=$2 returning *';
+const CREATE_USER = `INSERT INTO
+    users(email, first_name, last_name, password, carne, sex, type, career, faculty, created_on, modified_on)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+returning *`;
+const LOGIN_USER = 'SELECT * FROM users WHERE email = $1';
+const CREATE_REGISTER = `INSERT INTO
+    registers(email, first_name, last_name, carne, sex, type, career, faculty, status, created_on, authorized_on)
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+returning *`;
+const UPDATE_PASSWORD = 'UPDATE users SET password=$1, modified_on=$2 WHERE email=$3 returning *';
 
 /**
  * Create A User
@@ -41,50 +55,53 @@ const createUser = async (req, res) => {
     });
 
     const hashedPassword = hashPassword(password);
-
-    const searchRegisterQuery = 'SELECT * FROM registers WHERE email=$1 ORDER BY id DESC';
-
-    const updateRegisterQuery = 'UPDATE registers SET status=$1 WHERE email=$2 returning *';
-
-    const createUserQuery = `INSERT INTO
-    users(email, first_name, last_name, password, carne, sex, type, career, faculty, created_on, modified_on)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
-    returning *`;
     
-    let values = [
-        email
-    ];
-    console.log(values);
-
-    try {
-        await dbQuery.query('BEGIN');
-        const { rows } = await dbQuery.query(searchRegisterQuery, values);
-        const user_info = rows;
-        console.log(Object.values(user_info[0]));
-        const user_values = Object.values(user_info[0]);
-        values = [
+    db.tx(async t => {
+        let data = await t.one(SEARCH_REGISTER, [email]);
+        let values = [
             'authorized',
             email,
         ];
-        const { update } = await dbQuery.query(updateRegisterQuery, values);
+        const update  = await t.one(UPDATE_REGISTER, values);
         values = [
-            user_values[1],
-            user_values[2],
-            user_values[3],
+            data.email,
+            data.first_name,
+            data.last_name,
             hashedPassword,
-            user_values[4],
-            user_values[5],
-            user_values[6],
-            user_values[7],
-            user_values[8],
+            data.carne,
+            data.sex,
+            data.type,
+            data.career,
+            data.faculty,
             created_on,
             modified_on,
         ];
-        const { create } = await dbQuery.query(createUserQuery, values);
-        const complete = await dbQuery.query('COMMIT');
-        const dbResponse = rows[0];
-        console.log(dbResponse);
-        successMessage.data = dbResponse;
+        console.log(values);
+        const create = await t.one(CREATE_USER, values);
+        return update;
+    })
+    .then(data => {
+        const output = `
+            <h1>Welcome</h1>
+            <p> 
+                Thank you for signing up for Vida Estudiantil. 
+                Your account has been confirmed. 
+                You can login to VE and enjoy it freely.
+            </p>
+            <h3>Your Account Details </h3>
+            <ul>
+                <li>Login email: ${data.email} </li>
+                <li>Password: ${password} </li>
+            </ul>
+            <p>    
+                If you have any questions or concerns, please contact: ebperez@uvg.edu.gt
+            </p>
+            <p>Thanks,</p>
+            <p>VE Team </p>
+        `;
+        // print new user id + new event id;
+        console.log('DATA:', data);
+        successMessage.data = data;
         
         /**
          * Send EMAIL
@@ -93,33 +110,14 @@ const createUser = async (req, res) => {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'proyectoplataformas2019@gmail.com',
-                pass: 'Apps2019'
+                user: process.env.EMAIL,
+                pass: process.env.PASSWORD
             }
         });
         
-        const output = `
-        <h1>Welcome</h1>
-        <p> 
-            Thank you for signing up for Vida Estudiantil. 
-            Your account has been confirmed. 
-            You can login to VE and enjoy it freely.
-        </p>
-        <h3>Your Account Details </h3>
-        <ul>
-            <li>Login email: ${dbResponse.email} </li>
-            <li>Password: ${password} </li>
-        </ul>
-        <p>    
-            If you have any questions or concerns, please contact: ebperez@uvg.edu.gt
-        </p>
-        <p>Thanks,</p>
-        <p>DesignEvo Team </p>
-        `;
-        
         const mailOptions = {
-            from: 'proyectoplataformas2019@gmail.com',
-            to: dbResponse.email,
+            from: process.env.EMAIL,
+            to: data.email,
             subject: 'Welcome to VE platform!',
             html: output //html body
           };
@@ -132,17 +130,17 @@ const createUser = async (req, res) => {
                 return res.status(status.created).send(successMessage);
             }
         });
-
-    } catch (error) {
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
         if (error.routine === '_bt_check_unique') {
             errorMessage.error = 'User with that EMAIL already exist';
             return res.status(status.conflict).send(errorMessage);
         }
-        finish = await dbQuery.query('ROLLBACK');
         errorMessage.error = 'Operation was not successful';
         console.log(error)
         return res.status(status.error).send(errorMessage);
-    }
+    })
 };
 
 /**
@@ -165,31 +163,30 @@ const loginUser = async (req, res) => {
         return res.status(status.bad).send(errorMessage);
     }
 
-    const loginUserQuery = 'SELECT * FROM users WHERE email = $1';
-    try {
-        const { rows } = await dbQuery.query(loginUserQuery, [email]);
-        const dbResponse = rows[0];
-
-        if (!dbResponse) {
+    db.query(LOGIN_USER, [email])
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        data = data[0];
+        if (!data) {
             errorMessage.error = 'User with this email does not exist';
             return res.status(status.notfound).send(errorMessage);
         }
-
-        if (!comparePassword(dbResponse.password, password)) {
+    
+        if (!comparePassword(data.password, password)) {
             errorMessage.error = 'The password you provided is incorrect';
             return res.status(status.bad).send(errorMessage);
         }
-
-        const token = generateUserToken(dbResponse.email, dbResponse.id, dbResponse.is_admin, dbResponse.first_name, dbResponse.last_name);
-        delete dbResponse.password;
-        successMessage.data = dbResponse;
+        const token = generateUserToken(data.email, data.id, data.is_admin, data.first_name, data.last_name);
+        delete data.password;
+        successMessage.data = data;
         successMessage.data.token = token;
         return res.status(status.success).send(successMessage);
-    } catch (error) {
-        console.log(error);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
         errorMessage.error = 'Operation was not successful';
         return res.status(status.error).send(errorMessage);
-    }
+    })
 };
 
 /**
@@ -216,7 +213,7 @@ const createRegister = async (req, res) => {
     const state = 'pending';
 
     if (isEmpty(email) || isEmpty(first_name) || isEmpty(last_name) || isEmpty(carne) || isEmpty(sex) || isEmpty(type) || isEmpty(career) || isEmpty(faculty)) {
-        errorMessage.error = 'Email, password, first name, last name, carne, sex, type, career and faculty field cannot be empty';
+        errorMessage.error = 'Email, first name, last name, carne, sex, type, career and faculty field cannot be empty';
         return res.status(status.bad).send(errorMessage);
     }
 
@@ -224,11 +221,6 @@ const createRegister = async (req, res) => {
         errorMessage.error = 'Please enter a valid Email';
         return res.status(status.bad).send(errorMessage);
     }
-
-    const createRegisterQuery = `INSERT INTO
-    registers(email, first_name, last_name, carne, sex, type, career, faculty, status, created_on, authorized_on)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
-    returning *`;
 
     const values = [
         email,
@@ -244,12 +236,14 @@ const createRegister = async (req, res) => {
         authorized_on,
     ];
 
-    try {
-        const { rows } = await dbQuery.query(createRegisterQuery, values);
-        const dbResponse = rows[0];
-        successMessage.data = dbResponse;
+    db.query(CREATE_REGISTER, values)
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        successMessage.data = data;
         return res.status(status.created).send(successMessage);
-    } catch (error) {
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
         if (error.routine === '_bt_check_unique') {
             errorMessage.error = 'User with that EMAIL already exist';
             return res.status(status.conflict).send(errorMessage);
@@ -257,11 +251,181 @@ const createRegister = async (req, res) => {
         errorMessage.error = 'Operation was not successful';
         console.log(error);
         return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Forgot Password
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const forgotPassword = async (req, res) => {
+    
+    const {
+        email,
+    } = req.body;
+
+    if (isEmpty(email)) {
+        errorMessage.error = 'Email detail is missing';
+        return res.status(status.bad).send(errorMessage);
     }
+
+    if (!isValidEmail(email)) {
+        errorMessage.error = 'Please enter a valid Email';
+        return res.status(status.bad).send(errorMessage);
+    }
+
+    const modified_on = moment(new Date());
+
+    const password = generator.generate({
+        length: 10,
+        numbers: true
+    });
+
+    const hashedPassword = hashPassword(password);
+    
+    const values = [
+        hashedPassword,
+        modified_on,
+        email
+    ];
+
+    db.query(UPDATE_PASSWORD, values)
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        data = data[0];
+        delete data.password;
+        console.log(data);
+        successMessage.data = data;
+        
+        /**
+         * Send EMAIL
+        */
+
+       const output = `
+            <h1>Recover Password</h1>
+            <p> 
+                You requested the password recovery for
+                your account on VE. We have reset your
+                access password.
+            </p>
+            <h3>Your Account Details </h3>
+            <ul>
+                <li>Login email: ${data.email} </li>
+                <li>New Password: ${password} </li>
+            </ul>
+            <p>    
+                You can change your password in the change password option.
+            </p>
+            <p>Sincerely,</p>
+            <p>VE Team </p>
+       `;
+        
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.PASSWORD
+            }
+        });
+        
+        const mailOptions = {
+            from: process.env.EMAIL,
+            to: data.email,
+            subject: 'Recover Password',
+            html: output //html body
+          };
+          
+          transporter.sendMail(mailOptions, function(error, info){
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+                return res.status(status.success).send(successMessage);
+            }
+        });
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        console.log(error)
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Change Password
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const changePassword = async (req, res) => {
+    
+    const {
+        email,
+        oldPassword,
+        newPassword,
+    } = req.body;
+
+    if (isEmpty(email) || isEmpty(oldPassword) || isEmpty(newPassword)) {
+        errorMessage.error = 'Email or Password detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+
+    if (!isValidEmail(email) || !validatePassword(newPassword) || !validatePassword(oldPassword)) {
+        errorMessage.error = 'Please enter a valid Email or Password';
+        return res.status(status.bad).send(errorMessage);
+    }
+
+    const modified_on = moment(new Date());
+
+    const hashedPassword = hashPassword(newPassword);
+
+    const values = [
+        hashedPassword,
+        modified_on,
+        email
+    ];
+
+    db.tx(async t => {
+        let data = await t.one(LOGIN_USER, [email]);
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'User with this email does not exist';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        if (!comparePassword(data.password, oldPassword)) {
+            errorMessage.error = 'The password you provided is incorrect';
+            return res.status(status.bad).send(errorMessage);
+        }
+        const user = await t.one(UPDATE_PASSWORD, values);
+        return user;
+    })
+    .then(data => {
+        // print new user id + new event id;
+        console.log('DATA:', data);
+        //data = data[0];
+        delete data.password;
+        console.log(data);
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        console.log(error)
+        return res.status(status.error).send(errorMessage);
+    })
 };
 
 module.exports = {
     createUser,
     loginUser,
-    createRegister
+    createRegister,
+    forgotPassword,
+    changePassword,
 };

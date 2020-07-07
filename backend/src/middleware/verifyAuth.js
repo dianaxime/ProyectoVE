@@ -4,7 +4,6 @@ const {
     errorMessage,
     status,
 } = require('../helpers/status');
-const env = require('../../env');
 
 dotenv.config();
 

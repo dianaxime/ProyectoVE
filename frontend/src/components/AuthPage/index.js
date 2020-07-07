@@ -18,10 +18,14 @@ export default connect(
         isAuth: getAuthToken(state) !== null,
       }),
     undefined,
-    (stateProps, disptachProps) => {
+    (stateProps, disptachProps, ownProps) => {
         if(stateProps.isAuth){
             window.location.href = URL;
         }
-        return {disptachProps};
+        return ({
+            ...stateProps,
+            ...disptachProps,
+            ...ownProps,
+        });
     }
 )(Auth);
