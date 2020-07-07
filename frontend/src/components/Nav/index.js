@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -15,11 +15,15 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
 import HomeIcon from '@material-ui/icons/Home';
 import BookIcon from '@material-ui/icons/Book';
 import { connect } from 'react-redux';
 import { getAuthToken, getIsOpen } from '../../reducers';
 import * as actions from '../../actions/changeDrawer';
+import * as actionsAuth from '../../actions/auth';
 
 import { Link } from "react-router-dom";
 
@@ -85,17 +89,30 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
     color: theme.palette.text.primary
   },
+  title: {
+    flexGrow: 1,
+  },
 }));
 
-const Nav = ({isAuth, open, setOpen}) => {
+const Nav = ({isAuth, open, setOpen, logout}) => {
   const classes = useStyles();
   const theme = useTheme();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openA = Boolean(anchorEl);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   return (
@@ -122,9 +139,41 @@ const Nav = ({isAuth, open, setOpen}) => {
               </IconButton>
             )
           }
-          <Typography variant="h6" noWrap>
+          <Typography variant="h6" className={classes.title}>
             Vida Estudiantil
           </Typography>
+          {isAuth && (
+            <div>
+              <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={openA}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleClose}>Update Profile</MenuItem>
+                <MenuItem onClick={handleClose}>Change Password</MenuItem>
+                <MenuItem onClick={() => logout()}>Logout</MenuItem>
+              </Menu>
+            </div>
+          )}
         </Toolbar>
       </AppBar>
       <Drawer
@@ -174,6 +223,10 @@ export default connect(
     open: getIsOpen(state),
   }),
   dispatch => ({
+    logout() {
+      dispatch(actionsAuth.logout());
+      window.location.href = URL;
+    },
     setOpen(open) {
       dispatch(actions.changeDrawer(open));
     },

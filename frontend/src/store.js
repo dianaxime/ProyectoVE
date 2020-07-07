@@ -10,25 +10,32 @@ import reducer from './reducers';
 import mainSaga from './sagas';
 
 
+const composeEnhancers =
+typeof window === 'object' &&
+window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?   
+window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+// Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+}) : compose;
+
 export const configureStore = () => {
     const sagaMiddleware = createSagaMiddleware();
     const persistedReducer = persistReducer(
         {
-            key: 'rootx',
-            storage,
-            whitelist: ['auth'],
+        key: 'rootx',
+        storage,
+        whitelist: ['auth','changeDrawer'],
         },
         reducer,
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     );
 
-    let composeEnhancers = compose;
-    if (process.env.NODE_ENV === 'development') {
-        composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-    }
+    const store = createStore(
+        persistedReducer,
+        composeEnhancers(
 
-    const store = composeEnhancers(
         applyMiddleware(sagaMiddleware),
-    )(createStore)(persistedReducer);
+        ),
+    );
 
     const persistor = persistStore(store);
 

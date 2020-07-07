@@ -36,7 +36,7 @@ function* register(action) {
             yield put(actions.failRegister(errors.error));
         }
     } catch (error) {
-        yield put(actions.failRegister(error));
+        yield put(actions.failRegister("Connection refused"));
     }
 }
 
@@ -67,12 +67,12 @@ function* login(action) {
             yield put(actions.completeLogin(resp.data.token));
         } else {
             const errors = yield response.json();
-            console.log(errors.error);
+            console.log(errors);
             yield put(actions.failLogin(errors.error));
         }
     } catch (error) {
-        yield put(actions.failLogin(error));
         console.log(error);
+        yield put(actions.failLogin("Connection refused"));
     }
 }
   
@@ -112,7 +112,7 @@ function* refreshToken(action) {
             }
         } catch (error) {
             // TODO: poner un redirect al home (login)
-            yield put(actions.failTokenRefresh(error));
+            yield put(actions.failTokenRefresh("Connection refused"));
         }
     }
 }
