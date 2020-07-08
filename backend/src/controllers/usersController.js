@@ -32,6 +32,8 @@ const CREATE_REGISTER = `INSERT INTO
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
 returning *`;
 const UPDATE_PASSWORD = 'UPDATE users SET password=$1, modified_on=$2 WHERE email=$3 returning *';
+const UPDATE_USER = `UPDATE users SET first_name=$1, last_name=$2, carne=$3, sex=$4, type=$5, career=$6,
+faculty=$7, modified_on=$8 WHERE email=$9 returning *`;
 
 /**
  * Create A User
@@ -138,7 +140,6 @@ const createUser = async (req, res) => {
             return res.status(status.conflict).send(errorMessage);
         }
         errorMessage.error = 'Operation was not successful';
-        console.log(error)
         return res.status(status.error).send(errorMessage);
     })
 };
@@ -249,7 +250,6 @@ const createRegister = async (req, res) => {
             return res.status(status.conflict).send(errorMessage);
         }
         errorMessage.error = 'Operation was not successful';
-        console.log(error);
         return res.status(status.error).send(errorMessage);
     })
 };
@@ -297,7 +297,6 @@ const forgotPassword = async (req, res) => {
         console.log('DATA:', data); // print data;
         data = data[0];
         delete data.password;
-        console.log(data);
         successMessage.data = data;
         
         /**
@@ -350,7 +349,6 @@ const forgotPassword = async (req, res) => {
     .catch(error => {
         console.log('ERROR:', error); // print the error;
         errorMessage.error = 'Operation was not successful';
-        console.log(error)
         return res.status(status.error).send(errorMessage);
     })
 };
@@ -365,10 +363,11 @@ const forgotPassword = async (req, res) => {
 const changePassword = async (req, res) => {
     
     const {
-        email,
         oldPassword,
         newPassword,
     } = req.body;
+
+    const { email } = req.user;
 
     if (isEmpty(email) || isEmpty(oldPassword) || isEmpty(newPassword)) {
         errorMessage.error = 'Email or Password detail is missing';
@@ -410,14 +409,103 @@ const changePassword = async (req, res) => {
         console.log('DATA:', data);
         //data = data[0];
         delete data.password;
-        console.log(data);
         successMessage.data = data;
         return res.status(status.success).send(successMessage);
     })
     .catch(error => {
         console.log('ERROR:', error); // print the error;
         errorMessage.error = 'Operation was not successful';
-        console.log(error)
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Update User
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const updateUser = async (req, res) => {
+    
+    const {
+        first_name,
+        last_name,
+        carne,
+        sex,
+        type,
+        career,
+        faculty
+    } = req.body;
+
+    const { email } = req.user;
+
+    if (isEmpty(email) || isEmpty(first_name) || isEmpty(last_name) || isEmpty(carne) || isEmpty(sex) || isEmpty(type) || isEmpty(career) || isEmpty(faculty)) {
+        errorMessage.error = 'Email, first name, last name, carne, sex, type, career or faculty detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+
+    const modified_on = moment(new Date());
+
+    const values = [
+        first_name,
+        last_name,
+        carne,
+        sex,
+        type,
+        career,
+        faculty,
+        modified_on,
+        email
+    ];
+
+    db.query(UPDATE_USER, values)
+    .then(data => {
+        console.log('DATA:', data);
+        data = data[0];
+        delete data.password;
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Refresh Token
+ * @param {object} req
+ * @param {object} res 
+ * @returns {object} user object 
+*/
+
+const refreshToken = async (req, res) => {
+    const { email } = req.user;
+
+    if (isEmpty(email)) {
+        errorMessage.error = 'Email detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+
+    db.query(LOGIN_USER, [email])
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        data = data[0];
+        if (!data) {
+            errorMessage.error = 'User with this email does not exist';
+            return res.status(status.notfound).send(errorMessage);
+        }
+        const token = generateUserToken(data.email, data.id, data.first_name, data.last_name);
+        delete data.password;
+        successMessage.data = data;
+        successMessage.data.token = token;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
         return res.status(status.error).send(errorMessage);
     })
 };
@@ -428,4 +516,6 @@ module.exports = {
     createRegister,
     forgotPassword,
     changePassword,
+    updateUser,
+    refreshToken,
 };

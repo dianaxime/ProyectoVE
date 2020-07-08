@@ -26,7 +26,6 @@ module.exports = async function (req, res, next) {
         req.user = {
             email: decoded.email,
             user_id: decoded.user_id,
-            is_admin: decoded.is_admin,
             first_name: decoded.first_name,
             last_name: decoded.last_name,
         };
