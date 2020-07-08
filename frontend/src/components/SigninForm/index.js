@@ -3,11 +3,8 @@ import { connect } from 'react-redux';
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 import { Field, reduxForm, reset } from 'redux-form';
 import TextField from '@material-ui/core/TextField';
-import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-import FormControl from '@material-ui/core/FormControl';
-import { 
+import {
     getIsRegistering,
     getRegisteringError
 } from '../../reducers';
@@ -16,10 +13,10 @@ import Loader from 'react-loaders';
 
 const validate = values => {
     const errors = {};
-    const requiredFields = [ 'email', 'first_name', 'last_name', 'carne'];
+    const requiredFields = ['email', 'first_name', 'last_name', 'carne', 'sex', 'type', 'career', 'faculty'];
     requiredFields.forEach(field => {
-        if (!values[ field ]) {
-        errors[ field ] = 'Required';
+        if (!values[field]) {
+            errors[field] = 'Required';
         }
     })
     if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
@@ -37,12 +34,15 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
     />
 );
 
-const renderSelectField = ({ input, children }) => (
-    <Select 
+const renderSelectField = ({ input, label, meta: { touched, error }, ...custom }) => (
+    <TextField placeholder={label}
+        label={label}
+        helperText={touched && error}
         {...input}
-    >
-        {children}
-    </Select>
+        {...custom}
+        id="select"
+        select
+    />
 );
 
 const SigninForm = ({ Message, onSubmit, signinStatus, handleSubmit }) => {
@@ -59,61 +59,53 @@ const SigninForm = ({ Message, onSubmit, signinStatus, handleSubmit }) => {
                             <div className="row my-3 d-flex justify-content-center">
                                 <div>
                                     <div>
-                                        <Field name="email" component={renderTextField} label="Email"/>
+                                        <Field name="email" component={renderTextField} label="Email" />
                                     </div>
                                     <div>
-                                        <Field name="first_name" component={renderTextField} label="First Name"/>
+                                        <Field name="first_name" component={renderTextField} label="First Name" />
                                     </div>
                                     <div>
-                                        <FormControl>
-                                            <InputLabel>Genre</InputLabel>
-                                            <Field name="sex" component={renderSelectField}>
-                                                <MenuItem value="F">F</MenuItem>
-                                                <MenuItem value="M">M</MenuItem>
-                                            </Field>
-                                        </FormControl>
+                                        <Field name="sex" component={renderSelectField} label="Gender">
+                                            <MenuItem value="F">F</MenuItem>
+                                            <MenuItem value="M">M</MenuItem>
+                                        </Field>
+
                                     </div>
                                     <div>
-                                        <FormControl>
-                                            <InputLabel>Career</InputLabel>
-                                            <Field name="career" component={renderSelectField}>
-                                                <MenuItem value="compu">Compu</MenuItem> 
-                                                <MenuItem value="admin">Admin</MenuItem>
-                                            </Field>
-                                        </FormControl>
+                                        <Field name="career" component={renderSelectField} label="Career">
+                                            <MenuItem value="compu">Compu</MenuItem>
+                                            <MenuItem value="admin">Admin</MenuItem>
+                                        </Field>
+
                                     </div>
                                 </div>
                                 <div>
                                     <div>
-                                        <Field name="carne" component={renderTextField} label="Carne"/>
+                                        <Field name="carne" component={renderTextField} label="Carne" />
                                     </div>
                                     <div>
-                                        <Field name="last_name" component={renderTextField} label="Last Name"/>
+                                        <Field name="last_name" component={renderTextField} label="Last Name" />
                                     </div>
                                     <div>
-                                        <FormControl>
-                                            <InputLabel>Type</InputLabel>
-                                            <Field name="type" component={renderSelectField}>
-                                                <MenuItem value="student">Student</MenuItem>
-                                                <MenuItem value="graduate">Graduate</MenuItem>
-                                                <MenuItem value="collaborator">Collaborator</MenuItem>
-                                                <MenuItem value="graduate/collaborator">Student/Collaborator</MenuItem>
-                                            </Field>
-                                        </FormControl>
+                                        <Field name="type" component={renderSelectField} label="Type">
+                                            <MenuItem value="student">Student</MenuItem>
+                                            <MenuItem value="graduate">Graduate</MenuItem>
+                                            <MenuItem value="collaborator">Collaborator</MenuItem>
+                                            <MenuItem value="graduate/collaborator">Graduate/Collaborator</MenuItem>
+                                        </Field>
+
                                     </div>
                                     <div>
-                                        <FormControl>
-                                            <InputLabel>Faculty</InputLabel>
-                                            <Field name="faculty" component={renderSelectField}>
-                                                <MenuItem value="ingenieria">Ingeniería</MenuItem>
-                                                <MenuItem value="ciencias_y_humanidades">Ciencias y Humanidades</MenuItem>
-                                            </Field>
-                                        </FormControl>
+                                        <Field name="faculty" component={renderSelectField} label="Faculty">
+                                            <MenuItem value="ingenieria">Ingeniería</MenuItem>
+                                            <MenuItem value="ciencias_y_humanidades">Ciencias y Humanidades</MenuItem>
+                                        </Field>
+
                                     </div>
                                 </div>
                             </div>
                             <div className="text-center">
-                                { signinStatus ? <Loader type="ball-spin-fade-loader"/> :
+                                {signinStatus ? <Loader type="ball-spin-fade-loader" /> :
                                     <div >
                                         <MDBBtn
                                             outline
@@ -133,33 +125,31 @@ const SigninForm = ({ Message, onSubmit, signinStatus, handleSubmit }) => {
     );
 };
 
-export default connect(
+export default reduxForm({ form: 'signinForm', validate })(
+    connect(
         state => ({
             Message:
-            getIsRegistering(state) !== null
-            ? getIsRegistering(state)
-                ? "Loading"
-                : getRegisteringError(state)
-            : undefined,
+                getIsRegistering(state) !== null
+                    ? getIsRegistering(state)
+                        ? "Loading"
+                        : getRegisteringError(state)
+                    : undefined,
             signinStatus: getIsRegistering(state),
+        }),
+        dispatch => ({
+            onSubmit({
+                email,
+                first_name,
+                last_name,
+                carne,
+                sex,
+                type,
+                career,
+                faculty,
+            }) {
+                dispatch(actions.startRegister(email, first_name, last_name, carne, sex, type, career, faculty));
+                dispatch(reset('signinForm'));
+            },
         })
-    )(   
-    reduxForm({
-        form:'signinForm',
-        validate,
-        onSubmit({
-            email,
-            first_name,
-            last_name,
-            carne,
-            sex,
-            type,
-            career,
-            faculty,
-            }, dispatch) 
-        {
-            dispatch(actions.startRegister(email, first_name, last_name, carne, sex, type, career, faculty));
-            dispatch(reset('signinForm'));
-        },
-    })(SigninForm) 
+    )(SigninForm)
 );

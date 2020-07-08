@@ -4,6 +4,7 @@ import {
     getAuthenticatingError
 } from '../../reducers';
 import * as actions from '../../actions/auth';
+import * as actionsModal from '../../actions/modalForgot';
 import React from 'react';
 import { 
     MDBContainer, 
@@ -20,7 +21,7 @@ const validate = values => {
     const requiredFields = [ 'email', 'password'];
     requiredFields.forEach(field => {
         if (!values[ field ]) {
-        errors[ field ] = 'Required';
+            errors[ field ] = 'Required';
         }
     })
     if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
@@ -38,7 +39,7 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
     />
 );
 
-const Login = ({ Message, onSubmit, loginStatus, handleSubmit }) => {
+const Login = ({ Message, onSubmit, loginStatus, handleSubmit, onHandle }) => {
     return (
         <MDBContainer style={{
             background: "rgba(63,62,64,1)",
@@ -55,6 +56,15 @@ const Login = ({ Message, onSubmit, loginStatus, handleSubmit }) => {
                             <div>
                                 <Field name="password" component={renderTextField} label="Password" type="password" />
                             </div>
+                            <p className="font-small grey-text d-flex justify-content-end" onClick={onHandle}>
+                                Forgot
+                                <a
+                                    href='!#'
+                                    className="dark-grey-text font-weight-bold ml-1"
+                                >
+                                Password?
+                                </a>
+                            </p>
                             <div className="text-center">
                                 { loginStatus ? <Loader type="ball-spin-fade-loader"/> :
                                     <div >
@@ -76,23 +86,26 @@ const Login = ({ Message, onSubmit, loginStatus, handleSubmit }) => {
     );
 };
 
-export default connect(
-    state => ({
-        Message:
-            getIsAuthenticating(state) !== null
-            ? getIsAuthenticating(state)
-                ? "Loading"
-                : getAuthenticatingError(state)
-            : undefined,
-        loginStatus: getIsAuthenticating(state),
-    })
-    )(
-    reduxForm({
-        form:'loginForm',
-        validate,
-        onSubmit({email, password},  dispatch){
-            dispatch(actions.startLogin(email, password));
-            dispatch(reset('loginForm'));
-        },
-    })(Login)
+export default reduxForm({form: 'loginForm', validate})(
+    connect(
+        state => ({
+            Message:
+                getIsAuthenticating(state) !== null
+                ? getIsAuthenticating(state)
+                    ? "Loading"
+                    : getAuthenticatingError(state)
+                : undefined,
+            loginStatus: getIsAuthenticating(state),
+        }),
+        dispatch => ({
+            onSubmit(values){
+                const {email, password} = values;
+                dispatch(actions.startLogin(email, password));
+                dispatch(reset('loginForm'));
+            },
+            onHandle(){
+                dispatch(actionsModal.changeForgot(true));
+            },
+      })
+    )(Login)
 );

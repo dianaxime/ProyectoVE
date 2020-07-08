@@ -24,6 +24,10 @@ import { connect } from 'react-redux';
 import { getAuthToken, getIsOpen } from '../../reducers';
 import * as actions from '../../actions/changeDrawer';
 import * as actionsAuth from '../../actions/auth';
+import * as actionsModal from '../../actions/modalChange';
+import * as actionsUpdate from '../../actions/modalUpdate';
+import ChangeModal from '../ChangeModal';
+import UpdateModal from '../UpdateModal';
 
 import { Link } from "react-router-dom";
 
@@ -94,7 +98,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Nav = ({isAuth, open, setOpen, logout}) => {
+const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -115,8 +119,18 @@ const Nav = ({isAuth, open, setOpen, logout}) => {
     setAnchorEl(null);
   };
 
+  const update = () => {
+    handleClose();
+    onUpdate();
+  }
+
+  const handle = () => {
+    handleClose();
+    onHandle();
+  }
+
   return (
-    <div className={classes.root}>
+    <div>
       <CssBaseline />
       <AppBar
         position="fixed"
@@ -141,7 +155,7 @@ const Nav = ({isAuth, open, setOpen, logout}) => {
           }
           <Typography variant="h6" className={classes.title}>
             Vida Estudiantil
-          </Typography>
+            </Typography>
           {isAuth && (
             <div>
               <IconButton
@@ -168,9 +182,9 @@ const Nav = ({isAuth, open, setOpen, logout}) => {
                 open={openA}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Update Profile</MenuItem>
-                <MenuItem onClick={handleClose}>Change Password</MenuItem>
-                <MenuItem onClick={() => logout()}>Logout</MenuItem>
+                <MenuItem onClick={update}>Update Profile</MenuItem>
+                <MenuItem onClick={handle}>Change Password</MenuItem>
+                <MenuItem onClick={logout}>Logout</MenuItem>
               </Menu>
             </div>
           )}
@@ -213,6 +227,8 @@ const Nav = ({isAuth, open, setOpen, logout}) => {
           </Link>
         </List>
       </Drawer>
+      <ChangeModal />
+      <UpdateModal />
     </div>
   );
 }
@@ -229,6 +245,12 @@ export default connect(
     },
     setOpen(open) {
       dispatch(actions.changeDrawer(open));
+    },
+    onHandle() {
+      dispatch(actionsModal.changeChange(true));
+    },
+    onUpdate() {
+      dispatch(actionsUpdate.changeUpdate(true));
     },
   }),
 )(Nav);

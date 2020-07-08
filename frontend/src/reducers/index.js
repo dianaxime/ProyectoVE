@@ -3,10 +3,16 @@ import {reducer as formReducer} from 'redux-form';
 
 import auth, * as authSelectors from './auth';
 import changeDrawer, * as changeDrawerSelectors from './changeDrawer';
+import changeForgot, * as changeForgotSelectors from './modalForgot';
+import changeChange, * as changeChangeSelectors from './modalChange';
+import changeUpdate, * as changeUpdateSelectors from './modalUpdate';
 
 const reducer = combineReducers({
   auth,
   changeDrawer,
+  changeForgot,
+  changeChange,
+  changeUpdate,
   form: formReducer,
 });
 
@@ -27,3 +33,9 @@ export const getRefreshingError = state => authSelectors.getRefreshingError(stat
 export const getRegisteringCompleted = state => authSelectors.getRegisteringCompleted(state.auth);
 /* Drawer */
 export const getIsOpen = state => changeDrawerSelectors.getIsOpen(state.changeDrawer);
+/* Forgot Password Modal */
+export const getIsForgotOpen = state => changeForgotSelectors.getIsForgotOpen(state.changeForgot);
+/* Change Password Modal */
+export const getIsChangeOpen = state => changeChangeSelectors.getIsChangeOpen(state.changeChange);
+/* Update Password Modal */
+export const getIsUpdateOpen = state => changeUpdateSelectors.getIsUpdateOpen(state.changeUpdate);
