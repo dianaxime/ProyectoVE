@@ -9,10 +9,10 @@ import MenuItem from '@material-ui/core/MenuItem';
 
 const validate = values => {
     const errors = {};
-    const requiredFields = [ 'first_name', 'last_name', 'carne', 'sex', 'type', 'career', 'faculty'];
+    const requiredFields = ['first_name', 'last_name', 'carne', 'sex', 'type', 'career', 'faculty'];
     requiredFields.forEach(field => {
-        if (!values[ field ]) {
-            errors[ field ] = 'Required';
+        if (!values[field]) {
+            errors[field] = 'Required';
         }
     })
     return errors;
@@ -38,7 +38,7 @@ const renderSelectField = ({ input, label, meta: { touched, error }, ...custom }
     />
 );
 
-const Update = ({ open, onHandle }) => {
+let UpdateUserForm = ({ open, onHandle }) => {
     return (
         <MDBContainer>
             <MDBModal isOpen={open} fullHeight position="right">
@@ -92,27 +92,33 @@ const Update = ({ open, onHandle }) => {
     );
 }
 
-export default reduxForm({form: 'updateUser', validate})(
-    connect(
-        state => ({
-            /*Message:
-                getIsAuthenticating(state) !== null
-                ? getIsAuthenticating(state)
-                    ? "Loading"
-                    : getAuthenticatingError(state)
-                : undefined,
-            loginStatus: getIsAuthenticating(state),*/
-            open: getIsUpdateOpen(state),
-        }),
-        dispatch => ({
-            /*onSubmit(values){
-                const {email, password} = values;
-                dispatch(actions.startLogin(email, password));
-                dispatch(reset('UpdatePass'));
-            },*/
-            onHandle(){
-                dispatch(actionsModal.changeUpdate(false));
-            },
-      })
-    )(Update)
-);
+UpdateUserForm = reduxForm({
+    form: 'updateUserFrom',
+    validate
+})(UpdateUserForm)
+
+UpdateUserForm = connect(
+    state => ({
+        /*Message:
+            getIsAuthenticating(state) !== null
+            ? getIsAuthenticating(state)
+                ? "Loading"
+                : getAuthenticatingError(state)
+            : undefined,
+        loginStatus: getIsAuthenticating(state),*/
+        open: getIsUpdateOpen(state),
+        initialValues: { last_name: "hola", first_name: "hello" },
+    }),
+    dispatch => ({
+        /*onSubmit(values){
+            const {email, password} = values;
+            dispatch(actions.startLogin(email, password));
+            dispatch(reset('updateUserForm'));
+        },*/
+        onHandle() {
+            dispatch(actionsModal.changeUpdate(false));
+        },
+    })
+)(UpdateUserForm);
+
+export default UpdateUserForm;
