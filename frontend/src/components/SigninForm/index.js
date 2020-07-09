@@ -45,7 +45,7 @@ const renderSelectField = ({ input, label, meta: { touched, error }, ...custom }
     />
 );
 
-const SigninForm = ({ Message, onSubmit, signinStatus, handleSubmit }) => {
+let SigninForm = ({ Message, onSubmit, signinStatus, handleSubmit }) => {
     return (
         <MDBContainer style={{
             background: "linear-gradient(200deg, rgba(63,62,64,1) 0%, rgba(8,140,66,1) 75%)",
@@ -125,31 +125,36 @@ const SigninForm = ({ Message, onSubmit, signinStatus, handleSubmit }) => {
     );
 };
 
-export default reduxForm({ form: 'signinForm', validate })(
-    connect(
-        state => ({
-            Message:
-                getIsRegistering(state) !== null
-                    ? getIsRegistering(state)
-                        ? "Loading"
-                        : getRegisteringError(state)
-                    : undefined,
-            signinStatus: getIsRegistering(state),
-        }),
-        dispatch => ({
-            onSubmit({
-                email,
-                first_name,
-                last_name,
-                carne,
-                sex,
-                type,
-                career,
-                faculty,
-            }) {
-                dispatch(actions.startRegister(email, first_name, last_name, carne, sex, type, career, faculty));
-                dispatch(reset('signinForm'));
-            },
-        })
-    )(SigninForm)
-);
+SigninForm = reduxForm({
+    form: 'signinForm',
+    validate
+})(SigninForm);
+
+SigninForm = connect(
+    state => ({
+        Message:
+            getIsRegistering(state) !== null
+                ? getIsRegistering(state)
+                    ? "Loading"
+                    : getRegisteringError(state)
+                : undefined,
+        signinStatus: getIsRegistering(state),
+    }),
+    dispatch => ({
+        onSubmit({
+            email,
+            first_name,
+            last_name,
+            carne,
+            sex,
+            type,
+            career,
+            faculty,
+        }) {
+            dispatch(actions.startRegister(email, first_name, last_name, carne, sex, type, career, faculty));
+            dispatch(reset('signinForm'));
+        },
+    })
+)(SigninForm);
+
+export default SigninForm;

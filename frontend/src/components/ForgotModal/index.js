@@ -1,6 +1,11 @@
 import React from 'react';
 import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
-import { getIsForgotOpen } from '../../reducers';
+import {
+    getIsRecovering,
+    getRecoveringError,
+    getIsForgotOpen
+} from '../../reducers';
+import * as actions from '../../actions/auth';
 import { connect } from 'react-redux';
 import { Field, reduxForm, reset } from 'redux-form';
 import * as actionsModal from '../../actions/modalForgot';
@@ -8,10 +13,10 @@ import TextField from '@material-ui/core/TextField';
 
 const validate = values => {
     const errors = {};
-    const requiredFields = [ 'email'];
+    const requiredFields = ['email'];
     requiredFields.forEach(field => {
-        if (!values[ field ]) {
-            errors[ field ] = 'Required';
+        if (!values[field]) {
+            errors[field] = 'Required';
         }
     })
     if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
@@ -29,46 +34,54 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
     />
 );
 
-const Forgot = ({open, onHandle}) => {
+let Forgot = ({ open, onHandle, Message, onSubmit, handleSubmit }) => {
     return (
         <MDBContainer>
             <MDBModal isOpen={open} fullHeight position="bottom">
                 <MDBModalHeader>Recover Password</MDBModalHeader>
                 <MDBModalBody>
                     <div>
-                        <Field name="email" component={renderTextField} label="Email"/>
+                        <div>
+                            <Field name="email" component={renderTextField} label="Email" />
+                        </div>
+                        <div>{Message}</div>
+
                     </div>
                 </MDBModalBody>
                 <MDBModalFooter>
                     <MDBBtn color="secondary" onClick={onHandle}>Close</MDBBtn>
-                    <MDBBtn color="primary">Send</MDBBtn>
+                    <MDBBtn color="primary" onClick={handleSubmit(onSubmit)}>Send</MDBBtn>
                 </MDBModalFooter>
             </MDBModal>
         </MDBContainer>
     );
 }
 
-export default reduxForm({form: 'forgotPass', validate})(
-    connect(
-        state => ({
-            /*Message:
-                getIsAuthenticating(state) !== null
-                ? getIsAuthenticating(state)
+Forgot = reduxForm({
+    form: 'forgotPass',
+    validate
+})(Forgot);
+
+Forgot = connect(
+    state => ({
+        Message:
+            getIsRecovering(state) !== null
+                ? getIsRecovering(state)
                     ? "Loading"
-                    : getAuthenticatingError(state)
+                    : getRecoveringError(state)
                 : undefined,
-            loginStatus: getIsAuthenticating(state),*/
-            open: getIsForgotOpen(state),
-        }),
-        dispatch => ({
-            /*onSubmit(values){
-                const {email, password} = values;
-                dispatch(actions.startLogin(email, password));
-                dispatch(reset('forgotPass'));
-            },*/
-            onHandle(){
-                dispatch(actionsModal.changeForgot(false));
-            },
-      })
-    )(Forgot)
-);
+        open: getIsForgotOpen(state),
+    }),
+    dispatch => ({
+        onSubmit({ email }) {
+            dispatch(actions.startRecover(email));
+            dispatch(reset('forgotPass'));
+        },
+        onHandle() {
+            dispatch(reset('forgotPass'));
+            dispatch(actionsModal.changeForgot(false));
+        },
+    })
+)(Forgot);
+
+export default Forgot;

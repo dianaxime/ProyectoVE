@@ -17,10 +17,10 @@ const router = express.Router();
 
 router.post('/auth/login', loginUser);
 router.post('/auth/signin', createRegister);
-router.post('/auth/forgot', forgotPassword);
-router.post('/auth/authorize', verifyAuth, createUser);
-router.post('/auth/change', verifyAuth, changePassword);
-router.post('/auth/update', verifyAuth, updateUser);
+router.patch('/auth/forgot', forgotPassword);
+router.patch('/auth/authorize', verifyAuth, createUser);
+router.patch('/auth/change', verifyAuth, changePassword);
+router.patch('/auth/update', verifyAuth, updateUser);
 router.post('/auth/token-refresh', verifyAuth, refreshToken);
 
 module.exports = router;

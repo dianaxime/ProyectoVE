@@ -9,7 +9,7 @@ export const startRegister = (
     type,
     career,
     faculty
-    ) => ({
+) => ({
     type: types.REGISTER_STARTED,
     payload: {
         email,
@@ -37,9 +37,12 @@ export const startLogin = (email, password) => ({
     payload: { email, password },
 });
 
-export const completeLogin = token => ({
+export const completeLogin = (token, data) => ({
     type: types.AUTHENTICATION_COMPLETED,
-    payload: { token },
+    payload: {
+        token,
+        data
+    },
 });
 
 export const failLogin = error => ({
@@ -62,5 +65,64 @@ export const completeTokenRefresh = newToken => ({
 
 export const failTokenRefresh = error => ({
     type: types.TOKEN_REFRESH_FAILED,
+    payload: { error },
+});
+
+export const startRecover = email => ({
+    type: types.RECOVER_STARTED,
+    payload: { email },
+});
+
+export const completeRecover = () => ({
+    type: types.RECOVER_COMPLETED,
+});
+
+export const failRecover = error => ({
+    type: types.RECOVER_FAILED,
+    payload: { error },
+});
+
+export const startUpdateUser = (
+    first_name,
+    last_name,
+    carne,
+    sex,
+    type,
+    career,
+    faculty
+) => ({
+    type: types.UPDATE_USER_STARTED,
+    payload: {
+        first_name,
+        last_name,
+        carne,
+        sex,
+        type,
+        career,
+        faculty
+    },
+});
+
+export const completeUpdateUser = data => ({
+    type: types.UPDATE_USER_COMPLETED,
+    payload: data,
+});
+
+export const failUpdateUser = error => ({
+    type: types.UPDATE_USER_FAILED,
+    payload: { error },
+});
+
+export const startChangePass = (oldPassword, newPassword) => ({
+    type: types.CHANGE_PASSWORD_STARTED,
+    payload: { oldPassword, newPassword },
+});
+
+export const completeChangePass = () => ({
+    type: types.CHANGE_PASSWORD_COMPLETED,
+});
+
+export const failChangePass = error => ({
+    type: types.CHANGE_PASSWORD_FAILED,
     payload: { error },
 });

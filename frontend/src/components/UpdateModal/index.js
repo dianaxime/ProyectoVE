@@ -1,8 +1,14 @@
 import React from 'react';
 import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBCol } from 'mdbreact';
-import { getIsUpdateOpen } from '../../reducers';
+import {
+    getIsUpdating,
+    getUpdatingError,
+    getIsUpdateOpen,
+    getUser
+} from '../../reducers';
 import { connect } from 'react-redux';
-import { Field, reduxForm, reset } from 'redux-form';
+import * as actions from '../../actions/auth';
+import { Field, reduxForm } from 'redux-form';
 import * as actionsModal from '../../actions/modalUpdate';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -38,7 +44,7 @@ const renderSelectField = ({ input, label, meta: { touched, error }, ...custom }
     />
 );
 
-let UpdateUserForm = ({ open, onHandle }) => {
+let UpdateUserForm = ({ open, onHandle, onSubmit, handleSubmit, Message }) => {
     return (
         <MDBContainer>
             <MDBModal isOpen={open} fullHeight position="right">
@@ -46,46 +52,50 @@ let UpdateUserForm = ({ open, onHandle }) => {
                 <MDBModalBody>
                     <MDBCol>
                         <div>
-                            <Field name="first_name" component={renderTextField} label="First Name" />
-                        </div>
-                        <div>
-                            <Field name="last_name" component={renderTextField} label="Last Name" />
-                        </div>
-                        <div>
-                            <Field name="carne" component={renderTextField} label="Carne" />
-                        </div>
-                        <div>
-                            <Field name="sex" component={renderSelectField} label="Gender">
-                                <MenuItem value="F">F</MenuItem>
-                                <MenuItem value="M">M</MenuItem>
-                            </Field>
-                        </div>
-                        <div>
-                            <Field name="type" component={renderSelectField} label="Type">
-                                <MenuItem value="student">Student</MenuItem>
-                                <MenuItem value="graduate">Graduate</MenuItem>
-                                <MenuItem value="collaborator">Collaborator</MenuItem>
-                                <MenuItem value="graduate/collaborator">Graduate/Collaborator</MenuItem>
-                            </Field>
-                        </div>
-                        <div>
-                            <Field name="career" component={renderSelectField} label="Career">
-                                <MenuItem value="compu">Compu</MenuItem>
-                                <MenuItem value="admin">Admin</MenuItem>
-                            </Field>
 
-                        </div>
-                        <div>
-                            <Field name="faculty" component={renderSelectField} label="Faculty">
-                                <MenuItem value="ingenieria">Ingeniería</MenuItem>
-                                <MenuItem value="ciencias_y_humanidades">Ciencias y Humanidades</MenuItem>
-                            </Field>
+                            <div>
+                                <Field name="first_name" component={renderTextField} label="First Name" />
+                            </div>
+                            <div>
+                                <Field name="last_name" component={renderTextField} label="Last Name" />
+                            </div>
+                            <div>
+                                <Field name="carne" component={renderTextField} label="Carne" />
+                            </div>
+                            <div>
+                                <Field name="sex" component={renderSelectField} label="Gender">
+                                    <MenuItem value="F">F</MenuItem>
+                                    <MenuItem value="M">M</MenuItem>
+                                </Field>
+                            </div>
+                            <div>
+                                <Field name="type" component={renderSelectField} label="Type">
+                                    <MenuItem value="student">Student</MenuItem>
+                                    <MenuItem value="graduate">Graduate</MenuItem>
+                                    <MenuItem value="collaborator">Collaborator</MenuItem>
+                                    <MenuItem value="graduate/collaborator">Graduate/Collaborator</MenuItem>
+                                </Field>
+                            </div>
+                            <div>
+                                <Field name="career" component={renderSelectField} label="Career">
+                                    <MenuItem value="compu">Compu</MenuItem>
+                                    <MenuItem value="admin">Admin</MenuItem>
+                                </Field>
+
+                            </div>
+                            <div>
+                                <Field name="faculty" component={renderSelectField} label="Faculty">
+                                    <MenuItem value="ingenieria">Ingeniería</MenuItem>
+                                    <MenuItem value="ciencias_y_humanidades">Ciencias y Humanidades</MenuItem>
+                                </Field>
+                            </div>
+                            <div>{Message}</div>
                         </div>
                     </MDBCol>
                 </MDBModalBody>
                 <MDBModalFooter>
                     <MDBBtn color="secondary" onClick={onHandle}>Close</MDBBtn>
-                    <MDBBtn color="primary">Update Profile</MDBBtn>
+                    <MDBBtn color="primary" onClick={handleSubmit(onSubmit)}>Update Profile</MDBBtn>
                 </MDBModalFooter>
             </MDBModal>
         </MDBContainer>
@@ -93,28 +103,25 @@ let UpdateUserForm = ({ open, onHandle }) => {
 }
 
 UpdateUserForm = reduxForm({
-    form: 'updateUserFrom',
+    form: 'updateUserForm',
     validate
 })(UpdateUserForm)
 
 UpdateUserForm = connect(
     state => ({
-        /*Message:
-            getIsAuthenticating(state) !== null
-            ? getIsAuthenticating(state)
-                ? "Loading"
-                : getAuthenticatingError(state)
-            : undefined,
-        loginStatus: getIsAuthenticating(state),*/
+        Message:
+            getIsUpdating(state) !== null
+                ? getIsUpdating(state)
+                    ? "Loading"
+                    : getUpdatingError(state)
+                : undefined,
         open: getIsUpdateOpen(state),
-        initialValues: { last_name: "hola", first_name: "hello" },
+        initialValues: getUser(state),
     }),
     dispatch => ({
-        /*onSubmit(values){
-            const {email, password} = values;
-            dispatch(actions.startLogin(email, password));
-            dispatch(reset('updateUserForm'));
-        },*/
+        onSubmit({ first_name, last_name, carne, sex, type, career, faculty }) {
+            dispatch(actions.startUpdateUser(first_name, last_name, carne, sex, type, career, faculty));
+        },
         onHandle() {
             dispatch(actionsModal.changeUpdate(false));
         },

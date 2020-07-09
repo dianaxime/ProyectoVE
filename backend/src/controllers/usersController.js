@@ -129,7 +129,7 @@ const createUser = async (req, res) => {
                 console.log(error);
             } else {
                 console.log('Email sent: ' + info.response);
-                return res.status(status.created).send(successMessage);
+                return res.status(status.success).send(successMessage);
             }
         });
     })

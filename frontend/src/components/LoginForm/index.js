@@ -39,7 +39,7 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
     />
 );
 
-const Login = ({ Message, onSubmit, loginStatus, handleSubmit, onHandle }) => {
+let Login = ({ Message, onSubmit, loginStatus, handleSubmit, onHandle }) => {
     return (
         <MDBContainer style={{
             background: "rgba(63,62,64,1)",
@@ -86,26 +86,31 @@ const Login = ({ Message, onSubmit, loginStatus, handleSubmit, onHandle }) => {
     );
 };
 
-export default reduxForm({form: 'loginForm', validate})(
-    connect(
-        state => ({
-            Message:
-                getIsAuthenticating(state) !== null
+Login = reduxForm({
+    form: 'loginForm', 
+    validate
+})(Login);
+
+Login = connect(
+    state => ({
+        Message:
+            getIsAuthenticating(state) !== null
                 ? getIsAuthenticating(state)
                     ? "Loading"
                     : getAuthenticatingError(state)
                 : undefined,
-            loginStatus: getIsAuthenticating(state),
-        }),
-        dispatch => ({
-            onSubmit(values){
-                const {email, password} = values;
-                dispatch(actions.startLogin(email, password));
-                dispatch(reset('loginForm'));
-            },
-            onHandle(){
-                dispatch(actionsModal.changeForgot(true));
-            },
-      })
-    )(Login)
-);
+        loginStatus: getIsAuthenticating(state),
+    }),
+    dispatch => ({
+        onSubmit(values) {
+            const { email, password } = values;
+            dispatch(actions.startLogin(email, password));
+            dispatch(reset('loginForm'));
+        },
+        onHandle() {
+            dispatch(actionsModal.changeForgot(true));
+        },
+    })
+)(Login);
+
+export default Login;

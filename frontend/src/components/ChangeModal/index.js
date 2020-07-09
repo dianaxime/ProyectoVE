@@ -1,20 +1,25 @@
 import React from 'react';
 import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBRow } from 'mdbreact';
-import { getIsChangeOpen } from '../../reducers';
 import { connect } from 'react-redux';
 import { Field, reduxForm, reset } from 'redux-form';
 import * as actionsModal from '../../actions/modalChange';
+import * as actions from '../../actions/auth';
 import TextField from '@material-ui/core/TextField';
+import { 
+    getIsChanging,
+    getChangingError,
+    getIsChangeOpen
+} from '../../reducers';
 
 const validate = values => {
     const errors = {};
-    const requiredFields = [ 'oldPassword', 'newPassword'];
+    const requiredFields = ['oldPassword', 'newPassword'];
     requiredFields.forEach(field => {
-        if (!values[ field ]) {
-            errors[ field ] = 'Required';
+        if (!values[field]) {
+            errors[field] = 'Required';
         }
     })
-    if (values.newPassword && !(values.newPassword >= 8)) {
+    if (values.newPassword && (values.newPassword < 8)) {
         errors.newPassword = 'Password lenght eight(8) or more';
     }
     return errors;
@@ -29,51 +34,59 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
     />
 );
 
-const Change = ({open, onHandle}) => {
+let Change = ({ open, onHandle, onSubmit, handleSubmit, Message }) => {
     return (
         <MDBContainer>
             <MDBModal isOpen={open} fullHeight position="bottom">
                 <MDBModalHeader>Change Password</MDBModalHeader>
                 <MDBModalBody>
-                    <MDBRow>
-                        <div>
-                            <Field name="oldPassword" component={renderTextField} label="Old Password" type="password" />
-                        </div>
-                        <div>
-                            <Field name="newPassword" component={renderTextField} label="New Password" type="password" />
-                        </div>
-                    </MDBRow>
+                    <div>
+                        <MDBRow>
+                            <div>
+                                <Field name="oldPassword" component={renderTextField} label="Old Password" type="password" />
+                            </div>
+                            <div>
+                                <Field name="newPassword" component={renderTextField} label="New Password" type="password" />
+                            </div>
+                        </MDBRow>
+                        <div>{Message}</div>
+                    </div>
                 </MDBModalBody>
                 <MDBModalFooter>
                     <MDBBtn color="secondary" onClick={onHandle}>Close</MDBBtn>
-                    <MDBBtn color="primary">Change Password</MDBBtn>
+                    <MDBBtn color="primary" onClick={handleSubmit(onSubmit)}>Change Password</MDBBtn>
                 </MDBModalFooter>
             </MDBModal>
         </MDBContainer>
     );
 }
 
-export default reduxForm({form: 'changePass', validate})(
-    connect(
-        state => ({
-            /*Message:
-                getIsAuthenticating(state) !== null
-                ? getIsAuthenticating(state)
+Change = reduxForm({
+    form: 'changePass',
+    validate
+})(Change);
+
+
+Change = connect(
+    state => ({
+        Message:
+            getIsChanging(state) !== null
+                ? getIsChanging(state)
                     ? "Loading"
-                    : getAuthenticatingError(state)
+                    : getChangingError(state)
                 : undefined,
-            loginStatus: getIsAuthenticating(state),*/
-            open: getIsChangeOpen(state),
-        }),
-        dispatch => ({
-            /*onSubmit(values){
-                const {email, password} = values;
-                dispatch(actions.startLogin(email, password));
-                dispatch(reset('ChangePass'));
-            },*/
-            onHandle(){
-                dispatch(actionsModal.changeChange(false));
-            },
-      })
-    )(Change)
-);
+        open: getIsChangeOpen(state),
+    }),
+    dispatch => ({
+        onSubmit({ oldPassword, newPassword }) {
+            dispatch(actions.startChangePass(oldPassword, newPassword));
+            dispatch(reset('changePass'));
+        },
+        onHandle() {
+            dispatch(reset('changePass'));
+            dispatch(actionsModal.changeChange(false));
+        },
+    })
+)(Change);
+
+export default Change;
