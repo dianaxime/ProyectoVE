@@ -21,6 +21,7 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
+import HowToRegIcon from '@material-ui/icons/HowToReg';
 
 const icons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -49,29 +50,32 @@ const columns = [
     { title: 'Status', field: 'status' },
 ];
 
-
-const Authorization = ({ data, onLoad }) => {
+const Authorization = ({ data, onLoad, onAuthorize }) => {
     useEffect(onLoad, []);
     return (
-        <MaterialTable title= "Authorization"
-        icons={icons}
-        columns={columns}
-        data={data}
-        /*editable={{
-             onRowUpdate: (newData, oldData) =>
-                 new Promise((resolve) => {
-                     setTimeout(() => {
-                         resolve();
-                         if (oldData) {
-                             setState((prevState) => {
-                                 const data = [...prevState.data];
-                                 data[data.indexOf(oldData)] = newData;
-                                 return { ...prevState, data };
-                             });
-                         }
-                     }, 600);
-                 }),
-        }}*/ />
+        <MaterialTable title="Authorization"
+            icons={icons}
+            columns={columns}
+            data={data}
+            actions={[
+                {
+                    icon: 'save',
+                    tooltip: 'Save User',
+                    onClick: (event, rowData) => onAuthorize(rowData.email)
+                }
+            ]}
+            components={{
+                Action: props => (
+                    <button
+                        onClick={(event) => props.action.onClick(event, props.data)}
+                        variant="contained"
+                        size="small"
+                    >
+                        <HowToRegIcon />
+                    </button>
+                ),
+            }}
+        />
     );
 }
 
@@ -82,6 +86,9 @@ export default connect(
     dispatch => ({
         onLoad() {
             dispatch(actions.startFetchingUsers());
+        },
+        onAuthorize(email) {
+            dispatch(actions.startAuthorize(email));
         },
     }),
 )(Authorization);
