@@ -6,7 +6,7 @@ import { configureStore } from '../../store';
 
 import AuthPage from '../AuthPage';
 import HomePage from '../HomePage';
-import Authorization from '../Authorization';
+import AuthorizePage from '../AuthorizePage';
 import TokenRefresh from '../TokenRefresh';
 
 import 'fontsource-roboto';
@@ -23,7 +23,7 @@ const App = () => (
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/authorization" component={Authorization} />
+          <Route exact path="/authorization" component={AuthorizePage}/>
           <Route exact path="/auth" component={AuthPage} />
           <Route render={() => <Redirect to="/" />} />
         </Switch>

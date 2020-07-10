@@ -282,3 +282,40 @@ export function* watchFetchingUsersStarted() {
         fetchPendingUsers,
     );
 }
+
+function* authorizeUser(action) {
+    try {
+        const isAuth = yield select(selectors.isAuthenticated);
+        if (isAuth) {
+            const token = yield select(selectors.getAuthToken);
+            const response = yield call(
+                fetch,
+                `${API_BASE_URL}/auth/authorize`,
+                {
+                    method: 'PATCH',
+                    body: JSON.stringify(action.payload),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'token': `${token}`,
+                    },
+                },
+            );
+            if (response.status === 200) {
+                const jsonResult = yield response.json();
+                yield put(actions.completeAuthorize(jsonResult.data.id));
+            } else {
+                const errors = yield response.json();
+                yield put(actions.failAuthorize(errors.error));
+            }
+        }
+    } catch (error) {
+        yield put(actions.failAuthorize("Connection refused"));
+    }
+}
+
+export function* watchAuthorizeStarted() {
+    yield takeEvery(
+        types.AUTHORIZE_USER_STARTED,
+        authorizeUser,
+    );
+}
