@@ -1,10 +1,11 @@
 import jwtDecode from 'jwt-decode';
 import { combineReducers } from 'redux';
+import omit from 'lodash/omit';
 
 import * as types from '../types/auth';
 
 const token = (state = null, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case types.AUTHENTICATION_STARTED: {
             return null;
         }
@@ -27,7 +28,7 @@ const token = (state = null, action) => {
 };
 
 const decoded = (state = null, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case types.AUTHENTICATION_STARTED: {
             return null;
         }
@@ -50,7 +51,7 @@ const decoded = (state = null, action) => {
 };
 
 const user = (state = null, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case types.AUTHENTICATION_STARTED: {
             return null;
         }
@@ -78,7 +79,7 @@ const user = (state = null, action) => {
 };
 
 const isAuthenticating = (state = false, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case types.AUTHENTICATION_STARTED: {
             return true;
         }
@@ -98,7 +99,7 @@ const isAuthenticating = (state = false, action) => {
 };
 
 const isRegistering = (state = false, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case types.REGISTER_STARTED: {
             return true;
         }
@@ -118,7 +119,7 @@ const isRegistering = (state = false, action) => {
 };
 
 const registeringCompleted = (state = false, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case types.REGISTER_STARTED: {
             return false;
         }
@@ -135,7 +136,7 @@ const registeringCompleted = (state = false, action) => {
 };
 
 const error = (state = null, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case types.AUTHENTICATION_STARTED: {
             return null;
         }
@@ -155,7 +156,7 @@ const error = (state = null, action) => {
 };
 
 const isRefreshing = (state = false, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case types.TOKEN_REFRESH_STARTED: {
             return true;
         }
@@ -175,7 +176,7 @@ const isRefreshing = (state = false, action) => {
 };
 
 const refreshingError = (state = null, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case types.TOKEN_REFRESH_STARTED: {
             return null;
         }
@@ -195,7 +196,7 @@ const refreshingError = (state = null, action) => {
 };
 
 const registeringError = (state = null, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case types.REGISTER_STARTED: {
             return null;
         }
@@ -215,7 +216,7 @@ const registeringError = (state = null, action) => {
 };
 
 const isRecovering = (state = false, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case types.RECOVER_STARTED: {
             return true;
         }
@@ -235,7 +236,7 @@ const isRecovering = (state = false, action) => {
 };
 
 const recoveringCompleted = (state = false, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case types.RECOVER_STARTED: {
             return false;
         }
@@ -252,7 +253,7 @@ const recoveringCompleted = (state = false, action) => {
 };
 
 const recoveringError = (state = null, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case types.RECOVER_STARTED: {
             return null;
         }
@@ -272,7 +273,7 @@ const recoveringError = (state = null, action) => {
 };
 
 const updatingError = (state = null, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case types.UPDATE_USER_STARTED: {
             return null;
         }
@@ -292,7 +293,7 @@ const updatingError = (state = null, action) => {
 };
 
 const isUpdating = (state = false, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case types.UPDATE_USER_STARTED: {
             return true;
         }
@@ -312,7 +313,7 @@ const isUpdating = (state = false, action) => {
 };
 
 const isChanging = (state = false, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case types.CHANGE_PASSWORD_STARTED: {
             return true;
         }
@@ -332,7 +333,7 @@ const isChanging = (state = false, action) => {
 };
 
 const changingCompleted = (state = false, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case types.CHANGE_PASSWORD_STARTED: {
             return false;
         }
@@ -349,7 +350,7 @@ const changingCompleted = (state = false, action) => {
 };
 
 const changingError = (state = null, action) => {
-    switch(action.type) {
+    switch (action.type) {
         case types.CHANGE_PASSWORD_STARTED: {
             return null;
         }
@@ -360,6 +361,76 @@ const changingError = (state = null, action) => {
             return action.payload.error;
         }
         case types.AUTHENTICATION_IDENTITY_CLEARED: {
+            return null;
+        }
+        default: {
+            return state;
+        }
+    }
+};
+
+const byId = (state = {}, action) => {
+    switch (action.type) {
+        case types.PENDING_USERS_FETCH_COMPLETED: {
+            const { entities, order } = action.payload;
+            const newState = { ...state };
+            order.forEach(id => {
+                newState[id] = {
+                    ...entities[id],
+                };
+            });
+
+            return newState;
+        }
+        case types.AUTHORIZE_USER_COMPLETED: {
+            return omit(state, action.payload);
+        }
+        default: {
+            return state;
+        }
+    }
+};
+
+const order = (state = [], action) => {
+    switch (action.type) {
+        case types.PENDING_USERS_FETCH_COMPLETED: {
+            return [...action.payload.order];
+        }
+        case types.AUTHORIZE_USER_COMPLETED: {
+            return state.filter(id => id !== action.payload);
+        }
+        default: {
+            return state;
+        }
+    }
+};
+
+const isFetching = (state = false, action) => {
+    switch (action.type) {
+        case types.PENDING_USERS_FETCH_STARTED: {
+            return true;
+        }
+        case types.PENDING_USERS_FETCH_COMPLETED: {
+            return false;
+        }
+        case types.PENDING_USERS_FETCH_FAILED: {
+            return false;
+        }
+        default: {
+            return state;
+        }
+    }
+};
+
+const fetchingError = (state = null, action) => {
+    switch (action.type) {
+        case types.PENDING_USERS_FETCH_FAILED: {
+            return action.payload.error;
+        }
+        case types.PENDING_USERS_FETCH_STARTED: {
+            return null;
+        }
+        case types.PENDING_USERS_FETCH_COMPLETED: {
             return null;
         }
         default: {
@@ -387,6 +458,10 @@ const auth = combineReducers({
     isChanging,
     changingError,
     changingCompleted,
+    byId,
+    order,
+    isFetching,
+    fetchingError,
 });
 
 
@@ -413,3 +488,7 @@ export const getUpdatingError = state => state.updatingError;
 export const getChangingError = state => state.changingError;
 export const getIsChanging = state => state.isChanging;
 export const getChangingCompleted = state => state.changingCompleted;
+export const getPendingUser = (state, id) => state.byId[id];
+export const getPendingUsers = state => state.order.map(id => getPendingUser(state, id));
+export const isFetchingPendingUsers = state => state.isFetching;
+export const getFetchingPendingUsersError = state => state.error;

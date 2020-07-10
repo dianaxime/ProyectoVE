@@ -8,9 +8,11 @@ import {
     // delay,
 } from 'redux-saga/effects';
 
+import { normalize } from 'normalizr';
 import * as selectors from '../reducers';
 import * as actions from '../actions/auth';
 import * as types from '../types/auth';
+import * as schemas from '../schemas/pendingUsers';
 
 import { API_BASE_URL, URL } from '../settings';
 
@@ -84,37 +86,42 @@ export function* watchLoginStarted() {
 }
 
 function* refreshToken(action) {
-    const expiration = yield select(selectors.getAuthExpiration);
-    const now = parseInt(new Date().getTime() / 1000);
-    if (expiration - now < 300) {
-        try {
-            const token = yield select(selectors.getAuthToken);
-            const response = yield call(
-                fetch,
-                `${API_BASE_URL}/auth/token-refresh`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'token': `${token}`,
+    const isAuth = yield select(selectors.isAuthenticated);
+    if (isAuth) {
+        const expiration = yield select(selectors.getAuthExpiration);
+        const now = parseInt(new Date().getTime() / 1000);
+        if (expiration - now < 400) {
+            try {
+                const token = yield select(selectors.getAuthToken);
+                const response = yield call(
+                    fetch,
+                    `${API_BASE_URL}/auth/token-refresh`,
+                    {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'token': `${token}`,
+                        },
                     },
-                },
-            );
+                );
 
-            if (response.status === 200) {
-                const jResponse = yield response.json();
-                yield put(actions.completeTokenRefresh(jResponse.data.token));
-            } else {
+                if (response.status === 200) {
+                    const jResponse = yield response.json();
+                    yield put(actions.completeTokenRefresh(jResponse.data.token));
+                } else {
+                    // TODO: poner un redirect al home (login)
+                    const errors = yield response.json();
+                    console.log(errors);
+                    yield put(actions.failTokenRefresh(errors.error));
+                    yield put(actions.logout());
+                    window.location.href = URL + 'auth';
+                }
+            } catch (error) {
                 // TODO: poner un redirect al home (login)
-                const errors = yield response.json();
-                console.log(errors);
+                yield put(actions.failTokenRefresh("Connection refused"));
+                yield put(actions.logout());
                 window.location.href = URL + 'auth';
-                yield put(actions.failTokenRefresh(errors.error));
             }
-        } catch (error) {
-            // TODO: poner un redirect al home (login)
-            window.location.href = URL + 'auth';
-            yield put(actions.failTokenRefresh("Connection refused"));
         }
     }
 }
@@ -162,7 +169,7 @@ export function* watchRecoverStarted() {
 function* updateUser(action) {
     try {
         const isAuth = yield select(selectors.isAuthenticated);
-        if (isAuth){
+        if (isAuth) {
             const token = yield select(selectors.getAuthToken);
             console.log(action.payload);
             const response = yield call(
@@ -202,7 +209,7 @@ export function* watchUpdateUserStarted() {
 function* changePass(action) {
     try {
         const isAuth = yield select(selectors.isAuthenticated);
-        if (isAuth){
+        if (isAuth) {
             const token = yield select(selectors.getAuthToken);
             console.log(action.payload);
             const response = yield call(
@@ -233,5 +240,45 @@ export function* watchChangePassStarted() {
     yield takeEvery(
         types.CHANGE_PASSWORD_STARTED,
         changePass,
+    );
+}
+
+function* fetchPendingUsers(action) {
+    try {
+        const isAuth = yield select(selectors.isAuthenticated);
+        if (isAuth) {
+            const token = yield select(selectors.getAuthToken);
+            const response = yield call(
+                fetch,
+                `${API_BASE_URL}/auth/pending-users`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'token': `${token}`,
+                    },
+                },
+            );
+            if (response.status === 200) {
+                const jsonResult = yield response.json();
+                const {
+                    entities: { pendingUsers },
+                    result,
+                } = normalize(jsonResult.data, schemas.pendingUsers);
+                yield put(actions.completeFetchingUsers(pendingUsers, result));
+            } else {
+                const errors = yield response.json();
+                yield put(actions.failFetchingUsers(errors.error));
+            }
+        }
+    } catch (error) {
+        yield put(actions.failFetchingUsers("Connection refused"));
+    }
+}
+
+export function* watchFetchingUsersStarted() {
+    yield takeEvery(
+        types.PENDING_USERS_FETCH_STARTED,
+        fetchPendingUsers,
     );
 }

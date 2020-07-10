@@ -7,7 +7,8 @@ const {
     forgotPassword,
     changePassword,
     updateUser,
-    refreshToken
+    refreshToken,
+    getPending
 } = require('../controllers/usersController');
 const verifyAuth = require('../middleware/verifyAuth');
 
@@ -22,5 +23,6 @@ router.patch('/auth/authorize', verifyAuth, createUser);
 router.patch('/auth/change', verifyAuth, changePassword);
 router.patch('/auth/update', verifyAuth, updateUser);
 router.post('/auth/token-refresh', verifyAuth, refreshToken);
+router.get('/auth/pending-users', verifyAuth, getPending);
 
 module.exports = router;

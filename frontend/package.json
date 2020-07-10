@@ -12,6 +12,7 @@
     "jwt-decode": "^2.2.0",
     "loaders.css": "^0.1.2",
     "lodash": "^4.17.15",
+    "material-table": "^1.64.0",
     "mdbreact": "^4.27.0",
     "normalizr": "^3.6.0",
     "react": "^16.13.1",

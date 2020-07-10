@@ -7,6 +7,7 @@ import {
     watchRecoverStarted,
     watchUpdateUserStarted,
     watchChangePassStarted,
+    watchFetchingUsersStarted,
 } from './auth';
 
 function* mainSaga() {
@@ -18,6 +19,7 @@ function* mainSaga() {
         fork(watchRecoverStarted),
         fork(watchUpdateUserStarted),
         fork(watchChangePassStarted),
+        fork(watchFetchingUsersStarted),
     ]);
 }
 

@@ -19,7 +19,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import HomeIcon from '@material-ui/icons/Home';
-import BookIcon from '@material-ui/icons/Book';
+import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import { connect } from 'react-redux';
 import { getAuthToken, getIsOpen } from '../../reducers';
 import * as actions from '../../actions/changeDrawer';
@@ -217,12 +217,12 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate }) => {
         </List>
         <Divider />
         <List>
-          <Link to="/" className={classes.link}>
+          <Link to="/authorization" className={classes.link}>
             <ListItem button>
               <ListItemIcon>
-                <BookIcon />
+                <VerifiedUserIcon />
               </ListItemIcon>
-              <ListItemText primary={"Otro"} />
+              <ListItemText primary={"Authorize Users"} />
             </ListItem>
           </Link>
         </List>

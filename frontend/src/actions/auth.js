@@ -126,3 +126,35 @@ export const failChangePass = error => ({
     type: types.CHANGE_PASSWORD_FAILED,
     payload: { error },
 });
+
+export const startAuthorize = email => ({
+    type: types.AUTHORIZE_USER_STARTED,
+    payload: { email },
+});
+
+export const completeAuthorize =  id => ({
+    type: types.AUTHORIZE_USER_COMPLETED,
+    payload: id,
+});
+
+export const failAuthorize = error => ({
+    type: types.AUTHORIZE_USER_FAILED,
+    payload: { error },
+});
+
+export const startFetchingUsers = () => ({
+    type: types.PENDING_USERS_FETCH_STARTED,
+});
+
+export const completeFetchingUsers = (entities, order) => ({
+    type: types.PENDING_USERS_FETCH_COMPLETED,
+    payload: {
+        entities,
+        order,
+    }
+});
+
+export const failFetchingUsers = error => ({
+    type: types.PENDING_USERS_FETCH_FAILED,
+    payload: { error },
+});

@@ -34,6 +34,7 @@ returning *`;
 const UPDATE_PASSWORD = 'UPDATE users SET password=$1, modified_on=$2 WHERE email=$3 returning *';
 const UPDATE_USER = `UPDATE users SET first_name=$1, last_name=$2, carne=$3, sex=$4, type=$5, career=$6,
 faculty=$7, modified_on=$8 WHERE email=$9 returning *`;
+const GET_PENDING = `SELECT * FROM registers WHERE status=$1`;
 
 /**
  * Create A User
@@ -510,6 +511,33 @@ const refreshToken = async (req, res) => {
     })
 };
 
+/**
+ * Get Pending Users
+ * @param {object} req
+ * @param {object} res 
+ * @returns {object} user object 
+*/
+
+const getPending = async (req, res) => {
+    
+    db.query(GET_PENDING, ['pending'])
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'No users pending approval';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
 module.exports = {
     createUser,
     loginUser,
@@ -518,4 +546,5 @@ module.exports = {
     changePassword,
     updateUser,
     refreshToken,
+    getPending,
 };

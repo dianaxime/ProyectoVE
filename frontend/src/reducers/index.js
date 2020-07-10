@@ -40,6 +40,10 @@ export const getUpdatingError = state => authSelectors.getUpdatingError(state.au
 export const getIsChanging = state => authSelectors.getIsChanging(state.auth);
 export const getChangingError = state => authSelectors.getChangingError(state.auth);
 export const getChangingCompleted = state => authSelectors.getChangingCompleted(state.auth);
+export const getPendingUser = (state, id) => authSelectors.getPendingUser(state.auth, id);
+export const getPendingUsers = state => authSelectors.getPendingUsers(state.auth);
+export const isFetchingPendingUsers = state => authSelectors.isFetchingPendingUsers(state.auth);
+export const getFetchingPendingUsersError = state => authSelectors.getFetchingPendingUsersError(state.auth);
 /* Drawer */
 export const getIsOpen = state => changeDrawerSelectors.getIsOpen(state.changeDrawer);
 /* Forgot Password Modal */
