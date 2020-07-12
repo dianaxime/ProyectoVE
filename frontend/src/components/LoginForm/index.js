@@ -15,6 +15,7 @@ import {
 import { Field, reduxForm, reset } from 'redux-form';
 import TextField from '@material-ui/core/TextField';
 import Loader from 'react-loaders';
+import './style_login.css';
 
 const validate = values => {
     const errors = {};
@@ -41,30 +42,25 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
 
 let Login = ({ Message, onSubmit, loginStatus, handleSubmit, onHandle }) => {
     return (
-        <MDBContainer style={{
-            background: "rgb(255,255,255)",
-            height: "400px",
-            alignContent: "center",
-            justifyContent: "center"
-        }}>
+        <MDBContainer className="contenedor_">
             <div>
-                <MDBCol className="d-flex align-items-center mb-4">
+                <MDBCol className="">
                     <MDBRow md="6">
                         <form>
-                            <p className="h5 text-center mb-4 green-text">Log in</p>
+                            <p className="titulo_">Iniciar Sesión</p>
                             <div>
-                                <Field name="email" component={renderTextField} label="Email"/>
+                                <Field name="email" component={renderTextField} label="Correo Electrónico"/>
                             </div>
                             <div>
-                                <Field name="password" component={renderTextField} label="Password" type="password" />
+                                <Field name="password" component={renderTextField} label="Contraseña" type="password" />
                             </div>
                             <p className="font-small grey-text d-flex justify-content-end" onClick={onHandle}>
-                                Forgot
+                                Olvide mi
                                 <a
                                     href='!#'
                                     className="dark-grey-text font-weight-bold ml-1"
                                 >
-                                Password?
+                                Contraseña?
                                 </a>
                             </p>
                             <div className="text-center">
@@ -75,7 +71,7 @@ let Login = ({ Message, onSubmit, loginStatus, handleSubmit, onHandle }) => {
                                             color="dark-green"
                                             className="btn-block z-depth-1a"
                                             onClick={handleSubmit(onSubmit)}
-                                        >Log In</MDBBtn>
+                                        >Iniciar Sesión</MDBBtn>
                                     </div>
                                 }
                             </div>

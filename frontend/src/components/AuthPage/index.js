@@ -8,13 +8,13 @@ import { URL } from '../../settings';
 import './styles.css';
 
 const Auth = () => (
-    <>
+    <div className="body">
         <div className='auth-container'>
             <Login />
             <SignIn />
         </div>
         <ForgotModal />
-    </>
+    </div>
 );
 
 export default connect(

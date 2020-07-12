@@ -57,13 +57,13 @@ let SigninForm = ({ Message, onSubmit, signinStatus, handleSubmit }) => {
                             <div className="formulario">
                                 <div>
                                     <div>
-                                        <Field name="email" component={renderTextField} label="Email" className="input" />
+                                        <Field name="email" component={renderTextField} label="Correo Electrónico" className="input" />
                                     </div>
                                     <div>
-                                        <Field name="first_name" component={renderTextField} label="First Name" className="input" />
+                                        <Field name="first_name" component={renderTextField} label="Primer Nombre" className="input" />
                                     </div>
                                     <div>
-                                        <Field name="sex" component={renderSelectField} label="Gender" className="input">
+                                        <Field name="sex" component={renderSelectField} label="Género" className="input">
                                             <MenuItem value="F">F</MenuItem>
                                             <MenuItem value="M">M</MenuItem>
                                         </Field>
@@ -121,10 +121,10 @@ let SigninForm = ({ Message, onSubmit, signinStatus, handleSubmit }) => {
                                         <Field name="carne" component={renderTextField} label="Carne" className="input" />
                                     </div>
                                     <div>
-                                        <Field name="last_name" component={renderTextField} label="Last Name" className="input" />
+                                        <Field name="last_name" component={renderTextField} label="Primer Apellido" className="input" />
                                     </div>
                                     <div>
-                                        <Field name="type" component={renderSelectField} label="Type" className="input">
+                                        <Field name="type" component={renderSelectField} label="Tipo" className="input">
                                             <MenuItem value="student">Student</MenuItem>
                                             <MenuItem value="graduate">Graduate</MenuItem>
                                             <MenuItem value="collaborator">Collaborator</MenuItem>
@@ -151,7 +151,7 @@ let SigninForm = ({ Message, onSubmit, signinStatus, handleSubmit }) => {
                                             color="black"
                                             className="boton"
                                             onClick={handleSubmit(onSubmit)}
-                                        >Sign In</MDBBtn>
+                                        >Registrarse</MDBBtn>
                                     </div>
                                 }
                             </div>
