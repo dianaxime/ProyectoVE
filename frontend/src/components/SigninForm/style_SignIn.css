@@ -1,5 +1,4 @@
 .titulo{
-    margin-top: 20px;
     font-size: 30px;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color: white;
@@ -9,6 +8,7 @@
 .contenedor{
     background: linear-gradient(200deg, rgb(42,200,72) 0%, rgb(7, 107, 50) 75%);
     height: 450px;
+    display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -23,5 +23,11 @@
 }
 
 .input{
+    width: 200px;
+}
+
+.boton{
+    display: block;
+    top: 15px;
     width: 200px;
 }

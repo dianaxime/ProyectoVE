@@ -8,12 +8,14 @@ import { URL } from '../../settings';
 import './styles.css';
 
 const Auth = () => (
-    <div className="body">
+    <div>
+        <img src={require('./logo_uvg.jpg')} alt="logo" />
         <div className='auth-container'>
             <Login />
             <SignIn />
         </div>
         <ForgotModal />
+        <p className="marca">2020, Grupo 4</p>
     </div>
 );
 
