@@ -10,6 +10,7 @@ import {
 } from '../../reducers';
 import * as actions from '../../actions/auth';
 import Loader from 'react-loaders';
+import './style_SignIn.css';
 
 const validate = values => {
     const errors = {};
@@ -47,47 +48,83 @@ const renderSelectField = ({ input, label, meta: { touched, error }, ...custom }
 
 let SigninForm = ({ Message, onSubmit, signinStatus, handleSubmit }) => {
     return (
-        <MDBContainer style={{
-            background: "linear-gradient(200deg, rgba(63,62,64,1) 0%, rgba(8,140,66,1) 75%)",
-            height: "30rem"
-        }}>
+        <MDBContainer className="contenedor">
             <div>
                 <MDBCol>
                     <MDBRow md="6">
                         <form>
-                            <p className="h5 text-center mb-4 grey-text">Sign up</p>
-                            <div className="row my-3 d-flex justify-content-center">
+                            <p className="titulo">Registro</p>
+                            <div className="formulario">
                                 <div>
                                     <div>
-                                        <Field name="email" component={renderTextField} label="Email" />
+                                        <Field name="email" component={renderTextField} label="Email" className="input" />
                                     </div>
                                     <div>
-                                        <Field name="first_name" component={renderTextField} label="First Name" />
+                                        <Field name="first_name" component={renderTextField} label="First Name" className="input" />
                                     </div>
                                     <div>
-                                        <Field name="sex" component={renderSelectField} label="Gender">
+                                        <Field name="sex" component={renderSelectField} label="Gender" className="input">
                                             <MenuItem value="F">F</MenuItem>
                                             <MenuItem value="M">M</MenuItem>
                                         </Field>
 
                                     </div>
                                     <div>
-                                        <Field name="career" component={renderSelectField} label="Career">
-                                            <MenuItem value="compu">Compu</MenuItem>
-                                            <MenuItem value="admin">Admin</MenuItem>
+                                        <Field name="career" component={renderSelectField} label="Carrera" className="input">
+                                            <MenuItem value="Bioinformática">Bioinformática</MenuItem>
+                                            <MenuItem value="Biomédica">Biomédica</MenuItem>
+                                            <MenuItem value="Biotecnología_Industrial">Biotecnología Industrial</MenuItem>
+                                            <MenuItem value="Ciencias_de_Alimentos">Ciencias de Alimentos</MenuItem>
+                                            <MenuItem value="Ciencia_de_la_Administración">Ciencia de la Administración</MenuItem>
+                                            <MenuItem value="Ciencia_de_Datos">Ciencia de Datos</MenuItem>
+                                            <MenuItem value="Civil">Civil</MenuItem>
+                                            <MenuItem value="Civil_Ambiental">Civil Ambiental</MenuItem>
+                                            <MenuItem value="Civil_Arquitectónica">Civil Arquitectónica</MenuItem>
+                                            <MenuItem value="Civil_Industrial">Civil Industrial</MenuItem>
+                                            <MenuItem value="Computación">Ciencia de la Computación y Tecnologías de la Información</MenuItem>
+                                            <MenuItem value="Electrónica">Electrónica</MenuItem>
+                                            <MenuItem value="Industrial">Industrial</MenuItem>
+                                            <MenuItem value="Mecánica">Mecánica</MenuItem>
+                                            <MenuItem value="Mecánica_Industrial">Mecánica Industrial</MenuItem>
+                                            <MenuItem value="Mecatrónica">Mecatrónica</MenuItem>
+                                            <MenuItem value="Ingeniería_Química">Ingeniería Química</MenuItem>
+                                            <MenuItem value="Ingeniería_Química_Industrial">Ingeniería Química Industrial</MenuItem>
+                                            <MenuItem value="Licenciatura_en_Educación">Licenciatura en Educación</MenuItem>
+                                            <MenuItem value="Ciencias_Biológicas_y_Químicas">Profesorado y Licenciatura en Educación con Especialidad en Ciencias Biológicas y Químicas</MenuItem>
+                                            <MenuItem value="Ciencias_Sociales">Profesorado y Licenciatura en Educación con Especialidad en Ciencias Sociales</MenuItem>
+                                            <MenuItem value="Comunicación_y_Lenguaje">Profesorado y Licenciatura en Educación con Especialidad en Comunicación y Lenguaje</MenuItem>
+                                            <MenuItem value="Educación_Inclusiva">Profesorado y Licenciatura en Educación con Especialidad en Educación Inclusiva</MenuItem>
+                                            <MenuItem value="Educación_Musical">Profesorado y Licenciatura en Educación con Especialidad en Educación Musical</MenuItem>
+                                            <MenuItem value="Educación_Primaria">Profesorado y Licenciatura en Educación con Especialidad en Educación Primaria</MenuItem>
+                                            <MenuItem value="English_Language_Teaching">Profesorado y Licenciatura en Educación con Especialidad en English Language Teaching</MenuItem>
+                                            <MenuItem value="Matemática_y_Ciencias_Físicas">Profesorado y Licenciatura en Educación con Especialidad en Matemática y Ciencias Físicas</MenuItem>
+                                            <MenuItem value="Comunidad_Educativa">Programas de Actualización para la Comunidad Educativa</MenuItem>
+                                            <MenuItem value="Biología">Biología</MenuItem>
+                                            <MenuItem value="Bioquímica_y_Microbiología">Bioquímica y Microbiología</MenuItem>
+                                            <MenuItem value="Biotecnología_Molecular">Biotecnología Molecular</MenuItem>
+                                            <MenuItem value="Comunicación_y_Letras">Comunicación y Letras</MenuItem>
+                                            <MenuItem value="Física">Física</MenuItem>
+                                            <MenuItem value="Matemática_Aplicada">Matemática Aplicada</MenuItem>
+                                            <MenuItem value="Nutrición">Nutrición</MenuItem>
+                                            <MenuItem value="Química">Química</MenuItem>
+                                            <MenuItem value="Química_Farmacéutica">Química Farmacéutica</MenuItem>
+                                            <MenuItem value="Antropología_y_Sociología">Antropología y Sociología</MenuItem>
+                                            <MenuItem value="Arqueología">Arqueología</MenuItem>
+                                            <MenuItem value="Psicología">Psicología</MenuItem>
+                                            <MenuItem value="Relaciones_Internacionales">Relaciones Internacionales y Master of Arts in Global Affairs</MenuItem>
                                         </Field>
 
                                     </div>
                                 </div>
                                 <div>
                                     <div>
-                                        <Field name="carne" component={renderTextField} label="Carne" />
+                                        <Field name="carne" component={renderTextField} label="Carne" className="input" />
                                     </div>
                                     <div>
-                                        <Field name="last_name" component={renderTextField} label="Last Name" />
+                                        <Field name="last_name" component={renderTextField} label="Last Name" className="input" />
                                     </div>
                                     <div>
-                                        <Field name="type" component={renderSelectField} label="Type">
+                                        <Field name="type" component={renderSelectField} label="Type" className="input">
                                             <MenuItem value="student">Student</MenuItem>
                                             <MenuItem value="graduate">Graduate</MenuItem>
                                             <MenuItem value="collaborator">Collaborator</MenuItem>
@@ -96,9 +133,11 @@ let SigninForm = ({ Message, onSubmit, signinStatus, handleSubmit }) => {
 
                                     </div>
                                     <div>
-                                        <Field name="faculty" component={renderSelectField} label="Faculty">
+                                        <Field name="faculty" component={renderSelectField} label="Facultad" className="input">
                                             <MenuItem value="ingenieria">Ingeniería</MenuItem>
                                             <MenuItem value="ciencias_y_humanidades">Ciencias y Humanidades</MenuItem>
+                                            <MenuItem value="Ciencias_Sociales">Ciencias Sociales</MenuItem>
+                                            <MenuItem value="Ciencias_Sociales">Educación</MenuItem>
                                         </Field>
 
                                     </div>
@@ -110,7 +149,7 @@ let SigninForm = ({ Message, onSubmit, signinStatus, handleSubmit }) => {
                                         <MDBBtn
                                             outline
                                             color="black"
-                                            className="btn-block z-depth-1a"
+                                            className="boton"
                                             onClick={handleSubmit(onSubmit)}
                                         >Sign In</MDBBtn>
                                     </div>

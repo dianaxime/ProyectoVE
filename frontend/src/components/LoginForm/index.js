@@ -42,8 +42,10 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
 let Login = ({ Message, onSubmit, loginStatus, handleSubmit, onHandle }) => {
     return (
         <MDBContainer style={{
-            background: "rgba(63,62,64,1)",
-            height: "30rem"
+            background: "rgb(255,255,255)",
+            height: "400px",
+            alignContent: "center",
+            justifyContent: "center"
         }}>
             <div>
                 <MDBCol className="d-flex align-items-center mb-4">
