@@ -17,19 +17,17 @@ Proyecto de Ingeniería de Software 2020
 
 ## Installation
 
-> DB (postgresql) Start
+> Create PostgreSql DB (go to SQL Shell)
 
-```shell
-$ cd backend
-$ yarn run setup
-$ yarn run seed-user-table
-```
 
-> Run NodeJS server
+
+> Run NodeJS server and DB Start
 
 ```shell
 $ cd backend
 $ yarn install
+$ yarn run setup
+$ yarn run seed-user-table
 $ yarn start
 ```
 
