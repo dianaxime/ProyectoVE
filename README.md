@@ -19,7 +19,7 @@ Proyecto de Ingeniería de Software 2020
 
 > Create PostgreSql DB (go to SQL Shell)
 
-![demo DB](https://github.com/dianaxime/ProyectoVE/master/createDB.PNG)
+![demo DB](https://github.com/dianaxime/ProyectoVE/master/createDB.png)
 
 > Run NodeJS server and DB Start
 
