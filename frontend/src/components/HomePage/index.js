@@ -5,6 +5,7 @@ import { getAuthToken, getIsOpen } from '../../reducers';
 import { URL } from '../../settings';
 import Nav from '../Nav';
 import { makeStyles } from '@material-ui/core/styles';
+import './style_home.css';
 
 const drawerWidth = 240;
 

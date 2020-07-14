@@ -1,5 +1,5 @@
 import React from 'react';
-import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBRow } from 'mdbreact';
+import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
 import { connect } from 'react-redux';
 import { Field, reduxForm, reset } from 'redux-form';
 import * as actionsModal from '../../actions/modalChange';
@@ -16,11 +16,11 @@ const validate = values => {
     const requiredFields = ['oldPassword', 'newPassword'];
     requiredFields.forEach(field => {
         if (!values[field]) {
-            errors[field] = 'Required';
+            errors[field] = 'Obligatorio*';
         }
     })
     if (values.newPassword && (values.newPassword < 8)) {
-        errors.newPassword = 'Password lenght eight(8) or more';
+        errors.newPassword = 'La contraseña tiene que tener 8 o más caracteres';
     }
     return errors;
 }
@@ -37,24 +37,19 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
 let Change = ({ open, onHandle, onSubmit, handleSubmit, Message }) => {
     return (
         <MDBContainer>
-            <MDBModal isOpen={open} fullHeight position="bottom">
-                <MDBModalHeader>Change Password</MDBModalHeader>
+            <MDBModal isOpen={open} side position="bottom-left">
+                <MDBModalHeader ><b>Cambiar Contraseña</b></MDBModalHeader>
                 <MDBModalBody>
                     <div>
-                        <MDBRow>
-                            <div>
-                                <Field name="oldPassword" component={renderTextField} label="Old Password" type="password" />
-                            </div>
-                            <div>
-                                <Field name="newPassword" component={renderTextField} label="New Password" type="password" />
-                            </div>
-                        </MDBRow>
+                        <Field name="oldPassword" component={renderTextField} label="Contraseña Actual" type="password" />
+                        <p></p>
+                        <Field name="newPassword" component={renderTextField} label="Contraseña Nueva" type="password" />
                         <div>{Message}</div>
                     </div>
                 </MDBModalBody>
                 <MDBModalFooter>
-                    <MDBBtn color="secondary" onClick={onHandle}>Close</MDBBtn>
-                    <MDBBtn color="primary" onClick={handleSubmit(onSubmit)}>Change Password</MDBBtn>
+                    <MDBBtn color="red" onClick={onHandle}>Cerrar</MDBBtn>
+                    <MDBBtn color="green" onClick={handleSubmit(onSubmit)}>Cambiar Contraseña</MDBBtn>
                 </MDBModalFooter>
             </MDBModal>
         </MDBContainer>

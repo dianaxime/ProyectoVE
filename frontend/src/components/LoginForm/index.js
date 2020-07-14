@@ -69,7 +69,7 @@ let Login = ({ Message, onSubmit, loginStatus, handleSubmit, onHandle }) => {
                                         <MDBBtn
                                             outline
                                             color="dark-green"
-                                            className="btn-block z-depth-1a"
+                                            className="boton_inicio"
                                             onClick={handleSubmit(onSubmit)}
                                         >Iniciar Sesión</MDBBtn>
                                     </div>
