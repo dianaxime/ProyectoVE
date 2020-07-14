@@ -25,7 +25,7 @@ module.exports = async function (req, res, next) {
         const decoded = jwt.verify(token, process.env.SECRET);
         req.user = {
             email: decoded.email,
-            user_id: decoded.user_id,
+            userid: decoded.user_id,
             first_name: decoded.first_name,
             last_name: decoded.last_name,
         };

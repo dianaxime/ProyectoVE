@@ -3,6 +3,7 @@ const cors = require( 'cors');
 const env = require('./env');
 
 const usersRoute = require('./routes/usersRoute');
+const scholarsRoute = require('./routes/scholarsRoute');
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 app.use('/api/v1', usersRoute);
+app.use('/api/v1', scholarsRoute);
 
 app.listen(env.port).on('listening', () => {
     console.log(`are live on ${env.port}`);

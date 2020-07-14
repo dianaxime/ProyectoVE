@@ -69,6 +69,34 @@ const createRegisterTable = () => {
 };
 
 /**
+ * Create Scholars Table
+*/
+
+const createScholarsTable = () => {
+    const scholarsCreateQuery = `CREATE TABLE IF NOT EXISTS scholars
+    (
+        id SERIAL PRIMARY KEY,
+        userID INT NOT NULL,
+        hours FLOAT NOT NULL,
+        videoEditor INT NOT NULL,
+        photoEditor INT NOT NULL,
+        spokesPersons INT NOT NULL,
+        organizer INT NOT NULL,
+        FOREIGN KEY (userID) REFERENCES users(id)
+    )`;
+
+    pool.query(scholarsCreateQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+/**
  * Drop User Table
 */
 
@@ -103,12 +131,30 @@ const dropRegisterTable = () => {
 };
 
 /**
+ * Drop Scholars Table
+*/
+
+const dropScholarsTable = () => {
+    const scholarsDropQuery = `DROP TABLE IF EXISTS scholars`;
+    pool.query(scholarsDropQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+/**
  * Create All Tables
 */
 
 const createAllTables = () => {
     createUserTable();
     createRegisterTable();
+    createScholarsTable();
 };
 
 /**
@@ -118,6 +164,7 @@ const createAllTables = () => {
 const dropAllTables = () => {
     dropUserTable();
     dropRegisterTable();
+    dropScholarsTable();
 };
 
 pool.on('remove', () => {
