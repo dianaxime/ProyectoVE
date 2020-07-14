@@ -10,7 +10,7 @@ Proyecto de Ingeniería de Software 2020
 
 - PostgreSQL(https://www.postgresql.org/download/)
 
-- Create a .env file at the project root `ProyectoVE/backend/.env`
+- Create a .env file at the project root `ProyectoVE/backend/.env` see env_example file to know what to add to .env in your root folder.
 
 - DBeaver: DBeaver is free and open source universal database tool for developers and database administrators.
   (https://dbeaver.io/download/), this is optional though, you can use any other GUI for postgreSQL.
