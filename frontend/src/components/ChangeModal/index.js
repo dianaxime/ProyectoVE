@@ -67,7 +67,7 @@ Change = connect(
         Message:
             getIsChanging(state) !== null
                 ? getIsChanging(state)
-                    ? "Loading"
+                    ? "Cargando"
                     : getChangingError(state)
                 : undefined,
         open: getIsChangeOpen(state),

@@ -16,11 +16,11 @@ const validate = values => {
     const requiredFields = ['email'];
     requiredFields.forEach(field => {
         if (!values[field]) {
-            errors[field] = 'Required';
+            errors[field] = 'Obligatorio*';
         }
     })
     if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Invalid email address';
+        errors.email = 'Correo electrónico invalido';
     }
     return errors;
 }
@@ -38,7 +38,7 @@ let Forgot = ({ open, onHandle, Message, onSubmit, handleSubmit }) => {
     return (
         <MDBContainer>
             <MDBModal  isOpen={open}>
-                <MDBModalHeader>Recuperar Contraseña</MDBModalHeader>
+                <MDBModalHeader><b>Recuperar Contraseña</b></MDBModalHeader>
                 <MDBModalBody>
                     <div>
                         <div>
@@ -68,7 +68,7 @@ Forgot = connect(
         Message:
             getIsRecovering(state) !== null
                 ? getIsRecovering(state)
-                    ? "Loading"
+                    ? "Cargando"
                     : getRecoveringError(state)
                 : undefined,
         open: getIsForgotOpen(state),
