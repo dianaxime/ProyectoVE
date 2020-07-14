@@ -4,7 +4,11 @@ const db = require('../db/config');
 
 const {
     isEmpty,
+    isHoursValid,
+    isPercentageValid,
 } = require('../helpers/validation');
+
+
 
 const {
     errorMessage,
@@ -16,6 +20,8 @@ const CREATE_SCHOLAR = `INSERT INTO
 scholars(userid, hours, videoEditor, photoEditor, spokespersons, organizer)
 VALUES ($1, $2, $3, $4, $5, $6)
 returning *`;
+
+const GET_SCHOLARS=`SELECT * FROM scholars`;
 
 /**
  * Create Scholars
@@ -37,6 +43,16 @@ const createScholars = async (req, res) => {
 
     if (isEmpty(hours) || isEmpty(videoEditor) || isEmpty(photoEditor) || isEmpty(spokespersons) || isEmpty(organizer) ) {
         errorMessage.error = 'Hours, video editor, photo editor, spokespersons and organizer field cannot be empty';
+        return res.status(status.bad).send(errorMessage);
+    }
+
+    if (!isHoursValid(hours)){
+        errorMessage.error="Hours can not be negative or higher than 150 "
+        return res.status(status.bad).send(errorMessage);
+    }
+
+    if (!isPercentageValid(videoEditor)||!isPercentageValid(spokespersons)||!isPercentageValid(photoEditor)||!isPercentageValid(organizer)){
+        errorMessage.error="Percentages can not be negative or higher than 100"
         return res.status(status.bad).send(errorMessage);
     }
 
@@ -66,6 +82,27 @@ const createScholars = async (req, res) => {
     })
 };
 
+const getScholars = async (req, res) => {
+    
+    db.query(GET_SCHOLARS)
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'No users with scholarships';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
 module.exports = {
     createScholars,
+    getScholars
 };

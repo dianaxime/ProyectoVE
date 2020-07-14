@@ -36,6 +36,10 @@ const UPDATE_USER = `UPDATE users SET first_name=$1, last_name=$2, carne=$3, sex
 faculty=$7, modified_on=$8 WHERE email=$9 returning *`;
 const GET_PENDING = `SELECT * FROM registers WHERE status=$1`;
 
+const GET_STUDENTS= `SELECT * FROM users WHERE type=$1`;
+
+
+
 /**
  * Create A User
  * @param {object} req
@@ -255,6 +259,24 @@ const createRegister = async (req, res) => {
     })
 };
 
+const getStudents=async (req, res)=>{
+    db.query(GET_STUDENTS, ['student'])
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'No students found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+}
 /**
  * Forgot Password
  * @param {object} req
@@ -547,4 +569,5 @@ module.exports = {
     updateUser,
     refreshToken,
     getPending,
+    getStudents,
 };
