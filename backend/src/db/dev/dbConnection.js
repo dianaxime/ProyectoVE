@@ -119,6 +119,26 @@ const createWorkshoTable = () => {
     });
 };
 
+/*Team table*/
+const createTeamTable = () => {
+    const teamCreateQuery = `CREATE TABLE IF NOT EXISTS team
+    (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(100) NOT NULL,
+        sport VARCHAR(100) NOT NULL
+    )`;
+
+    pool.query(teamCreateQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
 /**
  * Drop User Table
 */
@@ -188,6 +208,23 @@ const dropWorkshopTable = () => {
 };
 
 /**
+ * Drop Team Table
+*/
+
+const dropTeamTable = () => {
+    const workDropQuery = `DROP TABLE IF EXISTS team`;
+    pool.query(dropTeamTable)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+/**
  * Create All Tables
 */
 
@@ -196,6 +233,7 @@ const createAllTables = () => {
     createRegisterTable();
     createScholarsTable();
     createWorkshoTable();
+    createTeamTable();
 };
 
 /**
@@ -207,6 +245,7 @@ const dropAllTables = () => {
     dropRegisterTable();
     dropScholarsTable();
     dropWorkshopTable();
+    dropTeamTable();
 };
 
 pool.on('remove', () => {
