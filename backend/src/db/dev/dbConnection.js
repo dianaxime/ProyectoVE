@@ -96,6 +96,29 @@ const createScholarsTable = () => {
     });
 };
 
+/*Worshop table*/
+const createWorkshoTable = () => {
+    const workshopCreateQuery = `CREATE TABLE IF NOT EXISTS workshop
+    (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(100) NOT NULL,
+        classroom VARCHAR(50) NOT NULL,
+        description VARCHAR(300) NOT NULL,
+        startdate DATE NOT NULL,
+        enddate DATE NOT NULL
+    )`;
+
+    pool.query(workshopCreateQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
 /**
  * Drop User Table
 */
@@ -148,6 +171,23 @@ const dropScholarsTable = () => {
 };
 
 /**
+ * Drop Workshop Table
+*/
+
+const dropWorkshopTable = () => {
+    const workDropQuery = `DROP TABLE IF EXISTS workshop`;
+    pool.query(dropWorkshopTable)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+/**
  * Create All Tables
 */
 
@@ -155,6 +195,7 @@ const createAllTables = () => {
     createUserTable();
     createRegisterTable();
     createScholarsTable();
+    createWorkshoTable();
 };
 
 /**
@@ -165,6 +206,7 @@ const dropAllTables = () => {
     dropUserTable();
     dropRegisterTable();
     dropScholarsTable();
+    dropWorkshopTable();
 };
 
 pool.on('remove', () => {
