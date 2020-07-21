@@ -34,22 +34,27 @@ const isValidEmail = email => {
     return regEx.test(email);
 };
 
-/*
-Validacion que la cantidad de horas beca sea en el rango correcto
+/**
+ * Validacion que la cantidad de horas beca sea en el rango correcto
 */
+
 const isHoursValid=hours=>{
     if (hours<0 || hours>150){
         return false;
     }
     return true;
 }
-/*Validacion que el porcentaje de horas beca sea válido*/
+/**
+ * Validacion que el porcentaje de horas beca sea válido
+*/
+
 const isPercentageValid=perc=>{
     if (perc<0|| perc>100){
         return false;
     }
     return true;
 }
+
 /**
  * validatePassword helper method
  * @param {string} password 

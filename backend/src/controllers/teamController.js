@@ -4,11 +4,7 @@ const db = require('../db/config');
 
 const {
     isEmpty,
-    isHoursValid,
-    isPercentageValid,
 } = require('../helpers/validation');
-
-
 
 const {
     errorMessage,
@@ -24,7 +20,7 @@ returning *`;
 const GET_TEAMS=`SELECT * FROM team`;
 
 /**
- * Create Workshop
+ * Create Team
  * @param {object} req
  * @param {object} res
  * @returns {object} reflection object
@@ -59,6 +55,13 @@ const createTeam = async (req, res) => {
     })
 };
 
+/**
+ * Get Teams
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
 const getTeams = async (req, res) => {
     
     db.query(GET_TEAMS)
@@ -78,7 +81,6 @@ const getTeams = async (req, res) => {
         return res.status(status.error).send(errorMessage);
     })
 };
-
 
 module.exports = {
     createTeam,

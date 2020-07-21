@@ -8,7 +8,9 @@ const verifyAuth = require('../middleware/verifyAuth');
 
 const router = express.Router();
 
-// users Routes
+// team Routes
+
 router.post('/team/create', verifyAuth, createTeam);
 router.get('/team/all-teams', verifyAuth, getTeams);
+
 module.exports = router;

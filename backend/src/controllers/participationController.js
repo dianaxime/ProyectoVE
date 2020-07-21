@@ -4,11 +4,7 @@ const db = require('../db/config');
 
 const {
     isEmpty,
-    isHoursValid,
-    isPercentageValid,
 } = require('../helpers/validation');
-
-
 
 const {
     errorMessage,
@@ -62,6 +58,13 @@ const createParticipation = async (req, res) => {
         return res.status(status.error).send(errorMessage);
     })
 };
+
+/**
+ * Get Participations
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
 
 const getParticipations = async (req, res) => {
     

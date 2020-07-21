@@ -3,7 +3,6 @@ import { combineReducers } from 'redux';
 
 import * as types from '../types/workshops';
 
-
 const byId = (state = {}, action) => {
   switch(action.type) {
     case types.WORKSHOPS_FETCH_COMPLETED: {
@@ -15,7 +14,6 @@ const byId = (state = {}, action) => {
           isConfirmed: true,
         };
       });
-
       return newState;
     }
     case types.WORKSHOP_ADD_STARTED: {
@@ -27,25 +25,13 @@ const byId = (state = {}, action) => {
       return newState;
     }
     case types.WORKSHOP_ADD_COMPLETED: {
-      const { oldId, taller } = action.payload;
+      const { oldId, workshop } = action.payload;
       const newState = omit(state, oldId);
-      newState[taller.id] = {
-        ...taller,
+      newState[workshop.id] = {
+        ...workshop,
         isConfirmed: true,
       };
       return newState;
-    }
-    case types.WORKSHOP_REMOVE_STARTED: {
-      return omit(state, action.payload.id.id);
-    }
-    case types.WORKSHOP_UPDATE_STARTED: {
-      return {
-        ...state,
-        [action.payload.id.id]: {
-        ...state[action.payload.id.id],//hola
-        ...action.payload.id,
-        },
-      };
     }
     default: {
       return state;
@@ -62,19 +48,8 @@ const order = (state = [], action) => {
       return [...state, action.payload.id];
     }
     case types.WORKSHOP_ADD_COMPLETED: {
-      const { oldId, taller } = action.payload;
-      return state.map(id => id === oldId ? taller.id : id);
-    }
-    case types.WORKSHOP_REMOVE_STARTED: {
-      return state.filter(id => id !== action.payload.id.id);
-    }
-    case types.WORKSHOP_UPDATE_COMPLETED: {
-      const { id, taller } = action.payload;
-        const newState = omit(state, id);
-        newState[taller.id] = {
-          ...taller,
-        };
-        return newState;
+      const { oldId, workshop } = action.payload;
+      return state.map(id => id === oldId ? workshop.id : id);
     }
     default: {
       return state;
@@ -116,34 +91,14 @@ const error = (state = null, action) => {
   }
 };
 
-const updateWorkshopError = (state=null, action) => {
-  switch(action.type){
-    case types.WORKSHOP_UPDATE_FAILED: {
-      return action.payload.error;
-    }
-    case types.WORKSHOP_UPDATE_COMPLETED: {
-      return null;
-    }
-    case types.WORKSHOP_UPDATE_STARTED: {
-      return null;
-    }
-    default: {
-      return state;
-    }
-  }
-};
-
-
 export default combineReducers({
   byId,
   order,
   isFetching,
   error,
-  updateWorkshopError,
 });
 
 export const getWorkshop = (state, id) => state.byId[id];
 export const getWorkshops = state => state.order.map(id => getWorkshop(state, id));
 export const isFetchingWorkshops = state => state.isFetching;
 export const getFetchingWorkshopsError = state => state.error;
-export const getUpdateWorkshopError = state => state.updateWorkshopError;

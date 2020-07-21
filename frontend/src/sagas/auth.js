@@ -38,7 +38,7 @@ function* register(action) {
             yield put(actions.failRegister(errors.error));
         }
     } catch (error) {
-        yield put(actions.failRegister("Connection refused"));
+        yield put(actions.failRegister("Error de conexión"));
     }
 }
 
@@ -74,7 +74,7 @@ function* login(action) {
         }
     } catch (error) {
         console.log(error);
-        yield put(actions.failLogin("Connection refused"));
+        yield put(actions.failLogin("Error de conexión"));
     }
 }
 
@@ -118,7 +118,7 @@ function* refreshToken(action) {
                 }
             } catch (error) {
                 // TODO: poner un redirect al home (login)
-                yield put(actions.failTokenRefresh("Connection refused"));
+                yield put(actions.failTokenRefresh("Error de conexión"));
                 yield put(actions.logout());
                 window.location.href = URL + 'auth';
             }
@@ -155,7 +155,7 @@ function* recover(action) {
             yield put(actions.failRecover(errors.error));
         }
     } catch (error) {
-        yield put(actions.failRecover("Connection refused"));
+        yield put(actions.failRecover("Error de conexión"));
     }
 }
 
@@ -195,7 +195,7 @@ function* updateUser(action) {
             }
         }
     } catch (error) {
-        yield put(actions.failUpdateUser("Connection refused"));
+        yield put(actions.failUpdateUser("Error de conexión"));
     }
 }
 
@@ -232,7 +232,7 @@ function* changePass(action) {
             }
         }
     } catch (error) {
-        yield put(actions.failChangePass("Connection refused"));
+        yield put(actions.failChangePass("Error de conexión"));
     }
 }
 
@@ -272,7 +272,7 @@ function* fetchPendingUsers(action) {
             }
         }
     } catch (error) {
-        yield put(actions.failFetchingUsers("Connection refused"));
+        yield put(actions.failFetchingUsers("Error de conexión"));
     }
 }
 
@@ -309,7 +309,7 @@ function* authorizeUser(action) {
             }
         }
     } catch (error) {
-        yield put(actions.failAuthorize("Connection refused"));
+        yield put(actions.failAuthorize("Error de conexión"));
     }
 }
 

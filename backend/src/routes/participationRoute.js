@@ -8,7 +8,9 @@ const verifyAuth = require('../middleware/verifyAuth');
 
 const router = express.Router();
 
-// users Routes
+// participation Routes
+
 router.post('/participation/create', verifyAuth, createParticipation);
 router.get('/participation/all-participations', verifyAuth, getParticipations);
+
 module.exports = router;

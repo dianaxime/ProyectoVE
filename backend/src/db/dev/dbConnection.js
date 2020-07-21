@@ -96,7 +96,10 @@ const createScholarsTable = () => {
     });
 };
 
-/*Worshop table*/
+/**
+ * Worshop table
+*/
+
 const createWorkshoTable = () => {
     const workshopCreateQuery = `CREATE TABLE IF NOT EXISTS workshop
     (
@@ -119,7 +122,10 @@ const createWorkshoTable = () => {
     });
 };
 
-/*Team table*/
+/**
+ * Team table
+*/
+
 const createTeamTable = () => {
     const teamCreateQuery = `CREATE TABLE IF NOT EXISTS team
     (
@@ -139,7 +145,10 @@ const createTeamTable = () => {
     });
 };
 
-/*Tournament table*/
+/**
+ * Tournament table
+*/
+
 const createTournamentTable = () => {
     const tournamentCreateQuery = `CREATE TABLE IF NOT EXISTS tournament
     (
@@ -163,7 +172,10 @@ const createTournamentTable = () => {
     });
 };
 
-/*Participation table*/
+/** 
+ * Participation table
+*/
+
 const createParticipationTable = () => {
     const participationCreateQuery = `CREATE TABLE IF NOT EXISTS participation
     (
@@ -272,7 +284,6 @@ const dropTeamTable = () => {
     });
 };
 
-
 /**
  * Drop Participation Table
 */
@@ -280,6 +291,23 @@ const dropTeamTable = () => {
 const dropParticipationTable = () => {
     const participationDropQuery = `DROP TABLE IF EXISTS participation`;
     pool.query(participationDropQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+/**
+ * Drop Tournament Table
+*/
+
+const dropTournamentTable = () => {
+    const tournamentDropQuery = `DROP TABLE IF EXISTS tournament`;
+    pool.query(tournamentDropQuery)
     .then((res) => {
         console.log(res);
         pool.end();
@@ -315,6 +343,7 @@ const dropAllTables = () => {
     dropWorkshopTable();
     dropTeamTable();
     dropParticipationTable();
+    dropTournamentTable();
 };
 
 pool.on('remove', () => {

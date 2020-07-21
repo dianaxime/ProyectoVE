@@ -14,9 +14,7 @@ import {
 import {
     watchAddWorkshop,
     watchWorkshopsFetch,
-    watchRemoveWorkshop,
-    watchUpdateWorkshop
-  } from './workshops';
+} from './workshops';
 
 function* mainSaga() {
     yield all([
@@ -29,10 +27,9 @@ function* mainSaga() {
         fork(watchChangePassStarted),
         fork(watchFetchingUsersStarted),
         fork(watchAuthorizeStarted),
+        /* Workshop */
         fork(watchAddWorkshop),
         fork(watchWorkshopsFetch),
-        fork(watchRemoveWorkshop),
-        fork(watchUpdateWorkshop),
     ]);
 }
 

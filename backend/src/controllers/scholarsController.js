@@ -8,8 +8,6 @@ const {
     isPercentageValid,
 } = require('../helpers/validation');
 
-
-
 const {
     errorMessage,
     successMessage,
@@ -81,6 +79,13 @@ const createScholars = async (req, res) => {
         return res.status(status.error).send(errorMessage);
     })
 };
+
+/**
+ * Get Scholars
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
 
 const getScholars = async (req, res) => {
     

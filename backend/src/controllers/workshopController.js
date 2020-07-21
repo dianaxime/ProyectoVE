@@ -4,11 +4,7 @@ const db = require('../db/config');
 
 const {
     isEmpty,
-    isHoursValid,
-    isPercentageValid,
 } = require('../helpers/validation');
-
-
 
 const {
     errorMessage,
@@ -64,6 +60,13 @@ const createWorksop = async (req, res) => {
         return res.status(status.error).send(errorMessage);
     })
 };
+
+/**
+ * Get Workshops
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
 
 const getWorkshops = async (req, res) => {
     

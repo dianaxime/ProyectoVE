@@ -9,7 +9,6 @@ const teamRoute = require('./routes/teamsRoute');
 const tournamentRoute = require('./routes/tournamentsRoute');
 const participationRoute = require('./routes/participationRoute');
 
-
 const app = express();
 
 // Add middleware for parsing URL encoded bodies (which are usually sent by browser)
