@@ -32,12 +32,11 @@
     align-items: center;
     min-width: 400px;
     width: 500px;
-    height: 250px;
+    height: 400px;
     border-radius: 30px;
     margin-top: 1rem;
     margin-bottom: 2rem;
-    padding-top: 10px;
-    
+    padding-top: 10px; 
 }
 
 .subw{
@@ -61,20 +60,20 @@
 }
 
 .inputWorkshop {
-    width: 85%;
     background-color: white;
+    width: 'auto';
     border: none;
     color:black;
     outline: none;
     font-size: 1em;
     font-weight: 300;
-    padding-bottom: 10px;
-    margin-top: 10px;
-    width: 300px;
-    align-items: flex-start;
-    
+    align-items: flex-start; 
 }
-  
+
+.div-field {
+    width: 240px;
+}
+
 .inputWorkshop::placeholder {
     color: rgb(7, 107, 50);
     background-color: white;

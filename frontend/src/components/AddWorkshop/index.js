@@ -7,10 +7,16 @@ import {
     getIsOpen
 } from '../../reducers';
 import Nav from '../Nav';
+import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { reset, Field, reduxForm } from 'redux-form';
 import * as actions from '../../actions/workshops';
 import './styles.css';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+    MuiPickersUtilsProvider,
+    KeyboardDatePicker,
+} from '@material-ui/pickers';
 
 const drawerWidth = 240;
 
@@ -44,6 +50,34 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) => (
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <KeyboardDatePicker
+          className="inputWorkshop"
+          disableToolbar
+          variant="inline"
+          format="yyyy/MM/dd"
+          margin="normal"
+          id="date-picker-inline"
+          label={label}
+          onChange={onChange}
+          time={showTime}
+          value={!value ? null : new Date(value)}
+        />
+    </MuiPickersUtilsProvider>
+);
+
+const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
+    <TextField className="inputWorkshop" placeholder={label}
+        label={label}
+        helperText={touched && error}
+        {...input}
+        {...custom}
+        margin="normal"
+        fullWidth
+    />
+);
+
 let AddWorkshop = ({ open,
     onSubmit,
     isLoading,
@@ -61,46 +95,29 @@ let AddWorkshop = ({ open,
                 <div className="addWorkshop">
                     <div className="datosWorkshop">
                         <h2 className="tituloformW">{'Nuevo Taller'}</h2>
-                        <form className="formW" onSubmit={handleSubmit}>
+                        <form className="formW">
                             <h3 className="subw">Datos</h3>
-                            <p>
-                                <Field className="inputWorkshop"
-                                    name="name"
-                                    type="text"
-                                    placeholder="Nombre"
-                                    component="input"
-                                />
-                            </p>
-                            <p>
-                                <Field className="inputWorkshop"
-                                    name="startdate"
-                                    type="text"
-                                    placeholder="Fecha de inicio (YYYY-MM-DD)"
-                                    component="input"
-                                />
-                            </p>
-                            <p>
-                                <Field className="inputWorkshop"
-                                    name="enddate"
-                                    type="text"
-                                    placeholder="Fecha de fin (YYYY-MM-DD)"
-                                    component="input"
-                                />
-                            </p>
-                            <p>
-                                <Field className="inputWorkshop"
-                                    name="classroom"
-                                    type="text"
-                                    placeholder="Salon"
-                                    component="input"
-                                />
-                            </p>
+                            <div className="div-field">
+                                <Field name="name" component={renderTextField} label="Nombre"/>
+                            </div>
+                            <div className="div-field">
+                                <Field name="description" component={renderTextField} label="Descripción"/>
+                            </div>
+                            <div className="div-field">
+                                <Field name="classroom" component={renderTextField} label="Salon"/>
+                            </div>
+                            <div>
+                                <Field name="startdate" component={renderDateTimePicker} label="Fecha de Inicio"/>
+                            </div>
+                            <div>
+                                <Field name="enddate" component={renderDateTimePicker} label="Fecha de Finalización"/>
+                            </div>
                             <p>
                                 {
                                     isLoading ? (
                                         <strong>{'Cargando...'}</strong>
                                     ) : (
-                                            <button className="buttonformW" type="submit" onClick={onSubmit}>
+                                            <button className="buttonformW" type="submit" onClick={handleSubmit(onSubmit)}>
                                                 {'Crear'}
                                             </button>
                                         )
@@ -128,15 +145,16 @@ AddWorkshop = connect(
         open: getIsOpen(state),
     }),
     dispatch => ({
-        onSubmit({ name, startdate, enddate, classroom }) {
+        onSubmit({ name, startdate, enddate, classroom, description }) {
             dispatch(
-                actions.startAddingWorkshop({
-                    id: uuidv4(),
+                actions.startAddingWorkshop(
+                    uuidv4(),
                     name,
-                    startdate,
-                    enddate,
                     classroom,
-                }),
+                    description,
+                    startdate,
+                    enddate
+                ),
                 console.log("Taller creado!"),
                 dispatch(reset('workshopForm')),
             );

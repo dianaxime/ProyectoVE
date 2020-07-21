@@ -49,11 +49,11 @@ function* fetchWorkshops(action) {
         );
       } else {
         const errors = yield response.json();
-        yield put(actions.failAuthorize(errors.error));
+        yield put(actions.failFetchingWorkshops(errors.error));
       }
     }
   } catch (error) {
-    yield put(actions.failAuthorize("Error de conexión"));
+    yield put(actions.failFetchingWorkshops("Error de conexión"));
     console.log("ERROR", error);
   }
 }
@@ -68,12 +68,11 @@ export function* watchWorkshopsFetch() {
 function* addWorkshop(action) {
   try {
     const isAuth = yield select(selectors.isAuthenticated);
-    console.log(isAuth);
     if (isAuth) {
       const token = yield select(selectors.getAuthToken);
       const response = yield call(
         fetch,
-        `${API_BASE_URL}/workshops/create`,
+        `${API_BASE_URL}/workshop/create`,
         {
           method: 'POST',
           body: JSON.stringify(action.payload),
@@ -83,7 +82,6 @@ function* addWorkshop(action) {
           },
         }
       );
-
       if (response.status === 201) {
         const jsonResult = yield response.json();
         yield put(
@@ -94,11 +92,11 @@ function* addWorkshop(action) {
         );
       } else {
         const errors = yield response.json();
-        yield put(actions.failAuthorize(errors.error));
+        yield put(actions.failAddingWorkshop(errors.error));
       }
     }
   } catch (error) {
-    yield put(actions.failAuthorize("Error de conexión"));
+    yield put(actions.failAddingWorkshop("Error de conexión"));
   }
 }
 
