@@ -38,6 +38,8 @@ const GET_PENDING = `SELECT * FROM registers WHERE status=$1`;
 
 const GET_STUDENTS= `SELECT * FROM users WHERE type=$1`;
 
+const GET_STUDENT_BY_EMAIL= `SELECT * FROM users WHERE email ILIKE $1`;
+
 
 
 /**
@@ -265,6 +267,41 @@ const getStudents=async (req, res)=>{
         console.log('DATA:', data); // print data;
         if (!data) {
             errorMessage.error = 'No students found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+}
+
+/*Get student by email */
+const getStudentByEmail=async (req, res)=>{
+
+    const {
+        email,
+    } = req.body;
+
+    if (isEmpty(email)) {
+        errorMessage.error = 'Email detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+
+    
+    const values = [
+        email
+    ];
+
+    db.query(GET_STUDENT_BY_EMAIL, values)
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'No student found';
             return res.status(status.notfound).send(errorMessage);
         }
     
@@ -570,4 +607,5 @@ module.exports = {
     refreshToken,
     getPending,
     getStudents,
+    getStudentByEmail
 };

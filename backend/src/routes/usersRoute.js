@@ -10,6 +10,7 @@ const {
     refreshToken,
     getPending,
     getStudents,
+    getStudentByEmail
 } = require('../controllers/usersController');
 const verifyAuth = require('../middleware/verifyAuth');
 
@@ -26,4 +27,5 @@ router.patch('/auth/update', verifyAuth, updateUser);
 router.post('/auth/token-refresh', verifyAuth, refreshToken);
 router.get('/auth/pending-users', verifyAuth, getPending);
 router.get('/auth/all-students', verifyAuth, getStudents);
+router.get('/auth/student-email', verifyAuth, getStudentByEmail);
 module.exports = router;
