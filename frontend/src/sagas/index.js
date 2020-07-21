@@ -12,11 +12,11 @@ import {
 } from './auth';
 
 import {
-    watchAddTaller,
-    watchTalleresFetch,
-    watchRemoveTaller,
-    watchUpdateTaller
-  } from './talleres';
+    watchAddWorkshop,
+    watchWorkshopsFetch,
+    watchRemoveWorkshop,
+    watchUpdateWorkshop
+  } from './workshops';
 
 function* mainSaga() {
     yield all([
@@ -29,10 +29,10 @@ function* mainSaga() {
         fork(watchChangePassStarted),
         fork(watchFetchingUsersStarted),
         fork(watchAuthorizeStarted),
-        fork(watchAddTaller),
-        fork(watchTalleresFetch),
-        fork(watchRemoveTaller),
-        fork(watchUpdateTaller),
+        fork(watchAddWorkshop),
+        fork(watchWorkshopsFetch),
+        fork(watchRemoveWorkshop),
+        fork(watchUpdateWorkshop),
     ]);
 }
 

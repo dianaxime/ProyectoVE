@@ -1,12 +1,12 @@
 import omit from 'lodash/omit';
 import { combineReducers } from 'redux';
 
-import * as types from '../types/talleres';
+import * as types from '../types/workshops';
 
 
 const byId = (state = {}, action) => {
   switch(action.type) {
-    case types.TALLERES_FETCH_COMPLETED: {
+    case types.WORKSHOPS_FETCH_COMPLETED: {
       const { entities, order } = action.payload;
       const newState = { ...state };
       order.forEach(id => {
@@ -18,7 +18,7 @@ const byId = (state = {}, action) => {
 
       return newState;
     }
-    case types.TALLER_ADD_STARTED: {
+    case types.WORKSHOP_ADD_STARTED: {
       const newState = { ...state };
       newState[action.payload.id] = {
         ...action.payload,
@@ -26,7 +26,7 @@ const byId = (state = {}, action) => {
       };
       return newState;
     }
-    case types.TALLER_ADD_COMPLETED: {
+    case types.WORKSHOP_ADD_COMPLETED: {
       const { oldId, taller } = action.payload;
       const newState = omit(state, oldId);
       newState[taller.id] = {
@@ -35,10 +35,10 @@ const byId = (state = {}, action) => {
       };
       return newState;
     }
-    case types.TALLER_REMOVE_STARTED: {
+    case types.WORKSHOP_REMOVE_STARTED: {
       return omit(state, action.payload.id.id);
     }
-    case types.TALLER_UPDATE_STARTED: {
+    case types.WORKSHOP_UPDATE_STARTED: {
       return {
         ...state,
         [action.payload.id.id]: {
@@ -55,20 +55,20 @@ const byId = (state = {}, action) => {
 
 const order = (state = [], action) => {
   switch(action.type) {
-    case types.TALLERES_FETCH_COMPLETED: {
+    case types.WORKSHOPS_FETCH_COMPLETED: {
       return [...action.payload.order];
     }
-    case types.TALLER_ADD_STARTED: {
+    case types.WORKSHOP_ADD_STARTED: {
       return [...state, action.payload.id];
     }
-    case types.TALLER_ADD_COMPLETED: {
+    case types.WORKSHOP_ADD_COMPLETED: {
       const { oldId, taller } = action.payload;
       return state.map(id => id === oldId ? taller.id : id);
     }
-    case types.TALLER_REMOVE_STARTED: {
+    case types.WORKSHOP_REMOVE_STARTED: {
       return state.filter(id => id !== action.payload.id.id);
     }
-    case types.TALLER_UPDATE_COMPLETED: {
+    case types.WORKSHOP_UPDATE_COMPLETED: {
       const { id, taller } = action.payload;
         const newState = omit(state, id);
         newState[taller.id] = {
@@ -84,13 +84,13 @@ const order = (state = [], action) => {
 
 const isFetching = (state = false, action) => {
   switch(action.type) {
-    case types.TALLERES_FETCH_STARTED: {
+    case types.WORKSHOPS_FETCH_STARTED: {
       return true;
     }
-    case types.TALLERES_FETCH_COMPLETED: {
+    case types.WORKSHOPS_FETCH_COMPLETED: {
       return false;
     }
-    case types.TALLERES_FETCH_FAILED: {
+    case types.WORKSHOPS_FETCH_FAILED: {
       return false;
     }
     default: {
@@ -101,13 +101,13 @@ const isFetching = (state = false, action) => {
 
 const error = (state = null, action) => {
   switch(action.type) {
-    case types.TALLERES_FETCH_FAILED: {
+    case types.WORKSHOPS_FETCH_FAILED: {
       return action.payload.error;
     }
-    case types.TALLERES_FETCH_STARTED: {
+    case types.WORKSHOPS_FETCH_STARTED: {
       return null;
     }
-    case types.TALLERES_FETCH_COMPLETED: {
+    case types.WORKSHOPS_FETCH_COMPLETED: {
       return null;
     }
     default: {
@@ -116,15 +116,15 @@ const error = (state = null, action) => {
   }
 };
 
-const updateTallerError = (state=null, action) => {
+const updateWorkshopError = (state=null, action) => {
   switch(action.type){
-    case types.TALLER_UPDATE_FAILED: {
+    case types.WORKSHOP_UPDATE_FAILED: {
       return action.payload.error;
     }
-    case types.TALLER_UPDATE_COMPLETED: {
+    case types.WORKSHOP_UPDATE_COMPLETED: {
       return null;
     }
-    case types.TALLER_UPDATE_STARTED: {
+    case types.WORKSHOP_UPDATE_STARTED: {
       return null;
     }
     default: {
@@ -139,11 +139,11 @@ export default combineReducers({
   order,
   isFetching,
   error,
-  updateTallerError,
+  updateWorkshopError,
 });
 
-export const getTaller = (state, id) => state.byId[id];
-export const getTalleres = state => state.order.map(id => getTaller(state, id));
-export const isFetchingTalleres = state => state.isFetching;
-export const getFetchingTalleresError = state => state.error;
-export const getUpdateTallerError = state => state.updateTallerError;
+export const getWorkshop = (state, id) => state.byId[id];
+export const getWorkshops = state => state.order.map(id => getWorkshop(state, id));
+export const isFetchingWorkshops = state => state.isFetching;
+export const getFetchingWorkshopsError = state => state.error;
+export const getUpdateWorkshopError = state => state.updateWorkshopError;

@@ -10,24 +10,23 @@ import {
   import { normalize } from 'normalizr';
   
   import * as selectors from '../reducers';
-  import * as actions from '../actions/talleres';
-  import * as types from '../types/talleres';
-  import * as schemas from '../schemas/talleres';
+  import * as actions from '../actions/workshops';
+  import * as types from '../types/workshops';
+  import * as schemas from '../schemas/workshops';
   
   
   const API_BASE_URL = 'http://localhost:8000/api/v1';
   
   
-  function* fetchTalleres(action) {
+  function* fetchWorkshops(action) {
     try {
       const isAuth = yield select(selectors.isAuthenticated);
   
       if (isAuth) {
         const token = yield select(selectors.getAuthToken);
-        const student = yield select(selectors.getAuthUserID)
         const response = yield call(
           fetch,
-          `${API_BASE_URL}/talleres/`,
+          `${API_BASE_URL}/workshops/`,
           {
             method: 'GET',
             headers:{
@@ -40,19 +39,19 @@ import {
         if (response.status === 200) {
           const jsonResult = yield response.json();
           const {
-            entities: { talleres },
+            entities: { workshops },
             result,
-          } = normalize(jsonResult, schemas.talleres);
+          } = normalize(jsonResult, schemas.workshops);
   
           yield put(
-            actions.completeFetchingTalleres(
-              talleres,
+            actions.completeFetchingWorkshops(
+              workshops,
               result,
             ),
           );
         } else {
            const { non_field_errors } = yield response.json();
-           yield put(actions.failFetchingTalleres(non_field_errors[0]));
+           yield put(actions.failFetchingWorkshops(non_field_errors[0]));
         }
       }
     } catch (error) {
@@ -61,14 +60,14 @@ import {
     }
   }
   
-  export function* watchTalleresFetch() {
+  export function* watchWorkshopsFetch() {
     yield takeEvery(
-      types.TALLERES_FETCH_STARTED,
-      fetchTalleres,
+      types.WORKSHOPS_FETCH_STARTED,
+      fetchWorkshops,
     );
   }
   
-  function* addTaller(action) {
+  function* addWorkshop(action) {
     try {
       const isAuth = yield select(selectors.isAuthenticated);
       console.log(isAuth);
@@ -76,7 +75,7 @@ import {
         const token = yield select(selectors.getAuthToken);
         const response = yield call(
           fetch,
-          `${API_BASE_URL}/talleres/`,
+          `${API_BASE_URL}/workshops/`,
           {
             method: 'POST',
             body: JSON.stringify(action.payload),
@@ -90,14 +89,14 @@ import {
         if (response.status === 201) {
           const jsonResult = yield response.json();
           yield put(
-            actions.completeAddingTaller(
+            actions.completeAddingWorkshop(
               action.payload.id,
               jsonResult,
             ),
           );
         } else {
           const { non_field_errors } = yield response.json();
-          yield put(actions.failAddingTaller(non_field_errors[0]));
+          yield put(actions.failAddingWorkshop(non_field_errors[0]));
         }
       }
     } catch (error) {
@@ -106,14 +105,14 @@ import {
     }
   }
   
-  export function* watchAddTaller() {
+  export function* watchAddWorkshop() {
     yield takeEvery(
-      types.TALLER_ADD_STARTED,
-      addTaller,
+      types.WORKSHOP_ADD_STARTED,
+      addWorkshop,
     );
   }
   
-  function* removeTaller(action) {
+  function* removeWorkshop(action) {
     try {
       const isAuth = yield select(selectors.isAuthenticated);
   
@@ -121,7 +120,7 @@ import {
         const token = yield select(selectors.getAuthToken);
         const response = yield call(
           fetch,
-          `${API_BASE_URL}/talleres/${action.payload.id.id}/`,
+          `${API_BASE_URL}/workshops/${action.payload.id.id}/`,
           {
             method: 'DELETE',
             headers:{
@@ -132,10 +131,10 @@ import {
         );
   
         if (response.status === 204) {
-          yield put(actions.completeRemovingTaller());
+          yield put(actions.completeRemovingWorkshop());
         } else {
           const { non_field_errors } = yield response.json();
-          yield put(actions.failRemovingTaller(non_field_errors[0]));
+          yield put(actions.failRemovingWorkshop(non_field_errors[0]));
         }
       }
     } catch (error) {
@@ -144,14 +143,14 @@ import {
     }
   }
   
-  export function* watchRemoveTaller() {
+  export function* watchRemoveWorkshop() {
     yield takeEvery(
-      types.TALLER_REMOVE_STARTED,
-      removeTaller,
+      types.WORKSHOP_REMOVE_STARTED,
+      removeWorkshop,
     );
   }
 
-  function* updateTaller(action) {
+  function* updateWorkshop(action) {
     try {
       const isAuth = yield select(selectors.isAuthenticated);
   
@@ -159,7 +158,7 @@ import {
         const token = yield select(selectors.getAuthToken);
         const response = yield call(
           fetch,
-          `${API_BASE_URL}/talleres/${action.payload.id.id}/`,
+          `${API_BASE_URL}/workshops/${action.payload.id.id}/`,
           {
             method: 'PUT',
             body: JSON.stringify(action.payload.id),
@@ -172,7 +171,7 @@ import {
         if (response.status === 200) {
           const jsonResult = yield response.json();
           yield put(
-            actions.completeUpdatingTaller(
+            actions.completeUpdatingWorkshop(
               action.payload.delva.id,
               jsonResult,
             ),
@@ -187,9 +186,9 @@ import {
     }
   }
   
-  export function* watchUpdateTaller() {
+  export function* watchUpdateWorkshop() {
     yield takeEvery(
-      types.TALLER_UPDATE_STARTED,
-      updateTaller,
+      types.WORKSHOP_UPDATE_STARTED,
+      updateWorkshop,
     );
   }

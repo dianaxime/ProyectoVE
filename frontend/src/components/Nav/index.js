@@ -114,14 +114,14 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate  }) => {
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState(null);
   const openA = Boolean(anchorEl);
-  const [openT, setOpenT] = useState(true);
+  const [openW, setOpenW] = useState(true);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
-    setOpenT(false);
+    setOpenW(false);
   };
 
   const handleMenu = (event) => {
@@ -142,8 +142,8 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate  }) => {
     onHandle();
   }
 
-  const handleClickTaller = () => {
-    setOpenT(!openT);
+  const handleClickWorkshop = () => {
+    setOpenW(!openW);
   };
 
   return (
@@ -245,14 +245,14 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate  }) => {
         </List>
         <Divider />
         <List> 
-          <ListItem button onClick={handleClickTaller}>
+          <ListItem button onClick={handleClickWorkshop}>
             <ListItemIcon>
               <BrushIcon />
             </ListItemIcon>
             <ListItemText primary="Talleres" />
-            {openT ? <ExpandLess /> : <ExpandMore />}
+            {openW ? <ExpandLess /> : <ExpandMore />}
           </ListItem>
-          <Collapse in={openT} timeout="auto" unmountOnExit>
+          <Collapse in={openW} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               <ListItem button className={classes.nested}>
                 <Link to="/creartaller" className={classes.link}>

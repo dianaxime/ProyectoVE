@@ -11,7 +11,7 @@ import Nav from '../Nav';
 import { makeStyles } from '@material-ui/core/styles';
 import { reset, Field, reduxForm } from 'redux-form';
 import * as selectors from '../../reducers';
-import * as actions from '../../actions/talleres';
+import * as actions from '../../actions/workshops';
 import './styles.css';
 
 const drawerWidth = 240;
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const CrearTaller = ({ open, 
+const CrearWorkshop = ({ open, 
     onSubmit,
     isLoading,
     handleSubmit, }) => {
@@ -60,13 +60,13 @@ const CrearTaller = ({ open,
                 })}
             >
                 <div className={classes.drawerHeader} />
-                <div className="addTaller"> 
-                    <div className="datosTaller"> 
-                    <h2 className="tituloformT">{'Nuevo Taller'}</h2>
-                    <form className="formT" onSubmit={handleSubmit}>
-                    <h3 className="subt">Datos</h3>
+                <div className="addWorkshop"> 
+                    <div className="datosWorkshop"> 
+                    <h2 className="tituloformW">{'Nuevo Taller'}</h2>
+                    <form className="formW" onSubmit={handleSubmit}>
+                    <h3 className="subw">Datos</h3>
                     <p>
-                        <Field className="inputTaller"
+                        <Field className="inputWorkshop"
                         name="name"
                         type="text"
                         placeholder="Nombre" 
@@ -74,16 +74,24 @@ const CrearTaller = ({ open,
                         />
                     </p>
                     <p>
-                        <Field className="inputTaller"
-                        name="date"
+                        <Field className="inputWorkshop"
+                        name="startdate"
                         type="text"
-                        placeholder="Fecha (YYYY-MM-DD)"
+                        placeholder="Fecha de inicio (YYYY-MM-DD)"
                         component="input"
                         />
                     </p>
                     <p>
-                        <Field className="inputTaller"
-                        name="salon"
+                        <Field className="inputWorkshop"
+                        name="enddate"
+                        type="text"
+                        placeholder="Fecha de fin (YYYY-MM-DD)"
+                        component="input"
+                        />
+                    </p>
+                    <p>
+                        <Field className="inputWorkshop"
+                        name="classroom"
                         type="text"
                         placeholder="Salon"
                         component="input"
@@ -94,7 +102,7 @@ const CrearTaller = ({ open,
                         isLoading ? (
                             <strong>{'Cargando...'}</strong>
                         ) : (
-                            <button className="buttonformT" type="submit" onClick={onSubmit}>
+                            <button className="buttonformW" type="submit" onClick={onSubmit}>
                                 {'Crear'}
                             </button>
                         )
@@ -102,7 +110,7 @@ const CrearTaller = ({ open,
                     </p>
                     </form>
                     </div>
-                    <div className="personasTaller">
+                    <div className="personasWorkshop">
                         <h1>Personas</h1>
                     </div>
                 </div>
@@ -114,7 +122,7 @@ const CrearTaller = ({ open,
     );
 }
 
-export default reduxForm({form: 'tallerform'})(    
+export default reduxForm({form: 'workshopform'})(    
     connect(
     state => ({
         isLoading: false,
@@ -122,16 +130,17 @@ export default reduxForm({form: 'tallerform'})(
         open: getIsOpen(state),
     }),
     dispatch => ({
-        onSubmit({name, date, salon}) {
+        onSubmit({name, startdate, enddate, classroom}) {
           dispatch(
-            actions.startAddingTaller({
+            actions.startAddingWorkshop({
               id: uuidv4(),
               name,
-              date,
-              salon,
+              startdate,
+              enddate,
+              classroom,
             }),
           console.log("Taller creado!"),
-          dispatch(reset('tallerform')),
+          dispatch(reset('workshopform')),
           );
         },
       }),
@@ -146,5 +155,5 @@ export default reduxForm({form: 'tallerform'})(
         });
         
     },
-)(CrearTaller)
+)(CrearWorkshop)
 );
