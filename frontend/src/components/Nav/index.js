@@ -156,7 +156,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate  }) => {
           color: 'green',
         })}
       >
-        <Toolbar style={{ background: '#322E73' }}>
+        <Toolbar style={{ background: 'green' }}>
           {
             isAuth && (
               <IconButton
@@ -199,9 +199,9 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate  }) => {
                 open={openA}
                 onClose={handleClose}
               >
-                <MenuItem onClick={update}>Update Profile</MenuItem>
-                <MenuItem onClick={handle}>Change Password</MenuItem>
-                <MenuItem onClick={logout}>Logout</MenuItem>
+                <MenuItem onClick={update}>Actualizar Perfil</MenuItem>
+                <MenuItem onClick={handle}>Cambiar Contraseña</MenuItem>
+                <MenuItem onClick={logout}>Salir</MenuItem>
               </Menu>
             </div>
           )}

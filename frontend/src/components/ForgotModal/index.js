@@ -16,11 +16,11 @@ const validate = values => {
     const requiredFields = ['email'];
     requiredFields.forEach(field => {
         if (!values[field]) {
-            errors[field] = 'Required';
+            errors[field] = 'Obligatorio*';
         }
     })
     if (values.email && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = 'Invalid email address';
+        errors.email = 'Correo electrónico invalido';
     }
     return errors;
 }
@@ -37,20 +37,21 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
 let Forgot = ({ open, onHandle, Message, onSubmit, handleSubmit }) => {
     return (
         <MDBContainer>
-            <MDBModal isOpen={open} fullHeight position="bottom">
-                <MDBModalHeader>Recover Password</MDBModalHeader>
+            <MDBModal  isOpen={open}>
+                <MDBModalHeader><b>Recuperar Contraseña</b></MDBModalHeader>
                 <MDBModalBody>
                     <div>
                         <div>
-                            <Field name="email" component={renderTextField} label="Email" />
+                        <p>Se mandará un correo electrónico a la cuenta ingresada con la nueva contraseña.</p>
+                            <Field name="email" component={renderTextField} label="Correo Electrónico" />
                         </div>
                         <div>{Message}</div>
 
                     </div>
                 </MDBModalBody>
                 <MDBModalFooter>
-                    <MDBBtn color="secondary" onClick={onHandle}>Close</MDBBtn>
-                    <MDBBtn color="primary" onClick={handleSubmit(onSubmit)}>Send</MDBBtn>
+                    <MDBBtn color="red" onClick={onHandle}>Cerrar</MDBBtn>
+                    <MDBBtn color="green" onClick={handleSubmit(onSubmit)}>Enviar</MDBBtn>
                 </MDBModalFooter>
             </MDBModal>
         </MDBContainer>
@@ -67,7 +68,7 @@ Forgot = connect(
         Message:
             getIsRecovering(state) !== null
                 ? getIsRecovering(state)
-                    ? "Loading"
+                    ? "Cargando"
                     : getRecoveringError(state)
                 : undefined,
         open: getIsForgotOpen(state),

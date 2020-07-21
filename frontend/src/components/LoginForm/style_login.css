@@ -16,3 +16,9 @@
     text-align: center;
     border-radius: 100% 0% 83% 17% / 15% 100% 0% 85% ;
 }
+
+.boton_inicio{
+    display: block;
+    top: 15px;
+    width: 200px;
+}

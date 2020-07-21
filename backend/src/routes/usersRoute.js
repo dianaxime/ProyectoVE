@@ -8,7 +8,8 @@ const {
     changePassword,
     updateUser,
     refreshToken,
-    getPending
+    getPending,
+    getStudents,
 } = require('../controllers/usersController');
 const verifyAuth = require('../middleware/verifyAuth');
 
@@ -24,5 +25,5 @@ router.patch('/auth/change', verifyAuth, changePassword);
 router.patch('/auth/update', verifyAuth, updateUser);
 router.post('/auth/token-refresh', verifyAuth, refreshToken);
 router.get('/auth/pending-users', verifyAuth, getPending);
-
+router.get('/auth/all-students', verifyAuth, getStudents);
 module.exports = router;

@@ -69,6 +69,125 @@ const createRegisterTable = () => {
 };
 
 /**
+ * Create Scholars Table
+*/
+
+const createScholarsTable = () => {
+    const scholarsCreateQuery = `CREATE TABLE IF NOT EXISTS scholars
+    (
+        id SERIAL PRIMARY KEY,
+        userID INT NOT NULL,
+        hours FLOAT NOT NULL,
+        videoEditor INT NOT NULL,
+        photoEditor INT NOT NULL,
+        spokesPersons INT NOT NULL,
+        organizer INT NOT NULL,
+        FOREIGN KEY (userID) REFERENCES users(id)
+    )`;
+
+    pool.query(scholarsCreateQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+/*Worshop table*/
+const createWorkshoTable = () => {
+    const workshopCreateQuery = `CREATE TABLE IF NOT EXISTS workshop
+    (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(100) NOT NULL,
+        classroom VARCHAR(50) NOT NULL,
+        description VARCHAR(300) NOT NULL,
+        startdate DATE NOT NULL,
+        enddate DATE NOT NULL
+    )`;
+
+    pool.query(workshopCreateQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+/*Team table*/
+const createTeamTable = () => {
+    const teamCreateQuery = `CREATE TABLE IF NOT EXISTS team
+    (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(100) NOT NULL,
+        sport VARCHAR(100) NOT NULL
+    )`;
+
+    pool.query(teamCreateQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+/*Tournament table*/
+const createTournamentTable = () => {
+    const tournamentCreateQuery = `CREATE TABLE IF NOT EXISTS tournament
+    (
+        id SERIAL PRIMARY KEY,
+        userID INT NOT NULL,
+        idT INT NOT NULL,
+        startdate DATE NOT NULL,
+        enddate DATE NOT NULL,
+        FOREIGN KEY (userID) REFERENCES users(id),
+        FOREIGN KEY (idT) REFERENCES team(id)
+    )`;
+
+    pool.query(tournamentCreateQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+/*Participation table*/
+const createParticipationTable = () => {
+    const participationCreateQuery = `CREATE TABLE IF NOT EXISTS participation
+    (
+        id SERIAL PRIMARY KEY,
+        userID INT NOT NULL,
+        idW INT NOT NULL,
+        startdate DATE NOT NULL,
+        enddate DATE NOT NULL,
+        FOREIGN KEY (userID) REFERENCES users(id),
+        FOREIGN KEY (idW) REFERENCES workshop(id)
+    )`;
+
+    pool.query(participationCreateQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+/**
  * Drop User Table
 */
 
@@ -103,12 +222,86 @@ const dropRegisterTable = () => {
 };
 
 /**
+ * Drop Scholars Table
+*/
+
+const dropScholarsTable = () => {
+    const scholarsDropQuery = `DROP TABLE IF EXISTS scholars`;
+    pool.query(scholarsDropQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+/**
+ * Drop Workshop Table
+*/
+
+const dropWorkshopTable = () => {
+    const workDropQuery = `DROP TABLE IF EXISTS workshop`;
+    pool.query(workDropQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+/**
+ * Drop Team Table
+*/
+
+const dropTeamTable = () => {
+    const teamDropQuery = `DROP TABLE IF EXISTS team`;
+    pool.query(teamDropQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+
+/**
+ * Drop Participation Table
+*/
+
+const dropParticipationTable = () => {
+    const participationDropQuery = `DROP TABLE IF EXISTS participation`;
+    pool.query(participationDropQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+/**
  * Create All Tables
 */
 
 const createAllTables = () => {
     createUserTable();
     createRegisterTable();
+    createScholarsTable();
+    createWorkshoTable();
+    createTeamTable();
+    createParticipationTable();
+    createTournamentTable();
 };
 
 /**
@@ -118,6 +311,10 @@ const createAllTables = () => {
 const dropAllTables = () => {
     dropUserTable();
     dropRegisterTable();
+    dropScholarsTable();
+    dropWorkshopTable();
+    dropTeamTable();
+    dropParticipationTable();
 };
 
 pool.on('remove', () => {
