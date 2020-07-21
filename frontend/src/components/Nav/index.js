@@ -6,6 +6,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
+import ListSubheader from '@material-ui/core/ListSubheader';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
@@ -20,6 +21,11 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import HomeIcon from '@material-ui/icons/Home';
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
+import BrushIcon from '@material-ui/icons/Brush';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
+import StarBorder from '@material-ui/icons/StarBorder';
+import Collapse from '@material-ui/core/Collapse';
 import { connect } from 'react-redux';
 import { getAuthToken, getIsOpen } from '../../reducers';
 import * as actions from '../../actions/changeDrawer';
@@ -28,14 +34,16 @@ import * as actionsModal from '../../actions/modalChange';
 import * as actionsUpdate from '../../actions/modalUpdate';
 import ChangeModal from '../ChangeModal';
 import UpdateModal from '../UpdateModal';
-
+import './styles.css';
 import { Link } from "react-router-dom";
 
-const drawerWidth = 240;
+const drawerWidth = 270;
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    width: '100%',
+    maxWidth: 360,
   },
   appBar: {
     transition: theme.transitions.create(['margin', 'width'], {
@@ -91,24 +99,29 @@ const useStyles = makeStyles((theme) => ({
   },
   link: {
     textDecoration: 'none',
-    color: theme.palette.text.primary
+    color: theme.palette.text.primary,
   },
   title: {
     flexGrow: 1,
   },
+  nested: {
+    paddingLeft: theme.spacing(4),
+  },
 }));
 
-const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate }) => {
+const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate  }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState(null);
   const openA = Boolean(anchorEl);
+  const [openW, setOpenW] = useState(true);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
+    setOpenW(false);
   };
 
   const handleMenu = (event) => {
@@ -128,6 +141,10 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate }) => {
     handleClose();
     onHandle();
   }
+
+  const handleClickWorkshop = () => {
+    setOpenW(!openW);
+  };
 
   return (
     <div>
@@ -226,6 +243,48 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate }) => {
             </ListItem>
           </Link>
         </List>
+        <Divider />
+        <List> 
+          <ListItem button onClick={handleClickWorkshop}>
+            <ListItemIcon>
+              <BrushIcon />
+            </ListItemIcon>
+            <ListItemText primary="Talleres" />
+            {openW ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={openW} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItem button className={classes.nested}>
+                <Link to="/creartaller" className={classes.link}>
+                  <ListItemIcon>
+                    <StarBorder />
+                  </ListItemIcon>
+                  <ListItemText primary={"Crear"} />
+                </Link>
+              </ListItem>
+              <ListItem button className={classes.nested}>
+                <Link to="/authorization" className={classes.link}>
+                  <ListItemIcon>
+                    <StarBorder/>
+                  </ListItemIcon>
+                  <ListItemText primary={"Ver todos"} />
+                </Link>
+              </ListItem>
+              <ListItem button className={classes.nested}>
+                <Link to="/authorization" className={classes.link}>
+                  <ListItemIcon>
+                    <StarBorder />
+                  </ListItemIcon>
+                  <ListItemText primary={"Editar"} />
+                </Link>
+              </ListItem>
+            </List>
+          </Collapse>
+        </List>
+        <Divider />
+
+        
+
       </Drawer>
       <ChangeModal />
       <UpdateModal />

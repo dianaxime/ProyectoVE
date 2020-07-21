@@ -9,6 +9,7 @@
     background: linear-gradient(200deg, rgb(42,200,72) 0%, rgb(7, 107, 50) 75%);
     height: 450px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;

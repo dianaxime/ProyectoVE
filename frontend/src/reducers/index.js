@@ -2,6 +2,9 @@ import { combineReducers } from 'redux';
 import {reducer as formReducer} from 'redux-form';
 
 import auth, * as authSelectors from './auth';
+import workshops, * as workshopsSelectors from './workshops';
+
+
 import changeDrawer, * as changeDrawerSelectors from './changeDrawer';
 import changeForgot, * as changeForgotSelectors from './modalForgot';
 import changeChange, * as changeChangeSelectors from './modalChange';
@@ -13,6 +16,7 @@ const reducer = combineReducers({
   changeForgot,
   changeChange,
   changeUpdate,
+  workshops,
   form: formReducer,
 });
 
@@ -52,3 +56,8 @@ export const getIsForgotOpen = state => changeForgotSelectors.getIsForgotOpen(st
 export const getIsChangeOpen = state => changeChangeSelectors.getIsChangeOpen(state.changeChange);
 /* Update Password Modal */
 export const getIsUpdateOpen = state => changeUpdateSelectors.getIsUpdateOpen(state.changeUpdate);
+/* Workshops */
+export const getWorkshop = (state, id) => workshopsSelectors.getWorkshop(state.workshops, id);
+export const getWorkshops = state => workshopsSelectors.getWorkshops(state.workshops);
+export const isFetchingWorkshops = state => workshopsSelectors.isFetchingWorkshops(state.workshops);
+export const getFetchingWorkshopsError = state => workshopsSelectors.getFetchingWorkshopsError(state.workshops);

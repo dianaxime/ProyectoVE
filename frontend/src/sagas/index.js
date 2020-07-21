@@ -11,6 +11,13 @@ import {
     watchAuthorizeStarted,
 } from './auth';
 
+import {
+    watchAddWorkshop,
+    watchWorkshopsFetch,
+    watchRemoveWorkshop,
+    watchUpdateWorkshop
+  } from './workshops';
+
 function* mainSaga() {
     yield all([
         /* Auth */
@@ -22,6 +29,10 @@ function* mainSaga() {
         fork(watchChangePassStarted),
         fork(watchFetchingUsersStarted),
         fork(watchAuthorizeStarted),
+        fork(watchAddWorkshop),
+        fork(watchWorkshopsFetch),
+        fork(watchRemoveWorkshop),
+        fork(watchUpdateWorkshop),
     ]);
 }
 
