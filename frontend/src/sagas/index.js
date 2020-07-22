@@ -14,6 +14,7 @@ import {
 import {
     watchAddWorkshop,
     watchWorkshopsFetch,
+    watchUpdateWorkshop,
 } from './workshops';
 
 function* mainSaga() {
@@ -30,6 +31,7 @@ function* mainSaga() {
         /* Workshop */
         fork(watchAddWorkshop),
         fork(watchWorkshopsFetch),
+        fork(watchUpdateWorkshop),
     ]);
 }
 

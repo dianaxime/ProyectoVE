@@ -142,7 +142,7 @@ function* updateWorkshop(action) {
   }
 }
 
-export function* watchAddWorkshop() {
+export function* watchUpdateWorkshop() {
   yield takeEvery(
     types.WORKSHOP_UPDATE_STARTED,
     updateWorkshop,
