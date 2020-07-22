@@ -46,3 +46,31 @@ export const failAddingWorkshop = (oldId, error) => ({
     error,
   },
 });
+
+export const startUpdatingWorkshop = (id, name, classroom, description, startdate, enddate) => ({
+  type: types.WORKSHOP_UPDATE_STARTED,
+  payload: {
+    id,
+    name,
+    classroom,
+    description,
+    startdate,
+    enddate,
+  },
+});
+
+export const completeUpdatingWorkshop = (id, workshop) => ({
+  type: types.WORKSHOP_UPDATE_COMPLETED,
+  payload: {
+    id,
+    workshop,
+  },
+});
+
+export const failUpdatingWorkshop = (id, error) => ({
+  type: types.WORKSHOP_UPDATE_FAILED,
+  payload: {
+    id,
+    error,
+  },
+});

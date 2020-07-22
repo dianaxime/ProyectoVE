@@ -20,6 +20,17 @@ import {
 
 const drawerWidth = 240;
 
+const validate = values => {
+    const errors = {};
+    const requiredFields = [ 'name', 'startdate', 'enddate', 'classroom', 'description'];
+    requiredFields.forEach(field => {
+        if (!values[ field ]) {
+            errors[ field ] = 'Obligatorio*';
+        }
+    })
+    return errors;
+}
+
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -62,7 +73,7 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) =
           label={label}
           onChange={onChange}
           time={showTime}
-          value={!value ? null : new Date(value)}
+          value={!value ? new Date() : new Date(value)}
         />
     </MuiPickersUtilsProvider>
 );
@@ -135,7 +146,8 @@ let AddWorkshop = ({ open,
 }
 
 AddWorkshop = reduxForm({
-    form: 'workshopForm'
+    form: 'workshopForm',
+    validate
 })(AddWorkshop);
 
 AddWorkshop = connect(
