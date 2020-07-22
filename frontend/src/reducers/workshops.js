@@ -71,11 +71,11 @@ const order = (state = [], action) => {
     }
     case types.WORKSHOP_UPDATE_COMPLETED: {
       const { id, workshop } = action.payload;
-        const newState = omit(state, id);
-        newState[workshop.id] = {
-          ...workshop,
-        };
-        return newState;
+      const newState = omit(state, id);
+      newState[workshop.id] = {
+        ...workshop,
+      };
+      return newState;
     }
     default: {
       return state;
@@ -118,7 +118,7 @@ const error = (state = null, action) => {
 };
 
 const updateWorkshopError = (state = null, action) => {
-  switch(action.type){
+  switch (action.type) {
     case types.WORKSHOP_UPDATE_FAILED: {
       return action.payload.error;
     }
