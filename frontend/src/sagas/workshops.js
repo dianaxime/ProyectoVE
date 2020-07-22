@@ -106,3 +106,45 @@ export function* watchAddWorkshop() {
     addWorkshop,
   );
 }
+
+function* updateWorkshop(action) {
+  try {
+    const isAuth = yield select(selectors.isAuthenticated);
+    if (isAuth) {
+      const token = yield select(selectors.getAuthToken);
+      const response = yield call(
+        fetch,
+        `${API_BASE_URL}/workshop/update-workshop`,
+        {
+          method: 'PATCH',
+          body: JSON.stringify(action.payload),
+          headers: {
+            'Content-Type': 'application/json',
+            'token': `${token}`,
+          },
+        }
+      );
+      if (response.status === 201) {
+        const jsonResult = yield response.json();
+        yield put(
+          actions.completeUpdatingWorkshop(
+            jsonResult.data.id,
+            jsonResult.data,
+          ),
+        );
+      } else {
+        const errors = yield response.json();
+        yield put(actions.failUpdatingWorkshop(errors.error));
+      }
+    }
+  } catch (error) {
+    yield put(actions.failUpdatingWorkshop("Error de conexión"));
+  }
+}
+
+export function* watchAddWorkshop() {
+  yield takeEvery(
+    types.WORKSHOP_UPDATE_STARTED,
+    updateWorkshop,
+  );
+}
