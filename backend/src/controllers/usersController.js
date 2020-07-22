@@ -40,6 +40,12 @@ const GET_STUDENTS= `SELECT * FROM users WHERE type=$1`;
 
 const GET_STUDENT_BY_EMAIL= `SELECT * FROM users WHERE email ILIKE $1`;
 
+const GET_TEAMS_BY_STUDENT_ID= `SELECT team.name, team.sport, team.id FROM users JOIN tournament ON users.id=tournament.userid
+JOIN team ON team.id=tournament.idt WHERE users.id=$1`;
+
+const GET_WS_BY_STUDENT_ID= `SELECT workshop.name, workshop.description FROM users JOIN participation ON users.id=participation.userid
+JOIN workshop ON workshop.id=participation.idw WHERE users.id=$1`;
+
 
 
 /**
@@ -314,6 +320,77 @@ const getStudentByEmail=async (req, res)=>{
         return res.status(status.error).send(errorMessage);
     })
 }
+
+/*Get students team by id */
+const getStudentsTeamsById=async (req, res)=>{
+
+    const {
+        id,
+    } = req.body;
+
+    if (isEmpty(id)) {
+        errorMessage.error = 'User id detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+
+    
+    const values = [
+        id
+    ];
+
+    db.query(GET_TEAMS_BY_STUDENT_ID, values)
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'No students teams found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+}
+
+/*Get students team by id */
+const getStudentsWSById=async (req, res)=>{
+
+    const {
+        id,
+    } = req.body;
+
+    if (isEmpty(id)) {
+        errorMessage.error = 'User id detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+
+    
+    const values = [
+        id
+    ];
+
+    db.query(GET_WS_BY_STUDENT_ID, values)
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'No students workshops found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+}
+
 /**
  * Forgot Password
  * @param {object} req
@@ -607,5 +684,7 @@ module.exports = {
     refreshToken,
     getPending,
     getStudents,
-    getStudentByEmail
+    getStudentByEmail,
+    getStudentsTeamsById,
+    getStudentsWSById
 };

@@ -19,6 +19,8 @@ returning *`;
 
 const GET_TOURNAMENTS=`SELECT * FROM tournament`;
 
+const GET_TOURNAMENT_BY_TEAM_ID=`SELECT users.id, users.first_name, users.last_name, users.email  FROM tournament JOIN users on users.id=tournament.userid where idt=$1 `;
+
 /**
  * Create Tournament
  * @param {object} req
@@ -86,7 +88,49 @@ const getTournaments = async (req, res) => {
     })
 };
 
+/**
+ * Get Tournament by team id
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getTournamentByTeam = async (req, res) => {
+    
+    const {
+        idt,
+    } = req.body;
+
+    if (isEmpty(idt)) {
+        errorMessage.error = 'ID of team detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+
+    
+    const values = [
+        idt
+    ];
+
+    db.query(GET_TOURNAMENT_BY_TEAM_ID, values)
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'No tournaments of that team';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
 module.exports = {
     createTournament,
-    getTournaments
+    getTournaments,
+    getTournamentByTeam
 };
