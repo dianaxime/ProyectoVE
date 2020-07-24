@@ -19,15 +19,15 @@ export const failFetchingScholars = error => ({
     },
 });
 
-export const startAddingScholar = (id, name, classroom, description, startdate, enddate) => ({
+export const startAddingScholar = (id, hours, videoeditor, photoeditor, spokespersons, organizer) => ({
     type: types.SCHOLAR_ADD_STARTED,
     payload: {
         id,
-        name,
-        classroom,
-        description,
-        startdate,
-        enddate,
+        hours,
+        videoeditor,
+        photoeditor,
+        spokespersons,
+        organizer,
     },
 });
 
