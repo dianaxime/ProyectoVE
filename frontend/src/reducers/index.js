@@ -9,6 +9,7 @@ import changeDrawer, * as changeDrawerSelectors from './changeDrawer';
 import changeForgot, * as changeForgotSelectors from './modalForgot';
 import changeChange, * as changeChangeSelectors from './modalChange';
 import changeUpdate, * as changeUpdateSelectors from './modalUpdate';
+import changeScholar, * as changeScholarSelectors from './modalScholarship';
 
 const reducer = combineReducers({
   auth,
@@ -18,6 +19,7 @@ const reducer = combineReducers({
   changeUpdate,
   workshops,
   scholars,
+  changeScholar,
   form: formReducer,
 });
 
@@ -53,6 +55,8 @@ export const getFetchingPendingUsersError = state => authSelectors.getFetchingPe
 export const getIsOpen = state => changeDrawerSelectors.getIsOpen(state.changeDrawer);
 /* Forgot Password Modal */
 export const getIsForgotOpen = state => changeForgotSelectors.getIsForgotOpen(state.changeForgot);
+/* Scholar Password Modal */
+export const getIsScholarOpen = state => changeScholarSelectors.getIsScholarOpen(state.changeScholar);
 /* Change Password Modal */
 export const getIsChangeOpen = state => changeChangeSelectors.getIsChangeOpen(state.changeChange);
 /* Update Password Modal */
