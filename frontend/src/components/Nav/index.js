@@ -235,7 +235,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
               <ListItemIcon>
                 <HomeIcon />
               </ListItemIcon>
-              <ListItemText primary={"Home"} />
+              <ListItemText primary={"Inicio"} />
             </ListItem>
           </Link>
         </List>
@@ -246,7 +246,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
               <ListItemIcon>
                 <VerifiedUserIcon />
               </ListItemIcon>
-              <ListItemText primary={"Authorize Users"} />
+              <ListItemText primary={"Autorización de usuarios"} />
             </ListItem>
           </Link>
         </List>
