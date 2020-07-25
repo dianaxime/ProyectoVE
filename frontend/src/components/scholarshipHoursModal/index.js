@@ -33,12 +33,12 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
 let scholarship_hours= ({ open, onHandle, onSubmit, handleSubmit }) => {
     return (
         <MDBContainer>
-            <MDBModal  isOpen={open} side position="bottom-left">
+            <MDBModal  isOpen={open}>
                 <MDBModalHeader><b>Horas de Beca</b></MDBModalHeader>
                 <MDBModalBody>
                     <div>
-                        <Field name="hours" component={renderTextField} label="Cantidad de horas" />
-                        <p>¿Que habilidades posee? Debe colocar un número del 1 al 100.</p>
+                        <Field name="hours" component={renderTextField} label="Cantidad de horas de beca" />
+                        <p>¿Que habilidades posee? Debe colocar un nuemero del 1 al 100.</p>
                         <Field name="public_speaking" component={renderTextField} label="¿Hablar en público?" />
                         <Field name="organization" component={renderTextField} label="¿Organización?" />
                         <Field name="photo_editing" component={renderTextField} label="¿Edición de fotos?" />
