@@ -1,15 +1,19 @@
 const assert = require('assert');
 const { Given, When, Then } = require('cucumber');
-const { createWorksop } = require('../../src/controllers/workshopController');
+const { createWorkshopQuery } = require('../../src/repository/workshop');
 
-When('I create a new workshop with details:', function (dataTable) {
+let resultado = {};
+
+When('I create a new workshop with details:', async function (dataTable) {
     // Write code here that turns the phrase above into concrete actions
     const data = dataTable.rowsHash();
-    createWorksop(data);
+    resultado = await createWorkshopQuery(data);
+    resultado = resultado[0];
     //return 'pending';
 });
 
-Then('the workshop is created successfully', function () {
+Then('the workshop is created successfully, the workshop description should be {string}', function (string) {
     // Write code here that turns the phrase above into concrete actions
-    return true;
+    return assert.equal(resultado.description, string);
+    //return 'pending';
 });

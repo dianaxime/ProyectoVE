@@ -26,6 +26,7 @@
     "seed-user-table": "node ./src/helpers/seed"
   },
   "devDependencies": {
+    "assert": "^2.0.0",
     "cucumber": "^6.0.5"
   }
 }

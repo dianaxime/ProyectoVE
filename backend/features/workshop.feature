@@ -10,4 +10,4 @@ Feature: Create a workshop
         | classroom | A-102    |
         | startdate | 2020-07-20 |
         | enddate   | 2020-10-31 |
-      Then the workshop is created successfully
+      Then the workshop is created successfully, the workshop description should be "example description"
