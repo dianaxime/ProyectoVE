@@ -1,7 +1,5 @@
 require('dotenv').config();
 
-const db = require('../db/config');
-
 const {
     isEmpty,
 } = require('../helpers/validation');
@@ -12,15 +10,11 @@ const {
     status,
 } = require('../helpers/status');
 
-const CREATE_PARTICIPATION=`INSERT INTO
-participation(userid, idw, startdate, enddate)
-VALUES ($1, $2, $3, $4)
-returning *`;
-
-const GET_PARTICIPATIONS=`SELECT * FROM participation`;
-
-const GET_PARTICIPATION_BY_WS_ID=`SELECT users.id, users.first_name, users.last_name, users.email  FROM participation  JOIN users on users.id=participation.userid where idw=$1 `;
-
+const { 
+    createParticipationQuery, 
+    getParticipationsQuery,
+    getParticipationByWsQuery,
+} = require('../repository/participation');
 
 /**
  * Create Participation
@@ -42,14 +36,7 @@ const createParticipation = async (req, res) => {
         return res.status(status.bad).send(errorMessage);
     }
 
-    const values = [
-        userid,
-        idw,
-        startdate,
-        enddate
-    ];
-
-    db.query(CREATE_PARTICIPATION, values)
+    createParticipationQuery({...req.body})
     .then(data => {
         console.log('DATA:', data); // print data;
         successMessage.data = data;
@@ -71,7 +58,7 @@ const createParticipation = async (req, res) => {
 
 const getParticipations = async (req, res) => {
     
-    db.query(GET_PARTICIPATIONS)
+    getParticipationsQuery()
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
@@ -99,13 +86,8 @@ const getParticipationByWs = async (req, res) => {
         errorMessage.error = 'ID of workshop detail is missing';
         return res.status(status.bad).send(errorMessage);
     }
-
     
-    const values = [
-        idw
-    ];
-
-    db.query(GET_PARTICIPATION_BY_WS_ID, values)
+    getParticipationByWsQuery({...req.body})
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {

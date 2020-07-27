@@ -1,7 +1,5 @@
 require('dotenv').config();
 
-const db = require('../db/config');
-
 const {
     isEmpty,
 } = require('../helpers/validation');
@@ -12,14 +10,11 @@ const {
     status,
 } = require('../helpers/status');
 
-const CREATE_TOURNAMENT=`INSERT INTO
-tournament(userid, idt, startdate, enddate)
-VALUES ($1, $2, $3, $4)
-returning *`;
-
-const GET_TOURNAMENTS=`SELECT * FROM tournament`;
-
-const GET_TOURNAMENT_BY_TEAM_ID=`SELECT users.id, users.first_name, users.last_name, users.email  FROM tournament JOIN users on users.id=tournament.userid where idt=$1 `;
+const {
+    createTournamentQuery,
+    getTournamentsQuery,
+    getTournamentByTeamQuery
+} = require('../repository/tournament');
 
 /**
  * Create Tournament
@@ -41,14 +36,7 @@ const createTournament = async (req, res) => {
         return res.status(status.bad).send(errorMessage);
     }
 
-    const values = [
-        userid,
-        idt,
-        startdate,
-        enddate
-    ];
-
-    db.query(CREATE_TOURNAMENT, values)
+    createTournamentQuery({...req.body})
     .then(data => {
         console.log('DATA:', data); // print data;
         successMessage.data = data;
@@ -70,7 +58,7 @@ const createTournament = async (req, res) => {
 
 const getTournaments = async (req, res) => {
     
-    db.query(GET_TOURNAMENTS)
+    getTournamentsQuery()
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
@@ -105,13 +93,8 @@ const getTournamentByTeam = async (req, res) => {
         errorMessage.error = 'ID of team detail is missing';
         return res.status(status.bad).send(errorMessage);
     }
-
     
-    const values = [
-        idt
-    ];
-
-    db.query(GET_TOURNAMENT_BY_TEAM_ID, values)
+    getTournamentByTeamQuery({...req.body})
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {

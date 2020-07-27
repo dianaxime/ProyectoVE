@@ -1,7 +1,7 @@
 const express = require('express');
 
 const {
-    createWorksop,
+    createWorkshop,
     getWorkshops,
     updateWorkshop,
     getWorkshopByName
@@ -12,7 +12,7 @@ const router = express.Router();
 
 // workshop Routes
 
-router.post('/workshop/create', verifyAuth, createWorksop);
+router.post('/workshop/create', verifyAuth, createWorkshop);
 router.get('/workshop/all-workshops', verifyAuth, getWorkshops);
 router.get('/workshop/workshop-name', verifyAuth, getWorkshopByName);
 router.patch('/workshop/update-workshop', verifyAuth, updateWorkshop);

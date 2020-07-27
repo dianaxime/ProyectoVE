@@ -12,15 +12,13 @@ const {
     status,
 } = require('../helpers/status');
 
-const CREATE_WORKSHOP=`INSERT INTO
-workshop(name, classroom, description, startdate, enddate)
-VALUES ($1, $2, $3, $4, $5)
-returning *`;
+const {
+    createWorkshopQuery,
+    getWorkshopsQuery,
+    getWorkshopByNameQuery,
+    updateWorkshopQuery
+} = require('../repository/workshop');
 
-const GET_WORKSHOP=`SELECT * FROM workshop`;
-
-const UPDATE_WORKSHOP = 'UPDATE workshop SET name=$1, classroom=$2, description=$3, startdate=$4, enddate=$5 WHERE id=$6 returning *';
-const GET_WORKSHOP_BY_NAME=`SELECT * FROM workshop WHERE name ILIKE $1`;
 /**
  * Create Workshop
  * @param {object} req
@@ -28,7 +26,7 @@ const GET_WORKSHOP_BY_NAME=`SELECT * FROM workshop WHERE name ILIKE $1`;
  * @returns {object} reflection object
 */
 
-const createWorksop = async (req, res) => {
+const createWorkshop = async (req, res) => {
     const {
         name,
         classroom,
@@ -42,15 +40,7 @@ const createWorksop = async (req, res) => {
         return res.status(status.bad).send(errorMessage);
     }
 
-    const values = [
-        name,
-        classroom,
-        description,
-        startdate,
-        enddate
-    ];
-
-    db.query(CREATE_WORKSHOP, values)
+    createWorkshopQuery({...req.body})
     .then(data => {
         console.log('DATA:', data); // print data;
         successMessage.data = data;
@@ -63,7 +53,13 @@ const createWorksop = async (req, res) => {
     })
 };
 
-/*get workshop by name*/
+/**
+ * Get workshop by name
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
 const getWorkshopByName=async (req, res)=>{
 
     const {
@@ -75,12 +71,7 @@ const getWorkshopByName=async (req, res)=>{
         return res.status(status.bad).send(errorMessage);
     }
 
-    
-    const values = [
-        name
-    ];
-
-    db.query(GET_WORKSHOP_BY_NAME, values)
+    getWorkshopByNameQuery({...req.body})
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
@@ -107,7 +98,7 @@ const getWorkshopByName=async (req, res)=>{
 
 const getWorkshops = async (req, res) => {
     
-    db.query(GET_WORKSHOP)
+    getWorkshopsQuery()
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
@@ -124,8 +115,6 @@ const getWorkshops = async (req, res) => {
         return res.status(status.error).send(errorMessage);
     })
 };
-
-
 
 /**
  * Update Workshop
@@ -145,24 +134,12 @@ const updateWorkshop = async (req, res) => {
         id
     } = req.body;
 
-    
-
     if (isEmpty(name) || isEmpty(description) || isEmpty(classroom) || isEmpty(startdate) || isEmpty(enddate) ) {
         errorMessage.error = 'Name, description, classroom, startdate, enddate detail is missing';
         return res.status(status.bad).send(errorMessage);
     }
 
-
-    const values = [
-        name,
-        classroom,
-        description,
-        startdate,
-        enddate,
-        id, 
-    ];
-
-    db.query(UPDATE_WORKSHOP, values)
+    updateWorkshopQuery({...req.body})
     .then(data => {
         console.log('DATA:', data);
         data = data[0];
@@ -177,7 +154,7 @@ const updateWorkshop = async (req, res) => {
 };
 
 module.exports = {
-    createWorksop,
+    createWorkshop,
     getWorkshops,
     updateWorkshop,
     getWorkshopByName
