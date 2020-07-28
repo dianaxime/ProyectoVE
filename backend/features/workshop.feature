@@ -5,9 +5,9 @@ Feature: Create a workshop
 
     Scenario: Create a new workshop
       When I create a new workshop with details:
-        | name | example               |
-        | description    | example description |
+        | name | example workshop              |
+        | description    | example workshop description |
         | classroom | A-102    |
         | startdate | 2020-07-20 |
         | enddate   | 2020-10-31 |
-      Then the workshop is created successfully, the workshop description should be "example description"
+      Then the workshop is created successfully, the workshop description should be "example workshop description"
