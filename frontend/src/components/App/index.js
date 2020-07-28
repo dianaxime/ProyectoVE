@@ -25,8 +25,8 @@ const App = () => (
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/authorization" component={AuthorizePage}/>
           <Route exact path="/auth" component={AuthPage} />
+          <Route exact path="/authorization" component={AuthorizePage}/>
           <Route exact path="/creartaller" component={AddWorkshop} />
           <Route render={() => <Redirect to="/" />} />
         </Switch>

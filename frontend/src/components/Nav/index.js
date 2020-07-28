@@ -37,6 +37,7 @@ import UpdateModal from '../UpdateModal';
 import ScholarshipHoursModal from '../scholarshipHoursModal';
 import './styles.css';
 import { Link } from "react-router-dom";
+import { URL } from '../../settings';
 
 const drawerWidth = 270;
 
@@ -208,7 +209,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
                 <MenuItem onClick={update}>Actualizar Perfil</MenuItem>
                 <MenuItem onClick={handle}>Cambiar Contraseña</MenuItem>
                 <MenuItem onClick={scholar}>Voluntariado</MenuItem>
-                <MenuItem onClick={logout}>Salir</MenuItem>
+                <MenuItem onClick={() => logout()}>Salir</MenuItem>
               </Menu>
             </div>
           )}

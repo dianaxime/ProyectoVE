@@ -1,7 +1,7 @@
 import jwtDecode from 'jwt-decode';
 import { combineReducers } from 'redux';
 import omit from 'lodash/omit';
-
+import storage from 'redux-persist/lib/storage';
 import * as types from '../types/auth';
 
 const token = (state = null, action) => {
@@ -16,9 +16,11 @@ const token = (state = null, action) => {
             return action.payload.newToken;
         }
         case types.AUTHENTICATION_IDENTITY_CLEARED: {
+            storage.removeItem('persist:rootx');
             return null;
         }
         case types.TOKEN_REFRESH_FAILED: {
+            storage.removeItem('persist:rootx');
             return null;
         }
         default: {
@@ -89,9 +91,6 @@ const isAuthenticating = (state = false, action) => {
         case types.AUTHENTICATION_FAILED: {
             return false;
         }
-        case types.AUTHENTICATION_IDENTITY_CLEARED: {
-            return false;
-        }
         default: {
             return state;
         }
@@ -107,9 +106,6 @@ const isRegistering = (state = false, action) => {
             return false;
         }
         case types.REGISTER_FAILED: {
-            return false;
-        }
-        case types.AUTHENTICATION_IDENTITY_CLEARED: {
             return false;
         }
         default: {
@@ -146,9 +142,6 @@ const error = (state = null, action) => {
         case types.AUTHENTICATION_FAILED: {
             return action.payload.error;
         }
-        case types.AUTHENTICATION_IDENTITY_CLEARED: {
-            return null;
-        }
         default: {
             return state;
         }
@@ -164,9 +157,6 @@ const isRefreshing = (state = false, action) => {
             return false;
         }
         case types.TOKEN_REFRESH_FAILED: {
-            return false;
-        }
-        case types.AUTHENTICATION_IDENTITY_CLEARED: {
             return false;
         }
         default: {
@@ -186,9 +176,6 @@ const refreshingError = (state = null, action) => {
         case types.TOKEN_REFRESH_FAILED: {
             return action.payload.error;
         }
-        case types.AUTHENTICATION_IDENTITY_CLEARED: {
-            return null;
-        }
         default: {
             return state;
         }
@@ -206,9 +193,6 @@ const registeringError = (state = null, action) => {
         case types.REGISTER_FAILED: {
             return action.payload.error;
         }
-        case types.AUTHENTICATION_IDENTITY_CLEARED: {
-            return null;
-        }
         default: {
             return state;
         }
@@ -224,9 +208,6 @@ const isRecovering = (state = false, action) => {
             return false;
         }
         case types.RECOVER_FAILED: {
-            return false;
-        }
-        case types.AUTHENTICATION_IDENTITY_CLEARED: {
             return false;
         }
         default: {
@@ -263,9 +244,6 @@ const recoveringError = (state = null, action) => {
         case types.RECOVER_FAILED: {
             return action.payload.error;
         }
-        case types.AUTHENTICATION_IDENTITY_CLEARED: {
-            return null;
-        }
         default: {
             return state;
         }
@@ -282,9 +260,6 @@ const updatingError = (state = null, action) => {
         }
         case types.UPDATE_USER_FAILED: {
             return action.payload.error;
-        }
-        case types.AUTHENTICATION_IDENTITY_CLEARED: {
-            return null;
         }
         default: {
             return state;
@@ -303,9 +278,6 @@ const isUpdating = (state = false, action) => {
         case types.UPDATE_USER_FAILED: {
             return false;
         }
-        case types.AUTHENTICATION_IDENTITY_CLEARED: {
-            return false;
-        }
         default: {
             return state;
         }
@@ -321,9 +293,6 @@ const isChanging = (state = false, action) => {
             return false;
         }
         case types.CHANGE_PASSWORD_FAILED: {
-            return false;
-        }
-        case types.AUTHENTICATION_IDENTITY_CLEARED: {
             return false;
         }
         default: {
@@ -359,9 +328,6 @@ const changingError = (state = null, action) => {
         }
         case types.CHANGE_PASSWORD_FAILED: {
             return action.payload.error;
-        }
-        case types.AUTHENTICATION_IDENTITY_CLEARED: {
-            return null;
         }
         default: {
             return state;
