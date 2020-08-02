@@ -11,6 +11,8 @@ import changeChange, * as changeChangeSelectors from './modalChange';
 import changeUpdate, * as changeUpdateSelectors from './modalUpdate';
 import changeScholar, * as changeScholarSelectors from './modalScholarship';
 
+import selectedWorkshop, * as selectedWorkshopSelectors from './selectedWorkshop';
+
 const reducer = combineReducers({
   auth,
   changeDrawer,
@@ -20,6 +22,7 @@ const reducer = combineReducers({
   workshops,
   scholars,
   changeScholar,
+  selectedWorkshop,
   form: formReducer,
 });
 
@@ -71,3 +74,5 @@ export const getScholar = (state, id) => scholarsSelectors.getScholar(state.scho
 export const getScholars = state => scholarsSelectors.getScholars(state.scholars);
 export const isFetchingScholars = state => scholarsSelectors.isFetchingScholars(state.scholars);
 export const getFetchingScholarsError = state => scholarsSelectors.getFetchingScholarsError(state.scholars);
+/* Selected */
+export const getSelectedWorkshop = (state) => selectedWorkshopSelectors.getSelectedWorkshop(state.selectedWorkshop)

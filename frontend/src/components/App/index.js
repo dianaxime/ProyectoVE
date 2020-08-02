@@ -8,6 +8,7 @@ import AuthPage from '../AuthPage';
 import HomePage from '../HomePage';
 import AuthorizePage from '../AuthorizePage';
 import AddWorkshop from '../AddWorkshop';
+import WorkshopsPage from '../WorkshopsPage';
 
 import TokenRefresh from '../TokenRefresh';
 
@@ -28,6 +29,7 @@ const App = () => (
           <Route exact path="/auth" component={AuthPage} />
           <Route exact path="/authorization" component={AuthorizePage}/>
           <Route exact path="/creartaller" component={AddWorkshop} />
+          <Route exact path="/talleres" component={WorkshopsPage} />
           <Route render={() => <Redirect to="/" />} />
         </Switch>
       </BrowserRouter>
