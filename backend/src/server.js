@@ -9,6 +9,8 @@ const teamRoute = require('./routes/teamsRoute');
 const tournamentRoute = require('./routes/tournamentsRoute');
 const participationRoute = require('./routes/participationRoute');
 const eventRoute = require('./routes/eventRoute');
+const eventParticipationRoute = require('./routes/participationEventRoute');
+
 
 const app = express();
 
@@ -26,6 +28,7 @@ app.use('/api/v1', teamRoute);
 app.use('/api/v1', tournamentRoute);
 app.use('/api/v1', participationRoute);
 app.use('/api/v1', eventRoute);
+app.use('/api/v1', eventParticipationRoute);
 
 app.listen(env.port).on('listening', () => {
     console.log(`are live on ${env.port}`);

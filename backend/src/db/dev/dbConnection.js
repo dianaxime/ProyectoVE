@@ -199,8 +199,10 @@ const createParticipationTable = () => {
     });
 };
 
+
+
 /** 
- * Participation table
+ * Event table
 */
 
 const createEventTable = () => {
@@ -223,6 +225,36 @@ const createEventTable = () => {
         pool.end();
     });
 };
+
+/** 
+ * Participation event table
+*/
+
+const createEventParticipationTable = () => {
+    const participationEventCreateQuery = `CREATE TABLE IF NOT EXISTS event_participation
+    (
+        id SERIAL PRIMARY KEY,
+        userID INT NOT NULL,
+        idE INT NOT NULL,
+        hours FLOAT NOT NULL,
+        FOREIGN KEY (userID) REFERENCES users(id),
+        FOREIGN KEY (idE) REFERENCES event(id)
+    )`;
+
+    pool.query(participationEventCreateQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+
+
+
 
 /**
  * Drop User Table
@@ -344,12 +376,29 @@ const dropTournamentTable = () => {
 };
 
 /**
- * Drop User Table
+ * Drop Event Table
 */
 
 const dropEventTable = () => {
     const eventDropQuery = `DROP TABLE IF EXISTS event`;
     pool.query(eventDropQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+/**
+ * Drop participacion Event Table
+*/
+
+const dropParticipationEventHBTable = () => {
+    const participationeventDropQuery = `DROP TABLE IF EXISTS event_participation`;
+    pool.query(participationeventDropQuery)
     .then((res) => {
         console.log(res);
         pool.end();
@@ -373,6 +422,7 @@ const createAllTables = () => {
     createParticipationTable();
     createTournamentTable();
     createEventTable();
+    createEventParticipationTable();
 };
 
 /**
@@ -388,6 +438,7 @@ const dropAllTables = () => {
     dropParticipationTable();
     dropTournamentTable();
     dropEventTable();
+    dropParticipationEventHBTable();
 };
 
 pool.on('remove', () => {
