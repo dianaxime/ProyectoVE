@@ -199,6 +199,31 @@ const createParticipationTable = () => {
     });
 };
 
+/** 
+ * Participation table
+*/
+
+const createEventTable = () => {
+    const eventCreateQuery = `CREATE TABLE IF NOT EXISTS event
+    (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(100) NOT NULL,
+        classroom VARCHAR(50) NOT NULL,
+        description VARCHAR(300) NOT NULL,
+        date DATE NOT NULL
+    )`;
+
+    pool.query(eventCreateQuery )
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
 /**
  * Drop User Table
 */
@@ -319,6 +344,23 @@ const dropTournamentTable = () => {
 };
 
 /**
+ * Drop User Table
+*/
+
+const dropEventTable = () => {
+    const eventDropQuery = `DROP TABLE IF EXISTS event`;
+    pool.query(eventDropQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+/**
  * Create All Tables
 */
 
@@ -330,6 +372,7 @@ const createAllTables = () => {
     createTeamTable();
     createParticipationTable();
     createTournamentTable();
+    createEventTable();
 };
 
 /**
@@ -344,6 +387,7 @@ const dropAllTables = () => {
     dropTeamTable();
     dropParticipationTable();
     dropTournamentTable();
+    dropEventTable();
 };
 
 pool.on('remove', () => {
