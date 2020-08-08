@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import clsx from 'clsx';
 import {
@@ -25,10 +25,10 @@ const drawerWidth = 240;
 
 const validate = values => {
     const errors = {};
-    const requiredFields = [ 'name', 'startdate', 'enddate', 'classroom', 'description'];
+    const requiredFields = ['name', 'startdate', 'enddate', 'classroom', 'description'];
     requiredFields.forEach(field => {
-        if (!values[ field ]) {
-            errors[ field ] = 'Obligatorio*';
+        if (!values[field]) {
+            errors[field] = 'Obligatorio*';
         }
     })
     return errors;
@@ -65,138 +65,122 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Workshops = ({ workshop, isLoading, onLoad }) => {
-  return (
-    
-  <div>
-    
-      {
-        workshop.length === 0 && !isLoading && (
-          <p className="titulo">{'No hay talleres registrados'}</p>
-        )
-      }
-      {
-        workshop.length > 0 && !isLoading && (
-          <p className="titulo">{'Talleres Registradas'}</p>
-        )
-      }
-      
-      {
-        isLoading && (
-          <p className="titulo">{'Cargando...'}</p>
-        )
-      }
-      {
-        workshop.length > 0 && !isLoading && (
+    useEffect(onLoad, []);
+    return (
 
-          <div className="workshops">
-          
-              {
-                workshop.map(id => <Workshop key={id}
-                id={id}/>)
-              }
-          </div>
-        )
-      }
-    </div>
-  );
+        <div>
+            {
+                workshop.length > 0 && !isLoading && (
+
+                    <div className="workshopsContainer">
+
+                        {
+                            workshop.map(id => <Workshop key={id}
+                                id={id} />)
+                        }
+                    </div>
+                )
+            }
+        </div>
+    );
 };
 
 export default connect(
-  state => ({
-    workshop: selectors.getWorkshops(state),
-    isLoading: selectors.isFetchingWorkshops(state),
-  }),
-  dispatch => ({
-    onLoad() {
-      dispatch(actions.startFetchingWorkshops());
-    },
-  }),
+    state => ({
+        workshop: selectors.getWorkshops(state),
+        isLoading: selectors.isFetchingWorkshops(state),
+    }),
+    dispatch => ({
+        onLoad() {
+            dispatch(actions.startFetchingWorkshops());
+        },
+    }),
 )(Workshops);
 
-  /*
+/*
 let AddWorkshop = ({ open,
-    onSubmit,
-    isLoading,
-    handleSubmit, }) => {
-    const classes = useStyles();
-    return (
-        <div className={classes.root}>
-            <Nav />
-            <main
-                className={clsx(classes.content, {
-                    [classes.contentShift]: open,
-                })}
-            >
-                <div className={classes.drawerHeader} />
-                <div className="addWorkshop">
-                    <div className="datosWorkshop">
-                        <h2 className="tituloformW">{'Nuevo Taller'}</h2>
-                        <form className="formW">
-                            <h3 className="subw">Datos</h3>
-                            <div className="div-field">
-                                <Field name="name" component={renderTextField} label="Nombre"/>
-                            </div>
-                            <div className="div-field">
-                                <Field name="description" component={renderTextField} label="Descripción"/>
-                            </div>
-                            <div className="div-field">
-                                <Field name="classroom" component={renderTextField} label="Salon"/>
-                            </div>
-                            <div>
-                                <Field name="startdate" component={renderDateTimePicker} label="Fecha de Inicio"/>
-                            </div>
-                            <div>
-                                <Field name="enddate" component={renderDateTimePicker} label="Fecha de Finalización"/>
-                            </div>
-                            <p>
-                                {
-                                    isLoading ? (
-                                        <strong>{'Cargando...'}</strong>
-                                    ) : (
-                                            <button className="buttonformW" type="submit" onClick={handleSubmit(onSubmit)}>
-                                                {'Crear'}
-                                            </button>
-                                        )
-                                }
-                            </p>
-                        </form>
-                    </div>
-                    <div className="personasWorkshop">
-                        <h1>Personas</h1>
-                    </div>
-                </div>
-            </main>
-        </div>
-    );
+  onSubmit,
+  isLoading,
+  handleSubmit, }) => {
+  const classes = useStyles();
+  return (
+      <div className={classes.root}>
+          <Nav />
+          <main
+              className={clsx(classes.content, {
+                  [classes.contentShift]: open,
+              })}
+          >
+              <div className={classes.drawerHeader} />
+              <div className="addWorkshop">
+                  <div className="datosWorkshop">
+                      <h2 className="tituloformW">{'Nuevo Taller'}</h2>
+                      <form className="formW">
+                          <h3 className="subw">Datos</h3>
+                          <div className="div-field">
+                              <Field name="name" component={renderTextField} label="Nombre"/>
+                          </div>
+                          <div className="div-field">
+                              <Field name="description" component={renderTextField} label="Descripción"/>
+                          </div>
+                          <div className="div-field">
+                              <Field name="classroom" component={renderTextField} label="Salon"/>
+                          </div>
+                          <div>
+                              <Field name="startdate" component={renderDateTimePicker} label="Fecha de Inicio"/>
+                          </div>
+                          <div>
+                              <Field name="enddate" component={renderDateTimePicker} label="Fecha de Finalización"/>
+                          </div>
+                          <p>
+                              {
+                                  isLoading ? (
+                                      <strong>{'Cargando...'}</strong>
+                                  ) : (
+                                          <button className="buttonformW" type="submit" onClick={handleSubmit(onSubmit)}>
+                                              {'Crear'}
+                                          </button>
+                                      )
+                              }
+                          </p>
+                      </form>
+                  </div>
+                  <div className="personasWorkshop">
+                      <h1>Personas</h1>
+                  </div>
+              </div>
+          </main>
+      </div>
+  );
 }
 
 AddWorkshop = reduxForm({
-    form: 'workshopForm',
-    validate
+  form: 'workshopForm',
+  validate
 })(AddWorkshop);
 
 AddWorkshop = connect(
-    state => ({
-        isLoading: false,
-        isAuth: getAuthToken(state) !== null,
-        open: getIsOpen(state),
-    }),
-    dispatch => ({
-        onSubmit({ name, startdate, enddate, classroom, description }) {
-            dispatch(
-                actions.startAddingWorkshop(
-                    uuidv4(),
-                    name,
-                    classroom,
-                    description,
-                    startdate,
-                    enddate
-                ),
-                console.log("Taller creado!"),
-                dispatch(reset('workshopForm')),
-            );
-        },
-    }),
+  state => ({
+      isLoading: false,
+      isAuth: getAuthToken(state) !== null,
+      open: getIsOpen(state),
+  }),
+  dispatch => ({
+      onSubmit({ name, startdate, enddate, classroom, description }) {
+          dispatch(
+              actions.startAddingWorkshop(
+                  uuidv4(),
+                  name,
+                  classroom,
+                  description,
+                  startdate,
+                  enddate
+              ),
+              console.log("Taller creado!"),
+              dispatch(reset('workshopForm')),
+          );
+      },
+  }),
 )(AddWorkshop);
 
 export default AddWorkshop;*/

@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import React from 'react';
+import { MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBRow, MDBCol, MDBIcon } from 'mdbreact';
 import { connect } from 'react-redux';
 import clsx from 'clsx';
 import {
@@ -70,8 +71,52 @@ const Workshop = ({
     isSelected = false,
     onClick,
   }) => (
-    <div>
-      <div
+      <div className='workshopBox'>
+    <MDBRow>
+      <MDBCol md='4'>
+        <MDBCard>
+          <MDBCardBody className='elegant-color white-text rounded-bottom'>
+            <MDBCardTitle>{((Object.entries(workshop)[1])[1])}</MDBCardTitle>
+            <hr className='hr-light' />
+            <MDBCardText className='white-text'>
+            {((Object.entries(workshop)[3])[1])}
+            </MDBCardText>
+            <MDBCardText className='white-text'>
+            Salón: {((Object.entries(workshop)[2])[1])}
+            </MDBCardText>
+            <a href='/' className='black-text d-flex justify-content-end'>
+              <h5 className='white-text'>
+                Ver más
+                <MDBIcon icon='angle-double-right' className='ml-2' />
+              </h5>
+            </a>
+          </MDBCardBody>
+        </MDBCard>
+      </MDBCol>
+    </MDBRow>
+    </div>
+  );
+  
+  export default connect(
+    (state, { id }) => ({
+      ...selectors.getWorkshop(state, id),
+      workshop: id,
+      isSelected: selectors.getSelectedWorkshop(state) === id,
+      name: ((Object.entries(id)[1])[1]),
+      
+      
+      /*isSelected: selectors.getSelectedworkshop(state) === index,*/
+    }),
+    (dispatch, {id}) => ({
+      onClick() {
+        dispatch(selectedActions.selectedWorkshop(id));
+        console.log(((Object.entries(id)[1])[1]))
+      },
+    }),
+  )(Workshop);
+
+  /*
+<div
       className={
         `
         workshop-wrapper
@@ -83,118 +128,9 @@ const Workshop = ({
     >  
           <div className="workshop">            
             <div className="workshop_name">
-              <p className="subtitulo">Nombre:</p>
               <p className="contenido">
-                 {((Object.entries(workshop)[1])[1]).slice(1)}
+                 {((Object.entries(workshop)[1])[1])}
                  </p>
             </div>
           </div>
-          </div>
-       </div>
-  );
-  
-  export default connect(
-    (state, { id }) => ({
-      ...selectors.getWorkshop(state, id),
-      workshop: id,
-      isSelected: selectors.getSelectedWorkshop(state) === id,
-      name: Object.entries(Object.entries(id)[0][1]).slice(1),
-      
-      
-      /*isSelected: selectors.getSelectedworkshop(state) === index,*/
-    }),
-    (dispatch, {id}) => ({
-      onClick() {
-        dispatch(selectedActions.selectedWorkshop(id));
-        console.log(Object.entries(Object.entries(id)[0][1]).slice(1))
-      },
-    }),
-  )(Workshop);
-
-  /*
-let AddWorkshop = ({ open,
-    onSubmit,
-    isLoading,
-    handleSubmit, }) => {
-    const classes = useStyles();
-    return (
-        <div className={classes.root}>
-            <Nav />
-            <main
-                className={clsx(classes.content, {
-                    [classes.contentShift]: open,
-                })}
-            >
-                <div className={classes.drawerHeader} />
-                <div className="addWorkshop">
-                    <div className="datosWorkshop">
-                        <h2 className="tituloformW">{'Nuevo Taller'}</h2>
-                        <form className="formW">
-                            <h3 className="subw">Datos</h3>
-                            <div className="div-field">
-                                <Field name="name" component={renderTextField} label="Nombre"/>
-                            </div>
-                            <div className="div-field">
-                                <Field name="description" component={renderTextField} label="Descripción"/>
-                            </div>
-                            <div className="div-field">
-                                <Field name="classroom" component={renderTextField} label="Salon"/>
-                            </div>
-                            <div>
-                                <Field name="startdate" component={renderDateTimePicker} label="Fecha de Inicio"/>
-                            </div>
-                            <div>
-                                <Field name="enddate" component={renderDateTimePicker} label="Fecha de Finalización"/>
-                            </div>
-                            <p>
-                                {
-                                    isLoading ? (
-                                        <strong>{'Cargando...'}</strong>
-                                    ) : (
-                                            <button className="buttonformW" type="submit" onClick={handleSubmit(onSubmit)}>
-                                                {'Crear'}
-                                            </button>
-                                        )
-                                }
-                            </p>
-                        </form>
-                    </div>
-                    <div className="personasWorkshop">
-                        <h1>Personas</h1>
-                    </div>
-                </div>
-            </main>
-        </div>
-    );
-}
-
-AddWorkshop = reduxForm({
-    form: 'workshopForm',
-    validate
-})(AddWorkshop);
-
-AddWorkshop = connect(
-    state => ({
-        isLoading: false,
-        isAuth: getAuthToken(state) !== null,
-        open: getIsOpen(state),
-    }),
-    dispatch => ({
-        onSubmit({ name, startdate, enddate, classroom, description }) {
-            dispatch(
-                actions.startAddingWorkshop(
-                    uuidv4(),
-                    name,
-                    classroom,
-                    description,
-                    startdate,
-                    enddate
-                ),
-                console.log("Taller creado!"),
-                dispatch(reset('workshopForm')),
-            );
-        },
-    }),
-)(AddWorkshop);
-
-export default AddWorkshop;*/
+        </div>*/

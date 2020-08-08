@@ -5,6 +5,7 @@ import { getAuthToken, getIsOpen } from '../../reducers';
 import { URL } from '../../settings';
 import Nav from '../Nav';
 import Workshops from '../Workshops';
+import * as actions from '../../actions/workshops';
 import { makeStyles } from '@material-ui/core/styles';
 
 const drawerWidth = 240;
@@ -61,7 +62,11 @@ export default connect(
         isAuth: getAuthToken(state) !== null,
         open: getIsOpen(state),
     }),
-    undefined,
+    dispatch => ({
+        onLoad() {
+          dispatch(actions.startFetchingWorkshops());
+        },
+    }),
     (stateProps, disptachProps, ownProps) => {
         if (!stateProps.isAuth) {
             window.location.href = URL + 'auth';

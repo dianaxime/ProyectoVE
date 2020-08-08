@@ -1,14 +1,9 @@
-.workshops {
+.workshopsworkshopsContainer {
     display: flex;
     flex-direction: row;
     justify-content: right;
     align-content: stretch;
-    padding-left: 60px;
-    padding-right: 30px;
-    padding-top: 15px;
-    min-width: 100%;
     flex-wrap: wrap;
-    max-width: 100%;
 }
 
 .titulo{
