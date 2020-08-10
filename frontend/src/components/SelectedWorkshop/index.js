@@ -1,7 +1,6 @@
-import { v4 as uuidv4 } from 'uuid';
 import React from 'react';
 import { connect } from 'react-redux';
-import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBRow, MDBCol, MDBIcon } from
+import { MDBCard, MDBCardBody, MDBCardImage, MDBCardText, MDBRow, MDBCol } from
 'mdbreact';
 import clsx from 'clsx';
 import {
@@ -9,30 +8,12 @@ import {
     getIsOpen
 } from '../../reducers';
 import Nav from '../Nav';
-import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-import { reset, Field, reduxForm } from 'redux-form';
-import * as actions from '../../actions/workshops';
 import './styles.css';
-import DateFnsUtils from '@date-io/date-fns';
-import {
-    MuiPickersUtilsProvider,
-    KeyboardDatePicker,
-} from '@material-ui/pickers';
 import * as selectedActions from '../../actions/selectedWorkshop';
 
 const drawerWidth = 240;
 
-const validate = values => {
-    const errors = {};
-    const requiredFields = [ 'name', 'startdate', 'enddate', 'classroom', 'description'];
-    requiredFields.forEach(field => {
-        if (!values[ field ]) {
-            errors[ field ] = 'Obligatorio*';
-        }
-    })
-    return errors;
-}
 
 const useStyles = makeStyles((theme) => ({
     root: {

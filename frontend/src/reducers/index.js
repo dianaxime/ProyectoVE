@@ -75,5 +75,5 @@ export const getScholar = (state, id) => scholarsSelectors.getScholar(state.scho
 export const getScholars = state => scholarsSelectors.getScholars(state.scholars);
 export const isFetchingScholars = state => scholarsSelectors.isFetchingScholars(state.scholars);
 export const getFetchingScholarsError = state => scholarsSelectors.getFetchingScholarsError(state.scholars);
-/* Selected */
+/* Selected Workshop*/
 export const getSelectedWorkshop = (state) => selectedWorkshopSelectors.getSelectedWorkshop(state.selectedWorkshop)

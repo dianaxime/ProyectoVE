@@ -1,11 +1,11 @@
-import { v4 as uuidv4 } from 'uuid';
 import React from 'react';
 import { connect } from 'react-redux';
 import clsx from 'clsx';
 import {
     getAuthToken,
-    getIsOpen, 
-    getUpdateWorkshopError,
+    getIsOpen,
+    getWorkshop,
+    getSelectedWorkshop,
 } from '../../reducers';
 import Nav from '../Nav';
 import TextField from '@material-ui/core/TextField';
@@ -18,8 +18,7 @@ import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
-import { getSelectedWorkshop } from '../../reducers/selectedWorkshop';
-import * as selectedActions from '../../actions/selectedWorkshop';
+
 
 const drawerWidth = 240;
 
@@ -93,10 +92,8 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
 );
 
 let UpdateWorkshop = ({ open,
-    onHandle,
     onSubmit,
     isLoading,
-    oldName,oldDescription, oldStartDate, oldEndDate, oldClassroom,
     handleSubmit, }) => {
     const classes = useStyles();
     return (
@@ -114,13 +111,13 @@ let UpdateWorkshop = ({ open,
                         <form className="formW">
                             <h3 className="subw">Datos</h3>
                             <div className="div-field">
-                                <Field name="name" component={renderTextField} label={oldName}/>
+                                <Field name="name" component={renderTextField} label="Nombre"/>
                             </div>
                             <div className="div-field">
-                                <Field name="description" component={renderTextField} label={oldDescription}/>
+                                <Field name="description" component={renderTextField} label="Descripcion"/>
                             </div>
                             <div className="div-field">
-                                <Field name="classroom" component={renderTextField} label={oldClassroom}/>
+                                <Field name="classroom" component={renderTextField} label="Salon"/>
                             </div>
                             <div>
                                 <Field name="startdate" component={renderDateTimePicker} label="Fecha de Inicio"/>
@@ -160,12 +157,7 @@ UpdateWorkshop = connect(
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
         open: getIsOpen(state),
-        initialValues: getSelectedWorkshop(state),
-        oldName: selectedActions.selectedWorkshop(state).payload.selectedWorkshop.name,
-        oldDescription: selectedActions.selectedWorkshop(state).payload.selectedWorkshop.description,
-        oldStartDate: selectedActions.selectedWorkshop(state).payload.selectedWorkshop.startdate,
-        oldEndDate: selectedActions.selectedWorkshop(state).payload.selectedWorkshop.enddate,
-        oldClassroom: selectedActions.selectedWorkshop(state).payload.selectedWorkshop.classroom,
+        initialValues: getWorkshop(state, getSelectedWorkshop(state)),
     }),
     dispatch => ({
         onSubmit({ name, startdate, enddate, classroom, description }) {
