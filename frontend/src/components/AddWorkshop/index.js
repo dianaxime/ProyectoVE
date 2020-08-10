@@ -167,7 +167,6 @@ AddWorkshop = connect(
                     startdate,
                     enddate
                 ),
-                console.log("Taller creado!"),
                 dispatch(reset('workshopForm')),
             );
         },

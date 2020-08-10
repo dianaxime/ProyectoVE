@@ -48,9 +48,30 @@
     border-style: none;
     margin-top: 0px;
     align-self: flex-end;
-    
     margin-bottom: 20px;
-    
-   
 }
 
+.more_button{
+    margin-left: 125px;
+    border-style: none;
+    border-radius: 3px;
+    background-color: green;
+    color: white;
+    margin-top: 10px;
+    font-weight: bolder;
+    height: 30px;
+}
+
+.icono{
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    margin-left: 90px;
+}
+
+.edit_button{
+    border: none;
+    color: initial;
+    border-color: initial;
+}

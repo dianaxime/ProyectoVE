@@ -69,6 +69,7 @@ export const getWorkshop = (state, id) => workshopsSelectors.getWorkshop(state.w
 export const getWorkshops = state => workshopsSelectors.getWorkshops(state.workshops);
 export const isFetchingWorkshops = state => workshopsSelectors.isFetchingWorkshops(state.workshops);
 export const getFetchingWorkshopsError = state => workshopsSelectors.getFetchingWorkshopsError(state.workshops);
+export const getUpdateWorkshopError = state => workshopsSelectors.getUpdateWorkshopError(state.workshops);
 /* Scholars */
 export const getScholar = (state, id) => scholarsSelectors.getScholar(state.scholars, id);
 export const getScholars = state => scholarsSelectors.getScholars(state.scholars);

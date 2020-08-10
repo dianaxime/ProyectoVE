@@ -279,7 +279,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
                 </Link>
               </ListItem>
               <ListItem button className={classes.nested}>
-                <Link to="/authorization" className={classes.link}>
+                <Link to="/editartaller" className={classes.link}>
                   <ListItemIcon>
                     <StarBorder />
                   </ListItemIcon>

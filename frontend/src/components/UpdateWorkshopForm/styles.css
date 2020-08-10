@@ -53,12 +53,21 @@
 
 .buttonformW{
     border-radius: 5px;
-    height: 35px;
-    width: 70px;
+    height: 45px;
+    width: 95px;
+    font-size: 18px;
     background-color:  rgb(7, 107, 50);
     color: white;
     border-style: none;
     margin-top: 15px;
+    transition-duration: 0.4s;
+}
+
+.buttonformW:hover {
+    background-color: white; /* Green */
+    color: rgb(7, 107, 50);
+    border-color: rgb(7, 107, 50);
+    border-style: solid;
 }
 
 .inputWorkshop {

@@ -9,7 +9,8 @@ import HomePage from '../HomePage';
 import AuthorizePage from '../AuthorizePage';
 import AddWorkshop from '../AddWorkshop';
 import WorkshopsPage from '../WorkshopsPage';
-
+import UpdateWorkshop from '../UpdateWorkshopForm';
+import SelectedWorkshop from '../SelectedWorkshop';
 import TokenRefresh from '../TokenRefresh';
 
 import 'fontsource-roboto';
@@ -30,6 +31,8 @@ const App = () => (
           <Route exact path="/authorization" component={AuthorizePage}/>
           <Route exact path="/creartaller" component={AddWorkshop} />
           <Route exact path="/talleres" component={WorkshopsPage} />
+          <Route exact path="/taller" component={SelectedWorkshop} />
+          <Route exact path="/editartaller" component={UpdateWorkshop} />
           <Route render={() => <Redirect to="/" />} />
         </Switch>
       </BrowserRouter>

@@ -1,9 +1,7 @@
 .workshopsworkshopsContainer {
     display: flex;
     flex-direction: row;
-    justify-content: right;
-    align-content: stretch;
-    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .titulo{
