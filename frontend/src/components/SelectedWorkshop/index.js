@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { MDBCard, MDBCardBody, MDBCardImage, MDBCardText, MDBRow, MDBCol } from
+import { MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol } from
 'mdbreact';
 import clsx from 'clsx';
 import {
@@ -48,9 +48,7 @@ const useStyles = makeStyles((theme) => ({
 
 let SelectedWorkshop = ({ open,
     name, startdate, enddate, classroom, description,
-    onSubmit,
-    isLoading,
-    handleSubmit, }) => {
+     }) => {
     const classes = useStyles();
     return (
         <div className={classes.root}>
@@ -73,22 +71,14 @@ let SelectedWorkshop = ({ open,
                                     <h2>{name}</h2>
                                 </MDBCardImage>
                                 <MDBCardBody cascade className='text-center'>
-                                    <MDBCardText>
                                     <h5 className="des">{description}</h5>
-                                    </MDBCardText>
-                                    <MDBCardText>
                                     <h5 className="sdatetitle">Inicio</h5>   
                                     <h5 className="sdate">{startdate}</h5>
-                                    </MDBCardText>
-                                    <MDBCardText>
                                     <h5 className="edatetitle">Fin</h5>
                                     <h5 className="edate">{enddate}</h5>
-                                    </MDBCardText>
                                     <hr />
                                     <div className='text-center'>
-                                    <MDBCardText>
                                     {classroom}
-                                    </MDBCardText>
                                     </div>
                                 </MDBCardBody>
                                 </MDBCard>
