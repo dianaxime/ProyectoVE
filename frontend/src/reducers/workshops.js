@@ -42,15 +42,6 @@ const byId = (state = {}, action) => {
         },
       };
     }
-    case types.WORKSHOP_UPDATE_COMPLETED: {
-      const { id, workshop } = action.payload;
-      const newState = omit(state, id);
-      newState[workshop.id] = {
-        ...workshop,
-        isConfirmed: true,
-      };
-      return newState;
-    }
     default: {
       return state;
     }
@@ -68,14 +59,6 @@ const order = (state = [], action) => {
     case types.WORKSHOP_ADD_COMPLETED: {
       const { oldId, workshop } = action.payload;
       return state.map(id => id === oldId ? workshop.id : id);
-    }
-    case types.WORKSHOP_UPDATE_COMPLETED: {
-      const { id, workshop } = action.payload;
-      const newState = omit(state, id);
-      newState[workshop.id] = {
-        ...workshop,
-      };
-      return newState;
     }
     default: {
       return state;
@@ -117,33 +100,14 @@ const error = (state = null, action) => {
   }
 };
 
-const updateWorkshopError = (state = null, action) => {
-  switch (action.type) {
-    case types.WORKSHOP_UPDATE_FAILED: {
-      return action.payload.error;
-    }
-    case types.WORKSHOP_UPDATE_COMPLETED: {
-      return null;
-    }
-    case types.WORKSHOP_UPDATE_STARTED: {
-      return null;
-    }
-    default: {
-      return state;
-    }
-  }
-};
-
 export default combineReducers({
   byId,
   order,
   isFetching,
   error,
-  updateWorkshopError,
 });
 
 export const getWorkshop = (state, id) => state.byId[id];
 export const getWorkshops = state => state.order.map(id => getWorkshop(state, id));
 export const isFetchingWorkshops = state => state.isFetching;
 export const getFetchingWorkshopsError = state => state.error;
-export const getUpdateWorkshopError = state => state.updateWorkshopError;

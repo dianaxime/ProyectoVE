@@ -5,12 +5,13 @@ import { MDBCard, MDBCardBody, MDBCardImage, MDBCardText, MDBRow, MDBCol } from
 import clsx from 'clsx';
 import {
     getAuthToken,
-    getIsOpen
+    getIsOpen,
+    getWorkshop,
+    getSelectedWorkshop
 } from '../../reducers';
 import Nav from '../Nav';
 import { makeStyles } from '@material-ui/core/styles';
 import './styles.css';
-import * as selectedActions from '../../actions/selectedWorkshop';
 
 const drawerWidth = 240;
 
@@ -108,11 +109,11 @@ SelectedWorkshop = connect(
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
         open: getIsOpen(state),
-        name: selectedActions.selectedWorkshop(state).payload.selectedWorkshop.name,
-        description: selectedActions.selectedWorkshop(state).payload.selectedWorkshop.description,
-        startdate: selectedActions.selectedWorkshop(state).payload.selectedWorkshop.startdate,
-        enddate: selectedActions.selectedWorkshop(state).payload.selectedWorkshop.enddate,
-        classroom: selectedActions.selectedWorkshop(state).payload.selectedWorkshop.classroom,
+        name: getWorkshop(state, getSelectedWorkshop(state)).name,
+        description: getWorkshop(state, getSelectedWorkshop(state)).description,
+        startdate: getWorkshop(state, getSelectedWorkshop(state)).startdate,
+        enddate: getWorkshop(state, getSelectedWorkshop(state)).enddate,
+        classroom: getWorkshop(state, getSelectedWorkshop(state)).classroom,
     }),
 )(SelectedWorkshop);
 

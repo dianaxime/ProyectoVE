@@ -18,7 +18,7 @@ import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
-
+import { URL } from '../../settings';
 
 const drawerWidth = 240;
 
@@ -158,11 +158,13 @@ UpdateWorkshop = connect(
         isAuth: getAuthToken(state) !== null,
         open: getIsOpen(state),
         initialValues: getWorkshop(state, getSelectedWorkshop(state)),
+        idWorkshop: getSelectedWorkshop(state),
     }),
     dispatch => ({
-        onSubmit({ name, startdate, enddate, classroom, description }) {
+        onSubmit({ name, startdate, enddate, classroom, description }, id) {
             dispatch(
                 actions.startUpdatingWorkshop(
+                    id,
                     name,
                     classroom,
                     description,
@@ -172,8 +174,17 @@ UpdateWorkshop = connect(
                 console.log("Taller actualizado!"),
                 dispatch(reset('updateWorkshopForm')),
             );
+            window.location.href = URL + 'talleres';
         },
     }),
+    (stateProps, dispatchProps, ownProps) => ({
+        ...stateProps,
+        ...dispatchProps,
+        ...ownProps,
+        onSubmit({ name, startdate, enddate, classroom, description}) {
+            dispatchProps.onSubmit({ name, startdate, enddate, classroom, description}, stateProps.idWorkshop);
+        },
+    })
 )(UpdateWorkshop);
 
 export default UpdateWorkshop;

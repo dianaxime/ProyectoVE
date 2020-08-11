@@ -124,7 +124,8 @@ function* updateWorkshop(action) {
           },
         }
       );
-      if (response.status === 201) {
+      console.log(response)
+      if (response.status === 200) {
         const jsonResult = yield response.json();
         yield put(
           actions.completeUpdatingWorkshop(
