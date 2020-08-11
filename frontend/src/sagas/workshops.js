@@ -87,7 +87,7 @@ function* addWorkshop(action) {
         yield put(
           actions.completeAddingWorkshop(
             action.payload.id,
-            jsonResult.data,
+            jsonResult.data[0],
           ),
         );
       } else {
@@ -127,10 +127,11 @@ function* updateWorkshop(action) {
       console.log(response)
       if (response.status === 200) {
         const jsonResult = yield response.json();
+        const info = jsonResult.data[0];
         yield put(
           actions.completeUpdatingWorkshop(
-            jsonResult.data.id,
-            jsonResult.data,
+            info.id,
+            info,
           ),
         );
       } else {
