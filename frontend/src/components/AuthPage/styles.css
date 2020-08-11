@@ -2,6 +2,7 @@ body {
     background-image: url(uvg.jpg);
     background-size: 100%;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     justify-content: center;
     align-items: center;
 }

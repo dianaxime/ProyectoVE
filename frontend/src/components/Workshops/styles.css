@@ -1,11 +1,10 @@
 .workshopsContainer {
     display: grid;
-    height: 480px;
-    grid-gap: 10rem;
-    grid-template-columns: 120px 120px 120px 120px; 
-    row-gap: 1rem;
+    height: 470px;
+    grid-gap: 20px;
+    grid-template-columns: 260px 260px 260px 260px; 
     overflow-y: scroll;
-    overflow-x: hidden ;
+    overflow-x: hidden;
 }
 
 /* Tamaño del scroll */
