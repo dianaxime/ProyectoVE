@@ -182,6 +182,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
             </Typography>
           {isAuth && (
             <div>
+              <img src={require('./logouvg.png')} alt="logo" className="logo"/>
               <IconButton
                 aria-label="account of current user"
                 aria-controls="menu-appbar"

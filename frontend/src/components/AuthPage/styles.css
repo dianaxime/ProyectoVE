@@ -21,6 +21,11 @@ img {
     height: 90px;
 }
 
+.logo{
+    width: 150px;
+    height: 35px;
+    margin: 20px;
+}
 .auth-container {
     margin-top: 10px;
     display: flex;
