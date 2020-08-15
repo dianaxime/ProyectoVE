@@ -10,6 +10,7 @@ import * as actions from '../../actions/users';
 import './styles.css';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
+import Persons from '../Persons';
 
 const validate = values => {
     const errors = {};
@@ -53,6 +54,7 @@ let SearchPersons = ({
                         </IconButton>
                     </div>
                     <div className="personas">
+                        <Persons />
                         
                     </div>
                 </div>
