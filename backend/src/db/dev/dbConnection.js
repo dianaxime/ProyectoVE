@@ -254,6 +254,53 @@ const createEventParticipationTable = () => {
     });
 };
 
+/** 
+ * Roles tables
+*/
+
+const createRolesTable = () => {
+    const rolesCreateQuery = `CREATE TABLE IF NOT EXISTS roles
+    (
+        id SERIAL PRIMARY KEY,
+        role VARCHAR(100) NOT NULL
+    )`;
+
+    pool.query(rolesCreateQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+/** 
+ * Roles relationship tables
+*/
+
+const createRolesRelationshipTable = () => {
+    const rolesrelationshipCreateQuery = `CREATE TABLE IF NOT EXISTS roles_relationship
+    (
+        id SERIAL PRIMARY KEY,
+        userID INT NOT NULL,
+        idR INT NOT NULL,
+        FOREIGN KEY (userID) REFERENCES users(id),
+        FOREIGN KEY (idR) REFERENCES roles(id)
+    )`;
+
+    pool.query(rolesrelationshipCreateQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
 
 
 
@@ -425,6 +472,8 @@ const createAllTables = () => {
     createTournamentTable();
     createEventTable();
     createEventParticipationTable();
+    createRolesTable();
+    createRolesRelationshipTable();
 };
 
 /**
