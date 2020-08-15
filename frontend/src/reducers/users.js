@@ -74,7 +74,7 @@ export default combineReducers({
   error,
 });
 
-export const getUser = (state, id) => state.byId[id];
-export const getUsers = state => state.order.map(id => getUser(state, id));
-export const isFetchingUsers = state => state.isFetching;
-export const getFetchingUsersError = state => state.error;
+export const getUserByEmail = (state, id) => state.byId[id];
+export const getUsersByEmail = state => state.order.map(id => getUserByEmail(state, id));
+export const isFetchingUsersByEmail = state => state.isFetching;
+export const getFetchingUsersByEmailError = state => state.error;

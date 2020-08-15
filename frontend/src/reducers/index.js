@@ -79,7 +79,7 @@ export const getFetchingScholarsError = state => scholarsSelectors.getFetchingSc
 /* Selected Workshop*/
 export const getSelectedWorkshop = (state) => selectedWorkshopSelectors.getSelectedWorkshop(state.selectedWorkshop)
 /* Users */
-export const getUser = (state, id) => usersSelectors.getUser(state.users, id);
-export const getUsers = state => usersSelectors.getUsers(state.users);
-export const isFetchingUsers = state => usersSelectors.isFetchingUsers(state.users);
-export const getFetchingUsersError = state => usersSelectors.getFetchingUsersError(state.users);
+export const getUserByEmail = (state, id) => usersSelectors.getUserByEmail(state.users, id);
+export const getUsersByEmail = state => usersSelectors.getUsersByEmail(state.users);
+export const isFetchingUsersByEmail = state => usersSelectors.isFetchingUsersByEmail(state.users);
+export const getFetchingUsersByEmailError = state => usersSelectors.getFetchingUsersByEmailError(state.users);
