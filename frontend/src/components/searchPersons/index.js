@@ -7,12 +7,15 @@ import {
     getSelectedWorkshop,
 } from '../../reducers';
 import TextField from '@material-ui/core/TextField';
+import InputBase from '@material-ui/core/InputBase';
 import { reset, Field, reduxForm } from 'redux-form';
 import * as actions from '../../actions/users';
 import './styles.css';
+import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
 import Persons from '../Persons';
+import { red } from '@material-ui/core/colors';
 
 const validate = values => {
     const errors = {};
@@ -27,7 +30,7 @@ const validate = values => {
 
 
 const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
-    <TextField className="inputWorkshop" placeholder={label}
+    <InputBase className="inputWorkshop" placeholder={label}
         label={label}
         helperText={touched && error}
         {...input}
@@ -37,6 +40,16 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
     />
 );
 
+const useStyles = makeStyles(theme => ({
+    textField: {
+      marginLeft: theme.spacing(2),
+      marginRight: theme.spacing(1),
+    },
+    dense: {
+        marginTop: 19,
+    },
+  }));
+
 let SearchPersons = ({
     onSubmit,
     isLoading,
@@ -44,33 +57,30 @@ let SearchPersons = ({
     selectWorkshop,
     workshop,
  }) => {
+    const classes = useStyles();
     return (
         <div className="personasWorkshop">
-            <div className="datosWorkshop">
-                <div className="formP">
-                    <h1 className="subP">Personas</h1>
-                    {
-                        selectWorkshop ? (
+            <div className="formP">
+                <h1 className="subP">Personas</h1>
+                {
+                    selectWorkshop ? (
 
-                            <p className="subtituloT">{((Object.entries(workshop)[1])[1])}</p>
-                        ) :
-                        (
-                            <p>Seleccione un taller</p>
-                        )
-                    }
-                    <div>
-                        <div className="inputbuscar">
-                            <Field name="email" component={renderTextField} label="Buscar..."></Field>
-                        </div>
-                        <IconButton edge="end" aria-label="agregar" onClick={handleSubmit(onSubmit)}>
-                            <SearchIcon className="iconoBusc" />
-                        </IconButton>
-                    </div>
-                    <div className="personas">
-                        <Persons />
-                        
-                    </div>
+                        <p className="subtituloT">{((Object.entries(workshop)[1])[1])}</p>
+                    ) :
+                    (
+                        <p className="subtituloT">*Seleccione un taller*</p>
+                    )
+                }
+                <div className="barrabus">
+                    <Field name="email" component={renderTextField} label="Buscar..." className="inputBuscar" color="white"></Field>
+                    <IconButton edge="end" aria-label="agregar" onClick={handleSubmit(onSubmit)}>
+                        <SearchIcon className="iconoBusc" />
+                    </IconButton>
                 </div>
+                <div className="personas">
+                    <Persons />
+                </div>
+                <hr></hr>
             </div>
         </div>
     );

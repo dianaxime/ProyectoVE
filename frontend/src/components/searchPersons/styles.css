@@ -1,6 +1,5 @@
 .personasWorkshop{
     width: 50%;
-    margin-right: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -22,15 +21,15 @@
 .personas{
     height: 356px;
     width: 100%;
-    /*background: violet;*/
+    /*background: pink;*/
 }
 
 .iconoBusc{
     color: white;
 }
 
-.inputbuscar{
-    background: #424242;
+.inputBuscar{
+    background: #505050;
     color: white;
     height: 30px;
     border: 0;
@@ -48,4 +47,11 @@
     margin-top: 20px;
     color: white;
     font-size: 25px;
+}
+
+.barrabus{
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+    width: 280px;
 }

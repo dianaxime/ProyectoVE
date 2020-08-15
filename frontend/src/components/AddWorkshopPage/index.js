@@ -7,6 +7,7 @@ import { URL } from '../../settings';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Nav from '../Nav';
+import './styles.css';
 
 const drawerWidth = 240;
 
@@ -52,8 +53,8 @@ const AddWorkshopPage = ({open}) => {
                 })}
             >
                 <div className={classes.drawerHeader} />
-                <div>
-                    <center><b><h2 className="tituloformW">{'Nuevo Taller'}</h2></b></center>
+                <center><b><h2 className="tituloformW">{'Nuevo Taller'}</h2></b></center>
+                <div className="addWorkshop">
                     <AddWorkshop />
                     <SearchPersons />
                 </div>
