@@ -103,7 +103,6 @@ AddWorkshop = connect(
     state => ({
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
-        open: getIsOpen(state),
     }),
     dispatch => ({
         onSubmit({ name, startdate, enddate, classroom, description }) {

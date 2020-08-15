@@ -2,7 +2,7 @@ import React from 'react';
 import AddWorkshop from '../AddWorkshop';
 import SearchPersons from '../searchPersons';
 import { connect } from 'react-redux';
-import { getAuthToken } from '../../reducers';
+import { getAuthToken, getIsOpen } from '../../reducers';
 import { URL } from '../../settings';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const AddWorkshopPage = () => {
+const AddWorkshopPage = ({open}) => {
     const classes = useStyles();
     return (
 
@@ -66,6 +66,7 @@ const AddWorkshopPage = () => {
 export default connect(
     state => ({
         isAuth: getAuthToken(state) !== null,
+        open: getIsOpen(state),
     }),
     undefined,
     (stateProps, disptachProps, ownProps) => {
@@ -79,3 +80,4 @@ export default connect(
         });
     }
 )(AddWorkshopPage);
+
