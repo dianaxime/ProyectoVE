@@ -22,6 +22,10 @@ import {
     watchScholarsFetch,
 } from './scholars';
 
+import {
+    watchUsersFetch,
+} from './users';
+
 function* mainSaga() {
     yield all([
         /* Auth */
@@ -40,6 +44,8 @@ function* mainSaga() {
         /* Scholar */
         fork(watchAddScholar),
         fork(watchScholarsFetch),
+        /* Users */
+        fork(watchUsersFetch),
     ]);
 }
 

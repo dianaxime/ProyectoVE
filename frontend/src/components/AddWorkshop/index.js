@@ -2,8 +2,7 @@ import { v4 as uuidv4 } from 'uuid';
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-    getAuthToken,
-    getIsOpen
+    getAuthToken
 } from '../../reducers';
 import TextField from '@material-ui/core/TextField';
 import { reset, Field, reduxForm } from 'redux-form';
@@ -55,7 +54,7 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
     />
 );
 
-let AddWorkshop = ({ open,
+let AddWorkshop = ({
     onSubmit,
     isLoading,
     handleSubmit, }) => {

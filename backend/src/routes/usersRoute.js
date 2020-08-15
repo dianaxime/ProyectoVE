@@ -29,7 +29,7 @@ router.patch('/auth/update', verifyAuth, updateUser);
 router.post('/auth/token-refresh', verifyAuth, refreshToken);
 router.get('/auth/pending-users', verifyAuth, getPending);
 router.get('/auth/all-students', verifyAuth, getStudents);
-router.get('/auth/student-email', verifyAuth, getStudentByEmail);
+router.get('/auth/student-email/:email', verifyAuth, getStudentByEmail);
 router.get('/auth/students-teams', verifyAuth, getStudentsTeamsById);
 router.get('/auth/students-workshops', verifyAuth, getStudentsWSById);
 module.exports = router;

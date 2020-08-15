@@ -24,19 +24,18 @@ function* fetchUsers(action) {
             const token = yield select(selectors.getAuthToken);
             const response = yield call(
                 fetch,
-                `${API_BASE_URL}/auth/student-email`,
+                `${API_BASE_URL}/auth/student-email/${action.payload.email}`,
                 {
                     method: 'GET',
-                    body: JSON.stringify(action.payload),
                     headers: {
                         'Content-Type': 'application/json',
                         'token': `${token}`,
                     },
                 }
             );
-
             if (response.status === 200) {
                 const jsonResult = yield response.json();
+                console.log(jsonResult);
                 const {
                     entities: { users },
                     result,
