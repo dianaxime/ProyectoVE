@@ -4,6 +4,7 @@ import {reducer as formReducer} from 'redux-form';
 import auth, * as authSelectors from './auth';
 import workshops, * as workshopsSelectors from './workshops';
 import scholars, * as scholarsSelectors from './scholars';
+import users, * as usersSelectors from './users';
 
 import changeDrawer, * as changeDrawerSelectors from './changeDrawer';
 import changeForgot, * as changeForgotSelectors from './modalForgot';
@@ -23,6 +24,7 @@ const reducer = combineReducers({
   scholars,
   changeScholar,
   selectedWorkshop,
+  users,
   form: formReducer,
 });
 
@@ -76,3 +78,8 @@ export const isFetchingScholars = state => scholarsSelectors.isFetchingScholars(
 export const getFetchingScholarsError = state => scholarsSelectors.getFetchingScholarsError(state.scholars);
 /* Selected Workshop*/
 export const getSelectedWorkshop = (state) => selectedWorkshopSelectors.getSelectedWorkshop(state.selectedWorkshop)
+/* Users */
+export const getUser = (state, id) => usersSelectors.getUser(state.users, id);
+export const getUsers = state => usersSelectors.getUsers(state.users);
+export const isFetchingUsers = state => usersSelectors.isFetchingUsers(state.users);
+export const getFetchingUsersError = state => usersSelectors.getFetchingUsersError(state.users);
