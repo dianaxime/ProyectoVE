@@ -2,7 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
     getAuthToken,
-    getIsOpen
+    getIsOpen,
+    getWorkshop,
+    getSelectedWorkshop,
 } from '../../reducers';
 import TextField from '@material-ui/core/TextField';
 import { reset, Field, reduxForm } from 'redux-form';
@@ -38,13 +40,24 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
 let SearchPersons = ({
     onSubmit,
     isLoading,
-    handleSubmit, }) => {
+    handleSubmit,
+    selectWorkshop,
+    workshop,
+ }) => {
     return (
         <div className="personasWorkshop">
             <div className="datosWorkshop">
                 <div className="formP">
                     <h1 className="subP">Personas</h1>
-                    <p className="subtituloT">(*aqui nombre del taller*)</p>
+                    {
+                        selectWorkshop ? (
+
+                            <p className="subtituloT">{((Object.entries(workshop)[1])[1])}</p>
+                        ) :
+                        (
+                            <p>Seleccione un taller</p>
+                        )
+                    }
                     <div>
                         <div className="inputbuscar">
                             <Field name="email" component={renderTextField} label="Buscar..."></Field>
@@ -73,6 +86,8 @@ SearchPersons = connect(
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
         open: getIsOpen(state),
+        selectWorkshop: getSelectedWorkshop(state) !== null,
+        workshop: getWorkshop(state, getSelectedWorkshop(state)),
     }),
     dispatch => ({
         onSubmit({ email }) {
