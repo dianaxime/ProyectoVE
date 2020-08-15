@@ -12,7 +12,6 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { reset, Field, reduxForm } from 'redux-form';
 import * as actions from '../../actions/workshops';
-import './styles.css';
 import DateFnsUtils from '@date-io/date-fns';
 import {
     MuiPickersUtilsProvider,
@@ -109,7 +108,7 @@ let UpdateWorkshop = ({ open,
                     <div className="datosWorkshop">
                         <h2 className="tituloformW">{'Editar Taller'}</h2>
                         <form className="formW">
-                            <h3 className="subw">Datos</h3>
+                            <h3 className="tituloformW">Datos</h3>
                             <div className="div-field">
                                 <Field name="name" component={renderTextField} label="Nombre"/>
                             </div>

@@ -103,9 +103,9 @@ let AddWorkshop = ({ open,
                 })}
             >
                 <div className={classes.drawerHeader} />
+                <center><b><h2 className="tituloformW">{'Nuevo Taller'}</h2></b></center>
                 <div className="addWorkshop">
                     <div className="datosWorkshop">
-                        <h2 className="tituloformW">{'Nuevo Taller'}</h2>
                         <form className="formW">
                             <h3 className="subw">Datos</h3>
                             <div className="div-field">
@@ -137,7 +137,15 @@ let AddWorkshop = ({ open,
                         </form>
                     </div>
                     <div className="personasWorkshop">
-                        <h1>Personas</h1>
+                        <div className="datosWorkshop">
+                            <div className="formP">
+                                <h1 className="subP">Personas</h1>
+                                <input placeholder="Buscar"></input>
+                                <div className="personas">
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </main>

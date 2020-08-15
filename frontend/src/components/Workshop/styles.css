@@ -22,7 +22,6 @@
     margin-top: 5px;
     margin-left: 15px;
     font-family: 'Tahoma';
-    font-weight: 600;
 }
 
 .contenido{
@@ -34,7 +33,7 @@
     margin-top: 10px;
 }
 .workshop_name{
-    font-size: 50px;
+    font-size: 10px;
     margin-top: -30px;
 }
 
@@ -42,7 +41,7 @@
     background: black;
     border-radius: 5px;
     color: white;
-    font-size: 20px;
+    font-size: 10px;
     height: 25px;
     width: 25px;
     border-style: none;
@@ -58,7 +57,6 @@
     background-color: green;
     color: white;
     margin-top: 10px;
-    font-weight: bolder;
     height: 30px;
 }
 
