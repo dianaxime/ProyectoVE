@@ -1,0 +1,51 @@
+.personasWorkshop{
+    width: 50%;
+    margin-right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.formP{
+    background-color: #2e2e2e;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 400px;
+    width: 400px;
+    height: 493.44px;
+    border-radius: 4px;
+    padding-top: 0px;
+}
+
+.personas{
+    height: 356px;
+    width: 100%;
+    /*background: violet;*/
+}
+
+.iconoBusc{
+    color: white;
+}
+
+.inputbuscar{
+    background: #424242;
+    color: white;
+    height: 30px;
+    border: 0;
+    padding: 10px;
+    text-underline-position: auto;
+    width: 300px;
+}
+
+.subtituloT{
+    color: rgb(119, 117, 117);
+    font-size: 10px;
+}
+
+.subP{
+    margin-top: 20px;
+    color: white;
+    font-size: 25px;
+}

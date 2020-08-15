@@ -91,62 +91,38 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
     />
 );
 
-let AddWorkshop = ({ open,
+let SearchPersons = ({ open,
     onSubmit,
     isLoading,
     handleSubmit, }) => {
     const classes = useStyles();
     return (
-        <div className={classes.root}>
-            <Nav />
-            <main
-                className={clsx(classes.content, {
-                    [classes.contentShift]: open,
-                })}
-            >
-                <div className={classes.drawerHeader} />
-                    <div className="datosWorkshop">
-                        <form className="formW">
-                            <h3 className="subw">Datos</h3>
-                            <div className="div-field">
-                                <Field name="name" component={renderTextField} label="Nombre"/>
-                            </div>
-                            <div className="div-field">
-                                <Field name="description" component={renderTextField} label="Descripción"/>
-                            </div>
-                            <div className="div-field">
-                                <Field name="classroom" component={renderTextField} label="Salon"/>
-                            </div>
-                            <div>
-                                <Field name="startdate" component={renderDateTimePicker} label="Fecha de Inicio"/>
-                            </div>
-                            <div>
-                                <Field name="enddate" component={renderDateTimePicker} label="Fecha de Finalización"/>
-                            </div>
-                            <p>
-                                {
-                                    isLoading ? (
-                                        <strong>{'Cargando...'}</strong>
-                                    ) : (
-                                            <button className="buttonformW" type="submit" onClick={handleSubmit(onSubmit)}>
-                                                {'Crear'}
-                                            </button>
-                                        )
-                                }
-                            </p>
-                        </form>
+        <div className="personasWorkshop">
+            <div className="datosWorkshop">
+                <div className="formP">
+                    <h1 className="subP">Personas</h1>
+                    <p className="subtituloT">(*aqui nombre del taller*)</p>
+                    <div>
+                        <input placeholder="Buscar..." className="inputbuscar"></input>
+                        <IconButton edge="end" aria-label="agregar">
+                            <SearchIcon className="iconoBusc" />
+                        </IconButton>
+                    </div>
+                    <div className="personas">
+                        
+                    </div>
                 </div>
-            </main>
+            </div>
         </div>
     );
 }
 
-AddWorkshop = reduxForm({
+SearchPersons = reduxForm({
     form: 'workshopForm',
     validate
-})(AddWorkshop);
+})(SearchPersons);
 
-AddWorkshop = connect(
+SearchPersons = connect(
     state => ({
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
@@ -167,6 +143,7 @@ AddWorkshop = connect(
             );
         },
     }),
-)(AddWorkshop);
+)(SearchPersons);
 
-export default AddWorkshop;
+export default SearchPersons;
+

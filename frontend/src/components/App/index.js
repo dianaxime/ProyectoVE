@@ -7,7 +7,7 @@ import { configureStore } from '../../store';
 import AuthPage from '../AuthPage';
 import HomePage from '../HomePage';
 import AuthorizePage from '../AuthorizePage';
-import AddWorkshop from '../AddWorkshop';
+import AddWorkshopPage from '../AddWorkshopPage';
 import WorkshopsPage from '../WorkshopsPage';
 import UpdateWorkshop from '../UpdateWorkshopForm';
 import SelectedWorkshop from '../SelectedWorkshop';
@@ -29,7 +29,7 @@ const App = () => (
           <Route exact path="/" component={HomePage} />
           <Route exact path="/auth" component={AuthPage} />
           <Route exact path="/authorization" component={AuthorizePage}/>
-          <Route exact path="/creartaller" component={AddWorkshop} />
+          <Route exact path="/creartaller" component={AddWorkshopPage} />
           <Route exact path="/talleres" component={WorkshopsPage} />
           <Route exact path="/taller" component={SelectedWorkshop} />
           <Route exact path="/editartaller" component={UpdateWorkshop} />
