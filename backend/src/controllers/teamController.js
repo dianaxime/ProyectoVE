@@ -27,9 +27,11 @@ const createTeam = async (req, res) => {
     const {
         name,
         sport,
+        startdate,
+        enddate
     } = req.body;
 
-    if (isEmpty(name) || isEmpty(sport) ) {
+    if (isEmpty(name) || isEmpty(sport) || isEmpty(startdate) || isEmpty(enddate) ) {
         errorMessage.error = 'Name, sport fields cannot be empty';
         return res.status(status.bad).send(errorMessage);
     }

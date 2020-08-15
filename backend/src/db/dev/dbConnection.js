@@ -131,7 +131,9 @@ const createTeamTable = () => {
     (
         id SERIAL PRIMARY KEY,
         name VARCHAR(100) NOT NULL,
-        sport VARCHAR(100) NOT NULL
+        sport VARCHAR(100) NOT NULL,
+        startdate DATE NOT NULL,
+        enddate DATE NOT NULL
     )`;
 
     pool.query(teamCreateQuery)
