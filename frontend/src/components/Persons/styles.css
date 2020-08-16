@@ -1,6 +1,6 @@
 .personaIn{
-    margin-left: 5px;
-    margin-right: 5px;
+    margin-left: 7px;
+    margin-right: 7px;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -20,9 +20,6 @@
 
 .inputPersona{
     color: rgb(209, 209, 209);
-}
-.inputPersona:nth-child(1){
-    color: white;
 }
 
 .listaper{

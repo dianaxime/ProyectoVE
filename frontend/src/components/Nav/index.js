@@ -5,9 +5,11 @@ import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import NoteAddIcon from '@material-ui/icons/NoteAdd';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -24,6 +26,8 @@ import BrushIcon from '@material-ui/icons/Brush';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
+import EditIcon from '@material-ui/icons/Edit';
+import ViewModuleRoundedIcon from '@material-ui/icons/ViewModuleRounded';
 import Collapse from '@material-ui/core/Collapse';
 import { connect } from 'react-redux';
 import { getAuthToken, getIsOpen } from '../../reducers';
@@ -265,26 +269,32 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
             <List component="div" disablePadding>
               <ListItem button className={classes.nested}>
                 <Link to="/creartaller" className={classes.link}>
-                  <ListItemIcon>
-                    <StarBorder />
-                  </ListItemIcon>
+                <ListItemIcon>
                   <ListItemText primary={"Crear"} />
+                  <ListItemSecondaryAction>
+                      <NoteAddIcon />
+                  </ListItemSecondaryAction>
+                </ListItemIcon>
                 </Link>
               </ListItem>
               <ListItem button className={classes.nested}>
                 <Link to="/talleres" className={classes.link}>
-                  <ListItemIcon>
-                    <StarBorder/>
-                  </ListItemIcon>
+                <ListItemIcon>
                   <ListItemText primary={"Ver todos"} />
+                  <ListItemSecondaryAction>
+                      <ViewModuleRoundedIcon/>
+                  </ListItemSecondaryAction>
+                </ListItemIcon>
                 </Link>
               </ListItem>
               <ListItem button className={classes.nested}>
                 <Link to="/editartaller" className={classes.link}>
                   <ListItemIcon>
-                    <StarBorder />
+                    <ListItemText primary={"Editar"} />
+                    <ListItemSecondaryAction>
+                      <EditIcon />
+                    </ListItemSecondaryAction>
                   </ListItemIcon>
-                  <ListItemText primary={"Editar"} />
                 </Link>
               </ListItem>
             </List>
