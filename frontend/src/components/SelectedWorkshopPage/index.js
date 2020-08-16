@@ -53,7 +53,7 @@ const SelectedWorkshopPage = ({open}) => {
                 })}
             >
                 <div className={classes.drawerHeader} />
-                <div className="addWorkshop">
+                <div className="contenedorW">
                     <SelectedWorkshop />
                     <ShowPersons />
                 </div>

@@ -51,32 +51,30 @@ let SelectedWorkshop = ({ open,
      }) => {
     const classes = useStyles();
     return (
-        <div className="selectedWorkshop">
-            <div className="dataWorkshop">
-                <MDBRow>
-                    <MDBCol col='4'>
-                        <MDBCard>
-                        <MDBCardImage
-                            className="tituloWorkshop"
-                            tag='div'
-                        >
-                            <h2>{name}</h2>
-                        </MDBCardImage>
-                        <MDBCardBody cascade className='text-center'>
-                            <h5 className="des">{description}</h5>
-                            <h5 className="sdatetitle">Inicio</h5>   
-                            <h5 className="sdate">{startdate}</h5>
-                            <h5 className="edatetitle">Fin</h5>
-                            <h5 className="edate">{enddate}</h5>
-                            <hr />
-                            <div className='text-center'>
-                            {classroom}
-                            </div>
-                        </MDBCardBody>
-                        </MDBCard>
-                    </MDBCol>
-                </MDBRow>
-            </div>
+        <div className="dataWorkshop">
+            <MDBRow>
+                <MDBCol col='4'>
+                    <MDBCard>
+                    <MDBCardImage
+                        className="tituloWorkshop"
+                        tag='div'
+                    >
+                        <h2>{name}</h2>
+                    </MDBCardImage>
+                    <MDBCardBody cascade className='text-center'>
+                        <h5 className="des">{description}</h5>
+                        <h5 className="sdatetitle">Inicio</h5>   
+                        <h5 className="sdate">{startdate}</h5>
+                        <h5 className="edatetitle">Fin</h5>
+                        <h5 className="edate">{enddate}</h5>
+                        <hr />
+                        <div className='text-center'>
+                        {classroom}
+                        </div>
+                    </MDBCardBody>
+                    </MDBCard>
+                </MDBCol>
+            </MDBRow>
         </div>
     );
 }
