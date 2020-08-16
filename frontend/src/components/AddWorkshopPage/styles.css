@@ -1,12 +1,10 @@
 .addWorkshop{
     height: auto;
-    margin-top: 0rem;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding-top: 0px;
 }
 
 .tituloformW{

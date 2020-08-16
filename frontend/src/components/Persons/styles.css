@@ -4,10 +4,25 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    height: 20px;
+}
+
+/*.MuiList-padding {
+    /* padding-top: 0; */
+    /* padding-bottom: 0.5px; 
+    height: 70px;
+}*/
+
+.inputPersonaS{
+    color: rgb(170, 169, 169);
+    font-size: 10px;
 }
 
 .inputPersona{
     color: rgb(209, 209, 209);
+}
+.inputPersona:nth-child(1){
+    color: white;
 }
 
 .listaper{

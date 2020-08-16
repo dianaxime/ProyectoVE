@@ -22,10 +22,10 @@ const Person = ({
           users.length > 0 && !isLoading && (
             <div>
               {
-                users.map(({id, first_name, email}) => 
+                users.map(({id,first_name, last_name, email}) => 
                   <ListItem key={id} className="inputPersona">
-                    <ListItemText primary={first_name} secondary={
-                      email
+                    <ListItemText primary={first_name + " " + last_name} secondary={
+                      <p className="inputPersonaS">{email}</p>
                       }/>
                     <ListItemSecondaryAction>
                       <IconButton edge="end" aria-label="agregar">
