@@ -25,7 +25,6 @@ import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
 import BrushIcon from '@material-ui/icons/Brush';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import StarBorder from '@material-ui/icons/StarBorder';
 import EditIcon from '@material-ui/icons/Edit';
 import ViewModuleRoundedIcon from '@material-ui/icons/ViewModuleRounded';
 import Collapse from '@material-ui/core/Collapse';

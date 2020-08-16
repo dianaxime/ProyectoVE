@@ -24,7 +24,9 @@ import {
 
 import {
     watchUsersFetch,
-} from './users';
+    watchParticipationFetch,
+    watchAddParticipation,
+} from './participation';
 
 function* mainSaga() {
     yield all([
@@ -46,6 +48,8 @@ function* mainSaga() {
         fork(watchScholarsFetch),
         /* Users */
         fork(watchUsersFetch),
+        fork(watchParticipationFetch),
+        fork(watchAddParticipation),
     ]);
 }
 

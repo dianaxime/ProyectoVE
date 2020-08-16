@@ -24,7 +24,7 @@ const GET_PENDING = `SELECT * FROM registers WHERE status=$1`;
 
 const GET_STUDENTS= `SELECT * FROM users WHERE type=$1`;
 
-const GET_STUDENT_BY_EMAIL= `SELECT id, email, first_name, last_name, carne FROM users WHERE email ILIKE $1`;
+const GET_STUDENT_BY_EMAIL= `SELECT id, email, first_name, last_name, carne FROM users WHERE email ILIKE '%'|| $1 || '%'`;
 
 const GET_TEAMS_BY_STUDENT_ID= `SELECT team.name, team.sport, team.id FROM users JOIN tournament ON users.id=tournament.userid
 JOIN team ON team.id=tournament.idt WHERE users.id=$1`;

@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const {
-    isEmpty,
+    empty
 } = require('../helpers/validation');
 
 const {
@@ -31,7 +31,7 @@ const createParticipation = async (req, res) => {
         enddate
     } = req.body;
 
-    if (isEmpty(userid) || isEmpty(idw)  || isEmpty(startdate) || isEmpty(enddate) ) {
+    if (empty(userid) || empty(idw)  || empty(startdate) || empty(enddate) ) {
         errorMessage.error = 'User id, id of workshop, startdate, enddate field cannot be empty';
         return res.status(status.bad).send(errorMessage);
     }
@@ -82,7 +82,7 @@ const getParticipationByWs = async (req, res) => {
         idw,
     } = req.body;
 
-    if (isEmpty(idw)) {
+    if (empty(idw)) {
         errorMessage.error = 'ID of workshop detail is missing';
         return res.status(status.bad).send(errorMessage);
     }
