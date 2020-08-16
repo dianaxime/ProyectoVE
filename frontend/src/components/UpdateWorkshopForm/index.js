@@ -96,52 +96,36 @@ let UpdateWorkshop = ({ open,
     handleSubmit, }) => {
     const classes = useStyles();
     return (
-        <div className={classes.root}>
-            <Nav />
-            <main
-                className={clsx(classes.content, {
-                    [classes.contentShift]: open,
-                })}
-            >
-                <div className={classes.drawerHeader} />
-                <div className="addWorkshop">
-                    <div className="datosWorkshop">
-                        <h2 className="tituloformW">{'Editar Taller'}</h2>
-                        <form className="formW">
-                            <h3 className="tituloformW">Datos</h3>
-                            <div className="div-field">
-                                <Field name="name" component={renderTextField} label="Nombre"/>
-                            </div>
-                            <div className="div-field">
-                                <Field name="description" component={renderTextField} label="Descripcion"/>
-                            </div>
-                            <div className="div-field">
-                                <Field name="classroom" component={renderTextField} label="Salon"/>
-                            </div>
-                            <div>
-                                <Field name="startdate" component={renderDateTimePicker} label="Fecha de Inicio"/>
-                            </div>
-                            <div>
-                                <Field name="enddate" component={renderDateTimePicker} label="Fecha de Finalización"/>
-                            </div>
-                            <p>
-                                {
-                                    isLoading ? (
-                                        <strong>{'Cargando...'}</strong>
-                                    ) : (
-                                            <button className="buttonformW" type="submit" onClick={handleSubmit(onSubmit)}>
-                                                {'Actualizar'}
-                                            </button>
-                                        )
-                                }
-                            </p>
-                        </form>
-                    </div>
-                    <div className="personasWorkshop">
-                        <h1>Personas</h1>
-                    </div>
+        <div className="datosWorkshop">
+            <form className="formW">
+                <h3 className="subw">Datos</h3>
+                <div className="div-field">
+                    <Field name="name" component={renderTextField} label="Nombre" />
                 </div>
-            </main>
+                <div className="div-field">
+                    <Field name="description" component={renderTextField} label="Descripción" />
+                </div>
+                <div className="div-field">
+                    <Field name="classroom" component={renderTextField} label="Salon" />
+                </div>
+                <div>
+                    <Field name="startdate" component={renderDateTimePicker} label="Fecha de Inicio" />
+                </div>
+                <div>
+                    <Field name="enddate" component={renderDateTimePicker} label="Fecha de Finalización" />
+                </div>
+                <p>
+                    {
+                        isLoading ? (
+                            <strong>{'Cargando...'}</strong>
+                        ) : (
+                                <button className="buttonformW" type="submit" onClick={handleSubmit(onSubmit)}>
+                                    {'Crear'}
+                                </button>
+                            )
+                    }
+                </p>
+            </form>
         </div>
     );
 }
