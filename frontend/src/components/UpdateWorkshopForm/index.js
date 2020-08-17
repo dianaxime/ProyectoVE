@@ -1,15 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import clsx from 'clsx';
 import {
     getAuthToken,
     getIsOpen,
     getWorkshop,
     getSelectedWorkshop,
 } from '../../reducers';
-import Nav from '../Nav';
 import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
 import { reset, Field, reduxForm } from 'redux-form';
 import * as actions from '../../actions/workshops';
 import DateFnsUtils from '@date-io/date-fns';
@@ -18,8 +15,6 @@ import {
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 import { URL } from '../../settings';
-
-const drawerWidth = 240;
 
 const validate = values => {
     const errors = {};
@@ -32,36 +27,6 @@ const validate = values => {
     return errors;
 }
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-    },
-    drawerHeader: {
-        display: 'flex',
-        alignItems: 'center',
-        padding: theme.spacing(0, 1),
-        // necessary for content to be below app bar
-        ...theme.mixins.toolbar,
-        justifyContent: 'flex-end',
-    },
-    content: {
-        flexGrow: 1,
-        padding: theme.spacing(3),
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        marginLeft: -drawerWidth,
-    },
-    contentShift: {
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
-    },
-}));
-
 const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) => (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <KeyboardDatePicker
@@ -70,7 +35,7 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) =
           variant="inline"
           format="yyyy/MM/dd"
           margin="normal"
-          id="date-picker-inline"
+          //id="date-picker-inline"
           label={label}
           onChange={onChange}
           time={showTime}
@@ -94,7 +59,6 @@ let UpdateWorkshop = ({ open,
     onSubmit,
     isLoading,
     handleSubmit, }) => {
-    const classes = useStyles();
     return (
         <div className="datosWorkshop">
             <form className="formW">
@@ -120,7 +84,7 @@ let UpdateWorkshop = ({ open,
                             <strong>{'Cargando...'}</strong>
                         ) : (
                                 <button className="buttonformW" type="submit" onClick={handleSubmit(onSubmit)}>
-                                    {'Crear'}
+                                    {'Actualizar'}
                                 </button>
                             )
                     }

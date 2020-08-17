@@ -116,7 +116,7 @@ function* fetchParticipation(action) {
             const token = yield select(selectors.getAuthToken);
             const response = yield call(
                 fetch,
-                `${API_BASE_URL}/auth/student-email/${action.payload.idw}`,
+                `${API_BASE_URL}/participation/participations-by-workshop/${action.payload.idw}`,
                 {
                     method: 'GET',
                     headers: {
@@ -153,5 +153,49 @@ export function* watchParticipationFetch() {
     yield takeEvery(
         types.PARTICIPATION_FETCH_STARTED,
         fetchParticipation,
+    );
+}
+
+function* deleteParticipation(action) {
+    try {
+        const isAuth = yield select(selectors.isAuthenticated);
+
+        if (isAuth) {
+            if (action.payload.idw && action.payload.userid) {
+                const token = yield select(selectors.getAuthToken);
+                const response = yield call(
+                    fetch,
+                    `${API_BASE_URL}/participation/delete/${action.payload.idw}/${action.payload.userid}`,
+                    {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'token': `${token}`,
+                        },
+                    }
+                );
+                if (response.status === 200) {
+                    
+                    yield put(
+                        actions.completeRemovingParticipation(
+                            action.payload.userid
+                        ),
+                    );
+                } else {
+                    const errors = yield response.json();
+                    yield put(actions.failRemovingParticipation(errors.error));
+                }
+            }
+        }
+    } catch (error) {
+        yield put(actions.failRemovingParticipation("Error de conexión"));
+        console.log("ERROR", error);
+    }
+}
+
+export function* watchDeleteParticipation() {
+    yield takeEvery(
+        types.PARTICIPATION_REMOVE_STARTED,
+        deleteParticipation,
     );
 }

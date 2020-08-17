@@ -70,3 +70,23 @@ export const failFetchingParticipation = error => ({
         error,
     },
 });
+
+export const startRemovingParticipation = (idw, userid) => ({
+    type: types.PARTICIPATION_REMOVE_STARTED,
+    payload: {
+        idw,
+        userid,
+    },
+});
+
+export const completeRemovingParticipation = userid => ({
+    type: types.PARTICIPATION_REMOVE_COMPLETED,
+    payload: userid,
+});
+
+export const failRemovingParticipation = error => ({
+    type: types.PARTICIPATION_REMOVE_FAILED,
+    payload: {
+        error,
+    },
+});

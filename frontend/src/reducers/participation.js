@@ -30,7 +30,8 @@ const byId = (state = {}, action) => {
 const order = (state = [], action) => {
   switch (action.type) {
     case types.USERS_BY_EMAIL_FETCH_COMPLETED: {
-      return [...action.payload.order];
+      const myArr = [...state, ...action.payload.order];
+      return [...new Set(myArr)]
     }
     case types.PARTICIPATION_ADD_COMPLETED: {
       const { participation } = action.payload;
@@ -106,6 +107,10 @@ const byIdParticipation = (state = {}, action) => {
       };
       return newState;
     }
+    case types.PARTICIPATION_REMOVE_COMPLETED: {
+      const newState = omit(state, action.payload);
+      return newState;
+    }
     default: {
       return state;
     }
@@ -123,6 +128,9 @@ const orderParticipation = (state = [], action) => {
     case types.PARTICIPATION_ADD_COMPLETED: {
       const { oldId, participation } = action.payload;
       return state.map(id => id === oldId ? participation.id : id);
+    }
+    case types.PARTICIPATION_REMOVE_COMPLETED: {
+      return state.filter(id => id !== action.payload);
     }
     default: {
       return state;
@@ -181,6 +189,6 @@ export const getUsersByEmail = state => state.order.map(id => getUserByEmail(sta
 export const isFetchingUsersByEmail = state => state.isFetching;
 export const getFetchingUsersByEmailError = state => state.error;
 export const getParticipation = (state, id) => state.byIdParticipation[id];
-export const getParticipations = state => state.order.map(id => getParticipation(state, id));
+export const getParticipations = state => state.orderParticipation.map(id => getParticipation(state, id));
 export const isFetchingParticipations = state => state.isFetchingParticipation;
 export const getFetchingParticipationError = state => state.errorParticipation;

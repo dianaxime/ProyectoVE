@@ -26,6 +26,7 @@ import {
     watchUsersFetch,
     watchParticipationFetch,
     watchAddParticipation,
+    watchDeleteParticipation,
 } from './participation';
 
 function* mainSaga() {
@@ -46,10 +47,11 @@ function* mainSaga() {
         /* Scholar */
         fork(watchAddScholar),
         fork(watchScholarsFetch),
-        /* Users */
+        /* Participation */
         fork(watchUsersFetch),
         fork(watchParticipationFetch),
         fork(watchAddParticipation),
+        fork(watchDeleteParticipation),
     ]);
 }
 

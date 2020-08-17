@@ -6,41 +6,11 @@ import {
     getWorkshop,
     getSelectedWorkshop,
 } from '../../reducers';
-import InputBase from '@material-ui/core/InputBase';
-import { reset, Field, reduxForm } from 'redux-form';
-import * as actions from '../../actions/participation';
 import './styles.css';
-import SearchIcon from '@material-ui/icons/Search';
-import IconButton from '@material-ui/core/IconButton';
 import ShowPerson from '../ShowPerson';
-
-const validate = values => {
-    const errors = {};
-    const requiredFields = ['email'];
-    requiredFields.forEach(field => {
-        if (!values[field]) {
-            errors[field] = 'Obligatorio*';
-        }
-    })
-    return errors;
-}
-
-
-const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
-    <InputBase className="inputWorkshop" placeholder={label}
-        label={label}
-        {...input}
-        {...custom}
-        fullWidth
-    />
-);
-
 
 
 let ShowPersons = ({
-    onSubmit,
-    isLoading,
-    handleSubmit,
     selectWorkshop,
     workshop,
 }) => {
@@ -57,12 +27,8 @@ let ShowPersons = ({
                             <p className="subtituloT">*Seleccione un taller*</p>
                         )
                 }
-                <div className="barrabus">
-                    <Field name="email" component={renderTextField} label="Buscar..." className="inputBuscar"></Field>
-                    <IconButton edge="end" aria-label="agregar" onClick={handleSubmit(onSubmit)}>
-                        <SearchIcon className="iconoBusc" />
-                    </IconButton>
-                </div>
+                {
+                }
                 <div className="personas">
                     <ShowPerson />
                 </div>
@@ -72,11 +38,6 @@ let ShowPersons = ({
     );
 }
 
-ShowPersons = reduxForm({
-    form: 'searchPersonForm',
-    validate
-})(ShowPersons);
-
 ShowPersons = connect(
     state => ({
         isLoading: false,
@@ -85,14 +46,7 @@ ShowPersons = connect(
         selectWorkshop: getSelectedWorkshop(state) !== null,
         workshop: getWorkshop(state, getSelectedWorkshop(state)),
     }),
-    dispatch => ({
-        onSubmit({ email }) {
-            dispatch(
-                actions.startFetchingUsersByEmail(email),
-                dispatch(reset('searchPersonForm')),
-            );
-        },
-    }),
+    undefined,
 )(ShowPersons);
 
 export default ShowPersons;

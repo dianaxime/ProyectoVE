@@ -2,54 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol } from
 'mdbreact';
-import clsx from 'clsx';
 import {
     getAuthToken,
-    getIsOpen,
     getWorkshop,
     getSelectedWorkshop
 } from '../../reducers';
-import Nav from '../Nav';
-import { makeStyles } from '@material-ui/core/styles';
 import './styles.css';
+import moment from 'moment';
 
-const drawerWidth = 240;
 
-
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-    },
-    drawerHeader: {
-        display: 'flex',
-        alignItems: 'center',
-        padding: theme.spacing(0, 1),
-        // necessary for content to be below app bar
-        ...theme.mixins.toolbar,
-        justifyContent: 'flex-end',
-    },
-    content: {
-        flexGrow: 1,
-        padding: theme.spacing(3),
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        marginLeft: -drawerWidth,
-    },
-    contentShift: {
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
-    },
-}));
-
-let SelectedWorkshop = ({ open,
+let SelectedWorkshop = ({
     name, startdate, enddate, classroom, description,
-     }) => {
-    const classes = useStyles();
+    }) => {
     return (
         <div className="dataWorkshop">
             <MDBRow>
@@ -64,9 +28,9 @@ let SelectedWorkshop = ({ open,
                     <MDBCardBody cascade className='text-center'>
                         <h5 className="des">{description}</h5>
                         <h5 className="sdatetitle">Inicio</h5>   
-                        <h5 className="sdate">{startdate}</h5>
+                        <h5 className="sdate">{moment(startdate).format('L')}</h5>
                         <h5 className="edatetitle">Fin</h5>
-                        <h5 className="edate">{enddate}</h5>
+                        <h5 className="edate">{moment(enddate).format('L')}</h5>
                         <hr />
                         <div className='text-center'>
                         {classroom}
@@ -83,7 +47,6 @@ SelectedWorkshop = connect(
     state => ({
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
-        open: getIsOpen(state),
         name: getWorkshop(state, getSelectedWorkshop(state)).name,
         description: getWorkshop(state, getSelectedWorkshop(state)).description,
         startdate: getWorkshop(state, getSelectedWorkshop(state)).startdate,
