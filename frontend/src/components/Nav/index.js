@@ -286,16 +286,6 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
                 </ListItemIcon>
                 </Link>
               </ListItem>
-              <ListItem button className={classes.nested}>
-                <Link to="/editartaller" className={classes.link}>
-                  <ListItemIcon>
-                    <ListItemText primary={"Editar"} />
-                    <ListItemSecondaryAction>
-                      <EditIcon />
-                    </ListItemSecondaryAction>
-                  </ListItemIcon>
-                </Link>
-              </ListItem>
             </List>
           </Collapse>
         </List>

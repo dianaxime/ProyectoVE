@@ -21,7 +21,41 @@
 .personas{
     height: 356px;
     width: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
     /*background: pink;*/
+}
+
+/* Tamaño del scroll */
+.personas::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+    
+    /* Estilos barra (thumb) de scroll */
+.personas::-webkit-scrollbar-thumb {
+    background: #b3b3b3;
+    border-radius: 4px;
+}
+    
+.personas::-webkit-scrollbar-thumb:active {
+    background-color: rgb(77, 76, 76);
+}
+    
+.personas::-webkit-scrollbar-thumb:hover {
+    background: rgb(77, 76, 76);
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+    
+/* Estilos track de scroll */
+.personas::-webkit-scrollbar-track {
+    background: rgb(77, 76, 76);
+    border-radius: 4px;
+}
+    
+.personas::-webkit-scrollbar-track:hover, 
+.personas::-webkit-scrollbar-track:active {
+    background: rgb(77, 76, 76);
 }
 
 .iconoBusc{

@@ -20,9 +20,9 @@
 
 .inputPersona{
     color: rgb(209, 209, 209);
+    border-bottom: solid rgb(102, 101, 101) 0.5px;
 }
 
 .listaper{
     background-color: transparent;
-    border-bottom: solid rgb(102, 101, 101) 0.5px;
 }
