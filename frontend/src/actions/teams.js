@@ -20,7 +20,7 @@ export const failFetchingTeams = error => ({
 });
 
 export const startAddingTeam = (id, name, classroom, description, startdate, enddate) => ({
-  type: types.TEAMS_ADD_STARTED,
+  type: types.TEAM_ADD_STARTED,
   payload: {
     id,
     name,
@@ -32,7 +32,7 @@ export const startAddingTeam = (id, name, classroom, description, startdate, end
 });
 
 export const completeAddingTeam = (oldId, team) => ({
-  type: types.TEAMS_ADD_COMPLETED,
+  type: types.TEAM_ADD_COMPLETED,
   payload: {
     oldId,
     team,
@@ -40,7 +40,7 @@ export const completeAddingTeam = (oldId, team) => ({
 });
 
 export const failAddingTeam = (oldId, error) => ({
-  type: types.TEAMS_ADD_FAILED,
+  type: types.TEAM_ADD_FAILED,
   payload: {
     oldId,
     error,
@@ -48,7 +48,7 @@ export const failAddingTeam = (oldId, error) => ({
 });
 
 export const startUpdatingTeam = (id, name, classroom, description, startdate, enddate) => ({
-  type: types.TEAMS_UPDATE_STARTED,
+  type: types.TEAM_UPDATE_STARTED,
   payload: {
     id,
     name,
@@ -60,7 +60,7 @@ export const startUpdatingTeam = (id, name, classroom, description, startdate, e
 });
 
 export const completeUpdatingTeam = (id, team) => ({
-  type: types.TEAMS_UPDATE_COMPLETED,
+  type: types.TEAM_UPDATE_COMPLETED,
   payload: {
     id,
     team,
@@ -68,7 +68,7 @@ export const completeUpdatingTeam = (id, team) => ({
 });
 
 export const failUpdatingTeam = (id, error) => ({
-  type: types.TEAMS_UPDATE_FAILED,
+  type: types.TEAM_UPDATE_FAILED,
   payload: {
     id,
     error,

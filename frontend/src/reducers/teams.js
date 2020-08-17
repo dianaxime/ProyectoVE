@@ -16,7 +16,7 @@ const byId = (state = {}, action) => {
       });
       return newState;
     }
-    case types.TEAMS_ADD_STARTED: {
+    case types.TEAM_ADD_STARTED: {
       const newState = { ...state };
       newState[action.payload.id] = {
         ...action.payload,
@@ -24,16 +24,16 @@ const byId = (state = {}, action) => {
       };
       return newState;
     }
-    case types.TEAMS_ADD_COMPLETED: {
-      const { oldId, teams } = action.payload;
+    case types.TEAM_ADD_COMPLETED: {
+      const { oldId, team } = action.payload;
       const newState = omit(state, oldId);
-      newState[teams.id] = {
-        ...teams,
+      newState[team.id] = {
+        ...team,
         isConfirmed: true,
       };
       return newState;
     }
-    case types.TEAMS_UPDATE_STARTED: {
+    case types.TEAM_UPDATE_STARTED: {
       return {
         ...state,
         [action.payload.id]: {
@@ -42,11 +42,11 @@ const byId = (state = {}, action) => {
         },
       };
     }
-    case types.TEAMS_UPDATE_COMPLETED: {
-      const { id, teams } = action.payload;
+    case types.TEAM_UPDATE_COMPLETED: {
+      const { id, team } = action.payload;
       const newState = omit(state, id);
-      newState[teams.id] = {
-        ...teams,
+      newState[team.id] = {
+        ...team,
         isConfirmed: true,
       };
       return newState;
@@ -62,18 +62,18 @@ const order = (state = [], action) => {
     case types.TEAMS_FETCH_COMPLETED: {
       return [...action.payload.order];
     }
-    case types.TEAMS_ADD_STARTED: {
+    case types.TEAM_ADD_STARTED: {
       return [...state, action.payload.id];
     }
-    case types.TEAMS_ADD_COMPLETED: {
-      const { oldId, teams } = action.payload;
-      return state.map(id => id === oldId ? teams.id : id);
+    case types.TEAM_ADD_COMPLETED: {
+      const { oldId, team } = action.payload;
+      return state.map(id => id === oldId ? team.id : id);
     }
-    case types.TEAMS_UPDATE_COMPLETED: {
-      const { id, teams } = action.payload;
+    case types.TEAM_UPDATE_COMPLETED: {
+      const { id, team } = action.payload;
       const newState = omit(state, id);
-      newState[teams.id] = {
-        ...teams,
+      newState[team.id] = {
+        ...steam,
       };
       return newState;
     }
@@ -117,33 +117,14 @@ const error = (state = null, action) => {
   }
 };
 
-const updateTeamsError = (state = null, action) => {
-  switch (action.type) {
-    case types.TEAMS_UPDATE_FAILED: {
-      return action.payload.error;
-    }
-    case types.TEAMS_UPDATE_COMPLETED: {
-      return null;
-    }
-    case types.TEAMS_UPDATE_STARTED: {
-      return null;
-    }
-    default: {
-      return state;
-    }
-  }
-};
-
 export default combineReducers({
   byId,
   order,
   isFetching,
   error,
-  updateTeamsError,
 });
 
 export const getTeam = (state, id) => state.byId[id];
 export const getTeams = state => state.order.map(id => getTeam(state, id));
 export const isFetchingTeams = state => state.isFetching;
 export const getFetchingTeamsError = state => state.error;
-export const getUpdateTeamsError = state => state.updateTeamsError;
