@@ -31,10 +31,13 @@ import * as actions from '../../actions/changeDrawer';
 import * as actionsAuth from '../../actions/auth';
 import * as actionsModal from '../../actions/modalChange';
 import * as actionsUpdate from '../../actions/modalUpdate';
+import * as actionsScholar from '../../actions/modalScholarship';
 import ChangeModal from '../ChangeModal';
 import UpdateModal from '../UpdateModal';
+import ScholarshipHoursModal from '../scholarshipHoursModal';
 import './styles.css';
 import { Link } from "react-router-dom";
+import { URL } from '../../settings';
 
 const drawerWidth = 270;
 
@@ -108,7 +111,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate  }) => {
+const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -134,6 +137,11 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate  }) => {
   const update = () => {
     handleClose();
     onUpdate();
+  }
+
+  const scholar = () => {
+    handleClose();
+    onScholar();
   }
 
   const handle = () => {
@@ -200,7 +208,8 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate  }) => {
               >
                 <MenuItem onClick={update}>Actualizar Perfil</MenuItem>
                 <MenuItem onClick={handle}>Cambiar Contraseña</MenuItem>
-                <MenuItem onClick={logout}>Salir</MenuItem>
+                <MenuItem onClick={scholar}>Voluntariado</MenuItem>
+                <MenuItem onClick={() => logout()}>Salir</MenuItem>
               </Menu>
             </div>
           )}
@@ -227,7 +236,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate  }) => {
               <ListItemIcon>
                 <HomeIcon />
               </ListItemIcon>
-              <ListItemText primary={"Home"} />
+              <ListItemText primary={"Inicio"} />
             </ListItem>
           </Link>
         </List>
@@ -238,7 +247,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate  }) => {
               <ListItemIcon>
                 <VerifiedUserIcon />
               </ListItemIcon>
-              <ListItemText primary={"Authorize Users"} />
+              <ListItemText primary={"Autorización de usuarios"} />
             </ListItem>
           </Link>
         </List>
@@ -262,7 +271,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate  }) => {
                 </Link>
               </ListItem>
               <ListItem button className={classes.nested}>
-                <Link to="/authorization" className={classes.link}>
+                <Link to="/talleres" className={classes.link}>
                   <ListItemIcon>
                     <StarBorder/>
                   </ListItemIcon>
@@ -270,7 +279,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate  }) => {
                 </Link>
               </ListItem>
               <ListItem button className={classes.nested}>
-                <Link to="/authorization" className={classes.link}>
+                <Link to="/editartaller" className={classes.link}>
                   <ListItemIcon>
                     <StarBorder />
                   </ListItemIcon>
@@ -287,6 +296,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate  }) => {
       </Drawer>
       <ChangeModal />
       <UpdateModal />
+      <ScholarshipHoursModal />
     </div>
   );
 }
@@ -309,6 +319,9 @@ export default connect(
     },
     onUpdate() {
       dispatch(actionsUpdate.changeUpdate(true));
+    },
+    onScholar() {
+      dispatch(actionsScholar.changeScholar(true));
     },
   }),
 )(Nav);

@@ -1,0 +1,17 @@
+.workshopsContainer {
+    display: grid;
+    grid-gap: 10rem;
+    grid-template-columns: 120px 120px 120px 120px; 
+    row-gap: 1rem;
+    margin-left: 70px;
+    margin-right: 200px;
+}
+
+.titulo{
+    color: seashell;
+    margin-left: 40px;
+    margin-top: 30px;
+    font-family: 'Tahoma';
+    font-size: 30px;
+}
+

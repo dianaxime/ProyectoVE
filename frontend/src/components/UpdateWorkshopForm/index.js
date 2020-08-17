@@ -1,10 +1,11 @@
-import { v4 as uuidv4 } from 'uuid';
 import React from 'react';
 import { connect } from 'react-redux';
 import clsx from 'clsx';
 import {
     getAuthToken,
-    getIsOpen
+    getIsOpen,
+    getWorkshop,
+    getSelectedWorkshop,
 } from '../../reducers';
 import Nav from '../Nav';
 import TextField from '@material-ui/core/TextField';
@@ -17,6 +18,7 @@ import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
+import { URL } from '../../settings';
 
 const drawerWidth = 240;
 
@@ -89,7 +91,7 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
     />
 );
 
-let AddWorkshop = ({ open,
+let UpdateWorkshop = ({ open,
     onSubmit,
     isLoading,
     handleSubmit, }) => {
@@ -105,14 +107,14 @@ let AddWorkshop = ({ open,
                 <div className={classes.drawerHeader} />
                 <div className="addWorkshop">
                     <div className="datosWorkshop">
-                        <h2 className="tituloformW">{'Nuevo Taller'}</h2>
+                        <h2 className="tituloformW">{'Editar Taller'}</h2>
                         <form className="formW">
                             <h3 className="subw">Datos</h3>
                             <div className="div-field">
                                 <Field name="name" component={renderTextField} label="Nombre"/>
                             </div>
                             <div className="div-field">
-                                <Field name="description" component={renderTextField} label="Descripción"/>
+                                <Field name="description" component={renderTextField} label="Descripcion"/>
                             </div>
                             <div className="div-field">
                                 <Field name="classroom" component={renderTextField} label="Salon"/>
@@ -129,7 +131,7 @@ let AddWorkshop = ({ open,
                                         <strong>{'Cargando...'}</strong>
                                     ) : (
                                             <button className="buttonformW" type="submit" onClick={handleSubmit(onSubmit)}>
-                                                {'Crear'}
+                                                {'Actualizar'}
                                             </button>
                                         )
                                 }
@@ -145,32 +147,44 @@ let AddWorkshop = ({ open,
     );
 }
 
-AddWorkshop = reduxForm({
-    form: 'workshopForm',
+UpdateWorkshop = reduxForm({
+    form: 'updateWorkshopForm',
     validate
-})(AddWorkshop);
+})(UpdateWorkshop);
 
-AddWorkshop = connect(
+UpdateWorkshop = connect(
     state => ({
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
         open: getIsOpen(state),
+        initialValues: getWorkshop(state, getSelectedWorkshop(state)),
+        idWorkshop: getSelectedWorkshop(state),
     }),
     dispatch => ({
-        onSubmit({ name, startdate, enddate, classroom, description }) {
+        onSubmit({ name, startdate, enddate, classroom, description }, id) {
             dispatch(
-                actions.startAddingWorkshop(
-                    uuidv4(),
+                actions.startUpdatingWorkshop(
+                    id,
                     name,
                     classroom,
                     description,
                     startdate,
                     enddate
                 ),
-                dispatch(reset('workshopForm')),
+                console.log("Taller actualizado!"),
+                dispatch(reset('updateWorkshopForm')),
             );
+            window.location.href = URL + 'talleres';
         },
     }),
-)(AddWorkshop);
+    (stateProps, dispatchProps, ownProps) => ({
+        ...stateProps,
+        ...dispatchProps,
+        ...ownProps,
+        onSubmit({ name, startdate, enddate, classroom, description}) {
+            dispatchProps.onSubmit({ name, startdate, enddate, classroom, description}, stateProps.idWorkshop);
+        },
+    })
+)(UpdateWorkshop);
 
-export default AddWorkshop;
+export default UpdateWorkshop;

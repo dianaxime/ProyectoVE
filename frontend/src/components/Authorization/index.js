@@ -44,16 +44,16 @@ const icons = {
 };
 
 const columns = [
-    { title: 'Email', field: 'email' },
-    { title: 'First Name', field: 'first_name' },
-    { title: 'Last Name', field: 'last_name' },
-    { title: 'Status', field: 'status' },
+    { title: 'Correo Electrónico', field: 'email' },
+    { title: 'Primer Nombre', field: 'first_name' },
+    { title: 'Apellido', field: 'last_name' },
+    { title: 'Estado', field: 'status' },
 ];
 
 const Authorization = ({ data, onLoad, onAuthorize }) => {
     useEffect(onLoad, []);
     return (
-        <MaterialTable title="Authorization"
+        <MaterialTable title="Autorización"
             icons={icons}
             columns={columns}
             data={data}

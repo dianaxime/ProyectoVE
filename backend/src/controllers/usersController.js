@@ -1,12 +1,8 @@
 require('dotenv').config();
-const moment = require('moment');
 const generator = require('generate-password');
 const nodemailer = require('nodemailer');
 
-const db = require('../db/config');
-
 const {
-    hashPassword,
     comparePassword,
     isValidEmail,
     validatePassword,
@@ -20,33 +16,19 @@ const {
     status,
 } = require('../helpers/status');
 
-const SEARCH_REGISTER = 'SELECT * FROM registers WHERE email=$1 ORDER BY id DESC';
-const UPDATE_REGISTER = 'UPDATE registers SET status=$1 WHERE email=$2 returning *';
-const CREATE_USER = `INSERT INTO
-    users(email, first_name, last_name, password, carne, sex, type, career, faculty, created_on, modified_on)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
-returning *`;
-const LOGIN_USER = 'SELECT * FROM users WHERE email = $1';
-const CREATE_REGISTER = `INSERT INTO
-    registers(email, first_name, last_name, carne, sex, type, career, faculty, status, created_on, authorized_on)
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
-returning *`;
-const UPDATE_PASSWORD = 'UPDATE users SET password=$1, modified_on=$2 WHERE email=$3 returning *';
-const UPDATE_USER = `UPDATE users SET first_name=$1, last_name=$2, carne=$3, sex=$4, type=$5, career=$6,
-faculty=$7, modified_on=$8 WHERE email=$9 returning *`;
-const GET_PENDING = `SELECT * FROM registers WHERE status=$1`;
-
-const GET_STUDENTS= `SELECT * FROM users WHERE type=$1`;
-
-const GET_STUDENT_BY_EMAIL= `SELECT * FROM users WHERE email ILIKE $1`;
-
-const GET_TEAMS_BY_STUDENT_ID= `SELECT team.name, team.sport, team.id FROM users JOIN tournament ON users.id=tournament.userid
-JOIN team ON team.id=tournament.idt WHERE users.id=$1`;
-
-const GET_WS_BY_STUDENT_ID= `SELECT workshop.name, workshop.description FROM users JOIN participation ON users.id=participation.userid
-JOIN workshop ON workshop.id=participation.idw WHERE users.id=$1`;
-
-
+const {
+    createUserQuery,
+    loginUserQuery,
+    createRegisterQuery,
+    forgotPasswordQuery,
+    changePasswordQuery,
+    updateUserQuery,
+    getPendingQuery,
+    getStudentsQuery,
+    getStudentByEmailQuery,
+    getStudentsTeamsByIdQuery,
+    getStudentsWSByIdQuery
+} = require('../repository/users');
 
 /**
  * Create A User
@@ -61,58 +43,30 @@ const createUser = async (req, res) => {
         email,
     } = req.body;
 
-    const created_on = moment(new Date());
-    const modified_on = moment(new Date());
-
     const password = generator.generate({
         length: 10,
         numbers: true
     });
 
-    const hashedPassword = hashPassword(password);
-    
-    db.tx(async t => {
-        let data = await t.one(SEARCH_REGISTER, [email]);
-        let values = [
-            'authorized',
-            email,
-        ];
-        const update  = await t.one(UPDATE_REGISTER, values);
-        values = [
-            data.email,
-            data.first_name,
-            data.last_name,
-            hashedPassword,
-            data.carne,
-            data.sex,
-            data.type,
-            data.career,
-            data.faculty,
-            created_on,
-            modified_on,
-        ];
-        console.log(values);
-        const create = await t.one(CREATE_USER, values);
-        return update;
-    })
+    createUserQuery({...req.body, password})
     .then(data => {
         const output = `
-            <h1>Welcome</h1>
+            <h1>Bienvenido</h1>
             <p> 
-                Thank you for signing up for Vida Estudiantil. 
-                Your account has been confirmed. 
-                You can login to VE and enjoy it freely.
+                Gracias por registrarte a la plataforma de Vida Estudiantil.
+                Tu cuenta ha sido confirmada, a partir de ahora puedes 
+                ingresar a la plataforma.
             </p>
-            <h3>Your Account Details </h3>
+            <h3>Tus datos de acceso: </h3>
             <ul>
-                <li>Login email: ${data.email} </li>
-                <li>Password: ${password} </li>
+                <li>Correo electrónico: ${data.email} </li>
+                <li>Contraseña: ${password} </li>
             </ul>
             <p>    
-                If you have any questions or concerns, please contact: ebperez@uvg.edu.gt
+                Si tiene alguna duda o pregunta, favor contactar a: ebperez@uvg.edu.gt
             </p>
-            <p>Thanks,</p>
-            <p>VE Team </p>
+            <p>Gracias,</p>
+            <p>El equipo de VE</p>
         `;
         // print new user id + new event id;
         console.log('DATA:', data);
@@ -133,7 +87,7 @@ const createUser = async (req, res) => {
         const mailOptions = {
             from: process.env.EMAIL,
             to: data.email,
-            subject: 'Welcome to VE platform!',
+            subject: 'Bienvenido a la plataforma de VE!',
             html: output //html body
           };
           
@@ -177,7 +131,7 @@ const loginUser = async (req, res) => {
         return res.status(status.bad).send(errorMessage);
     }
 
-    db.query(LOGIN_USER, [email])
+    loginUserQuery({email})
     .then(data => {
         console.log('DATA:', data); // print data;
         data = data[0];
@@ -222,10 +176,6 @@ const createRegister = async (req, res) => {
         faculty,
     } = req.body;
 
-    const created_on = moment(new Date());
-    const authorized_on = moment(new Date());
-    const state = 'pending';
-
     if (isEmpty(email) || isEmpty(first_name) || isEmpty(last_name) || isEmpty(carne) || isEmpty(sex) || isEmpty(type) || isEmpty(career) || isEmpty(faculty)) {
         errorMessage.error = 'Email, first name, last name, carne, sex, type, career and faculty field cannot be empty';
         return res.status(status.bad).send(errorMessage);
@@ -236,21 +186,7 @@ const createRegister = async (req, res) => {
         return res.status(status.bad).send(errorMessage);
     }
 
-    const values = [
-        email,
-        first_name,
-        last_name,
-        carne,
-        sex,
-        type,
-        career,
-        faculty,
-        state,
-        created_on,
-        authorized_on,
-    ];
-
-    db.query(CREATE_REGISTER, values)
+    createRegisterQuery({...req.body})
     .then(data => {
         console.log('DATA:', data); // print data;
         successMessage.data = data;
@@ -267,8 +203,16 @@ const createRegister = async (req, res) => {
     })
 };
 
-const getStudents=async (req, res)=>{
-    db.query(GET_STUDENTS, ['student'])
+/**
+ * Get students
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getStudents = async (req, res) => {
+    
+    getStudentsQuery()
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
@@ -286,8 +230,14 @@ const getStudents=async (req, res)=>{
     })
 }
 
-/*Get student by email */
-const getStudentByEmail=async (req, res)=>{
+/**
+ * Get student by email
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getStudentByEmail = async (req, res)=>{
 
     const {
         email,
@@ -298,12 +248,7 @@ const getStudentByEmail=async (req, res)=>{
         return res.status(status.bad).send(errorMessage);
     }
 
-    
-    const values = [
-        email
-    ];
-
-    db.query(GET_STUDENT_BY_EMAIL, values)
+    getStudentByEmailQuery({ ...req.body })
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
@@ -321,8 +266,14 @@ const getStudentByEmail=async (req, res)=>{
     })
 }
 
-/*Get students team by id */
-const getStudentsTeamsById=async (req, res)=>{
+/**
+ * Get students by team id
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getStudentsTeamsById = async (req, res)=>{
 
     const {
         id,
@@ -333,12 +284,7 @@ const getStudentsTeamsById=async (req, res)=>{
         return res.status(status.bad).send(errorMessage);
     }
 
-    
-    const values = [
-        id
-    ];
-
-    db.query(GET_TEAMS_BY_STUDENT_ID, values)
+    getStudentsTeamsByIdQuery({...req.body})
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
@@ -356,7 +302,14 @@ const getStudentsTeamsById=async (req, res)=>{
     })
 }
 
-/*Get students team by id */
+
+/**
+ * Get students by workshop id
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
 const getStudentsWSById=async (req, res)=>{
 
     const {
@@ -368,12 +321,7 @@ const getStudentsWSById=async (req, res)=>{
         return res.status(status.bad).send(errorMessage);
     }
 
-    
-    const values = [
-        id
-    ];
-
-    db.query(GET_WS_BY_STUDENT_ID, values)
+    getStudentsWSByIdQuery({ id })
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
@@ -414,22 +362,12 @@ const forgotPassword = async (req, res) => {
         return res.status(status.bad).send(errorMessage);
     }
 
-    const modified_on = moment(new Date());
-
     const password = generator.generate({
         length: 10,
         numbers: true
     });
 
-    const hashedPassword = hashPassword(password);
-    
-    const values = [
-        hashedPassword,
-        modified_on,
-        email
-    ];
-
-    db.query(UPDATE_PASSWORD, values)
+    forgotPasswordQuery({ email, password})
     .then(data => {
         console.log('DATA:', data); // print data;
         data = data[0];
@@ -441,22 +379,24 @@ const forgotPassword = async (req, res) => {
         */
 
        const output = `
-            <h1>Recover Password</h1>
+            <h1>Recuperar Contraseña</h1>
             <p> 
-                You requested the password recovery for
-                your account on VE. We have reset your
-                access password.
+                Usted ha solicitado una recuperación de 
+                contraseña para su cuenta en la plataforma
+                de Vida Estudiantil. Hemos cambiado su contraseña
+                de acceso.
             </p>
-            <h3>Your Account Details </h3>
+            <h3>Tus datos de acceso son: </h3>
             <ul>
-                <li>Login email: ${data.email} </li>
-                <li>New Password: ${password} </li>
+                <li>Correo electrónico: ${data.email} </li>
+                <li>Contraseña: ${password} </li>
             </ul>
-            <p>    
-                You can change your password in the change password option.
+            <p>
+                Puede cambiar su contraseña desde la plataforma en
+                cualquier momento, desde la opción de "Cambiar mi contraseña".
             </p>
-            <p>Sincerely,</p>
-            <p>VE Team </p>
+            <p>Atentamente,</p>
+            <p>El equipo de VE</p>
        `;
         
         const transporter = nodemailer.createTransport({
@@ -470,7 +410,7 @@ const forgotPassword = async (req, res) => {
         const mailOptions = {
             from: process.env.EMAIL,
             to: data.email,
-            subject: 'Recover Password',
+            subject: 'Recuperar Contraseña',
             html: output //html body
           };
           
@@ -516,31 +456,7 @@ const changePassword = async (req, res) => {
         return res.status(status.bad).send(errorMessage);
     }
 
-    const modified_on = moment(new Date());
-
-    const hashedPassword = hashPassword(newPassword);
-
-    const values = [
-        hashedPassword,
-        modified_on,
-        email
-    ];
-
-    db.tx(async t => {
-        let data = await t.one(LOGIN_USER, [email]);
-        console.log('DATA:', data); // print data;
-        if (!data) {
-            errorMessage.error = 'User with this email does not exist';
-            return res.status(status.notfound).send(errorMessage);
-        }
-    
-        if (!comparePassword(data.password, oldPassword)) {
-            errorMessage.error = 'The password you provided is incorrect';
-            return res.status(status.bad).send(errorMessage);
-        }
-        const user = await t.one(UPDATE_PASSWORD, values);
-        return user;
-    })
+    changePasswordQuery({...req.body, email})
     .then(data => {
         // print new user id + new event id;
         console.log('DATA:', data);
@@ -582,21 +498,7 @@ const updateUser = async (req, res) => {
         return res.status(status.bad).send(errorMessage);
     }
 
-    const modified_on = moment(new Date());
-
-    const values = [
-        first_name,
-        last_name,
-        carne,
-        sex,
-        type,
-        career,
-        faculty,
-        modified_on,
-        email
-    ];
-
-    db.query(UPDATE_USER, values)
+    updateUserQuery({...req.body, email})
     .then(data => {
         console.log('DATA:', data);
         data = data[0];
@@ -626,7 +528,7 @@ const refreshToken = async (req, res) => {
         return res.status(status.bad).send(errorMessage);
     }
 
-    db.query(LOGIN_USER, [email])
+    loginUserQuery({ email })
     .then(data => {
         console.log('DATA:', data); // print data;
         data = data[0];
@@ -656,7 +558,7 @@ const refreshToken = async (req, res) => {
 
 const getPending = async (req, res) => {
     
-    db.query(GET_PENDING, ['pending'])
+    getPendingQuery()
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {

@@ -1,7 +1,5 @@
 require('dotenv').config();
 
-const db = require('../db/config');
-
 const {
     isEmpty,
 } = require('../helpers/validation');
@@ -12,14 +10,11 @@ const {
     status,
 } = require('../helpers/status');
 
-const CREATE_TEAM=`INSERT INTO
-team(name, sport)
-VALUES ($1, $2)
-returning *`;
-
-const GET_TEAMS=`SELECT * FROM team`;
-
-const GET_TEAM_BY_NAME=`SELECT * FROM team WHERE name ILIKE $1`;
+const {
+    createTeamQuery,
+    getTeamsQuery,
+    getTeamByNameQuery
+} = require('../repository/team');
 
 /**
  * Create Team
@@ -39,12 +34,7 @@ const createTeam = async (req, res) => {
         return res.status(status.bad).send(errorMessage);
     }
 
-    const values = [
-        name,
-        sport
-    ];
-
-    db.query(CREATE_TEAM, values)
+    createTeamQuery({...req.body})
     .then(data => {
         console.log('DATA:', data); // print data;
         successMessage.data = data;
@@ -57,7 +47,13 @@ const createTeam = async (req, res) => {
     })
 };
 
-/*get team by name*/
+/**
+ * Get team by name
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
 const getTeamByName=async (req, res)=>{
 
     const {
@@ -69,12 +65,7 @@ const getTeamByName=async (req, res)=>{
         return res.status(status.bad).send(errorMessage);
     }
 
-    
-    const values = [
-        name
-    ];
-
-    db.query(GET_TEAM_BY_NAME, values)
+    getTeamByNameQuery({...req.body})
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
@@ -101,7 +92,7 @@ const getTeamByName=async (req, res)=>{
 
 const getTeams = async (req, res) => {
     
-    db.query(GET_TEAMS)
+    getTeamsQuery()
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {

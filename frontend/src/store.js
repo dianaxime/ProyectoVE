@@ -23,7 +23,7 @@ export const configureStore = () => {
         {
         key: 'rootx',
         storage,
-        whitelist: ['auth','changeDrawer'],
+        whitelist: ['auth', 'workshops', 'scholars', 'selectedWorkshop'],
         },
         reducer,
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
@@ -32,8 +32,7 @@ export const configureStore = () => {
     const store = createStore(
         persistedReducer,
         composeEnhancers(
-
-        applyMiddleware(sagaMiddleware),
+            applyMiddleware(sagaMiddleware),
         ),
     );
 

@@ -1,7 +1,5 @@
 require('dotenv').config();
 
-const db = require('../db/config');
-
 const {
     isEmpty,
     isHoursValid,
@@ -14,12 +12,7 @@ const {
     status,
 } = require('../helpers/status');
 
-const CREATE_SCHOLAR = `INSERT INTO
-scholars(userid, hours, videoEditor, photoEditor, spokespersons, organizer)
-VALUES ($1, $2, $3, $4, $5, $6)
-returning *`;
-
-const GET_SCHOLARS=`SELECT * FROM scholars`;
+const { createScholarsQuery, getScholarsQuery } = require('../repository/scholars');
 
 /**
  * Create Scholars
@@ -53,23 +46,15 @@ const createScholars = async (req, res) => {
         errorMessage.error="Percentages can not be negative or higher than 100"
         return res.status(status.bad).send(errorMessage);
     }
-
-    const values = [
-        userid,
-        hours,
-        videoEditor,
-        photoEditor,
-        spokespersons,
-        organizer
-    ];
-
-    db.query(CREATE_SCHOLAR, values)
+    
+    createScholarsQuery({ ...req.body, userid})
     .then(data => {
-        console.log('DATA:', data); // print data;
+        console.log('DATA Controllers:', data); // print data;
         successMessage.data = data;
         return res.status(status.created).send(successMessage);
+
     })
-    .catch(error => {
+    .catch (error => {
         console.log('ERROR:', error); // print the error;
         if (error.routine === '_bt_check_unique') {
             errorMessage.error = 'User has been already registered with a scholarship';
@@ -89,7 +74,7 @@ const createScholars = async (req, res) => {
 
 const getScholars = async (req, res) => {
     
-    db.query(GET_SCHOLARS)
+    getScholarsQuery()
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {

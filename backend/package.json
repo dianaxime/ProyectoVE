@@ -20,9 +20,13 @@
   },
   "scripts": {
     "start": "nodemon --watch src src/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "cucumber-js",
     "setup": "node ./src/db/dev/dbConnection createAllTables",
     "restart-db": "node ./src/db/dev/dbConnection dropAllTables",
     "seed-user-table": "node ./src/helpers/seed"
+  },
+  "devDependencies": {
+    "assert": "^2.0.0",
+    "cucumber": "^6.0.5"
   }
 }

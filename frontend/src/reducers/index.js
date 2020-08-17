@@ -9,6 +9,9 @@ import changeDrawer, * as changeDrawerSelectors from './changeDrawer';
 import changeForgot, * as changeForgotSelectors from './modalForgot';
 import changeChange, * as changeChangeSelectors from './modalChange';
 import changeUpdate, * as changeUpdateSelectors from './modalUpdate';
+import changeScholar, * as changeScholarSelectors from './modalScholarship';
+
+import selectedWorkshop, * as selectedWorkshopSelectors from './selectedWorkshop';
 
 const reducer = combineReducers({
   auth,
@@ -18,6 +21,8 @@ const reducer = combineReducers({
   changeUpdate,
   workshops,
   scholars,
+  changeScholar,
+  selectedWorkshop,
   form: formReducer,
 });
 
@@ -53,6 +58,8 @@ export const getFetchingPendingUsersError = state => authSelectors.getFetchingPe
 export const getIsOpen = state => changeDrawerSelectors.getIsOpen(state.changeDrawer);
 /* Forgot Password Modal */
 export const getIsForgotOpen = state => changeForgotSelectors.getIsForgotOpen(state.changeForgot);
+/* Scholar Password Modal */
+export const getIsScholarOpen = state => changeScholarSelectors.getIsScholarOpen(state.changeScholar);
 /* Change Password Modal */
 export const getIsChangeOpen = state => changeChangeSelectors.getIsChangeOpen(state.changeChange);
 /* Update Password Modal */
@@ -67,3 +74,5 @@ export const getScholar = (state, id) => scholarsSelectors.getScholar(state.scho
 export const getScholars = state => scholarsSelectors.getScholars(state.scholars);
 export const isFetchingScholars = state => scholarsSelectors.isFetchingScholars(state.scholars);
 export const getFetchingScholarsError = state => scholarsSelectors.getFetchingScholarsError(state.scholars);
+/* Selected Workshop*/
+export const getSelectedWorkshop = (state) => selectedWorkshopSelectors.getSelectedWorkshop(state.selectedWorkshop)
