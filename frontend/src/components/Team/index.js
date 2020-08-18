@@ -10,6 +10,8 @@ import * as selectedActions from '../../actions/selectedTeam';
 import './style.css';
 import { Button } from '@material-ui/core';
 
+const ICON_EDIT = "https://www.materialui.co/materialIcons/editor/mode_edit_white_192x192.png"; 
+
 const Team = ({ 
     team,
     onClick,
@@ -23,7 +25,7 @@ const Team = ({
             <MDBCardTitle>{((Object.entries(team)[1])[1])}
             <Link to='/editartaller'>
               <Button onClick={onEdit} className='edit_button'>
-              <img className='icono'src="https://www.materialui.co/materialIcons/editor/mode_edit_white_192x192.png" alt="img"/>
+              <img className='icono'src={ICON_EDIT} alt="img"/>
               </Button>
             </Link>
             </MDBCardTitle>
@@ -31,10 +33,7 @@ const Team = ({
             <MDBCardText className='white-text'>
             {((Object.entries(team)[3])[1])}
             </MDBCardText>
-            <MDBCardText className='white-text'>
-            Salón: {((Object.entries(team)[2])[1])}
-            </MDBCardText>
-            <Link to='/taller'>
+            <Link to='/equipo'>
               <button className='more_button' onClick={onClick}>
               VER MÁS
               </button>

@@ -114,9 +114,6 @@ let AddTeam = ({ open,
                             <div className="div-field">
                                 <Field name="description" component={renderTextField} label="Descripción"/>
                             </div>
-                            <div className="div-field">
-                                <Field name="classroom" component={renderTextField} label="Salon"/>
-                            </div>
                             <div>
                                 <Field name="startdate" component={renderDateTimePicker} label="Fecha de Inicio"/>
                             </div>

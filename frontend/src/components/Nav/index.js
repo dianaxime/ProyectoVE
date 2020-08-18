@@ -117,6 +117,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
   const [anchorEl, setAnchorEl] = useState(null);
   const openA = Boolean(anchorEl);
   const [openW, setOpenW] = useState(true);
+  const [openT, setOpenT] = useState(null); 
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -124,6 +125,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
   const handleDrawerClose = () => {
     setOpen(false);
     setOpenW(false);
+    setOpenT(false); 
   };
 
   const handleMenu = (event) => {
@@ -154,7 +156,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
   };
 
   const handleClickTeam = () => {
-    setOpenW(!openW);
+    setOpenT(!openT);
   };
 
   return (
