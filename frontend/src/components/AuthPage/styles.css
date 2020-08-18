@@ -2,6 +2,7 @@ body {
     background-image: url(uvg.jpg);
     background-size: 100%;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     justify-content: center;
     align-items: center;
 }
@@ -20,6 +21,11 @@ img {
     height: 90px;
 }
 
+.logo{
+    width: 150px;
+    height: 35px;
+    margin: 20px;
+}
 .auth-container {
     margin-top: 10px;
     display: flex;

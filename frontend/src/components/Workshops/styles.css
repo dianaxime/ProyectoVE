@@ -1,21 +1,42 @@
-.workshops {
-    display: flex;
-    flex-direction: row;
-    justify-content: right;
-    align-content: stretch;
-    padding-left: 60px;
-    padding-right: 30px;
-    padding-top: 15px;
-    min-width: 100%;
-    flex-wrap: wrap;
-    max-width: 100%;
+.workshopsContainer {
+    display: grid;
+    height: 470px;
+    grid-gap: 20px;
+    grid-template-columns: 260px 260px 260px 260px; 
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
-.titulo{
-    color: seashell;
-    margin-left: 40px;
-    margin-top: 30px;
-    font-family: 'Tahoma';
-    font-size: 30px;
+/* Tamaño del scroll */
+.workshopsContainer::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
 }
+    
+    /* Estilos barra (thumb) de scroll */
+.workshopsContainer::-webkit-scrollbar-thumb {
+    background: rgb(77, 76, 76);
+    border-radius: 4px;
+}
+    
+.workshopsContainer::-webkit-scrollbar-thumb:active {
+    background-color: #999999;
+}
+    
+.workshopsContainer::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+    
+/* Estilos track de scroll */
+.workshopsContainer::-webkit-scrollbar-track {
+    background: #d4d4d4;
+    border-radius: 4px;
+}
+    
+.workshopsContainer::-webkit-scrollbar-track:hover, 
+.workshopsContainer::-webkit-scrollbar-track:active {
+    background: #d4d4d4;
+}
+
 

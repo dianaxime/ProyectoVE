@@ -239,23 +239,20 @@ const getStudents = async (req, res) => {
 
 const getStudentByEmail = async (req, res)=>{
 
-    const {
-        email,
-    } = req.body;
+    const email = req.params.email;
 
     if (isEmpty(email)) {
         errorMessage.error = 'Email detail is missing';
         return res.status(status.bad).send(errorMessage);
     }
 
-    getStudentByEmailQuery({ ...req.body })
+    getStudentByEmailQuery({ email })
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
             errorMessage.error = 'No student found';
             return res.status(status.notfound).send(errorMessage);
         }
-    
         successMessage.data = data;
         return res.status(status.success).send(successMessage);
     })
