@@ -3,25 +3,25 @@ import { connect } from 'react-redux';
 import {
     getAuthToken,
     getIsOpen,
-    getWorkshop,
-    getSelectedWorkshop,
+    getTeam,
+    getSelectedTeam,
 } from '../../../reducers';
 import './styles.css';
 import ShowPerson from '../ShowPerson';
 
 
 let ShowPersons = ({
-    selectWorkshop,
-    workshop,
+    selectTeam,
+    team,
 }) => {
     return (
         <div className="personasWorkshop">
             <div className="formP">
                 <h1 className="subP">Personas</h1>
                 {
-                    selectWorkshop ? (
+                    selectTeam ? (
 
-                        <p className="subtituloT">{((Object.entries(workshop)[1])[1])}</p>
+                        <p className="subtituloT">{((Object.entries(team)[1])[1])}</p>
                     ) :
                         (
                             <p className="subtituloT">*Seleccione un taller*</p>
@@ -43,8 +43,8 @@ ShowPersons = connect(
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
         open: getIsOpen(state),
-        selectWorkshop: getSelectedWorkshop(state) !== null,
-        workshop: getWorkshop(state, getSelectedWorkshop(state)),
+        selectTeam: getSelectedTeam(state) !== null,
+        team: getTeam(state, getSelectedTeam(state)),
     }),
     undefined,
 )(ShowPersons);

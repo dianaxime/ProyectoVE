@@ -8,7 +8,7 @@ import {
 } from '../../../reducers';
 import InputBase from '@material-ui/core/InputBase';
 import { reset, Field, reduxForm } from 'redux-form';
-import * as actions from '../../../actions/participation';
+import * as actions from '../../../actions/tournament';
 import './styles.css';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
@@ -73,7 +73,7 @@ let SearchPersons = ({
 }
 
 SearchPersons = reduxForm({
-    form: 'searchPersonForm',
+    form: 'searchPersonTeamsForm',
     validate
 })(SearchPersons);
 
@@ -89,7 +89,7 @@ SearchPersons = connect(
         onSubmit({ email }) {
             dispatch(
                 actions.startFetchingUsersByEmail(email),
-                dispatch(reset('searchPersonForm')),
+                dispatch(reset('searchPersonTeamsForm')),
             );
         },
     }),

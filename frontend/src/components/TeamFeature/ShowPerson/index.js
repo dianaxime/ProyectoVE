@@ -9,7 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import Typography from '@material-ui/core/Typography';
-import * as actions from '../../../actions/participation';
+import * as actions from '../../../actions/tournament';
 
 const Person = ({
   users,
@@ -49,18 +49,18 @@ const Person = ({
 
 export default connect(
   state => ({
-    users: selectors.getParticipations(state),
-    isLoading: selectors.isFetchingUsersByEmail(state),
-    selectWS: selectors.getSelectedWorkshop(state),
-    workshop: selectors.getWorkshop(state, selectors.getSelectedWorkshop(state)),
+    users: selectors.getTournaments(state),
+    isLoading: selectors.isFetchingUsersByEmailTournament(state),
+    selectT: selectors.getSelectedTeam(state),
+    team: selectors.getTeam(state, selectors.getSelectedTeam(state)),
   }),
   dispatch => ({
-    onLoad(idw) {
-      dispatch(actions.startFetchingParticipation(idw));
+    onLoad(idt) {
+      dispatch(actions.startFetchingTournament(idt));
     },
-    onDelete(idw, userid) {
-      if ( idw != null && userid != null) {
-        dispatch(actions.startRemovingParticipation(idw, userid));
+    onDelete(idt, userid) {
+      if ( idt != null && userid != null) {
+        dispatch(actions.startRemovingTournament(idt, userid));
       }
     },
   }),
@@ -69,11 +69,11 @@ export default connect(
     ...stateProps,
     ...dispatchProps,
     onLoad() {
-      dispatchProps.onLoad(stateProps.selectWS);
+      dispatchProps.onLoad(stateProps.selectT);
     },
     onDelete(id) {
       if (id != null) {
-        dispatchProps.onDelete(stateProps.selectWS, id);
+        dispatchProps.onDelete(stateProps.selectT, id);
       }
     },
   })

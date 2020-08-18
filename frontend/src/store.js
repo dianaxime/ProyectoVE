@@ -23,7 +23,7 @@ export const configureStore = () => {
         {
         key: 'rootx',
         storage,
-        whitelist: ['auth', 'workshops', 'scholars', 'selectedWorkshop', 'participation', 'selectedTeam',  'teams' ],
+        whitelist: ['auth', 'workshops', 'scholars', 'selectedWorkshop', 'participation', 'selectedTeam',  'teams' , 'tournament'],
         },
         reducer,
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()

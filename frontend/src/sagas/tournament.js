@@ -72,7 +72,7 @@ function* addTournament(action) {
             const token = yield select(selectors.getAuthToken);
             const response = yield call(
                 fetch,
-                `${API_BASE_URL}/tournament/create`,
+                `${API_BASE_URL}/tournaments/create`,
                 {
                     method: 'POST',
                     body: JSON.stringify(action.payload),
@@ -82,6 +82,7 @@ function* addTournament(action) {
                     },
                 }
             );
+            console.log(response); 
             if (response.status === 201) {
                 const jsonResult = yield response.json();
                 const info = jsonResult.data[0]
@@ -116,7 +117,7 @@ function* fetchTournament(action) {
             const token = yield select(selectors.getAuthToken);
             const response = yield call(
                 fetch,
-                `${API_BASE_URL}/tournament/tournaments-by-team/${action.payload.idt}`,
+                `${API_BASE_URL}/tournaments/tournaments-by-team/${action.payload.idt}`,
                 {
                     method: 'GET',
                     headers: {
@@ -165,7 +166,7 @@ function* deleteTournament(action) {
                 const token = yield select(selectors.getAuthToken);
                 const response = yield call(
                     fetch,
-                    `${API_BASE_URL}/tournament/delete/${action.payload.idt}/${action.payload.userid}`,
+                    `${API_BASE_URL}/tournaments/delete/${action.payload.idt}/${action.payload.userid}`,
                     {
                         method: 'DELETE',
                         headers: {
