@@ -7,7 +7,7 @@ const byId = (state = {}, action) => {
   switch (action.type) {
     case types.USERS_BY_EMAIL_FETCH_COMPLETED: {
       const { entities, order } = action.payload;
-      const newState = { ...state };
+      const newState = { };
       order.forEach(id => {
         newState[id] = {
           ...entities[id],
@@ -30,8 +30,7 @@ const byId = (state = {}, action) => {
 const order = (state = [], action) => {
   switch (action.type) {
     case types.USERS_BY_EMAIL_FETCH_COMPLETED: {
-      const myArr = [...state, ...action.payload.order];
-      return [...new Set(myArr)]
+      return  [...action.payload.order];
     }
     case types.PARTICIPATION_ADD_COMPLETED: {
       const { participation } = action.payload;
