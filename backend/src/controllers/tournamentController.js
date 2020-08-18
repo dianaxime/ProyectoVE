@@ -44,6 +44,10 @@ const createTournament = async (req, res) => {
     })
     .catch(error => {
         console.log('ERROR:', error); // print the error;
+        if (error.routine === '_bt_check_unique') {
+            errorMessage.error = 'User already asigned';
+            return res.status(status.conflict).send(errorMessage);
+        }
         errorMessage.error = 'Operation was not successful';
         return res.status(status.error).send(errorMessage);
     })
