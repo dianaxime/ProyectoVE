@@ -7,10 +7,10 @@ import { configureStore } from '../../store';
 import AuthPage from '../AuthPage';
 import HomePage from '../HomePage';
 import AuthorizePage from '../AuthorizePage';
-import AddWorkshop from '../AddWorkshop';
+import AddWorkshopPage from '../AddWorkshopPage';
 import WorkshopsPage from '../WorkshopsPage';
-import UpdateWorkshop from '../UpdateWorkshopForm';
-import SelectedWorkshop from '../SelectedWorkshop';
+import EditWorkshopPage from '../EditWorkshopPage';
+import SelectedWorkshopPage from '../SelectedWorkshopPage';
 import TokenRefresh from '../TokenRefresh';
 
 import 'fontsource-roboto';
@@ -29,10 +29,10 @@ const App = () => (
           <Route exact path="/" component={HomePage} />
           <Route exact path="/auth" component={AuthPage} />
           <Route exact path="/authorization" component={AuthorizePage}/>
-          <Route exact path="/creartaller" component={AddWorkshop} />
+          <Route exact path="/creartaller" component={AddWorkshopPage} />
           <Route exact path="/talleres" component={WorkshopsPage} />
-          <Route exact path="/taller" component={SelectedWorkshop} />
-          <Route exact path="/editartaller" component={UpdateWorkshop} />
+          <Route exact path="/taller" component={SelectedWorkshopPage} />
+          <Route exact path="/editartaller" component={EditWorkshopPage} />
           <Route render={() => <Redirect to="/" />} />
         </Switch>
       </BrowserRouter>

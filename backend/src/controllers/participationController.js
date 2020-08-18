@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const {
-    isEmpty,
+    empty
 } = require('../helpers/validation');
 
 const {
@@ -14,6 +14,7 @@ const {
     createParticipationQuery, 
     getParticipationsQuery,
     getParticipationByWsQuery,
+    deleteParticipationQuery,
 } = require('../repository/participation');
 
 /**
@@ -31,7 +32,7 @@ const createParticipation = async (req, res) => {
         enddate
     } = req.body;
 
-    if (isEmpty(userid) || isEmpty(idw)  || isEmpty(startdate) || isEmpty(enddate) ) {
+    if (empty(userid) || empty(idw)  || empty(startdate) || empty(enddate) ) {
         errorMessage.error = 'User id, id of workshop, startdate, enddate field cannot be empty';
         return res.status(status.bad).send(errorMessage);
     }
@@ -78,16 +79,14 @@ const getParticipations = async (req, res) => {
 
 const getParticipationByWs = async (req, res) => {
     
-    const {
-        idw,
-    } = req.body;
+    const idw = req.params.idw;
 
-    if (isEmpty(idw)) {
+    if (empty(idw)) {
         errorMessage.error = 'ID of workshop detail is missing';
         return res.status(status.bad).send(errorMessage);
     }
     
-    getParticipationByWsQuery({...req.body})
+    getParticipationByWsQuery(idw)
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
@@ -105,8 +104,37 @@ const getParticipationByWs = async (req, res) => {
     })
 };
 
+const deleteParticipationByUserWs = async (req, res) => {
+    
+    const idw = req.params.idw;
+    const userid = req.params.userid;
+
+    if (empty(idw) || empty(userid)) {
+        errorMessage.error = 'ID of workshop detail is missing or user ID';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    deleteParticipationQuery({idw, userid})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'No participation of that userid in that workshop';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
 module.exports = {
     createParticipation,
     getParticipations,
-    getParticipationByWs
+    getParticipationByWs,
+    deleteParticipationByUserWs
 };

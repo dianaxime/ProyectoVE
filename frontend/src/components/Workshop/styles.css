@@ -1,9 +1,96 @@
 .workshop-wrapper {
     display: flex;
     flex-direction: row;
-    max-height: 200px;
+    height: 200px;
     transition: 0.25s;
 }
+
+.titulotaller{
+    width: 160px;
+    height: 29px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+/* Tamaño del scroll */
+.titulotaller::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+    
+    /* Estilos barra (thumb) de scroll */
+.titulotaller::-webkit-scrollbar-thumb {
+    background: #b3b3b3;
+    border-radius: 4px;
+}
+    
+.titulotaller::-webkit-scrollbar-thumb:active {
+    background-color: rgb(77, 76, 76);
+}
+    
+.titulotaller::-webkit-scrollbar-thumb:hover {
+    background: transparent;
+}
+    
+/* Estilos track de scroll */
+.titulotaller::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 4px;
+}
+    
+.titulotaller::-webkit-scrollbar-track:active {
+    background:rgb(77, 76, 76);
+}
+
+.titulotaller::-webkit-scrollbar-track:hover{
+    background: transparent;
+} 
+
+.tituloCard{
+    display: grid;
+    grid-template-columns: 150px 35px;
+    grid-column-gap: 20px;
+}
+
+.des{
+    height: 54px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    /*background-color: lavender;*/
+}
+
+/* Tamaño del scroll */
+.des::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+    
+    /* Estilos barra (thumb) de scroll */
+.des::-webkit-scrollbar-thumb {
+    background: #b3b3b3;
+    border-radius: 4px;
+}
+    
+.des::-webkit-scrollbar-thumb:active {
+    background-color: rgb(77, 76, 76);
+}
+    
+.des::-webkit-scrollbar-thumb:hover {
+    background: rgb(77, 76, 76);
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+    
+/* Estilos track de scroll */
+.des::-webkit-scrollbar-track {
+    background: rgb(77, 76, 76);
+    border-radius: 4px;
+}
+    
+.des::-webkit-scrollbar-track:hover, 
+.des::-webkit-scrollbar-track:active {
+    background: rgb(77, 76, 76);
+}
+
 
 .workshopBox{
     width: 50rem;
@@ -22,7 +109,6 @@
     margin-top: 5px;
     margin-left: 15px;
     font-family: 'Tahoma';
-    font-weight: 600;
 }
 
 .contenido{
@@ -34,7 +120,7 @@
     margin-top: 10px;
 }
 .workshop_name{
-    font-size: 1rem;
+    font-size: 10px;
     margin-top: -30px;
 }
 
@@ -42,7 +128,7 @@
     background: black;
     border-radius: 5px;
     color: white;
-    font-size: 20px;
+    font-size: 10px;
     height: 25px;
     width: 25px;
     border-style: none;
@@ -58,16 +144,11 @@
     background-color: green;
     color: white;
     margin-top: 10px;
-    font-weight: bolder;
     height: 30px;
 }
 
-.icono{
-    width: 1.2rem;
-    height: 1.2rem;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin-left: 90px;
+.iconoedit{
+    color: white;
 }
 
 .edit_button{

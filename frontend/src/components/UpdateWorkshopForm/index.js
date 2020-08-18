@@ -1,26 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import clsx from 'clsx';
 import {
     getAuthToken,
     getIsOpen,
     getWorkshop,
     getSelectedWorkshop,
 } from '../../reducers';
-import Nav from '../Nav';
 import TextField from '@material-ui/core/TextField';
-import { makeStyles } from '@material-ui/core/styles';
 import { reset, Field, reduxForm } from 'redux-form';
 import * as actions from '../../actions/workshops';
-import './styles.css';
 import DateFnsUtils from '@date-io/date-fns';
 import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 import { URL } from '../../settings';
-
-const drawerWidth = 240;
 
 const validate = values => {
     const errors = {};
@@ -33,36 +27,6 @@ const validate = values => {
     return errors;
 }
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-    },
-    drawerHeader: {
-        display: 'flex',
-        alignItems: 'center',
-        padding: theme.spacing(0, 1),
-        // necessary for content to be below app bar
-        ...theme.mixins.toolbar,
-        justifyContent: 'flex-end',
-    },
-    content: {
-        flexGrow: 1,
-        padding: theme.spacing(3),
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        marginLeft: -drawerWidth,
-    },
-    contentShift: {
-        transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.easeOut,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-        marginLeft: 0,
-    },
-}));
-
 const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) => (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <KeyboardDatePicker
@@ -71,7 +35,7 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) =
           variant="inline"
           format="yyyy/MM/dd"
           margin="normal"
-          id="date-picker-inline"
+          //id="date-picker-inline"
           label={label}
           onChange={onChange}
           time={showTime}
@@ -95,54 +59,37 @@ let UpdateWorkshop = ({ open,
     onSubmit,
     isLoading,
     handleSubmit, }) => {
-    const classes = useStyles();
     return (
-        <div className={classes.root}>
-            <Nav />
-            <main
-                className={clsx(classes.content, {
-                    [classes.contentShift]: open,
-                })}
-            >
-                <div className={classes.drawerHeader} />
-                <div className="addWorkshop">
-                    <div className="datosWorkshop">
-                        <h2 className="tituloformW">{'Editar Taller'}</h2>
-                        <form className="formW">
-                            <h3 className="subw">Datos</h3>
-                            <div className="div-field">
-                                <Field name="name" component={renderTextField} label="Nombre"/>
-                            </div>
-                            <div className="div-field">
-                                <Field name="description" component={renderTextField} label="Descripcion"/>
-                            </div>
-                            <div className="div-field">
-                                <Field name="classroom" component={renderTextField} label="Salon"/>
-                            </div>
-                            <div>
-                                <Field name="startdate" component={renderDateTimePicker} label="Fecha de Inicio"/>
-                            </div>
-                            <div>
-                                <Field name="enddate" component={renderDateTimePicker} label="Fecha de Finalización"/>
-                            </div>
-                            <p>
-                                {
-                                    isLoading ? (
-                                        <strong>{'Cargando...'}</strong>
-                                    ) : (
-                                            <button className="buttonformW" type="submit" onClick={handleSubmit(onSubmit)}>
-                                                {'Actualizar'}
-                                            </button>
-                                        )
-                                }
-                            </p>
-                        </form>
-                    </div>
-                    <div className="personasWorkshop">
-                        <h1>Personas</h1>
-                    </div>
+        <div className="datosWorkshop">
+            <form className="formW">
+                <h3 className="subw">Datos</h3>
+                <div className="div-field">
+                    <Field name="name" component={renderTextField} label="Nombre" />
                 </div>
-            </main>
+                <div className="div-field">
+                    <Field name="description" component={renderTextField} label="Descripción" />
+                </div>
+                <div className="div-field">
+                    <Field name="classroom" component={renderTextField} label="Salon" />
+                </div>
+                <div>
+                    <Field name="startdate" component={renderDateTimePicker} label="Fecha de Inicio" />
+                </div>
+                <div>
+                    <Field name="enddate" component={renderDateTimePicker} label="Fecha de Finalización" />
+                </div>
+                <p>
+                    {
+                        isLoading ? (
+                            <strong>{'Cargando...'}</strong>
+                        ) : (
+                                <button className="buttonformW" type="submit" onClick={handleSubmit(onSubmit)}>
+                                    {'Actualizar'}
+                                </button>
+                            )
+                    }
+                </p>
+            </form>
         </div>
     );
 }
