@@ -12,7 +12,7 @@ const {
     status,
 } = require('../helpers/status');
 
-const { createScholarsQuery, getScholarsQuery } = require('../repository/scholars');
+const { createScholarsQuery, getScholarsQuery, getScholarsOrganizerQuery, getScholarsPhotoEditorQuery, getScholarsSpokesPersonQuery, getScholarsVideoEditorQuery } = require('../repository/scholars');
 
 /**
  * Create Scholars
@@ -92,7 +92,119 @@ const getScholars = async (req, res) => {
     })
 };
 
+/**
+ * Get Scholars photo editor
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getScholarsPhotoEditor = async (req, res) => {
+    
+    getScholarsPhotoEditorQuery()
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'No users with scholarships with photo editor experience';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Get Scholars organizers
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getScholarsOrganizer = async (req, res) => {
+    
+    getScholarsOrganizerQuery()
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'No users with scholarships with organization experience';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Get Scholars SpokesPerson
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getScholarsSpokesPerson = async (req, res) => {
+    
+    getScholarsSpokesPersonQuery()
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'No users with scholarships with public speaking experience';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Get Scholars VideoEditor
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getScholarsVideoEditor = async (req, res) => {
+    
+    getScholarsVideoEditorQuery()
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'No users with scholarships with video editing experience';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
 module.exports = {
     createScholars,
-    getScholars
+    getScholars,
+    getScholarsOrganizer,
+    getScholarsPhotoEditor,
+    getScholarsSpokesPerson,
+    getScholarsVideoEditor
 };

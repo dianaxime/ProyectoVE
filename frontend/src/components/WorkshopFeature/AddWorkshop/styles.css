@@ -1,0 +1,61 @@
+.datosWorkshop{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.formW{
+    background-color:white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 400px;
+    width: 400px;
+    height: auto;
+    border-radius: 4px;
+    padding-top: 0px; 
+}
+
+.subw{
+    margin-top: 20px;
+    color: black;
+    font-size: 25px;
+}
+
+.buttonformW{
+    border-radius: 5px;
+    height: 45px;
+    width: 95px;
+    font-size: 15px;
+    background-color:  rgb(7, 107, 50);
+    color: white;
+    border-style: none;
+    margin-top: 15px;
+    transition-duration: 0.4s;
+}
+
+.buttonformW:hover {
+    background-color: white; /* Green */
+    color: rgb(7, 107, 50);
+    border-color: rgb(7, 107, 50);
+    border-style: solid;
+}
+
+.inputWorkshop {
+    background-color: transparent;
+    width: auto;
+    border: none;
+    color:black;
+    outline: none;
+    font-size: 10px;
+    font-weight: normal;
+    align-items: flex-start; 
+    border-radius: 3px;
+}
+
+.div-field {
+    width: 350px;
+}
+

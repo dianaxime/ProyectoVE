@@ -26,6 +26,13 @@ import {
     watchAddTeam, 
     watchTeamsFetch } from './teams';
 
+import {
+    watchUsersFetch,
+    watchParticipationFetch,
+    watchAddParticipation,
+    watchDeleteParticipation,
+} from './participation';
+
 function* mainSaga() {
     yield all([
         /* Auth */
@@ -49,6 +56,11 @@ function* mainSaga() {
         fork(watchTeamsFetch),
         fork(watchUpdateTeam),
 
+        /* Participation */
+        fork(watchUsersFetch),
+        fork(watchParticipationFetch),
+        fork(watchAddParticipation),
+        fork(watchDeleteParticipation),
     ]);
 }
 

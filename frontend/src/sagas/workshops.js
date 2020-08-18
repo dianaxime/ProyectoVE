@@ -13,6 +13,7 @@ import * as selectors from '../reducers';
 import * as actions from '../actions/workshops';
 import * as types from '../types/workshops';
 import * as schemas from '../schemas/workshops';
+import * as actionsSelectedWorkshop from '../actions/selectedWorkshop';
 
 import { API_BASE_URL } from '../settings';
 
@@ -84,11 +85,16 @@ function* addWorkshop(action) {
       );
       if (response.status === 201) {
         const jsonResult = yield response.json();
+        const info = jsonResult.data[0]
         yield put(
           actions.completeAddingWorkshop(
             action.payload.id,
-            jsonResult.data[0],
+            info,
           ),
+        );
+
+        yield put(
+          actionsSelectedWorkshop.selectedWorkshop(info.id)
         );
       } else {
         const errors = yield response.json();

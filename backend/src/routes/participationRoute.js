@@ -3,7 +3,8 @@ const express = require('express');
 const {
     createParticipation,
     getParticipations,
-    getParticipationByWs
+    getParticipationByWs,
+    deleteParticipationByUserWs
 } = require('../controllers/participationController');
 const verifyAuth = require('../middleware/verifyAuth');
 
@@ -13,6 +14,7 @@ const router = express.Router();
 
 router.post('/participation/create', verifyAuth, createParticipation);
 router.get('/participation/all-participations', verifyAuth, getParticipations);
-router.get('/participation/participations-by-workshop', verifyAuth, getParticipationByWs);
+router.get('/participation/participations-by-workshop/:idw', verifyAuth, getParticipationByWs);
+router.delete('/participation/delete/:idw/:userid', verifyAuth, deleteParticipationByUserWs);
 
 module.exports = router;

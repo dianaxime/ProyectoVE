@@ -5,6 +5,7 @@ import auth, * as authSelectors from './auth';
 import workshops, * as workshopsSelectors from './workshops';
 import scholars, * as scholarsSelectors from './scholars';
 import teams, * as teamsSelectors from './teams'; 
+import participation, * as participationSelectors from './participation';
 
 import changeDrawer, * as changeDrawerSelectors from './changeDrawer';
 import changeForgot, * as changeForgotSelectors from './modalForgot';
@@ -27,6 +28,7 @@ const reducer = combineReducers({
   changeScholar,
   selectedWorkshop,
   selectedTeam,
+  participation,
   form: formReducer,
 });
 
@@ -87,3 +89,13 @@ export const getFetchingScholarsError = state => scholarsSelectors.getFetchingSc
 export const getSelectedWorkshop = (state) => selectedWorkshopSelectors.getSelectedWorkshop(state.selectedWorkshop)
 /* Selected Team */ 
 export const getSelectedTeam = (state) => selectedTeamSelectors.getSelectedTeam(state.selectedTeam)
+/* Participations */
+export const getUserByEmail = (state, id) => participationSelectors.getUserByEmail(state.participation, id);
+export const getUsersOrder = state => participationSelectors.getUsersOrder(state.participation);
+export const getUsersByEmail = state => participationSelectors.getUsersByEmail(state.participation);
+export const isFetchingUsersByEmail = state => participationSelectors.isFetchingUsersByEmail(state.participation);
+export const getFetchingUsersByEmailError = state => participationSelectors.getFetchingUsersByEmailError(state.participation);
+export const getParticipation = (state, id) => participationSelectors.getParticipation(state.participation, id);
+export const getParticipations = state => participationSelectors.getParticipations(state.participation);
+export const isFetchingParticipations = state => participationSelectors.isFetchingParticipations(state.participation);
+export const getFetchingParticipationError = state => participationSelectors.getFetchingParticipationError(state.participation);

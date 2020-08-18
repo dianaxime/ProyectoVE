@@ -125,10 +125,10 @@ let SigninForm = ({ Message, onSubmit, signinStatus, handleSubmit }) => {
                                     </div>
                                     <div>
                                         <Field name="type" component={renderSelectField} label="Tipo" className="input">
-                                            <MenuItem value="student">Student</MenuItem>
-                                            <MenuItem value="graduate">Graduate</MenuItem>
-                                            <MenuItem value="collaborator">Collaborator</MenuItem>
-                                            <MenuItem value="graduate/collaborator">Graduate/Collaborator</MenuItem>
+                                            <MenuItem value="student">Estudiante</MenuItem>
+                                            <MenuItem value="graduate">Graduado</MenuItem>
+                                            <MenuItem value="collaborator">Colaborador</MenuItem>
+                                            <MenuItem value="graduate/collaborator">Graduado/Colaborador</MenuItem>
                                         </Field>
 
                                     </div>
