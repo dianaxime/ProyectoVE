@@ -19,13 +19,12 @@ export const failFetchingTeams = error => ({
   },
 });
 
-export const startAddingTeam = (id, name, classroom, description, startdate, enddate) => ({
+export const startAddingTeam = (id, name, sport, startdate, enddate) => ({
   type: types.TEAM_ADD_STARTED,
   payload: {
     id,
     name,
-    classroom,
-    description,
+    sport,
     startdate,
     enddate,
   },
@@ -47,13 +46,12 @@ export const failAddingTeam = (oldId, error) => ({
   },
 });
 
-export const startUpdatingTeam = (id, name, classroom, description, startdate, enddate) => ({
+export const startUpdatingTeam = (id, name, sport, startdate, enddate) => ({
   type: types.TEAM_UPDATE_STARTED,
   payload: {
     id,
     name,
-    classroom,
-    description,
+    sport,
     startdate,
     enddate,
   },
