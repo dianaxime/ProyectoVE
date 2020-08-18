@@ -6,6 +6,7 @@ import workshops, * as workshopsSelectors from './workshops';
 import scholars, * as scholarsSelectors from './scholars';
 import teams, * as teamsSelectors from './teams'; 
 import participation, * as participationSelectors from './participation';
+import tournament, * as tournamentSelectors from './tournament';
 
 import changeDrawer, * as changeDrawerSelectors from './changeDrawer';
 import changeForgot, * as changeForgotSelectors from './modalForgot';
@@ -29,6 +30,7 @@ const reducer = combineReducers({
   selectedWorkshop,
   selectedTeam,
   participation,
+  tournament,
   form: formReducer,
 });
 
@@ -99,3 +101,13 @@ export const getParticipation = (state, id) => participationSelectors.getPartici
 export const getParticipations = state => participationSelectors.getParticipations(state.participation);
 export const isFetchingParticipations = state => participationSelectors.isFetchingParticipations(state.participation);
 export const getFetchingParticipationError = state => participationSelectors.getFetchingParticipationError(state.participation);
+/* Tournament */
+export const getUserByEmailTournament = (state, id) => tournamentSelectors.getUserByEmailTournament(state.tournament, id);
+export const getUsersOrderTournament = state => tournamentSelectors.getUsersOrderTournament(state.tournament);
+export const getUsersByEmailTournament = state => tournamentSelectors.getUsersByEmailTournament(state.tournament);
+export const isFetchingUsersByEmail = state => tournamentSelectors.isFetchingUsersByEmailTournament(state.tournament);
+export const getFetchingUsersByEmailErrorTournament = state => tournamentSelectors.getFetchingUsersByEmailErrorTournament(state.tournament);
+export const getTournament = (state, id) => tournamentSelectors.getTournament(state.tournament, id);
+export const getTournaments = state => tournamentSelectors.getTournaments(state.tournament);
+export const isFetchingTournaments = state => tournamentSelectors.isFetchingTournaments(state.tournament);
+export const getFetchingTournamentError = state => tournamentSelectors.getFetchingTournamentError(state.tournament);
