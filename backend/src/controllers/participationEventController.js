@@ -10,33 +10,32 @@ const {
     status,
 } = require('../helpers/status');
 
-const {
-    createTeamQuery,
-    getTeamsQuery,
-    getTeamByNameQuery
-} = require('../repository/team');
+const { 
+    createParticipationEventQuery,
+    getParticipationsEventQuery,
+    getParticipationByEQuery,
+} = require('../repository/participationEvent');
 
 /**
- * Create Team
+ * Create Participation on event
  * @param {object} req
  * @param {object} res
  * @returns {object} reflection object
 */
 
-const createTeam = async (req, res) => {
+const createParticipationEvent = async (req, res) => {
     const {
-        name,
-        sport,
-        startdate,
-        enddate
+        userid,
+        idEvent,
+        hours
     } = req.body;
 
-    if (isEmpty(name) || isEmpty(sport) || isEmpty(startdate) || isEmpty(enddate) ) {
-        errorMessage.error = 'Name, sport fields cannot be empty';
+    if (isEmpty(userid) || isEmpty(idEvent)  || isEmpty(hours) ) {
+        errorMessage.error = 'User id, id of event and hours field cannot be empty';
         return res.status(status.bad).send(errorMessage);
     }
 
-    createTeamQuery({...req.body})
+    createParticipationEventQuery({...req.body})
     .then(data => {
         console.log('DATA:', data); // print data;
         successMessage.data = data;
@@ -50,55 +49,19 @@ const createTeam = async (req, res) => {
 };
 
 /**
- * Get team by name
+ * Get Participations on events
  * @param {object} req
  * @param {object} res
  * @returns {object} reflection object
 */
 
-const getTeamByName=async (req, res)=>{
-
-    const {
-        name,
-    } = req.body;
-
-    if (isEmpty(name)) {
-        errorMessage.error = 'Name detail is missing';
-        return res.status(status.bad).send(errorMessage);
-    }
-
-    getTeamByNameQuery({...req.body})
+const getParticipationsEvents = async (req, res) => {
+    
+    getParticipationsEventQuery()
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
-            errorMessage.error = 'No TEAM found';
-            return res.status(status.notfound).send(errorMessage);
-        }
-    
-        successMessage.data = data;
-        return res.status(status.success).send(successMessage);
-    })
-    .catch(error => {
-        console.log('ERROR:', error); // print the error;
-        errorMessage.error = 'Operation was not successful';
-        return res.status(status.error).send(errorMessage);
-    })
-}
-
-/**
- * Get Teams
- * @param {object} req
- * @param {object} res
- * @returns {object} reflection object
-*/
-
-const getTeams = async (req, res) => {
-    
-    getTeamsQuery()
-    .then(data => {
-        console.log('DATA:', data); // print data;
-        if (!data) {
-            errorMessage.error = 'No TEAMS';
+            errorMessage.error = 'No PARTICIPATIONS in events';
             return res.status(status.notfound).send(errorMessage);
         }
     
@@ -112,8 +75,38 @@ const getTeams = async (req, res) => {
     })
 };
 
+const getParticipationByEvent = async (req, res) => {
+    
+    const {
+        idEvent,
+    } = req.body;
+
+    if (isEmpty(idEvent)) {
+        errorMessage.error = 'ID of event detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    getParticipationByEQuery({...req.body})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'No participation of that event';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+
 module.exports = {
-    createTeam,
-    getTeams,
-    getTeamByName
+    createParticipationEvent,
+    getParticipationsEvents,
+    getParticipationByEvent
 };

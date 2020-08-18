@@ -1,8 +1,8 @@
 const db = require('../db/config');
 
 const CREATE_TEAM=`INSERT INTO
-team(name, sport)
-VALUES ($1, $2)
+team(name, sport, startdate, enddate)
+VALUES ($1, $2, $3,$4)
 returning *`;
 
 const GET_TEAMS=`SELECT * FROM team`;
@@ -12,10 +12,14 @@ const GET_TEAM_BY_NAME=`SELECT * FROM team WHERE name ILIKE $1`;
 async function createTeamQuery({
     name,
     sport,
+    startdate,
+    enddate
 }){
     const values = [
         name,
-        sport
+        sport,
+        startdate,
+        enddate
     ];
 
     const data = await db.query(CREATE_TEAM, values);

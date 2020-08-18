@@ -1,5 +1,7 @@
 require('dotenv').config();
 
+const db = require('../db/config');
+
 const {
     isEmpty,
 } = require('../helpers/validation');
@@ -11,32 +13,33 @@ const {
 } = require('../helpers/status');
 
 const {
-    createTeamQuery,
-    getTeamsQuery,
-    getTeamByNameQuery
-} = require('../repository/team');
+    createEventQuery,
+    getEventsQuery,
+    getEventByNameQuery,
+    updateEventQuery
+} = require('../repository/event');
 
 /**
- * Create Team
+ * Create event
  * @param {object} req
  * @param {object} res
  * @returns {object} reflection object
 */
 
-const createTeam = async (req, res) => {
+const createEvent = async (req, res) => {
     const {
         name,
-        sport,
-        startdate,
-        enddate
+        classroom,
+        description,
+        date
     } = req.body;
 
-    if (isEmpty(name) || isEmpty(sport) || isEmpty(startdate) || isEmpty(enddate) ) {
-        errorMessage.error = 'Name, sport fields cannot be empty';
+    if (isEmpty(name) || isEmpty(classroom) || isEmpty(description) || isEmpty(date) ) {
+        errorMessage.error = 'Name, classroom, description, date field cannot be empty';
         return res.status(status.bad).send(errorMessage);
     }
 
-    createTeamQuery({...req.body})
+    createEventQuery({...req.body})
     .then(data => {
         console.log('DATA:', data); // print data;
         successMessage.data = data;
@@ -50,13 +53,13 @@ const createTeam = async (req, res) => {
 };
 
 /**
- * Get team by name
+ * Get event by name
  * @param {object} req
  * @param {object} res
  * @returns {object} reflection object
 */
 
-const getTeamByName=async (req, res)=>{
+const getEventByName=async (req, res)=>{
 
     const {
         name,
@@ -67,11 +70,11 @@ const getTeamByName=async (req, res)=>{
         return res.status(status.bad).send(errorMessage);
     }
 
-    getTeamByNameQuery({...req.body})
+    getEventByNameQuery({...req.body})
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
-            errorMessage.error = 'No TEAM found';
+            errorMessage.error = 'No EVENT found';
             return res.status(status.notfound).send(errorMessage);
         }
     
@@ -86,19 +89,19 @@ const getTeamByName=async (req, res)=>{
 }
 
 /**
- * Get Teams
+ * Get Events
  * @param {object} req
  * @param {object} res
  * @returns {object} reflection object
 */
 
-const getTeams = async (req, res) => {
+const getEvents = async (req, res) => {
     
-    getTeamsQuery()
+    getEventsQuery()
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
-            errorMessage.error = 'No TEAMS';
+            errorMessage.error = 'No Events';
             return res.status(status.notfound).send(errorMessage);
         }
     
@@ -112,8 +115,45 @@ const getTeams = async (req, res) => {
     })
 };
 
+/**
+ * Update event
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const updateEvent = async (req, res) => {
+    
+    const {
+        name,
+        classroom,
+        description,
+        date,
+        id
+    } = req.body;
+
+    if (isEmpty(name) || isEmpty(description) || isEmpty(classroom) || isEmpty(date) ) {
+        errorMessage.error = 'Name, description, classroom, date detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+
+    updateEventQuery({...req.body})
+    .then(data => {
+        console.log('DATA:', data);
+        data = data[0];
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
 module.exports = {
-    createTeam,
-    getTeams,
-    getTeamByName
+    createEvent,
+    getEvents,
+    updateEvent,
+    getEventByName
 };

@@ -131,7 +131,9 @@ const createTeamTable = () => {
     (
         id SERIAL PRIMARY KEY,
         name VARCHAR(100) NOT NULL,
-        sport VARCHAR(100) NOT NULL
+        sport VARCHAR(100) NOT NULL,
+        startdate DATE NOT NULL,
+        enddate DATE NOT NULL
     )`;
 
     pool.query(teamCreateQuery)
@@ -198,6 +200,110 @@ const createParticipationTable = () => {
         pool.end();
     });
 };
+
+
+
+/** 
+ * Event table
+*/
+
+const createEventTable = () => {
+    const eventCreateQuery = `CREATE TABLE IF NOT EXISTS event
+    (
+        id SERIAL PRIMARY KEY,
+        name VARCHAR(100) NOT NULL,
+        classroom VARCHAR(50) NOT NULL,
+        description VARCHAR(300) NOT NULL,
+        date DATE NOT NULL
+    )`;
+
+    pool.query(eventCreateQuery )
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+/** 
+ * Participation event table
+*/
+
+const createEventParticipationTable = () => {
+    const participationEventCreateQuery = `CREATE TABLE IF NOT EXISTS event_participation
+    (
+        id SERIAL PRIMARY KEY,
+        userID INT NOT NULL,
+        idE INT NOT NULL,
+        hours FLOAT NOT NULL,
+        FOREIGN KEY (userID) REFERENCES users(id),
+        FOREIGN KEY (idE) REFERENCES event(id)
+    )`;
+
+    pool.query(participationEventCreateQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+/** 
+ * Roles tables
+*/
+
+const createRolesTable = () => {
+    const rolesCreateQuery = `CREATE TABLE IF NOT EXISTS roles
+    (
+        id SERIAL PRIMARY KEY,
+        role VARCHAR(100) NOT NULL
+    )`;
+
+    pool.query(rolesCreateQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+/** 
+ * Roles relationship tables
+*/
+
+const createRolesRelationshipTable = () => {
+    const rolesrelationshipCreateQuery = `CREATE TABLE IF NOT EXISTS roles_relationship
+    (
+        id SERIAL PRIMARY KEY,
+        userID INT NOT NULL,
+        idR INT NOT NULL,
+        FOREIGN KEY (userID) REFERENCES users(id),
+        FOREIGN KEY (idR) REFERENCES roles(id)
+    )`;
+
+    pool.query(rolesrelationshipCreateQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+
+
+
 
 /**
  * Drop User Table
@@ -319,6 +425,40 @@ const dropTournamentTable = () => {
 };
 
 /**
+ * Drop Event Table
+*/
+
+const dropEventTable = () => {
+    const eventDropQuery = `DROP TABLE IF EXISTS event`;
+    pool.query(eventDropQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+/**
+ * Drop participacion Event Table
+*/
+
+const dropParticipationEventHBTable = () => {
+    const participationeventDropQuery = `DROP TABLE IF EXISTS event_participation`;
+    pool.query(participationeventDropQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+/**
  * Create All Tables
 */
 
@@ -330,6 +470,10 @@ const createAllTables = () => {
     createTeamTable();
     createParticipationTable();
     createTournamentTable();
+    createEventTable();
+    createEventParticipationTable();
+    createRolesTable();
+    createRolesRelationshipTable();
 };
 
 /**
@@ -344,6 +488,8 @@ const dropAllTables = () => {
     dropTeamTable();
     dropParticipationTable();
     dropTournamentTable();
+    dropEventTable();
+    dropParticipationEventHBTable();
 };
 
 pool.on('remove', () => {
