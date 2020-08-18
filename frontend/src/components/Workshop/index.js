@@ -9,6 +9,8 @@ import * as selectors from '../../reducers';
 import * as selectedActions from '../../actions/selectedWorkshop';
 import './styles.css';
 import { Button } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
 
 const Workshop = ({ 
     workshop,
@@ -23,9 +25,9 @@ const Workshop = ({
             <div className="tituloCard">
               <MDBCardTitle className="titulotaller">{((Object.entries(workshop)[1])[1])}</MDBCardTitle>
               <Link to='/editartaller'>
-                <Button onClick={onEdit} className='edit_button'>
-                <img className='icono'src="https://www.materialui.co/materialIcons/editor/mode_edit_white_192x192.png" alt="img"/>
-                </Button>
+              <IconButton onClick={onEdit}>
+               <EditIcon  className="iconoedit"/>
+              </IconButton>
               </Link>
             </div>
             <hr className='hr-light' />

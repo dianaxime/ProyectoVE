@@ -48,7 +48,8 @@
 
 .tituloCard{
     display: grid;
-    grid-template-columns: 100px 35px;
+    grid-template-columns: 150px 35px;
+    grid-column-gap: 20px;
 }
 
 .des{
@@ -146,12 +147,8 @@
     height: 30px;
 }
 
-.icono{
-    width: 20px;
-    height: 20px;
-    margin-top: 0px;
-    margin-bottom: 0px;
-    margin-left: 90px;
+.iconoedit{
+    color: white;
 }
 
 .edit_button{
