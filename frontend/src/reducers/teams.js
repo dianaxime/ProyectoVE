@@ -73,7 +73,7 @@ const order = (state = [], action) => {
       const { id, team } = action.payload;
       const newState = omit(state, id);
       newState[team.id] = {
-        ...steam,
+        ...team,
       };
       return newState;
     }

@@ -153,6 +153,10 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
     setOpenW(!openW);
   };
 
+  const handleClickTeam = () => {
+    setOpenW(!openW);
+  };
+
   return (
     <div>
       <CssBaseline />
@@ -252,7 +256,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
           </Link>
         </List>
         <Divider />
-        <List> 
+        <List>
           <ListItem button onClick={handleClickWorkshop}>
             <ListItemIcon>
               <BrushIcon />
@@ -273,7 +277,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
               <ListItem button className={classes.nested}>
                 <Link to="/talleres" className={classes.link}>
                   <ListItemIcon>
-                    <StarBorder/>
+                    <StarBorder />
                   </ListItemIcon>
                   <ListItemText primary={"Ver todos"} />
                 </Link>
@@ -290,9 +294,45 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
           </Collapse>
         </List>
         <Divider />
-
-        
-
+        <Divider />
+        <List>
+          <ListItem button onClick={handleClickTeam}>
+            <ListItemIcon>
+              <BrushIcon />
+            </ListItemIcon>
+            <ListItemText primary="Equipos" />
+            {openW ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={openW} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItem button className={classes.nested}>
+                <Link to="/crearequipo" className={classes.link}>
+                  <ListItemIcon>
+                    <StarBorder />
+                  </ListItemIcon>
+                  <ListItemText primary={"Crear"} />
+                </Link>
+              </ListItem>
+              <ListItem button className={classes.nested}>
+                <Link to="/equipos" className={classes.link}>
+                  <ListItemIcon>
+                    <StarBorder />
+                  </ListItemIcon>
+                  <ListItemText primary={"Ver todos"} />
+                </Link>
+              </ListItem>
+              <ListItem button className={classes.nested}>
+                <Link to="/editarequipo" className={classes.link}>
+                  <ListItemIcon>
+                    <StarBorder />
+                  </ListItemIcon>
+                  <ListItemText primary={"Editar"} />
+                </Link>
+              </ListItem>
+            </List>
+          </Collapse>
+        </List>
+        <Divider />
       </Drawer>
       <ChangeModal />
       <UpdateModal />
