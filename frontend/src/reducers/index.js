@@ -105,7 +105,7 @@ export const getFetchingParticipationError = state => participationSelectors.get
 export const getUserByEmailTournament = (state, id) => tournamentSelectors.getUserByEmailTournament(state.tournament, id);
 export const getUsersOrderTournament = state => tournamentSelectors.getUsersOrderTournament(state.tournament);
 export const getUsersByEmailTournament = state => tournamentSelectors.getUsersByEmailTournament(state.tournament);
-export const isFetchingUsersByEmail = state => tournamentSelectors.isFetchingUsersByEmailTournament(state.tournament);
+export const isFetchingUsersByEmailTournament = state => tournamentSelectors.isFetchingUsersByEmailTournament(state.tournament);
 export const getFetchingUsersByEmailErrorTournament = state => tournamentSelectors.getFetchingUsersByEmailErrorTournament(state.tournament);
 export const getTournament = (state, id) => tournamentSelectors.getTournament(state.tournament, id);
 export const getTournaments = state => tournamentSelectors.getTournaments(state.tournament);
