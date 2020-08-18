@@ -49,8 +49,8 @@ export default connect(
   state => ({
     users: selectors.getUsersByEmail(state),
     isLoading: selectors.isFetchingUsersByEmail(state),
-    selectWS: selectors.getSelectedWorkshop(state),
-    workshop: selectors.getWorkshop(state, selectors.getSelectedWorkshop(state)),
+    selectWS: selectors.getSelectedTeam(state),
+    team: selectors.getTeam(state, selectors.getSelectedTeam(state)),
   }),
   dispatch => ({
     onAssign(userid, idw, date1, date2) {
@@ -64,7 +64,7 @@ export default connect(
     ...stateProps,
     ...dispatchProps,
     onAssign(id) {
-      dispatchProps.onAssign(id, stateProps.selectWS, stateProps.workshop.startdate, stateProps.workshop.enddate);
+      dispatchProps.onAssign(id, stateProps.selectWS, stateProps.team.startdate, stateProps.team.enddate);
     },
   })
 )(Person);

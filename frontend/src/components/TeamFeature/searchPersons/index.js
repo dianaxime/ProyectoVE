@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import {
     getAuthToken,
     getIsOpen,
-    getWorkshop,
-    getSelectedWorkshop,
+    getTeam,
+    getSelectedTeam,
 } from '../../../reducers';
 import InputBase from '@material-ui/core/InputBase';
 import { reset, Field, reduxForm } from 'redux-form';
@@ -41,17 +41,17 @@ let SearchPersons = ({
     onSubmit,
     isLoading,
     handleSubmit,
-    selectWorkshop,
-    workshop,
+    selectTeam,
+    team,
 }) => {
     return (
         <div className="personasWorkshop">
             <div className="formP">
                 <h1 className="subP">Personas</h1>
                 {
-                    selectWorkshop ? (
+                    selectTeam ? (
 
-                        <p className="subtituloT">{((Object.entries(workshop)[1])[1])}</p>
+                        <p className="subtituloT">{((Object.entries(team)[1])[1])}</p>
                     ) :
                         (
                             <p className="subtituloT">*Seleccione un equipo*</p>
@@ -82,8 +82,8 @@ SearchPersons = connect(
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
         open: getIsOpen(state),
-        selectWorkshop: getSelectedWorkshop(state) !== null,
-        workshop: getWorkshop(state, getSelectedWorkshop(state)),
+        selectTeam: getSelectedTeam(state) !== null,
+        team: getTeam(state, getSelectedTeam(state)),
     }),
     dispatch => ({
         onSubmit({ email }) {
