@@ -97,7 +97,7 @@ const getTournamentByTeam = async (req, res) => {
         return res.status(status.bad).send(errorMessage);
     }
     
-    getTournamentByTeamQuery(idt)
+    getTournamentByTeamQuery({idt})
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
@@ -125,11 +125,11 @@ const deleteTournamentByUserT = async (req, res) => {
         return res.status(status.bad).send(errorMessage);
     }
     
-    deleteParticipationQuery({idt, userid})
+    deleteTournamentQuery({idt, userid})
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
-            errorMessage.error = 'No participation of that userid in that team';
+            errorMessage.error = 'No tournament of that userid in that team';
             return res.status(status.notfound).send(errorMessage);
         }
     

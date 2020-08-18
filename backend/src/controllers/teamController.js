@@ -13,7 +13,8 @@ const {
 const {
     createTeamQuery,
     getTeamsQuery,
-    getTeamByNameQuery
+    getTeamByNameQuery,
+    updateTeamQuery
 } = require('../repository/team');
 
 /**
@@ -112,8 +113,46 @@ const getTeams = async (req, res) => {
     })
 };
 
+/**
+ * Update Workshop
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const updateTeam = async (req, res) => {
+    
+    const {
+        name,
+        sport,
+        startdate,
+        enddate,
+        id
+    } = req.body;
+
+
+    if (isEmpty(name) || isEmpty(sport) || isEmpty(startdate) || isEmpty(enddate) ) {
+        errorMessage.error = 'Name, sport, startdate, enddate detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+
+    updateTeamQuery({...req.body})
+    .then(data => {
+        console.log('DATA:', data);
+        data = data[0];
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
 module.exports = {
     createTeam,
     getTeams,
-    getTeamByName
+    getTeamByName,
+    updateTeam
 };

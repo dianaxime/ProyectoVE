@@ -83,7 +83,7 @@ let AddTeam = ({
                         <MenuItem value="socceradmin">Futsal colaboradores</MenuItem>
                         <MenuItem value="womensfootball">Futsal femenino</MenuItem>
                         <MenuItem value="volleyball">Voleibol</MenuItem>
-                        <MenuItem value="basquetball">Baloncesto</MenuItem>  
+                        <MenuItem value="basketball">Baloncesto</MenuItem>  
                     </Field>
                 </div>
                 <div>
