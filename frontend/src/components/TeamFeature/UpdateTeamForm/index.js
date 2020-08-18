@@ -10,6 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import { reset, Field, reduxForm } from 'redux-form';
 import * as actions from '../../../actions/teams';
 import DateFnsUtils from '@date-io/date-fns';
+import MenuItem from '@material-ui/core/MenuItem';
 import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
@@ -18,7 +19,7 @@ import { URL } from '../../../settings';
 
 const validate = values => {
     const errors = {};
-    const requiredFields = [ 'name', 'startdate', 'enddate', 'classroom', 'description'];
+    const requiredFields = [ 'name', 'startdate', 'enddate', 'sport'];
     requiredFields.forEach(field => {
         if (!values[ field ]) {
             errors[ field ] = 'Obligatorio*';
@@ -55,6 +56,17 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
     />
 );
 
+const renderSelectField = ({ input, label, meta: { touched, error }, ...custom }) => (
+    <TextField placeholder={label}
+        label={label}
+        helperText={touched && error}
+        {...input}
+        {...custom}
+        id="select"
+        select
+    />
+);
+
 let UpdateTeam = ({ open,
     onSubmit,
     isLoading,
@@ -66,11 +78,14 @@ let UpdateTeam = ({ open,
                 <div className="div-field">
                     <Field name="name" component={renderTextField} label="Nombre" />
                 </div>
-                <div className="div-field">
-                    <Field name="description" component={renderTextField} label="Descripción" />
-                </div>
-                <div className="div-field">
-                    <Field name="classroom" component={renderTextField} label="Salon" />
+                <div>
+                    <Field name="sport" component={renderSelectField} label="Deporte" className="div-field">
+                        <MenuItem value="indoorfootball">Futsal masculino</MenuItem>
+                        <MenuItem value="socceradmin">Futsal colaboradores</MenuItem>
+                        <MenuItem value="womensfootball">Futsal femenino</MenuItem>
+                        <MenuItem value="volleyball">Voleibol</MenuItem>
+                        <MenuItem value="basquetball">Baloncesto</MenuItem>  
+                    </Field>
                 </div>
                 <div>
                     <Field name="startdate" component={renderDateTimePicker} label="Fecha de Inicio" />
@@ -108,17 +123,16 @@ UpdateTeam = connect(
         idTeam: getSelectedTeam(state),
     }),
     dispatch => ({
-        onSubmit({ name, startdate, enddate, classroom, description }, id) {
+        onSubmit({ name, startdate, enddate, sport }, id) {
             dispatch(
                 actions.startUpdatingTeam(
                     id,
                     name,
-                    classroom,
-                    description,
+                    sport,
                     startdate,
                     enddate
                 ),
-                console.log("Taller actualizado!"),
+                console.log("Equipo actualizado!"),
                 dispatch(reset('updateTeamForm')),
             );
             window.location.href = URL + 'equipos';
@@ -128,8 +142,8 @@ UpdateTeam = connect(
         ...stateProps,
         ...dispatchProps,
         ...ownProps,
-        onSubmit({ name, startdate, enddate, classroom, description}) {
-            dispatchProps.onSubmit({ name, startdate, enddate, classroom, description}, stateProps.idTeam);
+        onSubmit({ name, startdate, enddate, sport}) {
+            dispatchProps.onSubmit({ name, startdate, enddate, sport}, stateProps.idTeam);
         },
     })
 )(UpdateTeam);

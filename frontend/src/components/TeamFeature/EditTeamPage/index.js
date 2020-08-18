@@ -54,7 +54,7 @@ const EditTeamPage = ({open}) => {
             >
                 <div className={classes.drawerHeader} />
                 <center><b><h2 className="tituloformW">{'Editar Equipo'}</h2></b></center>
-                <div className="addTeam">
+                <div className="addWorkshop">
                     <UpdateTeam />
                     <SearchPersons />
                 </div>
