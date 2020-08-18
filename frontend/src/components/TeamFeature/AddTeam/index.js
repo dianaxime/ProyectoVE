@@ -18,7 +18,7 @@ import {
 
 const validate = values => {
     const errors = {};
-    const requiredFields = ['name', 'startdate', 'enddate', 'classroom', 'description'];
+    const requiredFields = ['name', 'startdate', 'enddate', 'sport'];
     requiredFields.forEach(field => {
         if (!values[field]) {
             errors[field] = 'Obligatorio*';
@@ -78,7 +78,7 @@ let AddTeam = ({
                     <Field name="name" component={renderTextField} label="Nombre" />
                 </div>
                 <div>
-                    <Field name="sex" component={renderSelectField} label="Deporte" className="div-field">
+                    <Field name="sport" component={renderSelectField} label="Deporte" className="div-field">
                         <MenuItem value="indoorfootball">Futsal masculino</MenuItem>
                         <MenuItem value="socceradmin">Futsal colaboradores</MenuItem>
                         <MenuItem value="womensfootball">Futsal femenino</MenuItem>
@@ -119,13 +119,12 @@ AddTeam = connect(
         isAuth: getAuthToken(state) !== null,
     }),
     dispatch => ({
-        onSubmit({ name, startdate, enddate, classroom, description }) {
+        onSubmit({ name, startdate, enddate, sport }) {
             dispatch(
                 actions.startAddingTeam(
                     uuidv4(),
                     name,
-                    classroom,
-                    description,
+                    sport,
                     startdate,
                     enddate
                 ),

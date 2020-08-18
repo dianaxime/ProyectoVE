@@ -40,7 +40,7 @@ const Person = ({
             }
           </List>
         ) : (
-            <p className="inputPersonaS">No hay personas asignadas a este taller</p>
+            <p className="inputPersonaS">No hay personas asignadas a este equipo</p>
           )
       }
     </div>

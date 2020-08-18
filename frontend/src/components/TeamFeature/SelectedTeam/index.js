@@ -12,7 +12,7 @@ import moment from 'moment';
 
 
 let SelectedTeam = ({
-    name, startdate, enddate, classroom, description,
+    name, startdate, enddate, sport,
     }) => {
     return (
         <div className="dataWorkshop">
@@ -26,15 +26,11 @@ let SelectedTeam = ({
                         <h2>{name}</h2>
                     </MDBCardImage>
                     <MDBCardBody cascade className='text-center'>
-                        <h5 className="descr">{description}</h5>
+                        <h5 className="descr">{sport}</h5>
                         <h5 className="sdatetitle">Inicio</h5>   
                         <h5 className="sdate">{moment(startdate).format('L')}</h5>
                         <h5 className="edatetitle">Fin</h5>
                         <h5 className="edate">{moment(enddate).format('L')}</h5>
-                        <hr />
-                        <div className='text-center'>
-                        {classroom}
-                        </div>
                     </MDBCardBody>
                     </MDBCard>
                 </MDBCol>
@@ -48,10 +44,9 @@ SelectedTeam = connect(
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
         name: getTeam(state, getSelectedTeam(state)).name,
-        description: getTeam(state, getSelectedTeam(state)).description,
+        sport: getTeam(state, getSelectedTeam(state)).sport,
         startdate: getTeam(state, getSelectedTeam(state)).startdate,
         enddate: getTeam(state, getSelectedTeam(state)).enddate,
-        classroom: getTeam(state, getSelectedTeam(state)).classroom,
     }),
 )(SelectedTeam);
 

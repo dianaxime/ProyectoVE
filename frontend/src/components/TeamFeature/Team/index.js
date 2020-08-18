@@ -23,20 +23,17 @@ const Team = ({
           <MDBCardBody className='elegant-color white-text rounded-bottom, carta'>
             <div className="tituloCard">
               <MDBCardTitle className="titulotaller">{((Object.entries(team)[1])[1])}</MDBCardTitle>
-              <Link to='/editartaller'>
+              <Link to='/editarequipo'>
               <IconButton onClick={onEdit}>
                <EditIcon  className="iconoedit"/>
               </IconButton>
               </Link>
             </div>
             <hr className='hr-light' />
-            <MDBCardText className='des'>
-            {((Object.entries(team)[3])[1])}
-            </MDBCardText>
             <MDBCardText className='white-text'>
-            Salón: {((Object.entries(team)[2])[1])}
+            Deporte: {((Object.entries(team)[2])[1])}
             </MDBCardText>
-            <Link to='/taller'>
+            <Link to='/equipo'>
               <button className='more_button' onClick={onClick}>
               VER MÁS
               </button>

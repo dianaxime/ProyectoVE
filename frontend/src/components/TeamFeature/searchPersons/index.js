@@ -54,7 +54,7 @@ let SearchPersons = ({
                         <p className="subtituloT">{((Object.entries(workshop)[1])[1])}</p>
                     ) :
                         (
-                            <p className="subtituloT">*Seleccione un taller*</p>
+                            <p className="subtituloT">*Seleccione un equipo*</p>
                         )
                 }
                 <div className="barrabus">

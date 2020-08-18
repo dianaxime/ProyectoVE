@@ -53,7 +53,7 @@ const AddTeamPage = ({open}) => {
                 })}
             >
                 <div className={classes.drawerHeader} />
-                <center><b><h2 className="tituloformW">{'Nuevo Taller'}</h2></b></center>
+                <center><b><h2 className="tituloformW">{'Nuevo Equipo'}</h2></b></center>
                 <div className="addWorkshop">
                     <AddTeam />
                     <SearchPersons />
