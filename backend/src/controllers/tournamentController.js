@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const {
-    isEmpty,
+    empty,
 } = require('../helpers/validation');
 
 const {
@@ -13,7 +13,8 @@ const {
 const {
     createTournamentQuery,
     getTournamentsQuery,
-    getTournamentByTeamQuery
+    getTournamentByTeamQuery,
+    deleteTournamentQuery,
 } = require('../repository/tournament');
 
 /**
@@ -31,7 +32,7 @@ const createTournament = async (req, res) => {
         enddate
     } = req.body;
 
-    if (isEmpty(userid) || isEmpty(idt)  || isEmpty(startdate) || isEmpty(enddate) ) {
+    if (empty(userid) || empty(idt)  || empty(startdate) || empty(enddate) ) {
         errorMessage.error = 'User id, id of team, startdate, enddate field cannot be empty';
         return res.status(status.bad).send(errorMessage);
     }
@@ -89,16 +90,14 @@ const getTournaments = async (req, res) => {
 
 const getTournamentByTeam = async (req, res) => {
     
-    const {
-        idt,
-    } = req.body;
+    const idt = req.params.idt;
 
-    if (isEmpty(idt)) {
+    if (empty(idt)) {
         errorMessage.error = 'ID of team detail is missing';
         return res.status(status.bad).send(errorMessage);
     }
     
-    getTournamentByTeamQuery({...req.body})
+    getTournamentByTeamQuery(idt)
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
@@ -116,8 +115,37 @@ const getTournamentByTeam = async (req, res) => {
     })
 };
 
+const deleteTournamentByUserT = async (req, res) => {
+    
+    const idt = req.params.idt;
+    const userid = req.params.userid;
+
+    if (empty(idt) || empty(userid)) {
+        errorMessage.error = 'ID of team detail is missing or user ID';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    deleteParticipationQuery({idt, userid})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'No participation of that userid in that team';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
 module.exports = {
     createTournament,
     getTournaments,
-    getTournamentByTeam
+    getTournamentByTeam,
+    deleteTournamentByUserT
 };
