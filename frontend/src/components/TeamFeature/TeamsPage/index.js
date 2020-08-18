@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import clsx from 'clsx';
-import { getAuthToken, getIsOpen } from '../../reducers';
-import { URL } from '../../settings';
-import Nav from '../Nav';
+import { getAuthToken, getIsOpen } from '../../../reducers';
+import { URL } from '../../../settings';
+import Nav from '../../Nav';
 import Teams from '../Teams';
-import * as actions from '../../actions/teams';
+import * as actions from '../../../actions/teams';
 import { makeStyles } from '@material-ui/core/styles';
 
 const drawerWidth = 240;

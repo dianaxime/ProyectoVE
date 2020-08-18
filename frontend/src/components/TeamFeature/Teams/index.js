@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import * as selectors from '../../reducers';
-import * as actions from '../../actions/teams';
+import * as selectors from '../../../reducers';
+import * as actions from '../../../actions/teams';
 import Team from '../Team';
-import './style.css';
+import './styles.css';
 
 const Teams = ({ team, isLoading, onLoad }) => {
     useEffect(onLoad, []);
@@ -13,7 +13,7 @@ const Teams = ({ team, isLoading, onLoad }) => {
             {
                 team.length > 0 && !isLoading && (
 
-                    <div className="teamsContainer">
+                    <div className="workshopsContainer">
 
                         {
                             team.map(({ id }) => <Team key={id}
@@ -28,7 +28,7 @@ const Teams = ({ team, isLoading, onLoad }) => {
 
 export default connect(
     state => ({
-        team: selectors.getWorkshops(state),
+        team: selectors.getTeams(state),
         isLoading: selectors.isFetchingTeams(state),
     }),
     dispatch => ({

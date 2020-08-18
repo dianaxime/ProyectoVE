@@ -5,35 +5,38 @@ import {
 } from "react-router-dom";
 import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBRow, MDBCol } from 'mdbreact';
 import { connect } from 'react-redux';
-import * as selectors from '../../reducers';
-import * as selectedActions from '../../actions/selectedTeam';
-import './style.css';
-import { Button } from '@material-ui/core';
-
-const ICON_EDIT = "https://www.materialui.co/materialIcons/editor/mode_edit_white_192x192.png"; 
+import * as selectors from '../../../reducers';
+import * as selectedActions from '../../../actions/selectedTeam';
+import './styles.css';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
 
 const Team = ({ 
     team,
     onClick,
     onEdit=false,
   }) => (
-      <div className='teamBox'>
+      <div className='workshopBox'>
     <MDBRow>
       <MDBCol md='4'>
         <MDBCard>
-          <MDBCardBody className='elegant-color white-text rounded-bottom'>
-            <MDBCardTitle>{((Object.entries(team)[1])[1])}
-            <Link to='/editartaller'>
-              <Button onClick={onEdit} className='edit_button'>
-              <img className='icono'src={ICON_EDIT} alt="img"/>
-              </Button>
-            </Link>
-            </MDBCardTitle>
+          <MDBCardBody className='elegant-color white-text rounded-bottom, carta'>
+            <div className="tituloCard">
+              <MDBCardTitle className="titulotaller">{((Object.entries(team)[1])[1])}</MDBCardTitle>
+              <Link to='/editartaller'>
+              <IconButton onClick={onEdit}>
+               <EditIcon  className="iconoedit"/>
+              </IconButton>
+              </Link>
+            </div>
             <hr className='hr-light' />
-            <MDBCardText className='white-text'>
+            <MDBCardText className='des'>
             {((Object.entries(team)[3])[1])}
             </MDBCardText>
-            <Link to='/equipo'>
+            <MDBCardText className='white-text'>
+            Salón: {((Object.entries(team)[2])[1])}
+            </MDBCardText>
+            <Link to='/taller'>
               <button className='more_button' onClick={onClick}>
               VER MÁS
               </button>
@@ -50,6 +53,7 @@ const Team = ({
       ...selectors.getTeam(state, id),
       team: selectors.getTeam(state, id),
       isSelected: selectors.getSelectedTeam(state) === id,
+     
     }),
     (dispatch, {id}) => ({
       onClick() {
