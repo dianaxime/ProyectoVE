@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import * as selectors from '../../reducers';
-import * as actions from '../../actions/workshops';
+import * as selectors from '../../../reducers';
+import * as actions from '../../../actions/workshops';
 import Workshop from '../Workshop';
 import './styles.css';
 

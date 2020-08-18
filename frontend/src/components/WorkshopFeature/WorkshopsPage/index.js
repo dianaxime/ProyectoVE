@@ -1,11 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import clsx from 'clsx';
-import { getAuthToken, getIsOpen } from '../../reducers';
-import { URL } from '../../settings';
-import Nav from '../Nav';
+import { getAuthToken, getIsOpen } from '../../../reducers';
+import { URL } from '../../../settings';
+import Nav from '../../Nav';
 import Workshops from '../Workshops';
-import * as actions from '../../actions/workshops';
+import * as actions from '../../../actions/workshops';
 import { makeStyles } from '@material-ui/core/styles';
 
 const drawerWidth = 240;

@@ -7,10 +7,10 @@ import { configureStore } from '../../store';
 import AuthPage from '../AuthPage';
 import HomePage from '../HomePage';
 import AuthorizePage from '../AuthorizePage';
-import AddWorkshopPage from '../AddWorkshopPage';
-import WorkshopsPage from '../WorkshopsPage';
-import EditWorkshopPage from '../EditWorkshopPage';
-import SelectedWorkshopPage from '../SelectedWorkshopPage';
+import AddWorkshopPage from '../WorkshopFeature/AddWorkshopPage';
+import WorkshopsPage from '../WorkshopFeature/WorkshopsPage';
+import EditWorkshopPage from '../WorkshopFeature/EditWorkshopPage';
+import SelectedWorkshopPage from '../WorkshopFeature/SelectedWorkshopPage';
 import TokenRefresh from '../TokenRefresh';
 
 import 'fontsource-roboto';

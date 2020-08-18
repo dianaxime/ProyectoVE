@@ -1,12 +1,12 @@
 import React from 'react';
-import AddWorkshop from '../AddWorkshop';
+import UpdateWorkshop from '../UpdateWorkshopForm';
 import SearchPersons from '../searchPersons';
 import { connect } from 'react-redux';
-import { getAuthToken, getIsOpen } from '../../reducers';
-import { URL } from '../../settings';
+import { getAuthToken, getIsOpen } from '../../../reducers';
+import { URL } from '../../../settings';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import Nav from '../Nav';
+import Nav from '../../Nav';
 import './styles.css';
 
 const drawerWidth = 240;
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const AddWorkshopPage = ({open}) => {
+const EditWorkshopPage = ({open}) => {
     const classes = useStyles();
     return (
 
@@ -53,9 +53,9 @@ const AddWorkshopPage = ({open}) => {
                 })}
             >
                 <div className={classes.drawerHeader} />
-                <center><b><h2 className="tituloformW">{'Nuevo Taller'}</h2></b></center>
+                <center><b><h2 className="tituloformW">{'Editar Taller'}</h2></b></center>
                 <div className="addWorkshop">
-                    <AddWorkshop />
+                    <UpdateWorkshop />
                     <SearchPersons />
                 </div>
 
@@ -80,5 +80,4 @@ export default connect(
             ...ownProps,
         });
     }
-)(AddWorkshopPage);
-
+)(EditWorkshopPage);

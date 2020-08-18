@@ -6,7 +6,7 @@ import {
     getAuthToken,
     getWorkshop,
     getSelectedWorkshop
-} from '../../reducers';
+} from '../../../reducers';
 import './styles.css';
 import moment from 'moment';
 

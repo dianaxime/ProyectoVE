@@ -5,10 +5,9 @@ import {
 } from "react-router-dom";
 import { MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBRow, MDBCol } from 'mdbreact';
 import { connect } from 'react-redux';
-import * as selectors from '../../reducers';
-import * as selectedActions from '../../actions/selectedWorkshop';
+import * as selectors from '../../../reducers';
+import * as selectedActions from '../../../actions/selectedWorkshop';
 import './styles.css';
-import { Button } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 

@@ -5,7 +5,7 @@ import {
     getIsOpen,
     getWorkshop,
     getSelectedWorkshop,
-} from '../../reducers';
+} from '../../../reducers';
 import './styles.css';
 import ShowPerson from '../ShowPerson';
 

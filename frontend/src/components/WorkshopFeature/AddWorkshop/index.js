@@ -1,27 +1,26 @@
+import { v4 as uuidv4 } from 'uuid';
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-    getAuthToken,
-    getIsOpen,
-    getWorkshop,
-    getSelectedWorkshop,
-} from '../../reducers';
+    getAuthToken
+} from '../../../reducers';
 import TextField from '@material-ui/core/TextField';
 import { reset, Field, reduxForm } from 'redux-form';
-import * as actions from '../../actions/workshops';
+import * as actions from '../../../actions/workshops';
+import './styles.css';
 import DateFnsUtils from '@date-io/date-fns';
 import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
-import { URL } from '../../settings';
+
 
 const validate = values => {
     const errors = {};
-    const requiredFields = [ 'name', 'startdate', 'enddate', 'classroom', 'description'];
+    const requiredFields = ['name', 'startdate', 'enddate', 'classroom', 'description'];
     requiredFields.forEach(field => {
-        if (!values[ field ]) {
-            errors[ field ] = 'Obligatorio*';
+        if (!values[field]) {
+            errors[field] = 'Obligatorio*';
         }
     })
     return errors;
@@ -30,16 +29,16 @@ const validate = values => {
 const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) => (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <KeyboardDatePicker
-          className="inputWorkshop"
-          disableToolbar
-          variant="inline"
-          format="yyyy/MM/dd"
-          margin="normal"
-          //id="date-picker-inline"
-          label={label}
-          onChange={onChange}
-          time={showTime}
-          value={!value ? new Date() : new Date(value)}
+            className="inputWorkshop"
+            disableToolbar
+            variant="inline"
+            format="yyyy/MM/dd"
+            margin="normal"
+            // id="date-picker-inline"
+            label={label}
+            onChange={onChange}
+            time={showTime}
+            value={!value ? new Date() : new Date(value)}
         />
     </MuiPickersUtilsProvider>
 );
@@ -55,7 +54,7 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
     />
 );
 
-let UpdateWorkshop = ({ open,
+let AddWorkshop = ({
     onSubmit,
     isLoading,
     handleSubmit, }) => {
@@ -84,7 +83,7 @@ let UpdateWorkshop = ({ open,
                             <strong>{'Cargando...'}</strong>
                         ) : (
                                 <button className="buttonformW" type="submit" onClick={handleSubmit(onSubmit)}>
-                                    {'Actualizar'}
+                                    {'Crear'}
                                 </button>
                             )
                     }
@@ -94,44 +93,31 @@ let UpdateWorkshop = ({ open,
     );
 }
 
-UpdateWorkshop = reduxForm({
-    form: 'updateWorkshopForm',
+AddWorkshop = reduxForm({
+    form: 'workshopForm',
     validate
-})(UpdateWorkshop);
+})(AddWorkshop);
 
-UpdateWorkshop = connect(
+AddWorkshop = connect(
     state => ({
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
-        open: getIsOpen(state),
-        initialValues: getWorkshop(state, getSelectedWorkshop(state)),
-        idWorkshop: getSelectedWorkshop(state),
     }),
     dispatch => ({
-        onSubmit({ name, startdate, enddate, classroom, description }, id) {
+        onSubmit({ name, startdate, enddate, classroom, description }) {
             dispatch(
-                actions.startUpdatingWorkshop(
-                    id,
+                actions.startAddingWorkshop(
+                    uuidv4(),
                     name,
                     classroom,
                     description,
                     startdate,
                     enddate
                 ),
-                console.log("Taller actualizado!"),
-                dispatch(reset('updateWorkshopForm')),
+                dispatch(reset('workshopForm')),
             );
-            window.location.href = URL + 'talleres';
         },
     }),
-    (stateProps, dispatchProps, ownProps) => ({
-        ...stateProps,
-        ...dispatchProps,
-        ...ownProps,
-        onSubmit({ name, startdate, enddate, classroom, description}) {
-            dispatchProps.onSubmit({ name, startdate, enddate, classroom, description}, stateProps.idWorkshop);
-        },
-    })
-)(UpdateWorkshop);
+)(AddWorkshop);
 
-export default UpdateWorkshop;
+export default AddWorkshop;

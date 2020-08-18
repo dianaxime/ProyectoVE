@@ -1,38 +1,37 @@
-import React, { useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import moment from 'moment';
+import React from 'react';
 import { connect } from 'react-redux';
-import * as selectors from '../../reducers';
+import * as selectors from '../../../reducers';
 import './styles.css';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
-import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import Typography from '@material-ui/core/Typography';
-import * as actions from '../../actions/participation';
+import * as actions from '../../../actions/participation';
 
 const Person = ({
   users,
   isLoading,
-  onDelete,
-  onLoad,
-}) => {
-  useEffect(onLoad, []);
-  return (
+  onAssign,
+}) => (
     <div className='personaIn'>
       {
         users.length > 0 && !isLoading ? (
           <List className="listaper">
             {
-              users.map(({ id, first_name, last_name, email }) =>
+              users.map(({id, first_name, last_name, email}) =>
                 <ListItem key={id} className="inputPersona">
                   <ListItemText primary={first_name + " " + last_name} secondary={
-                    <Typography component="span"
+                      <Typography component="span"
                       variant="body2" className="inputPersonaS">{email}</Typography>
-                  } />
+                    }/>
                   <ListItemSecondaryAction>
-                    <IconButton edge="end" aria-label="agregar" onMouseDown={() => onDelete(id)}>
-                      <DeleteOutlineIcon className="inputDeleteP" />
+                    <IconButton edge="end" aria-label="agregar" onClick={() => onAssign(id)}>
+                      <PersonAddIcon className="inputPersona" />
                     </IconButton>
                   </ListItemSecondaryAction>
                 </ListItem>
@@ -40,41 +39,32 @@ const Person = ({
             }
           </List>
         ) : (
-            <p className="inputPersonaS">No hay personas asignadas a este taller</p>
-          )
+          <p className="inputPersonaS">No se encontraron usuarios con ese correo electrónico</p>
+        )
       }
     </div>
   );
-}
 
 export default connect(
   state => ({
-    users: selectors.getParticipations(state),
+    users: selectors.getUsersByEmail(state),
     isLoading: selectors.isFetchingUsersByEmail(state),
     selectWS: selectors.getSelectedWorkshop(state),
     workshop: selectors.getWorkshop(state, selectors.getSelectedWorkshop(state)),
   }),
   dispatch => ({
-    onLoad(idw) {
-      dispatch(actions.startFetchingParticipation(idw));
-    },
-    onDelete(idw, userid) {
-      if ( idw != null && userid != null) {
-        dispatch(actions.startRemovingParticipation(idw, userid));
-      }
-    },
+    onAssign(userid, idw, date1, date2) {
+      const startdate = moment(date1);
+      const enddate = moment(date2);
+      dispatch(actions.startAddingParticipation(uuidv4(), userid, idw, startdate.format("YYYY-MM-DD"), enddate.format("YYYY-MM-DD")));
+    }
   }),
   (stateProps, dispatchProps, ownProps) => ({
     ...ownProps,
     ...stateProps,
     ...dispatchProps,
-    onLoad() {
-      dispatchProps.onLoad(stateProps.selectWS);
-    },
-    onDelete(id) {
-      if (id != null) {
-        dispatchProps.onDelete(stateProps.selectWS, id);
-      }
+    onAssign(id) {
+      dispatchProps.onAssign(id, stateProps.selectWS, stateProps.workshop.startdate, stateProps.workshop.enddate);
     },
   })
 )(Person);
