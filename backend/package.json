@@ -23,7 +23,8 @@
     "test": "cucumber-js",
     "setup": "node ./src/db/dev/dbConnection createAllTables",
     "restart-db": "node ./src/db/dev/dbConnection dropAllTables",
-    "seed-user-table": "node ./src/helpers/seed"
+    "seed-user-table": "node ./src/helpers/seed",
+    "seed-roles-table": "node ./src/helpers/seedroles"
   },
   "devDependencies": {
     "assert": "^2.0.0",
