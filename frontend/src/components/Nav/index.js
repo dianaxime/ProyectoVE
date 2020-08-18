@@ -290,9 +290,6 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
           </Collapse>
         </List>
         <Divider />
-
-        
-
       </Drawer>
       <ChangeModal />
       <UpdateModal />

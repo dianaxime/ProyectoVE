@@ -19,16 +19,17 @@ const Workshop = ({
     <MDBRow>
       <MDBCol md='4'>
         <MDBCard>
-          <MDBCardBody className='elegant-color white-text rounded-bottom'>
-            <MDBCardTitle>{((Object.entries(workshop)[1])[1])}
-            <Link to='/editartaller'>
-              <Button onClick={onEdit} className='edit_button'>
-              <img className='icono'src="https://www.materialui.co/materialIcons/editor/mode_edit_white_192x192.png" alt="img"/>
-              </Button>
-            </Link>
-            </MDBCardTitle>
+          <MDBCardBody className='elegant-color white-text rounded-bottom, carta'>
+            <div className="tituloCard">
+              <MDBCardTitle className="titulotaller">{((Object.entries(workshop)[1])[1])}</MDBCardTitle>
+              <Link to='/editartaller'>
+                <Button onClick={onEdit} className='edit_button'>
+                <img className='icono'src="https://www.materialui.co/materialIcons/editor/mode_edit_white_192x192.png" alt="img"/>
+                </Button>
+              </Link>
+            </div>
             <hr className='hr-light' />
-            <MDBCardText className='white-text'>
+            <MDBCardText className='des'>
             {((Object.entries(workshop)[3])[1])}
             </MDBCardText>
             <MDBCardText className='white-text'>

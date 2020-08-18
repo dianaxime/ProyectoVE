@@ -18,7 +18,7 @@ let SelectedWorkshop = ({
         <div className="dataWorkshop">
             <MDBRow>
                 <MDBCol col='4'>
-                    <MDBCard>
+                    <MDBCard className="cartaT">
                     <MDBCardImage
                         className="tituloWorkshop"
                         tag='div'
@@ -26,7 +26,7 @@ let SelectedWorkshop = ({
                         <h2>{name}</h2>
                     </MDBCardImage>
                     <MDBCardBody cascade className='text-center'>
-                        <h5 className="des">{description}</h5>
+                        <h5 className="descr">{description}</h5>
                         <h5 className="sdatetitle">Inicio</h5>   
                         <h5 className="sdate">{moment(startdate).format('L')}</h5>
                         <h5 className="edatetitle">Fin</h5>
