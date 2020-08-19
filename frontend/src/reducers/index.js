@@ -4,7 +4,9 @@ import {reducer as formReducer} from 'redux-form';
 import auth, * as authSelectors from './auth';
 import workshops, * as workshopsSelectors from './workshops';
 import scholars, * as scholarsSelectors from './scholars';
+import teams, * as teamsSelectors from './teams'; 
 import participation, * as participationSelectors from './participation';
+import tournament, * as tournamentSelectors from './tournament';
 
 import changeDrawer, * as changeDrawerSelectors from './changeDrawer';
 import changeForgot, * as changeForgotSelectors from './modalForgot';
@@ -13,6 +15,7 @@ import changeUpdate, * as changeUpdateSelectors from './modalUpdate';
 import changeScholar, * as changeScholarSelectors from './modalScholarship';
 
 import selectedWorkshop, * as selectedWorkshopSelectors from './selectedWorkshop';
+import selectedTeam, * as selectedTeamSelectors from './selectedTeam'; 
 
 const reducer = combineReducers({
   auth,
@@ -21,10 +24,13 @@ const reducer = combineReducers({
   changeChange,
   changeUpdate,
   workshops,
+  teams, 
   scholars,
   changeScholar,
   selectedWorkshop,
+  selectedTeam,
   participation,
+  tournament,
   form: formReducer,
 });
 
@@ -71,6 +77,11 @@ export const getWorkshop = (state, id) => workshopsSelectors.getWorkshop(state.w
 export const getWorkshops = state => workshopsSelectors.getWorkshops(state.workshops);
 export const isFetchingWorkshops = state => workshopsSelectors.isFetchingWorkshops(state.workshops);
 export const getFetchingWorkshopsError = state => workshopsSelectors.getFetchingWorkshopsError(state.workshops);
+/* Teams */
+export const getTeam = (state, id) => teamsSelectors.getTeam(state.teams, id);
+export const getTeams = state => teamsSelectors.getTeams(state.teams);
+export const isFetchingTeams = state => teamsSelectors.isFetchingTeams(state.teams);
+export const getFetchingTeamsError = state => teamsSelectors.getFetchingTeamsError(state.teams);
 /* Scholars */
 export const getScholar = (state, id) => scholarsSelectors.getScholar(state.scholars, id);
 export const getScholars = state => scholarsSelectors.getScholars(state.scholars);
@@ -78,6 +89,8 @@ export const isFetchingScholars = state => scholarsSelectors.isFetchingScholars(
 export const getFetchingScholarsError = state => scholarsSelectors.getFetchingScholarsError(state.scholars);
 /* Selected Workshop*/
 export const getSelectedWorkshop = (state) => selectedWorkshopSelectors.getSelectedWorkshop(state.selectedWorkshop)
+/* Selected Team */ 
+export const getSelectedTeam = (state) => selectedTeamSelectors.getSelectedTeam(state.selectedTeam)
 /* Participations */
 export const getUserByEmail = (state, id) => participationSelectors.getUserByEmail(state.participation, id);
 export const getUsersOrder = state => participationSelectors.getUsersOrder(state.participation);
@@ -88,3 +101,13 @@ export const getParticipation = (state, id) => participationSelectors.getPartici
 export const getParticipations = state => participationSelectors.getParticipations(state.participation);
 export const isFetchingParticipations = state => participationSelectors.isFetchingParticipations(state.participation);
 export const getFetchingParticipationError = state => participationSelectors.getFetchingParticipationError(state.participation);
+/* Tournament */
+export const getUserByEmailTournament = (state, id) => tournamentSelectors.getUserByEmailTournament(state.tournament, id);
+export const getUsersOrderTournament = state => tournamentSelectors.getUsersOrderTournament(state.tournament);
+export const getUsersByEmailTournament = state => tournamentSelectors.getUsersByEmailTournament(state.tournament);
+export const isFetchingUsersByEmailTournament = state => tournamentSelectors.isFetchingUsersByEmailTournament(state.tournament);
+export const getFetchingUsersByEmailErrorTournament = state => tournamentSelectors.getFetchingUsersByEmailErrorTournament(state.tournament);
+export const getTournament = (state, id) => tournamentSelectors.getTournament(state.tournament, id);
+export const getTournaments = state => tournamentSelectors.getTournaments(state.tournament);
+export const isFetchingTournaments = state => tournamentSelectors.isFetchingTournaments(state.tournament);
+export const getFetchingTournamentError = state => tournamentSelectors.getFetchingTournamentError(state.tournament);

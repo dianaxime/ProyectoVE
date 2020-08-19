@@ -6,9 +6,10 @@ import {
 } from '../../../reducers';
 import TextField from '@material-ui/core/TextField';
 import { reset, Field, reduxForm } from 'redux-form';
-import * as actions from '../../../actions/workshops';
+import * as actions from '../../../actions/teams';
 import './styles.css';
 import DateFnsUtils from '@date-io/date-fns';
+import MenuItem from '@material-ui/core/MenuItem';
 import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
@@ -17,7 +18,7 @@ import {
 
 const validate = values => {
     const errors = {};
-    const requiredFields = ['name', 'startdate', 'enddate', 'classroom', 'description'];
+    const requiredFields = ['name', 'startdate', 'enddate', 'sport'];
     requiredFields.forEach(field => {
         if (!values[field]) {
             errors[field] = 'Obligatorio*';
@@ -34,6 +35,7 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) =
             variant="inline"
             format="yyyy/MM/dd"
             margin="normal"
+            // id="date-picker-inline"
             label={label}
             onChange={onChange}
             time={showTime}
@@ -49,12 +51,23 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
         helperText={touched && error}
         {...input}
         {...custom}
-        margin="dense"
+        margin="normal"
         fullWidth
     />
 );
 
-let AddWorkshop = ({
+const renderSelectField = ({ input, label, meta: { touched, error }, ...custom }) => (
+    <TextField placeholder={label}
+        label={label}
+        helperText={touched && error}
+        {...input}
+        {...custom}
+        select
+        fullWidth
+    />
+);
+
+let AddTeam = ({
     onSubmit,
     isLoading,
     handleSubmit, }) => {
@@ -66,16 +79,19 @@ let AddWorkshop = ({
                     <Field name="name" component={renderTextField} label="Nombre" />
                 </div>
                 <div className="div-field">
-                    <Field name="description" component={renderTextField} label="Descripción" />
+                    <Field name="sport" component={renderSelectField} label="Deporte" className="div-field">
+                        <MenuItem value="indoorfootball">Futsal masculino</MenuItem>
+                        <MenuItem value="socceradmin">Futsal colaboradores</MenuItem>
+                        <MenuItem value="womensfootball">Futsal femenino</MenuItem>
+                        <MenuItem value="volleyball">Voleibol</MenuItem>
+                        <MenuItem value="basketball">Baloncesto</MenuItem>  
+                    </Field>
                 </div>
                 <div className="div-field">
-                    <Field name="classroom" component={renderTextField} label="Salon" />
+                    <Field name="startdate" component={renderDateTimePicker} label="Fecha de Inicio" className="div-field" />
                 </div>
                 <div className="div-field">
-                    <Field name="startdate" component={renderDateTimePicker} label="Fecha de Inicio" />
-                </div>
-                <div className="div-field">
-                    <Field name="enddate" component={renderDateTimePicker} label="Fecha de Finalización" />
+                    <Field name="enddate" component={renderDateTimePicker} label="Fecha de Finalización" className="div-field" />
                 </div>
                 <p>
                     {
@@ -93,31 +109,30 @@ let AddWorkshop = ({
     );
 }
 
-AddWorkshop = reduxForm({
-    form: 'workshopForm',
+AddTeam = reduxForm({
+    form: 'teamForm',
     validate
-})(AddWorkshop);
+})(AddTeam);
 
-AddWorkshop = connect(
+AddTeam = connect(
     state => ({
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
     }),
     dispatch => ({
-        onSubmit({ name, startdate, enddate, classroom, description }) {
+        onSubmit({ name, startdate, enddate, sport }) {
             dispatch(
-                actions.startAddingWorkshop(
+                actions.startAddingTeam(
                     uuidv4(),
                     name,
-                    classroom,
-                    description,
+                    sport,
                     startdate,
                     enddate
                 ),
-                dispatch(reset('workshopForm')),
+                dispatch(reset('teamForm')),
             );
         },
     }),
-)(AddWorkshop);
+)(AddTeam);
 
-export default AddWorkshop;
+export default AddTeam;

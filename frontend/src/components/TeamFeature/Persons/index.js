@@ -11,7 +11,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import Typography from '@material-ui/core/Typography';
-import * as actions from '../../../actions/participation';
+import * as actions from '../../../actions/tournament';
 
 const Person = ({
   users,
@@ -47,16 +47,16 @@ const Person = ({
 
 export default connect(
   state => ({
-    users: selectors.getUsersByEmail(state),
-    isLoading: selectors.isFetchingUsersByEmail(state),
-    selectWS: selectors.getSelectedWorkshop(state),
-    workshop: selectors.getWorkshop(state, selectors.getSelectedWorkshop(state)),
+    users: selectors.getUsersByEmailTournament(state),
+    isLoading: selectors.isFetchingUsersByEmailTournament(state),
+    selectT: selectors.getSelectedTeam(state),
+    team: selectors.getTeam(state, selectors.getSelectedTeam(state)),
   }),
   dispatch => ({
-    onAssign(userid, idw, date1, date2) {
+    onAssign(userid, idt, date1, date2) {
       const startdate = moment(date1);
       const enddate = moment(date2);
-      dispatch(actions.startAddingParticipation(uuidv4(), userid, idw, startdate.format("YYYY-MM-DD"), enddate.format("YYYY-MM-DD")));
+      dispatch(actions.startAddingTournament(uuidv4(), userid, idt, startdate.format("YYYY-MM-DD"), enddate.format("YYYY-MM-DD")));
     }
   }),
   (stateProps, dispatchProps, ownProps) => ({
@@ -64,7 +64,7 @@ export default connect(
     ...stateProps,
     ...dispatchProps,
     onAssign(id) {
-      dispatchProps.onAssign(id, stateProps.selectWS, stateProps.workshop.startdate, stateProps.workshop.enddate);
+      dispatchProps.onAssign(id, stateProps.selectT, stateProps.team.startdate, stateProps.team.enddate);
     },
   })
 )(Person);

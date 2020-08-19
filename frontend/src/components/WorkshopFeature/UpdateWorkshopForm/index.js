@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
     getAuthToken,
-    getIsOpen,
     getWorkshop,
     getSelectedWorkshop,
 } from '../../../reducers';
@@ -15,6 +14,7 @@ import {
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 import { URL } from '../../../settings';
+import './styles.css';
 
 const validate = values => {
     const errors = {};
@@ -35,11 +35,11 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) =
           variant="inline"
           format="yyyy/MM/dd"
           margin="normal"
-          //id="date-picker-inline"
           label={label}
           onChange={onChange}
           time={showTime}
           value={!value ? new Date() : new Date(value)}
+          fullWidth
         />
     </MuiPickersUtilsProvider>
 );
@@ -55,7 +55,7 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
     />
 );
 
-let UpdateWorkshop = ({ open,
+let UpdateWorkshop = ({ 
     onSubmit,
     isLoading,
     handleSubmit, }) => {
@@ -72,10 +72,10 @@ let UpdateWorkshop = ({ open,
                 <div className="div-field">
                     <Field name="classroom" component={renderTextField} label="Salon" />
                 </div>
-                <div>
+                <div className="div-field">
                     <Field name="startdate" component={renderDateTimePicker} label="Fecha de Inicio" />
                 </div>
-                <div>
+                <div className="div-field">
                     <Field name="enddate" component={renderDateTimePicker} label="Fecha de Finalización" />
                 </div>
                 <p>
@@ -103,7 +103,6 @@ UpdateWorkshop = connect(
     state => ({
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
-        open: getIsOpen(state),
         initialValues: getWorkshop(state, getSelectedWorkshop(state)),
         idWorkshop: getSelectedWorkshop(state),
     }),

@@ -12,11 +12,16 @@ import WorkshopsPage from '../WorkshopFeature/WorkshopsPage';
 import EditWorkshopPage from '../WorkshopFeature/EditWorkshopPage';
 import SelectedWorkshopPage from '../WorkshopFeature/SelectedWorkshopPage';
 import TokenRefresh from '../TokenRefresh';
+import AddTeamPage from '../TeamFeature/AddTeamPage';
+import TeamsPage from '../TeamFeature/TeamsPage';
+import EditTeamPage from '../TeamFeature/EditTeamPage';
+import SelectedTeamPage from '../TeamFeature/SelectedTeamPage';
 
 import 'fontsource-roboto';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
+
 
 const { store, persistor } = configureStore();
 
@@ -33,6 +38,10 @@ const App = () => (
           <Route exact path="/talleres" component={WorkshopsPage} />
           <Route exact path="/taller" component={SelectedWorkshopPage} />
           <Route exact path="/editartaller" component={EditWorkshopPage} />
+          <Route exact path="/crearequipo" component={AddTeamPage} />
+          <Route exact path="/equipos" component={TeamsPage} />
+          <Route exact path="/equipo" component={SelectedTeamPage} />
+          <Route exact path="/editarequipo" component={EditTeamPage} />
           <Route render={() => <Redirect to="/" />} />
         </Switch>
       </BrowserRouter>

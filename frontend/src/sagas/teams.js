@@ -2,22 +2,19 @@ import {
   call,
   takeEvery,
   put,
-  // race,
-  // all,
-  //delay,
   select,
 } from 'redux-saga/effects';
 import { normalize } from 'normalizr';
 
 import * as selectors from '../reducers';
-import * as actions from '../actions/workshops';
-import * as types from '../types/workshops';
-import * as schemas from '../schemas/workshops';
-import * as actionsSelectedWorkshop from '../actions/selectedWorkshop';
+import * as actions from '../actions/teams';
+import * as types from '../types/teams';
+import * as schemas from '../schemas/teams';
+import * as actionsSelectedTeam from '../actions/selectedTeam';
 
 import { API_BASE_URL } from '../settings';
 
-function* fetchWorkshops(action) {
+function* fetchTeams(action) {
   try {
     const isAuth = yield select(selectors.isAuthenticated);
 
@@ -25,7 +22,7 @@ function* fetchWorkshops(action) {
       const token = yield select(selectors.getAuthToken);
       const response = yield call(
         fetch,
-        `${API_BASE_URL}/workshop/all-workshops`,
+        `${API_BASE_URL}/team/all-teams`,
         {
           method: 'GET',
           headers: {
@@ -38,42 +35,42 @@ function* fetchWorkshops(action) {
       if (response.status === 200) {
         const jsonResult = yield response.json();
         const {
-          entities: { workshops },
+          entities: { teams },
           result,
-        } = normalize(jsonResult.data, schemas.workshops);
+        } = normalize(jsonResult.data, schemas.teams);
 
         yield put(
-          actions.completeFetchingWorkshops(
-            workshops,
+          actions.completeFetchingTeams(
+            teams,
             result,
           ),
         );
       } else {
         const errors = yield response.json();
-        yield put(actions.failFetchingWorkshops(errors.error));
+        yield put(actions.failFetchingTeams(errors.error));
       }
     }
   } catch (error) {
-    yield put(actions.failFetchingWorkshops("Error de conexión"));
+    yield put(actions.failFetchingTeams("Error de conexión"));
     console.log("ERROR", error);
   }
 }
 
-export function* watchWorkshopsFetch() {
+export function* watchTeamsFetch() {
   yield takeEvery(
-    types.WORKSHOPS_FETCH_STARTED,
-    fetchWorkshops,
+    types.TEAMS_FETCH_STARTED,
+    fetchTeams,
   );
 }
 
-function* addWorkshop(action) {
+function* addTeam(action) {
   try {
     const isAuth = yield select(selectors.isAuthenticated);
     if (isAuth) {
       const token = yield select(selectors.getAuthToken);
       const response = yield call(
         fetch,
-        `${API_BASE_URL}/workshop/create`,
+        `${API_BASE_URL}/team/create`,
         {
           method: 'POST',
           body: JSON.stringify(action.payload),
@@ -87,40 +84,40 @@ function* addWorkshop(action) {
         const jsonResult = yield response.json();
         const info = jsonResult.data[0];
         yield put(
-          actions.completeAddingWorkshop(
+          actions.completeAddingTeam(
             action.payload.id,
             info,
           ),
         );
 
         yield put(
-          actionsSelectedWorkshop.selectedWorkshop(info.id),
+          actionsSelectedTeam.selectedTeam(info.id),
         );
       } else {
         const errors = yield response.json();
-        yield put(actions.failAddingWorkshop(errors.error));
+        yield put(actions.failAddingTeam(errors.error));
       }
     }
   } catch (error) {
-    yield put(actions.failAddingWorkshop("Error de conexión"));
+    yield put(actions.failAddingTeam("Error de conexión"));
   }
 }
 
-export function* watchAddWorkshop() {
+export function* watchAddTeam() {
   yield takeEvery(
-    types.WORKSHOP_ADD_STARTED,
-    addWorkshop,
+    types.TEAM_ADD_STARTED,
+    addTeam,
   );
 }
 
-function* updateWorkshop(action) {
+function* updateTeam(action) {
   try {
     const isAuth = yield select(selectors.isAuthenticated);
     if (isAuth) {
       const token = yield select(selectors.getAuthToken);
       const response = yield call(
         fetch,
-        `${API_BASE_URL}/workshop/update-workshop`,
+        `${API_BASE_URL}/team/update-team`,
         {
           method: 'PATCH',
           body: JSON.stringify(action.payload),
@@ -134,24 +131,24 @@ function* updateWorkshop(action) {
         const jsonResult = yield response.json();
         const info = jsonResult.data[0];
         yield put(
-          actions.completeUpdatingWorkshop(
+          actions.completeUpdatingTeam(
             info.id,
             info,
           ),
         );
       } else {
         const errors = yield response.json();
-        yield put(actions.failUpdatingWorkshop(errors.error));
+        yield put(actions.failUpdatingTeam(errors.error));
       }
     }
   } catch (error) {
-    yield put(actions.failUpdatingWorkshop("Error de conexión"));
+    yield put(actions.failUpdatingTeam("Error de conexión"));
   }
 }
 
-export function* watchUpdateWorkshop() {
+export function* watchUpdateTeam() {
   yield takeEvery(
-    types.WORKSHOP_UPDATE_STARTED,
-    updateWorkshop,
+    types.TEAM_UPDATE_STARTED,
+    updateTeam,
   );
 }

@@ -40,6 +40,7 @@ import ScholarshipHoursModal from '../scholarshipHoursModal';
 import './styles.css';
 import { Link } from "react-router-dom";
 import { URL } from '../../settings';
+import SportsIcon from '@material-ui/icons/Sports';
 
 const drawerWidth = 270;
 
@@ -119,6 +120,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
   const [anchorEl, setAnchorEl] = useState(null);
   const openA = Boolean(anchorEl);
   const [openW, setOpenW] = useState(true);
+  const [openT, setOpenT] = useState(null); 
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -126,6 +128,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
   const handleDrawerClose = () => {
     setOpen(false);
     setOpenW(false);
+    setOpenT(false); 
   };
 
   const handleMenu = (event) => {
@@ -153,6 +156,10 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
 
   const handleClickWorkshop = () => {
     setOpenW(!openW);
+  };
+
+  const handleClickTeam = () => {
+    setOpenT(!openT);
   };
 
   return (
@@ -255,7 +262,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
           </Link>
         </List>
         <Divider />
-        <List> 
+        <List>
           <ListItem button onClick={handleClickWorkshop}>
             <ListItemIcon>
               <BrushIcon />
@@ -277,6 +284,41 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
               </ListItem>
               <ListItem button className={classes.nested}>
                 <Link to="/talleres" className={classes.link}>
+                <ListItemIcon>
+                  <ListItemText primary={"Ver todos"} />
+                  <ListItemSecondaryAction>
+                      <ViewModuleRoundedIcon/>
+                  </ListItemSecondaryAction>
+                </ListItemIcon>
+                </Link>
+              </ListItem>
+            </List>
+          </Collapse>
+        </List>
+        <Divider />
+        <Divider />
+        <List>
+          <ListItem button onClick={handleClickTeam}>
+            <ListItemIcon>
+              <SportsIcon />
+            </ListItemIcon>
+            <ListItemText primary="Equipos" />
+            {openT ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={openT} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItem button className={classes.nested}>
+                <Link to="/crearequipo" className={classes.link}>
+                <ListItemIcon>
+                  <ListItemText primary={"Crear"} />
+                  <ListItemSecondaryAction>
+                      <NoteAddIcon />
+                  </ListItemSecondaryAction>
+                </ListItemIcon>
+                </Link>
+              </ListItem>
+              <ListItem button className={classes.nested}>
+                <Link to="/equipos" className={classes.link}>
                 <ListItemIcon>
                   <ListItemText primary={"Ver todos"} />
                   <ListItemSecondaryAction>
