@@ -40,6 +40,7 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) =
             onChange={onChange}
             time={showTime}
             value={!value ? new Date() : new Date(value)}
+            fullWidth
         />
     </MuiPickersUtilsProvider>
 );
@@ -61,8 +62,8 @@ const renderSelectField = ({ input, label, meta: { touched, error }, ...custom }
         helperText={touched && error}
         {...input}
         {...custom}
-        id="select"
         select
+        fullWidth
     />
 );
 
@@ -77,7 +78,7 @@ let AddTeam = ({
                 <div className="div-field">
                     <Field name="name" component={renderTextField} label="Nombre" />
                 </div>
-                <div>
+                <div className="div-field">
                     <Field name="sport" component={renderSelectField} label="Deporte" className="div-field">
                         <MenuItem value="indoorfootball">Futsal masculino</MenuItem>
                         <MenuItem value="socceradmin">Futsal colaboradores</MenuItem>
@@ -86,10 +87,10 @@ let AddTeam = ({
                         <MenuItem value="basketball">Baloncesto</MenuItem>  
                     </Field>
                 </div>
-                <div>
+                <div className="div-field">
                     <Field name="startdate" component={renderDateTimePicker} label="Fecha de Inicio" className="div-field" />
                 </div>
-                <div>
+                <div className="div-field">
                     <Field name="enddate" component={renderDateTimePicker} label="Fecha de Finalización" className="div-field" />
                 </div>
                 <p>

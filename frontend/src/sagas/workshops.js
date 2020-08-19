@@ -85,7 +85,7 @@ function* addWorkshop(action) {
       );
       if (response.status === 201) {
         const jsonResult = yield response.json();
-        const info = jsonResult.data[0]
+        const info = jsonResult.data[0];
         yield put(
           actions.completeAddingWorkshop(
             action.payload.id,
@@ -94,7 +94,7 @@ function* addWorkshop(action) {
         );
 
         yield put(
-          actionsSelectedWorkshop.selectedWorkshop(info.id)
+          actionsSelectedWorkshop.selectedWorkshop(info.id),
         );
       } else {
         const errors = yield response.json();
@@ -130,7 +130,6 @@ function* updateWorkshop(action) {
           },
         }
       );
-      console.log(response)
       if (response.status === 200) {
         const jsonResult = yield response.json();
         const info = jsonResult.data[0];

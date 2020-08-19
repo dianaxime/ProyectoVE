@@ -34,11 +34,11 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) =
             variant="inline"
             format="yyyy/MM/dd"
             margin="normal"
-            // id="date-picker-inline"
             label={label}
             onChange={onChange}
             time={showTime}
             value={!value ? new Date() : new Date(value)}
+            fullWidth
         />
     </MuiPickersUtilsProvider>
 );
@@ -49,7 +49,7 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
         helperText={touched && error}
         {...input}
         {...custom}
-        margin="normal"
+        margin="dense"
         fullWidth
     />
 );
@@ -71,10 +71,10 @@ let AddWorkshop = ({
                 <div className="div-field">
                     <Field name="classroom" component={renderTextField} label="Salon" />
                 </div>
-                <div>
+                <div className="div-field">
                     <Field name="startdate" component={renderDateTimePicker} label="Fecha de Inicio" />
                 </div>
-                <div>
+                <div className="div-field">
                     <Field name="enddate" component={renderDateTimePicker} label="Fecha de Finalización" />
                 </div>
                 <p>

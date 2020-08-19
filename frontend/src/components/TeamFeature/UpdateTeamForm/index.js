@@ -16,13 +16,14 @@ import {
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 import { URL } from '../../../settings';
+import './styles.css';
 
 const validate = values => {
     const errors = {};
-    const requiredFields = [ 'name', 'startdate', 'enddate', 'sport'];
+    const requiredFields = ['name', 'startdate', 'enddate', 'sport'];
     requiredFields.forEach(field => {
-        if (!values[ field ]) {
-            errors[ field ] = 'Obligatorio*';
+        if (!values[field]) {
+            errors[field] = 'Obligatorio*';
         }
     })
     return errors;
@@ -31,16 +32,17 @@ const validate = values => {
 const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) => (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <KeyboardDatePicker
-          className="inputWorkshop"
-          disableToolbar
-          variant="inline"
-          format="yyyy/MM/dd"
-          margin="normal"
-          //id="date-picker-inline"
-          label={label}
-          onChange={onChange}
-          time={showTime}
-          value={!value ? new Date() : new Date(value)}
+            className="inputWorkshop"
+            disableToolbar
+            variant="inline"
+            format="yyyy/MM/dd"
+            margin="normal"
+            //id="date-picker-inline"
+            label={label}
+            onChange={onChange}
+            time={showTime}
+            value={!value ? new Date() : new Date(value)}
+            fullWidth
         />
     </MuiPickersUtilsProvider>
 );
@@ -62,8 +64,8 @@ const renderSelectField = ({ input, label, meta: { touched, error }, ...custom }
         helperText={touched && error}
         {...input}
         {...custom}
-        id="select"
         select
+        fullWidth
     />
 );
 
@@ -76,21 +78,21 @@ let UpdateTeam = ({ open,
             <form className="formW">
                 <h3 className="subw">Datos</h3>
                 <div className="div-field">
-                    <Field name="name" component={renderTextField} label="Nombre" />
+                    <Field name="name" component={renderTextField} label="Nombre"/>
                 </div>
-                <div>
-                    <Field name="sport" component={renderSelectField} label="Deporte" className="div-field">
+                <div className="div-field">
+                    <Field name="sport" component={renderSelectField} label="Deporte">
                         <MenuItem value="indoorfootball">Futsal masculino</MenuItem>
                         <MenuItem value="socceradmin">Futsal colaboradores</MenuItem>
                         <MenuItem value="womensfootball">Futsal femenino</MenuItem>
                         <MenuItem value="volleyball">Voleibol</MenuItem>
-                        <MenuItem value="basquetball">Baloncesto</MenuItem>  
+                        <MenuItem value="basketball">Baloncesto</MenuItem>
                     </Field>
                 </div>
-                <div>
+                <div className="div-field">
                     <Field name="startdate" component={renderDateTimePicker} label="Fecha de Inicio" />
                 </div>
-                <div>
+                <div className="div-field">
                     <Field name="enddate" component={renderDateTimePicker} label="Fecha de Finalización" />
                 </div>
                 <p>
@@ -119,7 +121,7 @@ UpdateTeam = connect(
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
         open: getIsOpen(state),
-        initialValues: getTeam(state, getSelectedTeam(state)),
+        team: getTeam(state, getSelectedTeam(state)),
         idTeam: getSelectedTeam(state),
     }),
     dispatch => ({
@@ -138,14 +140,33 @@ UpdateTeam = connect(
             window.location.href = URL + 'equipos';
         },
     }),
-    (stateProps, dispatchProps, ownProps) => ({
-        ...stateProps,
-        ...dispatchProps,
-        ...ownProps,
-        onSubmit({ name, startdate, enddate, sport}) {
-            dispatchProps.onSubmit({ name, startdate, enddate, sport}, stateProps.idTeam);
-        },
-    })
+    (stateProps, dispatchProps, ownProps) => {
+        let sport = '';
+        if (stateProps.team.sport === 'Futsal masculino') {
+            sport = 'indoorfootball'
+        }
+        if (stateProps.team.sport === 'Futsal femenino') {
+            sport = 'womensfootball'
+        }
+        if (stateProps.team.sport === 'Futsal colaboradores') {
+            sport = 'socceradmin'
+        }
+        if (stateProps.team.sport === 'Voleibol') {
+            sport = 'volleyball'
+        }
+        if (stateProps.team.sport === 'Baloncesto') {
+            sport = 'basketball'
+        }
+        return ({
+            ...stateProps,
+            ...dispatchProps,
+            ...ownProps,
+            initialValues: {...stateProps.team, sport},
+            onSubmit({ name, startdate, enddate, sport }) {
+                dispatchProps.onSubmit({ name, startdate, enddate, sport }, stateProps.idTeam);
+            },
+        })
+    }
 )(UpdateTeam);
 
 export default UpdateTeam;

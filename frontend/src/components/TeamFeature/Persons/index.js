@@ -39,7 +39,7 @@ const Person = ({
             }
           </List>
         ) : (
-          <p className="inputPersonaS">No se encontraron usuarios con ese correo electrónico</p>
+          <p className="inputPersonaS">No hay usuarios para mostrar</p>
         )
       }
     </div>

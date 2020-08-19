@@ -82,7 +82,6 @@ function* addTournament(action) {
                     },
                 }
             );
-            console.log(response); 
             if (response.status === 201) {
                 const jsonResult = yield response.json();
                 const info = jsonResult.data[0]

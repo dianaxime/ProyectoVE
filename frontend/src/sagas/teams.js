@@ -10,6 +10,7 @@ import * as selectors from '../reducers';
 import * as actions from '../actions/teams';
 import * as types from '../types/teams';
 import * as schemas from '../schemas/teams';
+import * as actionsSelectedTeam from '../actions/selectedTeam';
 
 import { API_BASE_URL } from '../settings';
 
@@ -81,11 +82,16 @@ function* addTeam(action) {
       );
       if (response.status === 201) {
         const jsonResult = yield response.json();
+        const info = jsonResult.data[0];
         yield put(
           actions.completeAddingTeam(
             action.payload.id,
-            jsonResult.data[0],
+            info,
           ),
+        );
+
+        yield put(
+          actionsSelectedTeam.selectedTeam(info.id),
         );
       } else {
         const errors = yield response.json();
@@ -121,7 +127,6 @@ function* updateTeam(action) {
           },
         }
       );
-      console.log(response)
       if (response.status === 200) {
         const jsonResult = yield response.json();
         const info = jsonResult.data[0];
