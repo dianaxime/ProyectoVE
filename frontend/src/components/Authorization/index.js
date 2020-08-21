@@ -61,19 +61,73 @@ const Authorization = ({ data, onLoad, onAuthorize }) => {
                 {
                     icon: 'save',
                     tooltip: 'Save User',
-                    onClick: (event, rowData) => onAuthorize(rowData.email)
-                }
+                    onClick: (event, rowData) => onAuthorize(rowData.email),
+                },
             ]}
             components={{
                 Action: props => (
-                    <button
+                    <button style={{backgroundColor: '#2e2e2e'}}
                         onClick={(event) => props.action.onClick(event, props.data)}
                         variant="contained"
                         size="small"
                     >
-                        <HowToRegIcon />
+                        <HowToRegIcon  style={{color: '#FFF'}}/>
                     </button>
                 ),
+            }}
+            options={{
+                actionsColumnIndex: -1,
+                headerStyle: {
+                    backgroundColor: '#2e2e2e',
+                    color: '#FFF'
+                },
+            }}
+            localization={{
+                body: {
+                    emptyDataSourceMessage: 'No hay registros que mostrar',
+                    addTooltip: 'Añadir',
+                    deleteTooltip: 'Eliminar',
+                    editTooltip: 'Editar',
+                    filterRow: {
+                        filterTooltip: 'Filtrar'
+                    },
+                    editRow: {
+                        deleteText: '¿Quieres borrar este registro?',
+                        cancelTooltip: 'Anular',
+                        saveTooltip: 'Guardar'
+                    }
+                },
+                grouping: {
+                    placeholder: 'Arrastrar columnas ...',
+                    groupedBy: 'Agrupar por:'
+                },
+                header: {
+                    actions: 'Acciones'
+                },
+                pagination: {
+                    labelDisplayedRows: '{from}-{to} de {count}',
+                    labelRowsSelect: 'filas',
+                    labelRowsPerPage: 'filas por página:',
+                    firstAriaLabel: 'Primera página',
+                    firstTooltip: 'Primera página',
+                    previousAriaLabel: 'Página anterior',
+                    previousTooltip: 'Página anterior',
+                    nextAriaLabel: 'Página siguiente',
+                    nextTooltip: 'Página siguiente',
+                    lastAriaLabel: 'Última página',
+                    lastTooltip: 'Última página'
+                },
+                toolbar: {
+                    addRemoveColumns: 'Agregar o quitar columnas',
+                    nRowsSelected: '{0} fila(s) seleccionada(s)',
+                    showColumnsTitle: 'Ver columnas',
+                    showColumnsAriaLabel: 'Ver columnas',
+                    exportTitle: 'Exportar',
+                    exportAriaLabel: 'Exportar',
+                    exportName: 'Exportar en CSV',
+                    searchTooltip: 'Buscar',
+                    searchPlaceholder: 'Buscar'
+                }
             }}
         />
     );

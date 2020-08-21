@@ -38,7 +38,7 @@ let Forgot = ({ open, onHandle, Message, onSubmit, handleSubmit }) => {
     return (
         <MDBContainer>
             <MDBModal  isOpen={open}>
-                <MDBModalHeader><b>Recuperar Contraseña</b></MDBModalHeader>
+                <MDBModalHeader toggle={onHandle}><b>Recuperar Contraseña</b></MDBModalHeader>
                 <MDBModalBody>
                     <div>
                         <div>

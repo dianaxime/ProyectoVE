@@ -13,6 +13,7 @@ import * as actionsModal from '../../actions/modalUpdate';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
+import './styles.css';
 
 const drawerWidth = 240;
 
@@ -83,7 +84,7 @@ let UpdateUserForm = ({ open, onHandle, onSubmit, handleSubmit, Message }) => {
         <MDBContainer >
             <div className={classes.drawerHeader}></div>
             <MDBModal isOpen={open} side position="bottom">
-                <MDBModalHeader><b>Actualizar Perfil</b></MDBModalHeader>
+                <MDBModalHeader toggle={onHandle}><b>Actualizar Perfil</b></MDBModalHeader>
                 <MDBModalBody>
                     <MDBCol>
                         <Field name="first_name" component={renderTextField} label="Primer Nombre" className="input_" />

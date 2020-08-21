@@ -120,7 +120,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
   const [anchorEl, setAnchorEl] = useState(null);
   const openA = Boolean(anchorEl);
   const [openW, setOpenW] = useState(true);
-  const [openT, setOpenT] = useState(null); 
+  const [openT, setOpenT] = useState(null);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -128,7 +128,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
   const handleDrawerClose = () => {
     setOpen(false);
     setOpenW(false);
-    setOpenT(false); 
+    setOpenT(false);
   };
 
   const handleMenu = (event) => {
@@ -191,7 +191,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
             </Typography>
           {isAuth && (
             <div>
-              <img src={require('./logouvg.png')} alt="logo" className="logo"/>
+              <img src={require('./logouvg.png')} alt="logo" className="logo" />
               <IconButton
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
@@ -241,7 +241,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
         </div>
         <Divider />
         <List>
-          <Link to="/" className={classes.link}>
+          <Link to="/" className={classes.link} onClick={handleDrawerClose}>
             <ListItem button>
               <ListItemIcon>
                 <HomeIcon />
@@ -252,7 +252,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
         </List>
         <Divider />
         <List>
-          <Link to="/authorization" className={classes.link}>
+          <Link to="/authorization" className={classes.link} onClick={handleDrawerClose}>
             <ListItem button>
               <ListItemIcon>
                 <VerifiedUserIcon />
@@ -272,26 +272,26 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
           </ListItem>
           <Collapse in={openW} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
-                <Link to="/creartaller" className={classes.link}>
-                <ListItemIcon>
-                  <ListItemText primary={"Crear"} />
-                  <ListItemSecondaryAction>
+              <Link to="/creartaller" className={classes.link} onClick={handleDrawerClose}>
+                <ListItem button className={classes.nested}>
+                  <ListItemIcon>
+                    <ListItemText primary={"Crear"} />
+                    <ListItemSecondaryAction>
                       <NoteAddIcon />
-                  </ListItemSecondaryAction>
-                </ListItemIcon>
-                </Link>
-              </ListItem>
-              <ListItem button className={classes.nested}>
-                <Link to="/talleres" className={classes.link}>
-                <ListItemIcon>
-                  <ListItemText primary={"Ver todos"} />
-                  <ListItemSecondaryAction>
-                      <ViewModuleRoundedIcon/>
-                  </ListItemSecondaryAction>
-                </ListItemIcon>
-                </Link>
-              </ListItem>
+                    </ListItemSecondaryAction>
+                  </ListItemIcon>
+                </ListItem>
+              </Link>
+              <Link to="/talleres" className={classes.link} onClick={handleDrawerClose}>
+                <ListItem button className={classes.nested}>
+                  <ListItemIcon>
+                    <ListItemText primary={"Ver todos"} />
+                    <ListItemSecondaryAction>
+                      <ViewModuleRoundedIcon />
+                    </ListItemSecondaryAction>
+                  </ListItemIcon>
+                </ListItem>
+              </Link>
             </List>
           </Collapse>
         </List>
@@ -307,26 +307,26 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
           </ListItem>
           <Collapse in={openT} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItem button className={classes.nested}>
-                <Link to="/crearequipo" className={classes.link}>
-                <ListItemIcon>
-                  <ListItemText primary={"Crear"} />
-                  <ListItemSecondaryAction>
+              <Link to="/crearequipo" className={classes.link} onClick={handleDrawerClose}>
+                <ListItem button className={classes.nested}>
+                  <ListItemIcon>
+                    <ListItemText primary={"Crear"} />
+                    <ListItemSecondaryAction>
                       <NoteAddIcon />
-                  </ListItemSecondaryAction>
-                </ListItemIcon>
-                </Link>
-              </ListItem>
-              <ListItem button className={classes.nested}>
-                <Link to="/equipos" className={classes.link}>
-                <ListItemIcon>
-                  <ListItemText primary={"Ver todos"} />
-                  <ListItemSecondaryAction>
-                      <ViewModuleRoundedIcon/>
-                  </ListItemSecondaryAction>
-                </ListItemIcon>
-                </Link>
-              </ListItem>
+                    </ListItemSecondaryAction>
+                  </ListItemIcon>
+                </ListItem>
+              </Link>
+              <Link to="/equipos" className={classes.link} onClick={handleDrawerClose}>
+                <ListItem button className={classes.nested}>
+                  <ListItemIcon>
+                    <ListItemText primary={"Ver todos"} />
+                    <ListItemSecondaryAction>
+                      <ViewModuleRoundedIcon />
+                    </ListItemSecondaryAction>
+                  </ListItemIcon>
+                </ListItem>
+              </Link>
             </List>
           </Collapse>
         </List>

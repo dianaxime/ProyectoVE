@@ -38,7 +38,7 @@ let Change = ({ open, onHandle, onSubmit, handleSubmit, Message }) => {
     return (
         <MDBContainer>
             <MDBModal isOpen={open} side position="bottom-left">
-                <MDBModalHeader ><b>Cambiar Contraseña</b></MDBModalHeader>
+                <MDBModalHeader toggle={onHandle}><b>Cambiar Contraseña</b></MDBModalHeader>
                 <MDBModalBody>
                     <div>
                         <Field name="oldPassword" component={renderTextField} label="Contraseña Actual" type="password" />

@@ -56,12 +56,11 @@ let Login = ({ Message, onSubmit, loginStatus, handleSubmit, onHandle }) => {
                             </div>
                             <p className="font-small grey-text d-flex justify-content-end" onClick={onHandle}>
                                 Olvide mi
-                                <a
-                                    href='!#'
+                                <b
                                     className="dark-grey-text font-weight-bold ml-1"
                                 >
                                 Contraseña?
-                                </a>
+                                </b>
                             </p>
                             <div className="text-center">
                                 { loginStatus ? <Loader type="ball-spin-fade-loader"/> :

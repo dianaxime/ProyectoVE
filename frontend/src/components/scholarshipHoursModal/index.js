@@ -34,11 +34,12 @@ let scholarship_hours= ({ open, onHandle, onSubmit, handleSubmit }) => {
     return (
         <MDBContainer>
             <MDBModal  isOpen={open} side position="bottom-left">
-                <MDBModalHeader><b>Horas de Beca</b></MDBModalHeader>
+                <MDBModalHeader toggle={onHandle}><b>Horas de Beca</b></MDBModalHeader>
                 <MDBModalBody>
                     <div>
                         <Field name="hours" component={renderTextField} label="Cantidad de horas" />
-                        <p>¿Que habilidades posee? Debe colocar un número del 1 al 100.</p>
+                        <hr />
+                        <h6><b>¿Que habilidades posee?</b><br /><br /> Debe colocar un número del 1 al 100.</h6>
                         <Field name="public_speaking" component={renderTextField} label="¿Hablar en público?" />
                         <Field name="organization" component={renderTextField} label="¿Organización?" />
                         <Field name="photo_editing" component={renderTextField} label="¿Edición de fotos?" />

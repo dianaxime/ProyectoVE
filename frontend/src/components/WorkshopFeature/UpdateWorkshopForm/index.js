@@ -18,10 +18,10 @@ import './styles.css';
 
 const validate = values => {
     const errors = {};
-    const requiredFields = [ 'name', 'startdate', 'enddate', 'classroom', 'description'];
+    const requiredFields = ['name', 'startdate', 'enddate', 'classroom', 'description'];
     requiredFields.forEach(field => {
-        if (!values[ field ]) {
-            errors[ field ] = 'Obligatorio*';
+        if (!values[field]) {
+            errors[field] = 'Obligatorio*';
         }
     })
     return errors;
@@ -30,16 +30,17 @@ const validate = values => {
 const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) => (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <KeyboardDatePicker
-          className="inputWorkshop"
-          disableToolbar
-          variant="inline"
-          format="yyyy/MM/dd"
-          margin="normal"
-          label={label}
-          onChange={onChange}
-          time={showTime}
-          value={!value ? new Date() : new Date(value)}
-          fullWidth
+            autoOk
+            className="inputWorkshop"
+            disableToolbar
+            variant="inline"
+            format="yyyy/MM/dd"
+            margin="normal"
+            label={label}
+            onChange={onChange}
+            time={showTime}
+            value={!value ? new Date() : new Date(value)}
+            fullWidth
         />
     </MuiPickersUtilsProvider>
 );
@@ -55,7 +56,7 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
     />
 );
 
-let UpdateWorkshop = ({ 
+let UpdateWorkshop = ({
     onSubmit,
     isLoading,
     handleSubmit, }) => {
@@ -127,8 +128,8 @@ UpdateWorkshop = connect(
         ...stateProps,
         ...dispatchProps,
         ...ownProps,
-        onSubmit({ name, startdate, enddate, classroom, description}) {
-            dispatchProps.onSubmit({ name, startdate, enddate, classroom, description}, stateProps.idWorkshop);
+        onSubmit({ name, startdate, enddate, classroom, description }) {
+            dispatchProps.onSubmit({ name, startdate, enddate, classroom, description }, stateProps.idWorkshop);
         },
     })
 )(UpdateWorkshop);

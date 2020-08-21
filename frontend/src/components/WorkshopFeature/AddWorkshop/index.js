@@ -29,6 +29,7 @@ const validate = values => {
 const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) => (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <KeyboardDatePicker
+            autoOk
             className="inputWorkshop"
             disableToolbar
             variant="inline"
