@@ -6,5 +6,7 @@ Feature: Create a team
     Scenario: Create a new team
       When I create a new team with details:
         | name | example team              |
-        | sport    | example team sport |
-      Then the team is created successfully, the team sport should be "example team sport"
+        | sport    | indoorfootball |
+        | startdate | 2020-07-20 |
+        | enddate   | 2020-10-31 |
+      Then the team is created successfully, the team sport should be "Futsal masculino"
