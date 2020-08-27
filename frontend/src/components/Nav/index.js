@@ -22,6 +22,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import HomeIcon from '@material-ui/icons/Home';
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import BrushIcon from '@material-ui/icons/Brush';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
@@ -258,6 +259,14 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
                 <VerifiedUserIcon />
               </ListItemIcon>
               <ListItemText primary={"Autorización de usuarios"} />
+            </ListItem>
+          </Link>
+          <Link to="/rolesRelationship" className={classes.link} onClick={handleDrawerClose}>
+            <ListItem button>
+              <ListItemIcon>
+                <AssignmentIndIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Roles de usuario"} />
             </ListItem>
           </Link>
         </List>
