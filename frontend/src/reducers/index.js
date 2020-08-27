@@ -7,6 +7,7 @@ import scholars, * as scholarsSelectors from './scholars';
 import teams, * as teamsSelectors from './teams'; 
 import participation, * as participationSelectors from './participation';
 import tournament, * as tournamentSelectors from './tournament';
+import rolesRelationship, * as rolesRelationshipSelectors from './rolesRelationship';
 
 import changeDrawer, * as changeDrawerSelectors from './changeDrawer';
 import changeForgot, * as changeForgotSelectors from './modalForgot';
@@ -31,6 +32,7 @@ const reducer = combineReducers({
   selectedTeam,
   participation,
   tournament,
+  rolesRelationship,
   form: formReducer,
 });
 
@@ -111,3 +113,12 @@ export const getTournament = (state, id) => tournamentSelectors.getTournament(st
 export const getTournaments = state => tournamentSelectors.getTournaments(state.tournament);
 export const isFetchingTournaments = state => tournamentSelectors.isFetchingTournaments(state.tournament);
 export const getFetchingTournamentError = state => tournamentSelectors.getFetchingTournamentError(state.tournament);
+/* Roles Relationship */
+export const getUserByEmailRolesRelation = (state, id) => rolesRelationshipSelectors.getUserByEmailRolesRelation(state.rolesRelationship, id);
+export const getUsersByEmailRolesRelation = state => rolesRelationshipSelectors.getUsersByEmailRolesRelation(state.rolesRelationship);
+export const isFetchingUsersByEmailRolesRelation = state => rolesRelationshipSelectors.isFetchingUsersByEmailRolesRelation(state.rolesRelationship);
+export const getFetchingUsersByEmailErrorRolesRelation = state => rolesRelationshipSelectors.getFetchingUsersByEmailErrorRolesRelation(state.rolesRelationship);
+export const getRolesRelationship = (state, id) => rolesRelationshipSelectors.getRolesRelationship(state.rolesRelationship, id);
+export const getRolesRelationships = state => rolesRelationshipSelectors.getRolesRelationships(state.rolesRelationship);
+
+

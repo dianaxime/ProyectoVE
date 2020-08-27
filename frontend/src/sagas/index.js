@@ -41,6 +41,12 @@ import {
     watchDeleteTournament,
 } from './tournament';
 
+import {
+    watchUsersFetchRolesRelationship,
+    watchAddRolesRelationship,
+    watchDeleteRolesRelationship,
+} from './rolesRelationship';
+
 function* mainSaga() {
     yield all([
         /* Auth */
@@ -73,6 +79,10 @@ function* mainSaga() {
         fork(watchTournamentFetch),
         fork(watchAddTournament),
         fork(watchDeleteTournament),
+        /* Roles Relationship */
+        fork(watchUsersFetchRolesRelationship),
+        fork(watchAddRolesRelationship),
+        fork(watchDeleteRolesRelationship),
     ]);
 }
 
