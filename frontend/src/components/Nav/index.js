@@ -41,6 +41,7 @@ import './styles.css';
 import { Link } from "react-router-dom";
 import { URL } from '../../settings';
 import SportsIcon from '@material-ui/icons/Sports';
+import EventNoteIcon from '@material-ui/icons/EventNote';
 
 const drawerWidth = 270;
 
@@ -119,8 +120,9 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState(null);
   const openA = Boolean(anchorEl);
-  const [openW, setOpenW] = useState(true);
+  const [openW, setOpenW] = useState(null);
   const [openT, setOpenT] = useState(null);
+  const [openE, setOpenE] = useState(null);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -129,6 +131,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
     setOpen(false);
     setOpenW(false);
     setOpenT(false);
+    setOpenE(false);
   };
 
   const handleMenu = (event) => {
@@ -160,6 +163,10 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
 
   const handleClickTeam = () => {
     setOpenT(!openT);
+  };
+
+  const handleClickEvent = () => {
+    setOpenE(!openE);
   };
 
   return (
@@ -318,6 +325,40 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
                 </ListItem>
               </Link>
               <Link to="/equipos" className={classes.link} onClick={handleDrawerClose}>
+                <ListItem button className={classes.nested}>
+                  <ListItemIcon>
+                    <ListItemText primary={"Ver todos"} />
+                    <ListItemSecondaryAction>
+                      <ViewModuleRoundedIcon />
+                    </ListItemSecondaryAction>
+                  </ListItemIcon>
+                </ListItem>
+              </Link>
+            </List>
+          </Collapse>
+        </List>
+        <Divider />
+        <List>
+          <ListItem button onClick={handleClickEvent}>
+            <ListItemIcon>
+              <EventNoteIcon />
+            </ListItemIcon>
+            <ListItemText primary="Eventos" />
+            {openE ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={openE} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <Link to="/creartaller" className={classes.link} onClick={handleDrawerClose}>
+                <ListItem button className={classes.nested}>
+                  <ListItemIcon>
+                    <ListItemText primary={"Crear"} />
+                    <ListItemSecondaryAction>
+                      <NoteAddIcon />
+                    </ListItemSecondaryAction>
+                  </ListItemIcon>
+                </ListItem>
+              </Link>
+              <Link to="/talleres" className={classes.link} onClick={handleDrawerClose}>
                 <ListItem button className={classes.nested}>
                   <ListItemIcon>
                     <ListItemText primary={"Ver todos"} />
