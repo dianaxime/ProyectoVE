@@ -2,12 +2,17 @@ const db = require('../db/config');
 
 const CREATE_ROLES_RELATIONSHIP=`INSERT INTO
 roles_relationship(userid, idr)
-VALUES ($1, $2)
+VALUES ($1,$2)
 returning *`;
 
 const DELETE_RELATIONSHIP=`DELETE FROM roles_relationship
 where id=$1
 returning *`;
+
+const DELETE_RELATIONSHIP_OF_USER=`DELETE FROM roles_relationship
+where userid=$1
+returning *`;
+
 
 const GET_ROLE_IN_WORKSHOPS=`select workshop.name, workshop.id from users 
 join participation on users.id=participation.userid 
@@ -27,12 +32,17 @@ async function createRoleRelationshipQuery({
     userid,
     idr
 }){
-    const values = [
-        userid,
-        idr
-    ];
-
-    const data = await db.query(CREATE_ROLES_RELATIONSHIP, values);
+    
+    idr=Array.from(idr)
+    
+    const data= await db.tx(async t=>{
+        return t.query(DELETE_RELATIONSHIP_OF_USER, [userid])
+        .then(data=>{
+            const queries=idr.map(l=>{t.query(CREATE_ROLES_RELATIONSHIP, [userid, l])}) 
+            })
+            return t.batch(queries);
+        });
+    
     return data;
 };
 

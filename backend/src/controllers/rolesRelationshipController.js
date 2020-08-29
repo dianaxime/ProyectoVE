@@ -30,7 +30,7 @@ const createRolesRelationship = async (req, res) => {
         idr
     } = req.body;
 
-    if (isEmpty(userid) || isEmpty(idr) ) {
+    if (isEmpty(userid) ) {
         errorMessage.error = 'User id, id of role cannot be empty';
         return res.status(status.bad).send(errorMessage);
     }
