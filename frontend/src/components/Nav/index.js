@@ -348,7 +348,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
           </ListItem>
           <Collapse in={openE} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <Link to="/creartaller" className={classes.link} onClick={handleDrawerClose}>
+              <Link to="/crearevento" className={classes.link} onClick={handleDrawerClose}>
                 <ListItem button className={classes.nested}>
                   <ListItemIcon>
                     <ListItemText primary={"Crear"} />

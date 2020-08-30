@@ -1,5 +1,5 @@
 import React from 'react';
-import AddWorkshop from '../AddWorkshop';
+import AddEvent from '../AddEvent';
 import SearchPersons from '../searchPersons';
 import { connect } from 'react-redux';
 import { getAuthToken, getIsOpen } from '../../../reducers';
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const AddWorkshopPage = ({open}) => {
+const AddEventPage = ({open}) => {
     const classes = useStyles();
     return (
 
@@ -53,9 +53,9 @@ const AddWorkshopPage = ({open}) => {
                 })}
             >
                 <div className={classes.drawerHeader} />
-                <center><b><h2 className="tituloformW">{'Nuevo Taller'}</h2></b></center>
-                <div className="addWorkshop">
-                    <AddWorkshop />
+                <center><b><h2 className="tituloformE">{'Nuevo Evento'}</h2></b></center>
+                <div className="addEvent">
+                    <AddEvent />
                     <SearchPersons />
                 </div>
 
@@ -80,5 +80,5 @@ export default connect(
             ...ownProps,
         });
     }
-)(AddWorkshopPage);
+)(AddEventPage);
 

@@ -41,6 +41,12 @@ import {
     watchDeleteTournament,
 } from './tournament';
 
+import {
+    watchAddEvent,
+    watchEventsFetch,
+    watchUpdateEvent,
+} from './events';
+
 function* mainSaga() {
     yield all([
         /* Auth */
@@ -73,6 +79,10 @@ function* mainSaga() {
         fork(watchTournamentFetch),
         fork(watchAddTournament),
         fork(watchDeleteTournament),
+        /* Events */
+        fork(watchAddEvent),
+        fork(watchEventsFetch),
+        fork(watchUpdateEvent),
     ]);
 }
 

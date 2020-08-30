@@ -1,4 +1,4 @@
-.addWorkshop{
+.addEvent{
     height: auto;
     width: 100%;
     display: flex;
@@ -7,7 +7,7 @@
     text-align: center;
 }
 
-.tituloformW{
+.tituloformE{
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color: black;
 }

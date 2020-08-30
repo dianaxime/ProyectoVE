@@ -6,7 +6,7 @@ import {
 } from '../../../reducers';
 import TextField from '@material-ui/core/TextField';
 import { reset, Field, reduxForm } from 'redux-form';
-import * as actions from '../../../actions/workshops';
+import * as actions from '../../../actions/events';
 import './styles.css';
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -17,7 +17,7 @@ import {
 
 const validate = values => {
     const errors = {};
-    const requiredFields = ['name', 'startdate', 'enddate', 'classroom', 'description'];
+    const requiredFields = ['name', 'classroom', 'description', 'date'];
     requiredFields.forEach(field => {
         if (!values[field]) {
             errors[field] = 'Obligatorio*';
@@ -30,7 +30,7 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) =
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <KeyboardDatePicker
             autoOk
-            className="inputWorkshop"
+            className="inputEvent"
             disableToolbar
             variant="inline"
             format="yyyy/MM/dd"
@@ -45,7 +45,7 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) =
 );
 
 const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
-    <TextField className="inputWorkshop" placeholder={label}
+    <TextField className="inputEvent" placeholder={label}
         label={label}
         helperText={touched && error}
         {...input}
@@ -55,14 +55,14 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
     />
 );
 
-let AddWorkshop = ({
+let AddEvent = ({
     onSubmit,
     isLoading,
     handleSubmit, }) => {
     return (
-        <div className="datosWorkshop">
-            <form className="formW">
-                <h3 className="subw">Datos</h3>
+        <div className="datosEvent">
+            <form className="formE">
+                <h3 className="sube">Datos</h3>
                 <div className="div-field">
                     <Field name="name" component={renderTextField} label="Nombre" />
                 </div>
@@ -73,17 +73,14 @@ let AddWorkshop = ({
                     <Field name="classroom" component={renderTextField} label="Salon" />
                 </div>
                 <div className="div-field">
-                    <Field name="startdate" component={renderDateTimePicker} label="Fecha de Inicio" />
-                </div>
-                <div className="div-field">
-                    <Field name="enddate" component={renderDateTimePicker} label="Fecha de Finalización" />
+                    <Field name="date" component={renderDateTimePicker} label="Fecha" />
                 </div>
                 <p>
                     {
                         isLoading ? (
                             <strong>{'Cargando...'}</strong>
                         ) : (
-                                <button className="buttonformW" type="submit" onClick={handleSubmit(onSubmit)}>
+                                <button className="buttonformE" type="submit" onClick={handleSubmit(onSubmit)}>
                                     {'Crear'}
                                 </button>
                             )
@@ -94,31 +91,30 @@ let AddWorkshop = ({
     );
 }
 
-AddWorkshop = reduxForm({
-    form: 'workshopForm',
+AddEvent = reduxForm({
+    form: 'eventForm',
     validate
-})(AddWorkshop);
+})(AddEvent);
 
-AddWorkshop = connect(
+AddEvent = connect(
     state => ({
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
     }),
     dispatch => ({
-        onSubmit({ name, startdate, enddate, classroom, description }) {
+        onSubmit({ name, classroom, description, date }) {
             dispatch(
-                actions.startAddingWorkshop(
+                actions.startAddingEvent(
                     uuidv4(),
                     name,
                     classroom,
                     description,
-                    startdate,
-                    enddate
+                    date
                 ),
-                dispatch(reset('workshopForm')),
+                dispatch(reset('eventForm')),
             );
         },
     }),
-)(AddWorkshop);
+)(AddEvent);
 
-export default AddWorkshop;
+export default AddEvent;
