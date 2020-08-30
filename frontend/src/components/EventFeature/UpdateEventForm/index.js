@@ -2,12 +2,12 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
     getAuthToken,
-    getWorkshop,
-    getSelectedWorkshop,
+    getEvent,
+    getSelectedEvent,
 } from '../../../reducers';
 import TextField from '@material-ui/core/TextField';
 import { reset, Field, reduxForm } from 'redux-form';
-import * as actions from '../../../actions/workshops';
+import * as actions from '../../../actions/events';
 import DateFnsUtils from '@date-io/date-fns';
 import {
     MuiPickersUtilsProvider,
@@ -18,7 +18,7 @@ import './styles.css';
 
 const validate = values => {
     const errors = {};
-    const requiredFields = ['name', 'startdate', 'enddate', 'classroom', 'description'];
+    const requiredFields = ['name', 'classroom', 'description', 'date'];
     requiredFields.forEach(field => {
         if (!values[field]) {
             errors[field] = 'Obligatorio*';
@@ -31,7 +31,7 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) =
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <KeyboardDatePicker
             autoOk
-            className="inputWorkshop"
+            className="inputEvent"
             disableToolbar
             variant="inline"
             format="yyyy/MM/dd"
@@ -46,7 +46,7 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) =
 );
 
 const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
-    <TextField className="inputWorkshop" placeholder={label}
+    <TextField className="inputEvent" placeholder={label}
         label={label}
         helperText={touched && error}
         {...input}
@@ -56,14 +56,14 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
     />
 );
 
-let UpdateWorkshop = ({
+let UpdateEvent = ({
     onSubmit,
     isLoading,
     handleSubmit, }) => {
     return (
-        <div className="datosWorkshop">
-            <form className="formW">
-                <h3 className="subw">Datos</h3>
+        <div className="datosEvent">
+            <form className="formE">
+                <h3 className="sube">Datos</h3>
                 <div className="div-field">
                     <Field name="name" component={renderTextField} label="Nombre" />
                 </div>
@@ -74,17 +74,14 @@ let UpdateWorkshop = ({
                     <Field name="classroom" component={renderTextField} label="Salon" />
                 </div>
                 <div className="div-field">
-                    <Field name="startdate" component={renderDateTimePicker} label="Fecha de Inicio" />
-                </div>
-                <div className="div-field">
-                    <Field name="enddate" component={renderDateTimePicker} label="Fecha de Finalización" />
+                    <Field name="date" component={renderDateTimePicker} label="Fecha" />
                 </div>
                 <p>
                     {
                         isLoading ? (
                             <strong>{'Cargando...'}</strong>
                         ) : (
-                                <button className="buttonformW" type="submit" onClick={handleSubmit(onSubmit)}>
+                                <button className="buttonformE" type="submit" onClick={handleSubmit(onSubmit)}>
                                     {'Actualizar'}
                                 </button>
                             )
@@ -95,43 +92,41 @@ let UpdateWorkshop = ({
     );
 }
 
-UpdateWorkshop = reduxForm({
-    form: 'updateWorkshopForm',
+UpdateEvent = reduxForm({
+    form: 'updateEventForm',
     validate
-})(UpdateWorkshop);
+})(UpdateEvent);
 
-UpdateWorkshop = connect(
+UpdateEvent = connect(
     state => ({
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
-        initialValues: getWorkshop(state, getSelectedWorkshop(state)),
-        idWorkshop: getSelectedWorkshop(state),
+        initialValues: getEvent(state, getSelectedEvent(state)),
+        idEvent: getSelectedEvent(state),
     }),
     dispatch => ({
-        onSubmit({ name, startdate, enddate, classroom, description }, id) {
+        onSubmit({ name, classroom, description, date }, id) {
             dispatch(
-                actions.startUpdatingWorkshop(
+                actions.startUpdatingEvent(
                     id,
                     name,
                     classroom,
                     description,
-                    startdate,
-                    enddate
+                    date,
                 ),
-                console.log("Taller actualizado!"),
-                dispatch(reset('updateWorkshopForm')),
+                dispatch(reset('updateEventForm')),
             );
-            window.location.href = URL + 'talleres';
+            window.location.href = URL + 'eventos';
         },
     }),
     (stateProps, dispatchProps, ownProps) => ({
         ...stateProps,
         ...dispatchProps,
         ...ownProps,
-        onSubmit({ name, startdate, enddate, classroom, description }) {
-            dispatchProps.onSubmit({ name, startdate, enddate, classroom, description }, stateProps.idWorkshop);
+        onSubmit({ name, classroom, description, date }) {
+            dispatchProps.onSubmit({ name, classroom, description, date }, stateProps.idEvent);
         },
     })
-)(UpdateWorkshop);
+)(UpdateEvent);
 
-export default UpdateWorkshop;
+export default UpdateEvent;

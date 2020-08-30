@@ -4,33 +4,31 @@ import { MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol } from
 'mdbreact';
 import {
     getAuthToken,
-    getWorkshop,
-    getSelectedWorkshop
+    getEvent,
+    getSelectedEvent
 } from '../../../reducers';
 import './styles.css';
 import moment from 'moment';
 
 
-let SelectedWorkshop = ({
-    name, startdate, enddate, classroom, description,
+let SelectedEvent = ({
+    name, classroom, description, date
     }) => {
     return (
-        <div className="dataWorkshop">
+        <div className="dataEvent">
             <MDBRow>
                 <MDBCol col='4'>
-                    <MDBCard className="cartaT">
+                    <MDBCard className="cartaE">
                     <MDBCardImage
-                        className="tituloWorkshop"
+                        className="tituloEvent"
                         tag='div'
                     >
                         <h2>{name}</h2>
                     </MDBCardImage>
                     <MDBCardBody cascade className='text-center'>
                         <h5 className="descr">{description}</h5>
-                        <h5 className="sdatetitle">Inicio</h5>   
-                        <h5 className="sdate">{moment(startdate).format('L')}</h5>
-                        <h5 className="edatetitle">Fin</h5>
-                        <h5 className="edate">{moment(enddate).format('L')}</h5>
+                        <h5 className="sdatetitle">Fecha</h5>
+                        <h5 className="edate">{moment(date).format('L')}</h5>
                         <hr />
                         <div className='text-center'>
                         {classroom}
@@ -43,16 +41,15 @@ let SelectedWorkshop = ({
     );
 }
 
-SelectedWorkshop = connect(
+SelectedEvent = connect(
     state => ({
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
-        name: getWorkshop(state, getSelectedWorkshop(state)).name,
-        description: getWorkshop(state, getSelectedWorkshop(state)).description,
-        startdate: getWorkshop(state, getSelectedWorkshop(state)).startdate,
-        enddate: getWorkshop(state, getSelectedWorkshop(state)).enddate,
-        classroom: getWorkshop(state, getSelectedWorkshop(state)).classroom,
+        name: getEvent(state, getSelectedEvent(state)).name,
+        description: getEvent(state, getSelectedEvent(state)).description,
+        classroom: getEvent(state, getSelectedEvent(state)).classroom,
+        date: getEvent(state, getSelectedEvent(state)).date,
     }),
-)(SelectedWorkshop);
+)(SelectedEvent);
 
-export default SelectedWorkshop;
+export default SelectedEvent;
