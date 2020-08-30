@@ -11,6 +11,7 @@ import rolesRelationship, * as rolesRelationshipSelectors from './rolesRelations
 
 import changeDrawer, * as changeDrawerSelectors from './changeDrawer';
 import changeForgot, * as changeForgotSelectors from './modalForgot';
+import changeRole, * as changeRoleSelectors from './modalRoles'; 
 import changeChange, * as changeChangeSelectors from './modalChange';
 import changeUpdate, * as changeUpdateSelectors from './modalUpdate';
 import changeScholar, * as changeScholarSelectors from './modalScholarship';
@@ -22,6 +23,7 @@ const reducer = combineReducers({
   auth,
   changeDrawer,
   changeForgot,
+  changeRole, 
   changeChange,
   changeUpdate,
   workshops,
@@ -120,5 +122,5 @@ export const isFetchingUsersByEmailRolesRelation = state => rolesRelationshipSel
 export const getFetchingUsersByEmailErrorRolesRelation = state => rolesRelationshipSelectors.getFetchingUsersByEmailErrorRolesRelation(state.rolesRelationship);
 export const getRolesRelationship = (state, id) => rolesRelationshipSelectors.getRolesRelationship(state.rolesRelationship, id);
 export const getRolesRelationships = state => rolesRelationshipSelectors.getRolesRelationships(state.rolesRelationship);
-
-
+/* Roles  Modal */
+export const getIsRolesOpen = state => changeRoleSelectors.getIsRolesOpen(state.changeRole);
