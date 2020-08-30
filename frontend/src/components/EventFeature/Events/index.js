@@ -1,22 +1,22 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import * as selectors from '../../../reducers';
-import * as actions from '../../../actions/workshops';
-import Workshop from '../Workshop';
+import * as actions from '../../../actions/events';
+import Event from '../Event';
 import './styles.css';
 
-const Workshops = ({ workshop, isLoading, onLoad }) => {
+const Events = ({ event, isLoading, onLoad }) => {
     useEffect(onLoad, []);
     return (
 
         <div>
             {
-                workshop.length > 0 && !isLoading && (
+                event.length > 0 && !isLoading && (
 
-                    <div className="workshopsContainer">
+                    <div className="eventsContainer">
 
                         {
-                            workshop.map(({ id }) => <Workshop key={id}
+                            event.map(({ id }) => <Event key={id}
                                 id={id} />)
                         }
                     </div>
@@ -28,12 +28,12 @@ const Workshops = ({ workshop, isLoading, onLoad }) => {
 
 export default connect(
     state => ({
-        workshop: selectors.getWorkshops(state),
-        isLoading: selectors.isFetchingWorkshops(state),
+        event: selectors.getEvents(state),
+        isLoading: selectors.isFetchingEvents(state),
     }),
     dispatch => ({
         onLoad() {
-            dispatch(actions.startFetchingWorkshops());
+            dispatch(actions.startFetchingEvents());
         },
     }),
-)(Workshops);
+)(Events);

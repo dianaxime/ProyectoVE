@@ -1,4 +1,4 @@
-.workshopsContainer {
+.eventssContainer {
     display: grid;
     height: 470px;
     grid-gap: 20px;
@@ -8,34 +8,34 @@
 }
 
 /* Tamaño del scroll */
-.workshopsContainer::-webkit-scrollbar {
+.eventssContainer::-webkit-scrollbar {
     width: 4px;
     height: 4px;
 }
     
     /* Estilos barra (thumb) de scroll */
-.workshopsContainer::-webkit-scrollbar-thumb {
+.eventssContainer::-webkit-scrollbar-thumb {
     background: rgb(77, 76, 76);
     border-radius: 4px;
 }
     
-.workshopsContainer::-webkit-scrollbar-thumb:active {
+.eventssContainer::-webkit-scrollbar-thumb:active {
     background-color: #999999;
 }
     
-.workshopsContainer::-webkit-scrollbar-thumb:hover {
+.eventssContainer::-webkit-scrollbar-thumb:hover {
     background: #b3b3b3;
     box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
 }
     
 /* Estilos track de scroll */
-.workshopsContainer::-webkit-scrollbar-track {
+.eventssContainer::-webkit-scrollbar-track {
     background: #d4d4d4;
     border-radius: 4px;
 }
     
-.workshopsContainer::-webkit-scrollbar-track:hover, 
-.workshopsContainer::-webkit-scrollbar-track:active {
+.eventssContainer::-webkit-scrollbar-track:hover, 
+.eventssContainer::-webkit-scrollbar-track:active {
     background: #d4d4d4;
 }
 

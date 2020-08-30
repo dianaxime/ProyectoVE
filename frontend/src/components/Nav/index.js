@@ -358,7 +358,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
                   </ListItemIcon>
                 </ListItem>
               </Link>
-              <Link to="/talleres" className={classes.link} onClick={handleDrawerClose}>
+              <Link to="/eventos" className={classes.link} onClick={handleDrawerClose}>
                 <ListItem button className={classes.nested}>
                   <ListItemIcon>
                     <ListItemText primary={"Ver todos"} />

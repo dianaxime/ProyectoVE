@@ -16,7 +16,8 @@ import AddTeamPage from '../TeamFeature/AddTeamPage';
 import TeamsPage from '../TeamFeature/TeamsPage';
 import EditTeamPage from '../TeamFeature/EditTeamPage';
 import SelectedTeamPage from '../TeamFeature/SelectedTeamPage';
-import AddEventPage from '../EventsFeature/AddEventPage';
+import AddEventPage from '../EventFeature/AddEventPage';
+import EventsPage from '../EventFeature/EventsPage';
 
 import 'fontsource-roboto';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -44,6 +45,7 @@ const App = () => (
           <Route exact path="/equipo" component={SelectedTeamPage} />
           <Route exact path="/editarequipo" component={EditTeamPage} />
           <Route exact path="/crearevento" component={AddEventPage} />
+          <Route exact path="/eventos" component={EventsPage} />
           <Route render={() => <Redirect to="/" />} />
         </Switch>
       </BrowserRouter>
