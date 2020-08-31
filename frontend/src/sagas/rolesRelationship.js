@@ -13,6 +13,7 @@ import * as selectors from '../reducers';
 import * as actions from '../actions/rolesRelationship';
 import * as types from '../types/rolesRelationship';
 import * as schemas from '../schemas/users';
+import * as schemas1 from '../schemas/roles';
 
 import { API_BASE_URL } from '../settings';
 
@@ -107,46 +108,50 @@ export function* watchAddRolesRelationship() {
     );
 }
 
-function* deleteRoleRelationship(action) {
+function* fetchRoles(action) {
     try {
         const isAuth = yield select(selectors.isAuthenticated);
 
         if (isAuth) {
-            if (action.payload.idw && action.payload.userid) {
-                const token = yield select(selectors.getAuthToken);
-                const response = yield call(
-                    fetch,
-                    `${API_BASE_URL}/relationship-roles/delete${action.payload.idw}/${action.payload.userid}`,
-                    {
-                        method: 'DELETE',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'token': `${token}`,
-                        },
-                    }
-                );
-                if (response.status === 200) {
-                    
-                    yield put(
-                        actions.completeRemovingRoleRelationship(
-                            action.payload.userid
-                        ),
-                    );
-                } else {
-                    const errors = yield response.json();
-                    yield put(actions.failRemovingRoleRelationship(errors.error));
+            const token = yield select(selectors.getAuthToken);
+            const response = yield call(
+                fetch,
+                `${API_BASE_URL}/auth/student-email/${action.payload.email}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'token': `${token}`,
+                    },
                 }
+            );
+            if (response.status === 200) {
+                const jsonResult = yield response.json();
+                const {
+                    entities: { roles },
+                    result,
+                } = normalize(jsonResult.data, schemas1.roles);
+
+                yield put(
+                    actions.completeFetchingRoles(
+                        roles,
+                        result,
+                    ),
+                );
+            } else {
+                const errors = yield response.json();
+                yield put(actions.failFetchingRoles(errors.error));
             }
         }
     } catch (error) {
-        yield put(actions.failRemovingRoleRelationship("Error de conexión"));
+        yield put(actions.failFetchingRoles("Error de conexión"));
         console.log("ERROR", error);
     }
 }
 
-export function* watchDeleteRolesRelationship() {
+export function* watchFetchRoles() {
     yield takeEvery(
-        types.ROLES_RELATIONSHIP_REMOVE_STARTED,
-        deleteRoleRelationship,
+        types.ROLES_FETCH_STARTED,
+        fetchRoles,
     );
 }

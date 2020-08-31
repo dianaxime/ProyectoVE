@@ -44,7 +44,7 @@ import {
 import {
     watchUsersFetchRolesRelationship,
     watchAddRolesRelationship,
-    watchDeleteRolesRelationship,
+    watchFetchRoles,
 } from './rolesRelationship';
 
 function* mainSaga() {
@@ -82,7 +82,7 @@ function* mainSaga() {
         /* Roles Relationship */
         fork(watchUsersFetchRolesRelationship),
         fork(watchAddRolesRelationship),
-        fork(watchDeleteRolesRelationship),
+        fork(watchFetchRoles),
     ]);
 }
 

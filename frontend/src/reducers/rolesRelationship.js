@@ -123,6 +123,70 @@ const orderRolesRelationship = (state = [], action) => {
   }
 };
 
+const byIdRole = (state = {}, action) => {
+  switch (action.type) {
+    case types.ROLES_FETCH_COMPLETED: {
+      const { entities, order } = action.payload;
+      const newState = { };
+      order.forEach(id => {
+        newState[id] = {
+          ...entities[id],
+          isConfirmed: true,
+        };
+      });
+      return newState;
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
+const orderRole = (state = [], action) => {
+  switch (action.type) {
+    case types.ROLES_FETCH_COMPLETED: {
+      return  [...action.payload.order];
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
+const isFetchingRole = (state = false, action) => {
+  switch (action.type) {
+    case types.ROLES_FETCH_STARTED: {
+      return true;
+    }
+    case types.ROLES_FETCH_COMPLETED: {
+      return false;
+    }
+    case types.ROLES_FETCH_FAILED: {
+      return false;
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
+const errorRole = (state = null, action) => {
+  switch (action.type) {
+    case types.ROLES_FETCH_FAILED: {
+      return action.payload.error;
+    }
+    case types.ROLES_FETCH_STARTED: {
+      return null;
+    }
+    case types.ROLES_FETCH_COMPLETED: {
+      return null;
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
 export default combineReducers({
   byId,
   order,
@@ -130,6 +194,10 @@ export default combineReducers({
   error,
   byIdRolesRelationship,
   orderRolesRelationship,
+  byIdRole,
+  orderRole,
+  isFetchingRole,
+  errorRole,
 });
 
 export const getUserByEmailRolesRelation = (state, id) => state.byId[id];
@@ -138,3 +206,8 @@ export const isFetchingUsersByEmailRolesRelation = state => state.isFetching;
 export const getFetchingUsersByEmailErrorRolesRelation = state => state.error;
 export const getRolesRelationship = (state, id) => state.byIdRolesRelationship[id];
 export const getRolesRelationships = state => state.orderRolesRelationship.map(id => getRolesRelationship(state, id));
+/* Roles */
+export const getRole = (state, id) => state.byIdRole[id];
+export const getRoles = state => state.orderRole.map(id => getRole(state, id));
+export const isFetchingRoles = state => state.isFetchingRole;
+export const getFetchingErrorRoles = state => state.errorRole;

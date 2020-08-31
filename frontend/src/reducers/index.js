@@ -124,3 +124,8 @@ export const getRolesRelationship = (state, id) => rolesRelationshipSelectors.ge
 export const getRolesRelationships = state => rolesRelationshipSelectors.getRolesRelationships(state.rolesRelationship);
 /* Roles  Modal */
 export const getIsRolesOpen = state => changeRoleSelectors.getIsRolesOpen(state.changeRole);
+/* Roles */
+export const getRole = (state, id) => rolesRelationshipSelectors.getRole(state.rolesRelationship, id);
+export const getRoles = state => rolesRelationshipSelectors.getRoles(state.rolesRelationship);
+export const isFetchingRoles = state => rolesRelationshipSelectors.isFetchingRoles(state.rolesRelationship);
+export const getFetchingErrorRoles = state => rolesRelationshipSelectors.getFetchingErrorRoles(state.rolesRelationship);

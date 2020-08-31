@@ -14,7 +14,6 @@ export const completeFetchingUsersByEmail = (entities, order) => ({
         order,
     },
 });
-
 export const failFetchingUsersByEmail = error => ({
     type: types.USERS_BY_EMAIL_FETCH_FAILED,
     payload: {
@@ -22,22 +21,40 @@ export const failFetchingUsersByEmail = error => ({
     },
 });
 
-export const startAddingRoleRelationship = (id, userid, idw, startdate, enddate) => ({
+
+export const startFetchingRoles = () => ({
+    type: types.ROLES_FETCH_STARTED,
+});
+
+export const completeFetchingRoles = (entities, order) => ({
+    type: types.ROLES_FETCH_COMPLETED,
+    payload: {
+        entities,
+        order,
+    },
+});
+
+export const failFetchingRoles = error => ({
+    type: types.ROLES_FETCH_FAILED,
+    payload: {
+        error,
+    },
+});
+
+export const startAddingRoleRelationship = (id, userid, idr) => ({
     type: types.ROLES_RELATIONSHIP_ADD_STARTED,
     payload: {
         id,
         userid,
-        idw,
-        startdate,
-        enddate,
+        idr,
     },
 });
 
-export const completeAddingRoleRelationship = (oldId, participation) => ({
+export const completeAddingRoleRelationship = (oldId, rolesRelation) => ({
     type: types.ROLES_RELATIONSHIP_ADD_COMPLETED,
     payload: {
         oldId,
-        participation,
+        rolesRelation,
     },
 });
 
@@ -45,26 +62,6 @@ export const failAddingRoleRelationship = (oldId, error) => ({
     type: types.ROLES_RELATIONSHIP_ADD_FAILED,
     payload: {
         oldId,
-        error,
-    },
-});
-
-export const startRemovingRoleRelationship = (idw, userid) => ({
-    type: types.ROLES_RELATIONSHIP_REMOVE_STARTED,
-    payload: {
-        idw,
-        userid,
-    },
-});
-
-export const completeRemovingRoleRelationship = userid => ({
-    type: types.ROLES_RELATIONSHIP_REMOVE_COMPLETED,
-    payload: userid,
-});
-
-export const failRemovingRoleRelationship = error => ({
-    type: types.ROLES_RELATIONSHIP_REMOVE_FAILED,
-    payload: {
         error,
     },
 });
