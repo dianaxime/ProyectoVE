@@ -17,6 +17,7 @@ import TeamsPage from '../TeamFeature/TeamsPage';
 import EditTeamPage from '../TeamFeature/EditTeamPage';
 import SelectedTeamPage from '../TeamFeature/SelectedTeamPage';
 import RolesPage from '../RolesRelationshipFeature/RolesPage';
+import AssignPage from '../RolesRelationshipFeature/AssignPage';
 
 import 'fontsource-roboto';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -44,6 +45,7 @@ const App = () => (
           <Route exact path="/equipo" component={SelectedTeamPage} />
           <Route exact path="/editarequipo" component={EditTeamPage} />
           <Route exact path="/roles" component={RolesPage} />
+          <Route exact path="/asignaroles" component={AssignPage} />
           <Route render={() => <Redirect to="/" />} />
         </Switch>
       </BrowserRouter>

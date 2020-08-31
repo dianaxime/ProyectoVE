@@ -1,10 +1,14 @@
 import React, { forwardRef, useEffect } from 'react';
-import MaterialTable from 'material-table';
+import MaterialTable, { MTableToolbar } from 'material-table';
 import { connect } from 'react-redux';
 import {
-    getPendingUsers
-} from '../../reducers';
-import * as actions from '../../actions/auth';
+    getRoles
+} from '../../../reducers';
+import * as actions from '../../../actions/rolesRelationship';
+import * as modalRoles from '../../../actions/modalRoles';
+import * as actionsRol from '../../../actions/selectedRol';
+import InputBase from '@material-ui/core/InputBase';
+import { reset, Field, reduxForm } from 'redux-form';
 
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
@@ -21,7 +25,30 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
-import HowToRegIcon from '@material-ui/icons/HowToReg';
+import MoreIcon from '@material-ui/icons/More';
+import SearchIcon from '@material-ui/icons/Search';
+import IconButton from '@material-ui/core/IconButton';
+
+const validate = values => {
+    const errors = {};
+    const requiredFields = ['email'];
+    requiredFields.forEach(field => {
+        if (!values[field]) {
+            errors[field] = 'Obligatorio*';
+        }
+    })
+    return errors;
+}
+
+
+const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
+    <InputBase className="inputWorkshop" placeholder={label}
+        label={label}
+        {...input}
+        {...custom}
+        fullWidth
+    />
+);
 
 const icons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -44,16 +71,19 @@ const icons = {
 };
 
 const columns = [
-    { title: 'Correo Electrónico', field: 'email' },
     { title: 'Nombre', field: 'first_name' },
     { title: 'Apellido', field: 'last_name' },
-    { title: 'Estado', field: 'status' },
+    { title: 'Correo', field: 'email' },
 ];
 
-const Authorization = ({ data, onLoad, onAuthorize }) => {
-    useEffect(onLoad, []);
+let AssignRoles = ({ data, onLoad, onSelect, onHandle, handleSubmit, onSubmit }) => {
+    /*useEffect(onLoad, []);*/
+    const selectRol = (idRol) => {
+        onSelect(idRol);
+        onHandle();
+    };
     return (
-        <MaterialTable title="Autorización"
+        <MaterialTable title="Asignar roles de usuario"
             icons={icons}
             columns={columns}
             data={data}
@@ -61,18 +91,29 @@ const Authorization = ({ data, onLoad, onAuthorize }) => {
                 {
                     icon: 'save',
                     tooltip: 'Save User',
-                    onClick: (event, rowData) => onAuthorize(rowData.email),
+                    onClick: (event, rowData) => selectRol(rowData.id),
                 },
             ]}
             components={{
                 Action: props => (
-                    <button style={{backgroundColor: '#2e2e2e'}}
+                    <button style={{ backgroundColor: '#2e2e2e' }}
                         onClick={(event) => props.action.onClick(event, props.data)}
                         variant="contained"
                         size="small"
                     >
-                        <HowToRegIcon  style={{color: '#FFF'}}/>
+                        <MoreIcon style={{ color: '#FFF' }} />
                     </button>
+                ),
+                Toolbar: props => (
+                    <div /*style={{display: 'flex', flexDirection: 'row'}}*/>
+                        <div style={{display: 'flex', flexDirection: 'row', height: '40px', width: '250px', float: 'right', borderBottom: 'solid', borderWidth: '1px', marginRight: '10px', marginTop: '10px' }}>
+                            <IconButton edge="end" aria-label="agregar" onClick={handleSubmit(onSubmit)}>
+                                <SearchIcon style={{ Color: '#2e2e2e' }} />
+                            </IconButton>
+                            <Field name="email" component={renderTextField} label="Buscar" ></Field>
+                        </div>
+                        <MTableToolbar {...props} />
+                    </div>
                 ),
             }}
             options={{
@@ -81,6 +122,7 @@ const Authorization = ({ data, onLoad, onAuthorize }) => {
                     backgroundColor: '#2e2e2e',
                     color: '#FFF'
                 },
+                search: false,
             }}
             localization={{
                 body: {
@@ -133,16 +175,30 @@ const Authorization = ({ data, onLoad, onAuthorize }) => {
     );
 }
 
+AssignRoles = reduxForm({
+    form: 'searchAssignForm',
+    validate
+})(AssignRoles);
+
 export default connect(
     state => ({
-        data: getPendingUsers(state),
+        data: getRoles(state),
     }),
     dispatch => ({
-        onLoad() {
-            dispatch(actions.startFetchingUsers());
+        /*onLoad() {
+            dispatch(actions.startFetchingRoles());
         },
-        onAuthorize(email) {
-            dispatch(actions.startAuthorize(email));
+        onSelect(id) {
+            dispatch(actionsRol.selectedRol(id));
+        },
+        onHandle() {
+            dispatch(modalRoles.changeRoles(true));
+        }*/
+        onSubmit({ email }) {
+            dispatch(
+                actions.startFetchingUsersByEmail(email),
+                dispatch(reset('searchPersonForm')),
+            );
         },
     }),
-)(Authorization);
+)(AssignRoles);
