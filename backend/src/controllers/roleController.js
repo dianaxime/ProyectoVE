@@ -2,8 +2,6 @@ require('dotenv').config();
 
 const {
     isEmpty,
-    isHoursValid,
-    isPercentageValid,
 } = require('../helpers/validation');
 
 const {
@@ -12,7 +10,10 @@ const {
     status,
 } = require('../helpers/status');
 
-const { getRoleQuery} = require('../repository/roles');
+const { 
+    getRoleQuery,
+    getRolesQuery
+} = require('../repository/roles');
 
 /**
  * Get role
@@ -50,6 +51,34 @@ const getRole = async (req, res) => {
     })
 };
 
+/**
+ * Get Roles
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getRoles = async (req, res) => {
+
+    getRolesQuery()
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'No roles';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
 module.exports = {
-    getRole
+    getRole,
+    getRoles
 };

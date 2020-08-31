@@ -116,7 +116,7 @@ function* fetchRoles(action) {
             const token = yield select(selectors.getAuthToken);
             const response = yield call(
                 fetch,
-                `${API_BASE_URL}/auth/student-email/${action.payload.email}`,
+                `${API_BASE_URL}/role/all-roles`,
                 {
                     method: 'GET',
                     headers: {

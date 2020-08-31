@@ -2,9 +2,9 @@ import React, { forwardRef, useEffect } from 'react';
 import MaterialTable from 'material-table';
 import { connect } from 'react-redux';
 import {
-    getPendingUsers
-} from '../../reducers';
-//import * as actions from '../../actions/roles';
+    getRoles
+} from '../../../reducers';
+import * as actions from '../../../actions/rolesRelationship';
 
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
@@ -45,7 +45,7 @@ const icons = {
 
 const columns = [
     { title: 'Rol', field: 'role' },
-    { title: 'Cant. Personas', field: 'count_users' },
+    { title: 'Cant. Personas', field: 'coalesce' },
 ];
 
 const Roles = ({ data, onLoad, onAuthorize }) => {
@@ -133,14 +133,14 @@ const Roles = ({ data, onLoad, onAuthorize }) => {
 
 export default connect(
     state => ({
-        data: getPendingUsers(state),
+        data: getRoles(state),
     }),
     dispatch => ({
         onLoad() {
-            dispatch(actions.startFetchingUsers());
+            dispatch(actions.startFetchingRoles());
         },
-        onAuthorize(email) {
+        /*onAuthorize(email) {
             dispatch(actions.startAuthorize(email));
-        },
+        },*/
     }),
 )(Roles);
