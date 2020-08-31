@@ -95,10 +95,6 @@ const byIdRolesRelationship = (state = {}, action) => {
       };
       return newState;
     }
-    case types.ROLES_RELATIONSHIP_REMOVE_COMPLETED: {
-      const newState = omit(state, action.payload);
-      return newState;
-    }
     default: {
       return state;
     }
@@ -113,9 +109,6 @@ const orderRolesRelationship = (state = [], action) => {
     case types.ROLES_RELATIONSHIP_ADD_COMPLETED: {
       const { oldId, rolesRelationship } = action.payload;
       return state.map(id => id === oldId ? rolesRelationship.id : id);
-    }
-    case types.ROLES_RELATIONSHIP_REMOVE_COMPLETED: {
-      return state.filter(id => id !== action.payload);
     }
     default: {
       return state;
