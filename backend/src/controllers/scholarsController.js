@@ -12,7 +12,12 @@ const {
     status,
 } = require('../helpers/status');
 
-const { createScholarsQuery, getScholarsQuery, getScholarsOrganizerQuery, getScholarsPhotoEditorQuery, getScholarsSpokesPersonQuery, getScholarsVideoEditorQuery } = require('../repository/scholars');
+const { createScholarsQuery, getScholarsQuery, getScholarsOrganizerQuery,
+    getScholarsGraphicDesignQuery,
+    getScholarsSpokesPersonQuery,
+    getScholarsPhotoVideoEditorQuery,
+    getScholarsOtherQuery,
+    getScholarsLeaderQuery } = require('../repository/scholars');
 
 /**
  * Create Scholars
@@ -23,16 +28,18 @@ const { createScholarsQuery, getScholarsQuery, getScholarsOrganizerQuery, getSch
 
 const createScholars = async (req, res) => {
     const {
-        hours,
-        videoEditor,
-        photoEditor,
-        spokespersons,
-        organizer,
+        hours, 
+        video_photoeditor, 
+        graphicdesign, 
+        spokespersons, 
+        organizer, 
+        leader, 
+        other
     } = req.body;
 
     const { userid } = req.user;
 
-    if (isEmpty(hours) || isEmpty(videoEditor) || isEmpty(photoEditor) || isEmpty(spokespersons) || isEmpty(organizer) ) {
+    if (isEmpty(hours) || isEmpty(video_photoeditor) || isEmpty(graphicdesign) || isEmpty(spokespersons) || isEmpty(organizer) || isEmpty(leader) || isEmpty(other) ) {
         errorMessage.error = 'Hours, video editor, photo editor, spokespersons and organizer field cannot be empty';
         return res.status(status.bad).send(errorMessage);
     }
@@ -42,8 +49,8 @@ const createScholars = async (req, res) => {
         return res.status(status.bad).send(errorMessage);
     }
 
-    if (!isPercentageValid(videoEditor)||!isPercentageValid(spokespersons)||!isPercentageValid(photoEditor)||!isPercentageValid(organizer)){
-        errorMessage.error="Percentages can not be negative or higher than 100"
+    if (!isPercentageValid(video_photoeditor)||!isPercentageValid(spokespersons)||!isPercentageValid(graphicdesign)||!isPercentageValid(organizer) || isEmpty(leader) || isEmpty(other)){
+        errorMessage.error="Percentages can not be negative or higher than 10"
         return res.status(status.bad).send(errorMessage);
     }
     
@@ -99,13 +106,13 @@ const getScholars = async (req, res) => {
  * @returns {object} reflection object
 */
 
-const getScholarsPhotoEditor = async (req, res) => {
+const getScholarsPhotoVideoEditor = async (req, res) => {
     
-    getScholarsPhotoEditorQuery()
+    getScholarsPhotoVideoEditorQuery()
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
-            errorMessage.error = 'No users with scholarships with photo editor experience';
+            errorMessage.error = 'No users with scholarships with photo or video editor experience';
             return res.status(status.notfound).send(errorMessage);
         }
     
@@ -180,13 +187,53 @@ const getScholarsSpokesPerson = async (req, res) => {
  * @returns {object} reflection object
 */
 
-const getScholarsVideoEditor = async (req, res) => {
+const getScholarsGraphicDesign = async (req, res) => {
     
-    getScholarsVideoEditorQuery()
+    getScholarsGraphicDesignQuery()
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
-            errorMessage.error = 'No users with scholarships with video editing experience';
+            errorMessage.error = 'No users with scholarships with graphic design experience';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+const getScholarsLeader= async (req, res) => {
+    
+    getScholarsLeaderQuery()
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'No users with scholarships with leadership experience';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+const getScholarsOther = async (req, res) => {
+    
+    getScholarsOtherQuery()
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'No users with scholarships with other experience';
             return res.status(status.notfound).send(errorMessage);
         }
     
@@ -204,7 +251,9 @@ module.exports = {
     createScholars,
     getScholars,
     getScholarsOrganizer,
-    getScholarsPhotoEditor,
+    getScholarsOther,
     getScholarsSpokesPerson,
-    getScholarsVideoEditor
+    getScholarsLeader,
+    getScholarsGraphicDesign,
+    getScholarsPhotoVideoEditor
 };

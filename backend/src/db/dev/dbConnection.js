@@ -78,10 +78,12 @@ const createScholarsTable = () => {
         id SERIAL PRIMARY KEY,
         userID INT NOT NULL UNIQUE,
         hours FLOAT NOT NULL,
-        videoEditor INT NOT NULL,
-        photoEditor INT NOT NULL,
+        video_photoEditor INT NOT NULL,
+        graphicDesign INT NOT NULL,
         spokesPersons INT NOT NULL,
         organizer INT NOT NULL,
+        leader INT NOT NULL,
+        other VARCHAR(100) NOT NULL,
         FOREIGN KEY (userID) REFERENCES users(id)
     )`;
 
@@ -579,11 +581,11 @@ const dropACrelationshipTable = () => {
 */
 
 const createAllTables = () => {
-    createUserTable();
+    /*createUserTable();
     createRegisterTable();
-    createWorkshoTable();
+    createWorkshoTable();*/
     createScholarsTable();
-    createTeamTable();
+    /*createTeamTable();
     createParticipationTable();
     createTournamentTable();
     createEventTable();
@@ -591,7 +593,7 @@ const createAllTables = () => {
     createRolesTable();
     createRolesRelationshipTable();
     createAssociationClubTable();
-    createAssociationClubRelationshipTable();
+    createAssociationClubRelationshipTable();*/
 
 };
 

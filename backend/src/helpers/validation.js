@@ -49,7 +49,7 @@ const isHoursValid=hours=>{
 */
 
 const isPercentageValid=perc=>{
-    if (perc<0|| perc>100){
+    if (perc<0|| perc>10){
         return false;
     }
     return true;
