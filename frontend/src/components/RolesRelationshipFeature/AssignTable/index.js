@@ -2,7 +2,7 @@ import React, { forwardRef, useEffect } from 'react';
 import MaterialTable, { MTableToolbar } from 'material-table';
 import { connect } from 'react-redux';
 import {
-    getRoles
+    getUsersByEmailRolesRelation
 } from '../../../reducers';
 import * as actions from '../../../actions/rolesRelationship';
 import * as modalRoles from '../../../actions/modalRoles';
@@ -182,7 +182,7 @@ AssignRoles = reduxForm({
 
 export default connect(
     state => ({
-        data: getRoles(state),
+        data: getUsersByEmailRolesRelation(state),
     }),
     dispatch => ({
         /*onLoad() {
@@ -197,7 +197,7 @@ export default connect(
         onSubmit({ email }) {
             dispatch(
                 actions.startFetchingUsersByEmail(email),
-                dispatch(reset('searchPersonForm')),
+                dispatch(reset('searchAssignForm')),
             );
         },
     }),
