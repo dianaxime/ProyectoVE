@@ -335,6 +335,8 @@ const createAssociationClubRelationshipTable = () => {
         id SERIAL PRIMARY KEY,
         userID INT NOT NULL,
         idAC INT NOT NULL,
+        startdate DATE NOT NULL,
+        enddate DATE NOT NULL,
         FOREIGN KEY (userID) REFERENCES users(id),
         FOREIGN KEY (idAC) REFERENCES association_club(id),
         UNIQUE(userID, idAC)
@@ -577,7 +579,7 @@ const dropACrelationshipTable = () => {
 */
 
 const createAllTables = () => {
-    /*createUserTable();
+    createUserTable();
     createRegisterTable();
     createWorkshoTable();
     createScholarsTable();
@@ -587,7 +589,7 @@ const createAllTables = () => {
     createEventTable();
     createEventParticipationTable();
     createRolesTable();
-    createRolesRelationshipTable();*/
+    createRolesRelationshipTable();
     createAssociationClubTable();
     createAssociationClubRelationshipTable();
 
