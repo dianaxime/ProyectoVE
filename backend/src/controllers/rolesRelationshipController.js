@@ -157,15 +157,15 @@ const getUserByEmailRoles = async (req, res) => {
                 if (seen.hasOwnProperty(entry.id)) {
                     // Yes, grab it and add this data to it
                     previous = seen[entry.id];
-                    previous.idr.push(entry.idr);
+                    previous.idrs.push(entry.idrs);
 
                     // Don't keep this entry, we've merged it into the previous one
                     return false;
                 }
 
                 // entry.data probably isn't an array; make it one for consistency
-                if (!Array.isArray(entry.idr)) {
-                    entry.idr = [entry.idr];
+                if (!Array.isArray(entry.idrs)) {
+                    entry.idrs = [entry.idrs];
                 }
 
                 // Remember that we've seen it
