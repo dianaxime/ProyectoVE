@@ -18,6 +18,7 @@ import changeScholar, * as changeScholarSelectors from './modalScholarship';
 
 import selectedWorkshop, * as selectedWorkshopSelectors from './selectedWorkshop';
 import selectedTeam, * as selectedTeamSelectors from './selectedTeam'; 
+import selectedRol, * as selectedRolSelectors from './selectedRol'; 
 
 const reducer = combineReducers({
   auth,
@@ -35,6 +36,7 @@ const reducer = combineReducers({
   participation,
   tournament,
   rolesRelationship,
+  selectedRol,
   form: formReducer,
 });
 
@@ -129,3 +131,5 @@ export const getRole = (state, id) => rolesRelationshipSelectors.getRole(state.r
 export const getRoles = state => rolesRelationshipSelectors.getRoles(state.rolesRelationship);
 export const isFetchingRoles = state => rolesRelationshipSelectors.isFetchingRoles(state.rolesRelationship);
 export const getFetchingErrorRoles = state => rolesRelationshipSelectors.getFetchingErrorRoles(state.rolesRelationship);
+/* Selected Rol */ 
+export const getSelectedRol = (state) => selectedRolSelectors.getSelectedRol(state.selectedRol)

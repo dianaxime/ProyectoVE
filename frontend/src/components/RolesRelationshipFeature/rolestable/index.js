@@ -5,6 +5,8 @@ import {
     getRoles
 } from '../../../reducers';
 import * as actions from '../../../actions/rolesRelationship';
+import * as modalRoles from '../../../actions/modalRoles';
+import * as actionsRol from '../../../actions/selectedRol';
 
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
@@ -48,8 +50,12 @@ const columns = [
     { title: 'Cant. Personas', field: 'coalesce' },
 ];
 
-const Roles = ({ data, onLoad, onAuthorize }) => {
+const Roles = ({ data, onLoad, onSelect, onHandle }) => {
     useEffect(onLoad, []);
+    const selectRol = (idRol) => {
+        onSelect(idRol);
+        onHandle();
+    };
     return (
         <MaterialTable title="Roles de usuario"
             icons={icons}
@@ -59,7 +65,7 @@ const Roles = ({ data, onLoad, onAuthorize }) => {
                 {
                     icon: 'save',
                     tooltip: 'Save User',
-                    onClick: (event, rowData) => onAuthorize(rowData.email),
+                    onClick: (event, rowData) => selectRol(rowData.id),
                 },
             ]}
             components={{
@@ -139,8 +145,11 @@ export default connect(
         onLoad() {
             dispatch(actions.startFetchingRoles());
         },
-        /*onAuthorize(email) {
-            dispatch(actions.startAuthorize(email));
-        },*/
+        onSelect(id) {
+            dispatch(actionsRol.selectedRol(id));
+        },
+        onHandle() {
+            dispatch(modalRoles.changeRoles(true));
+        }
     }),
 )(Roles);
