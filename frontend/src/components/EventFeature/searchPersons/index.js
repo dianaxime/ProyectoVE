@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import {
     getAuthToken,
     getIsOpen,
-    getWorkshop,
-    getSelectedWorkshop,
+    getEvent,
+    getSelectedEvent,
 } from '../../../reducers';
 import InputBase from '@material-ui/core/InputBase';
 import { reset, Field, reduxForm } from 'redux-form';
@@ -54,7 +54,7 @@ let SearchPersons = ({
                         <p className="subtituloT">{((Object.entries(workshop)[1])[1])}</p>
                     ) :
                         (
-                            <p className="subtituloT">*Seleccione un taller*</p>
+                            <p className="subtituloT">*Seleccione un evento*</p>
                         )
                 }
                 <div className="barrabus">
@@ -73,7 +73,7 @@ let SearchPersons = ({
 }
 
 SearchPersons = reduxForm({
-    form: 'searchPersonForm',
+    form: 'searchPersonEventForm',
     validate
 })(SearchPersons);
 
@@ -82,14 +82,14 @@ SearchPersons = connect(
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
         open: getIsOpen(state),
-        selectWorkshop: getSelectedWorkshop(state) !== null,
-        workshop: getWorkshop(state, getSelectedWorkshop(state)),
+        selectWorkshop: getSelectedEvent(state) !== null,
+        workshop: getEvent(state, getSelectedEvent(state)),
     }),
     dispatch => ({
         onSubmit({ email }) {
             dispatch(
                 actions.startFetchingUsersByEmail(email),
-                dispatch(reset('searchPersonForm')),
+                dispatch(reset('searchPersonEventForm')),
             );
         },
     }),

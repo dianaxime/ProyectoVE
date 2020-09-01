@@ -49,8 +49,8 @@ export default connect(
   state => ({
     users: selectors.getUsersByEmail(state),
     isLoading: selectors.isFetchingUsersByEmail(state),
-    selectWS: selectors.getSelectedWorkshop(state),
-    workshop: selectors.getWorkshop(state, selectors.getSelectedWorkshop(state)),
+    selectWS: selectors.getSelectedEvent(state),
+    workshop: selectors.getEvent(state, selectors.getSelectedEvent(state)),
   }),
   dispatch => ({
     onAssign(userid, idw, date1, date2) {
