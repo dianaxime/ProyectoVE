@@ -3,72 +3,55 @@ import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalF
 import {
     getSelectedAUser,
     getIsAssignOpen,
+    getUserByEmailRolesRelation,
+    getRoles
 } from '../../../reducers';
 import { connect } from 'react-redux';
 import * as actionsModal from '../../../actions/modalAssign';
 import TextField from '@material-ui/core/TextField';
-import { Field, reduxForm, reset, FieldArray } from 'redux-form';
-import MenuItem from '@material-ui/core/MenuItem';
-
-const renderSelectField = ({ input, label, meta: { touched, error }, ...custom }) => (
-    <TextField placeholder={label}
-        label={label}
-        helperText={touched && error}
-        {...input}
-        {...custom}
-        id="select"
-        select
-    />
-);
-
-const renderMembers = ({ fields, meta: { error, submitFailed } }) => (
-    <ul>
-        <li>
-            <button type="button" onClick={() => fields.push({})}>
-                Añadir Rol
-        </button>
-        </li>
-        {fields.map((member, index) => (
-            <li key={index}>
-                <button
-                    type="button"
-                    title="Remove Member"
-                    onClick={() => fields.remove(index)}
-                />
-                <Field
-                    name={`${member}.value`}
-                    component={renderSelectField}>
-                    <MenuItem value="1">Administrador</MenuItem>
-                    <MenuItem value="2">Asistente</MenuItem>
-                    <MenuItem value="3">Auxiliar oficina</MenuItem>
-                    <MenuItem value="4">Miembro asociación</MenuItem>
-                    <MenuItem value="5">Miembro taller</MenuItem>
-                    <MenuItem value="6">Miembro equipo</MenuItem>
-                    <MenuItem value="7">Miembro club</MenuItem>
-                    <MenuItem value="8">Auxiliar eventos</MenuItem>
-                </Field>
-            </li>
-        ))}
-    </ul>
-)
+import Autocomplete from '@material-ui/lab/Autocomplete';
+import Chip from '@material-ui/core/Chip';
+import { Field, reduxForm, reset } from 'redux-form';
 
 
-let Assign = ({ open, onHandle }) => {
+const renderAutoComplete = ({ input, label, options, meta: { touched, error }, ...custom }) => {
+    return (
+        <Autocomplete
+            multiple
+            options={options}
+            getOptionLabel={(option) => option.role}
+            onChange={(event, newValue) => newValue}
+            //{...input}
+            //{...custom}
+            renderTags={(options, getTagProps) =>
+                options.map((option, index) => (
+                    <Chip variant="outlined" key={option.id} label={option.role} {...getTagProps({ index })} />
+                ))
+            }
+            renderInput={(params) => (
+                <TextField {...params} variant="outlined" label={label} />
+            )}
+        />
+    );
+};
+
+
+let Assign = ({ open, onHandle, user, roles }) => {
     return (
         <MDBContainer>
             <MDBModal isOpen={open} side position="bottom-right">
-                <MDBModalHeader toggle={onHandle}><b>Permisos del:</b></MDBModalHeader>
+                <MDBModalHeader toggle={onHandle}><b>Asigna los roles al usuario</b></MDBModalHeader>
                 <MDBModalBody>
-                    <FieldArray name="idrs" component={renderMembers} />
+                    <Field name="idrs" label="Roles" options={roles} component={renderAutoComplete}></Field>
                 </MDBModalBody>
                 <MDBModalFooter>
                     <MDBBtn color="red" onClick={onHandle}>Cerrar</MDBBtn>
-                    <MDBBtn color="green" >Asignar</MDBBtn>
+                    <MDBBtn color="green">Asignar</MDBBtn>
                 </MDBModalFooter>
             </MDBModal>
         </MDBContainer>
     );
-}
+};
 
 Assign = reduxForm({
     form: 'AssignModal'
@@ -78,11 +61,19 @@ Assign = connect(
     state => ({
         open: getIsAssignOpen(state),
         selected: getSelectedAUser(state),
+        user: getUserByEmailRolesRelation(state, getSelectedAUser(state)),
+        roles: getRoles(state),
+        initialValues: {
+            idrs: [],
+        },
     }),
     dispatch => ({
         onHandle() {
             dispatch(actionsModal.changeAssign(false));
         },
+        /*onAssign({idrs}) {
+            console.log(idrs);
+        },*/
     })
 )(Assign);
 

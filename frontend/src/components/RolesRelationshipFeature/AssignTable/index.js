@@ -39,7 +39,7 @@ const validate = values => {
         }
     })
     return errors;
-}
+};
 
 const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
     <InputBase className="inputWorkshop" placeholder={label}
@@ -228,5 +228,5 @@ export default connect(
                 dispatch(reset('searchAssignForm')),
             );
         },
-    }),
+    })
 )(AssignRoles);

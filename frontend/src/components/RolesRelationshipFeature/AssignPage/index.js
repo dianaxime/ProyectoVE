@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import clsx from 'clsx';
 import {
     getAuthToken,
-    getIsOpen
+    getIsOpen, 
 } from '../../../reducers';
 import { URL } from '../../../settings';
 import Nav from '../../Nav';
@@ -55,7 +55,7 @@ const AssignPage = ({ open }) => {
             >
                 <div className={classes.drawerHeader} />
                 <AssignTable />
-                <AssignModal />
+                <AssignModal/>
             </main>
         </div>
     );
