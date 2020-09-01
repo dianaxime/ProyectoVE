@@ -28,9 +28,9 @@ where users.id in (SELECT users.id FROM roles_relationship
 JOIN users ON users.id=roles_relationship.userid
 JOIN roles ON roles.id=roles_relationship.idr WHERE roles.role='Miembro equipo' and users.id=$1) and NOW()<tournament.enddate and NOW()>tournament.startdate`;
 
-const GET_USERS_BY_EMAIL_ROLES = `SELECT users.id, users.first_name, users.last_name, users.email, roles.id AS idrs from users 
-JOIN roles_relationship ON users.id = roles_relationship.userid 
-JOIN roles ON roles_relationship.idr = roles.id
+const GET_USERS_BY_EMAIL_ROLES = `SELECT users.id, users.first_name, users.last_name, users.email, COALESCE(roles.id, 0) AS idrs from users 
+LEFT JOIN roles_relationship ON users.id = roles_relationship.userid 
+LEFT JOIN roles ON roles_relationship.idr = roles.id
 WHERE email ILIKE '%'|| $1 || '%'
 GROUP BY users.id, roles.id`;
 

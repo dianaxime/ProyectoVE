@@ -2,13 +2,15 @@ import React, { forwardRef, useEffect } from 'react';
 import MaterialTable, { MTableToolbar } from 'material-table';
 import { connect } from 'react-redux';
 import {
-    getUsersByEmailRolesRelation
+    getUsersByEmailRolesRelation,
+    getRoles
 } from '../../../reducers';
 import * as actions from '../../../actions/rolesRelationship';
 import * as modalRoles from '../../../actions/modalRoles';
 import * as actionsRol from '../../../actions/selectedRol';
 import InputBase from '@material-ui/core/InputBase';
 import { reset, Field, reduxForm } from 'redux-form';
+import Chip from '@material-ui/core/Chip';
 
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
@@ -40,7 +42,6 @@ const validate = values => {
     return errors;
 }
 
-
 const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
     <InputBase className="inputWorkshop" placeholder={label}
         label={label}
@@ -49,6 +50,7 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
         fullWidth
     />
 );
+
 
 const icons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -67,7 +69,19 @@ const icons = {
     Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
     SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
     ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
-    ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
+    ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
+    MoreIcon: forwardRef((props, ref) => <MoreIcon {...props} ref={ref} />)
+};
+
+const description = {
+    1: 'Administrador',
+    2: 'Asistente',
+    3: 'Auxiliar oficina',
+    4: 'Miembro asociación',
+    5: 'Miembro taller',
+    6: 'Miembro equipo',
+    7: 'Miembro club',
+    8: 'Auxiliar eventos'
 };
 
 const columns = [
@@ -76,8 +90,7 @@ const columns = [
     { title: 'Correo', field: 'email' },
 ];
 
-let AssignRoles = ({ data, onLoad, onSelect, onHandle, handleSubmit, onSubmit }) => {
-    /*useEffect(onLoad, []);*/
+let AssignRoles = ({ data, onSelect, onHandle, handleSubmit, onSubmit }) => {
     const selectRol = (idRol) => {
         onSelect(idRol);
         onHandle();
@@ -105,8 +118,8 @@ let AssignRoles = ({ data, onLoad, onSelect, onHandle, handleSubmit, onSubmit })
                     </button>
                 ),
                 Toolbar: props => (
-                    <div /*style={{display: 'flex', flexDirection: 'row'}}*/>
-                        <div style={{display: 'flex', flexDirection: 'row', height: '40px', width: '250px', float: 'right', borderBottom: 'solid', borderWidth: '1px', marginRight: '10px', marginTop: '10px' }}>
+                    <div>
+                        <div style={{ display: 'flex', flexDirection: 'row', height: '40px', width: '250px', float: 'right', borderBottom: 'solid', borderWidth: '1px', marginRight: '10px', marginTop: '10px' }}>
                             <IconButton edge="end" aria-label="agregar" onClick={handleSubmit(onSubmit)}>
                                 <SearchIcon style={{ Color: '#2e2e2e' }} />
                             </IconButton>
@@ -124,6 +137,25 @@ let AssignRoles = ({ data, onLoad, onSelect, onHandle, handleSubmit, onSubmit })
                 },
                 search: false,
             }}
+            detailPanel={[
+                {
+                    tooltip: 'Mostrar Roles',
+                    render: rowData =>
+                        <div>
+                            {
+                                rowData.idrs.map(s =>
+                                    s !== 0 && (
+                                        <Chip key={s} color="secondary" label={description[s]}
+                                            style={{
+                                                marginRight: 5, backgroundColor: '#2e2e2e',
+                                                Color: '#FFF'
+                                            }} />)
+                                    )
+
+                            }
+                        </div>
+                },
+            ]}
             localization={{
                 body: {
                     emptyDataSourceMessage: 'No hay registros que mostrar',
@@ -185,14 +217,11 @@ export default connect(
         data: getUsersByEmailRolesRelation(state),
     }),
     dispatch => ({
-        /*onLoad() {
-            dispatch(actions.startFetchingRoles());
-        },
-        onSelect(id) {
-            dispatch(actionsRol.selectedRol(id));
+        /*onSelect(id) {
+                dispatch(actionsRol.selectedRol(id));
         },
         onHandle() {
-            dispatch(modalRoles.changeRoles(true));
+                dispatch(modalRoles.changeRoles(true));
         }*/
         onSubmit({ email }) {
             dispatch(

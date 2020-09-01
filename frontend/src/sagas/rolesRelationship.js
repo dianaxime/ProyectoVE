@@ -25,7 +25,7 @@ function* fetchUsers(action) {
             const token = yield select(selectors.getAuthToken);
             const response = yield call(
                 fetch,
-                `${API_BASE_URL}/auth/student-email/${action.payload.email}`,
+                `${API_BASE_URL}/relationship-roles/get-by-email/${action.payload.email}`,
                 {
                     method: 'GET',
                     headers: {
@@ -131,7 +131,6 @@ function* fetchRoles(action) {
                     entities: { roles },
                     result,
                 } = normalize(jsonResult.data, schemas1.roles);
-
                 yield put(
                     actions.completeFetchingRoles(
                         roles,
