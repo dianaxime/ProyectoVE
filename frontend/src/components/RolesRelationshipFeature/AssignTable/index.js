@@ -1,13 +1,12 @@
-import React, { forwardRef, useEffect } from 'react';
+import React, { forwardRef } from 'react';
 import MaterialTable, { MTableToolbar } from 'material-table';
 import { connect } from 'react-redux';
 import {
     getUsersByEmailRolesRelation,
-    getRoles
 } from '../../../reducers';
 import * as actions from '../../../actions/rolesRelationship';
-import * as modalRoles from '../../../actions/modalRoles';
-import * as actionsRol from '../../../actions/selectedRol';
+import * as modalAssign from '../../../actions/modalAssign';
+import * as actionsAU from '../../../actions/selectedAUser';
 import InputBase from '@material-ui/core/InputBase';
 import { reset, Field, reduxForm } from 'redux-form';
 import Chip from '@material-ui/core/Chip';
@@ -51,7 +50,6 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
     />
 );
 
-
 const icons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
     Check: forwardRef((props, ref) => <Check {...props} ref={ref} />),
@@ -91,10 +89,10 @@ const columns = [
 ];
 
 let AssignRoles = ({ data, onSelect, onHandle, handleSubmit, onSubmit }) => {
-    const selectRol = (idRol) => {
-        onSelect(idRol);
+    const onEdit = (idAU) => {
+        onSelect(idAU);
         onHandle();
-    };
+    }
     return (
         <MaterialTable title="Asignar roles de usuario"
             icons={icons}
@@ -104,7 +102,7 @@ let AssignRoles = ({ data, onSelect, onHandle, handleSubmit, onSubmit }) => {
                 {
                     icon: 'save',
                     tooltip: 'Save User',
-                    onClick: (event, rowData) => selectRol(rowData.id),
+                    onClick: (event, rowData) => onEdit(rowData.id),
                 },
             ]}
             components={{
@@ -143,6 +141,7 @@ let AssignRoles = ({ data, onSelect, onHandle, handleSubmit, onSubmit }) => {
                     render: rowData =>
                         <div>
                             {
+                                rowData.idrs !== null && (
                                 rowData.idrs.map(s =>
                                     s !== 0 && (
                                         <Chip key={s} color="secondary" label={description[s]}
@@ -150,8 +149,8 @@ let AssignRoles = ({ data, onSelect, onHandle, handleSubmit, onSubmit }) => {
                                                 marginRight: 5, backgroundColor: '#2e2e2e',
                                                 Color: '#FFF'
                                             }} />)
-                                    )
-
+                                )
+                            )
                             }
                         </div>
                 },
@@ -217,12 +216,12 @@ export default connect(
         data: getUsersByEmailRolesRelation(state),
     }),
     dispatch => ({
-        /*onSelect(id) {
-                dispatch(actionsRol.selectedRol(id));
+        onSelect(id) {
+            dispatch(actionsAU.selectedAUser(id));
         },
         onHandle() {
-                dispatch(modalRoles.changeRoles(true));
-        }*/
+            dispatch(modalAssign.changeAssign(true));
+        },
         onSubmit({ email }) {
             dispatch(
                 actions.startFetchingUsersByEmail(email),

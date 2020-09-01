@@ -8,7 +8,7 @@ import {
 import { URL } from '../../../settings';
 import Nav from '../../Nav';
 import AssignTable from '../AssignTable';
-import RolesModal from '../RolesModal';
+import AssignModal from '../AssignModal';
 import { makeStyles } from '@material-ui/core/styles';
 
 const drawerWidth = 240;
@@ -55,7 +55,7 @@ const AssignPage = ({ open }) => {
             >
                 <div className={classes.drawerHeader} />
                 <AssignTable />
-                <RolesModal />
+                <AssignModal />
             </main>
         </div>
     );

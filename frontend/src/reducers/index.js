@@ -15,10 +15,12 @@ import changeRole, * as changeRoleSelectors from './modalRoles';
 import changeChange, * as changeChangeSelectors from './modalChange';
 import changeUpdate, * as changeUpdateSelectors from './modalUpdate';
 import changeScholar, * as changeScholarSelectors from './modalScholarship';
+import changeAssign, * as changeAssignSelectors from './modalAssign';
 
 import selectedWorkshop, * as selectedWorkshopSelectors from './selectedWorkshop';
 import selectedTeam, * as selectedTeamSelectors from './selectedTeam'; 
-import selectedRol, * as selectedRolSelectors from './selectedRol'; 
+import selectedRol, * as selectedRolSelectors from './selectedRol';
+import selectedAUser, * as selectedAUserSelectors from './selectedAUser'; 
 
 const reducer = combineReducers({
   auth,
@@ -37,6 +39,8 @@ const reducer = combineReducers({
   tournament,
   rolesRelationship,
   selectedRol,
+  changeAssign,
+  selectedAUser,
   form: formReducer,
 });
 
@@ -78,6 +82,8 @@ export const getIsScholarOpen = state => changeScholarSelectors.getIsScholarOpen
 export const getIsChangeOpen = state => changeChangeSelectors.getIsChangeOpen(state.changeChange);
 /* Update Password Modal */
 export const getIsUpdateOpen = state => changeUpdateSelectors.getIsUpdateOpen(state.changeUpdate);
+/* Assign Password Modal */
+export const getIsAssignOpen = state => changeAssignSelectors.getIsAssignOpen(state.changeAssign);
 /* Workshops */
 export const getWorkshop = (state, id) => workshopsSelectors.getWorkshop(state.workshops, id);
 export const getWorkshops = state => workshopsSelectors.getWorkshops(state.workshops);
@@ -133,3 +139,5 @@ export const isFetchingRoles = state => rolesRelationshipSelectors.isFetchingRol
 export const getFetchingErrorRoles = state => rolesRelationshipSelectors.getFetchingErrorRoles(state.rolesRelationship);
 /* Selected Rol */ 
 export const getSelectedRol = (state) => selectedRolSelectors.getSelectedRol(state.selectedRol)
+/* Selected AUser */ 
+export const getSelectedAUser = (state) => selectedAUserSelectors.getSelectedAUser(state.selectedAUser)
