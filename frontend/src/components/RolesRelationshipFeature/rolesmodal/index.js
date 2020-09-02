@@ -23,7 +23,7 @@ const description = {
 let Roles = ({ open, onHandle, role, selected }) => {
     return (
         <MDBContainer>
-            <MDBModal isOpen={open} side position="bottom-left">
+            <MDBModal backdrop={false} isOpen={open} side position="bottom-left">
                 <MDBModalHeader toggle={onHandle}><b>Permisos del {role != null && (role.role)}:</b></MDBModalHeader>
                 <MDBModalBody>
                    {description[selected]}
