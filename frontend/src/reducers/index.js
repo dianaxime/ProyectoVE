@@ -128,8 +128,6 @@ export const getUserByEmailRolesRelation = (state, id) => rolesRelationshipSelec
 export const getUsersByEmailRolesRelation = state => rolesRelationshipSelectors.getUsersByEmailRolesRelation(state.rolesRelationship);
 export const isFetchingUsersByEmailRolesRelation = state => rolesRelationshipSelectors.isFetchingUsersByEmailRolesRelation(state.rolesRelationship);
 export const getFetchingUsersByEmailErrorRolesRelation = state => rolesRelationshipSelectors.getFetchingUsersByEmailErrorRolesRelation(state.rolesRelationship);
-export const getRolesRelationship = (state, id) => rolesRelationshipSelectors.getRolesRelationship(state.rolesRelationship, id);
-export const getRolesRelationships = state => rolesRelationshipSelectors.getRolesRelationships(state.rolesRelationship);
 /* Roles  Modal */
 export const getIsRolesOpen = state => changeRoleSelectors.getIsRolesOpen(state.changeRole);
 /* Roles */

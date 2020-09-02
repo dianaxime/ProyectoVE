@@ -8,6 +8,7 @@ import {
 } from '../../../reducers';
 import { connect } from 'react-redux';
 import * as actionsModal from '../../../actions/modalAssign';
+import * as actions from '../../../actions/rolesRelationship';
 import Chip from '@material-ui/core/Chip';
 import { Field, reduxForm, reset } from 'redux-form';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -71,7 +72,10 @@ let Assign = ({ open, onHandle, roles, handleSubmit, onAssign }) => {
             <MDBModal backdrop={false} isOpen={open} side position="bottom-right">
                 <MDBModalHeader toggle={onHandle}><b>Asigna los roles al usuario</b></MDBModalHeader>
                 <MDBModalBody>
-                    <Field name="idrs" component={renderSelectField} label="Roles" multiple>
+                    <Field name="idrs" component={renderSelectField}
+                        label="Roles" multiple
+                        style={{ width: '300px', minWidth: '200px' }}
+                    >
                         {roles.map((role) => (
                             <MenuItem key={role.id} value={role.id}>
                                 {role.role}
@@ -105,18 +109,24 @@ Assign = connect(
     dispatch => ({
         onHandle() {
             dispatch(actionsModal.changeAssign(false));
+            dispatch(reset('AssignModal'));
         },
-        onAssign({ idrs }) {
-            console.log(idrs);
+        onAssign(values, userid) {
+            const { idrs } = values;
+            let mivalor = idrs.join('')
+            dispatch(actions.startAddingRoleRelationship(userid, mivalor));
+            dispatch(reset('AssignModal'));
+            dispatch(actionsModal.changeAssign(false));
         },
     }),
-    (stateProps, dispatchProps, ownProps) => {
-        return ({
-            ...stateProps,
-            ...dispatchProps,
-            ...ownProps,
-        });
-    }
+    (stateProps, dispatchProps, ownProps) => ({
+        ...stateProps,
+        ...dispatchProps,
+        ...ownProps,
+        onAssign(values) {
+            dispatchProps.onAssign(values, stateProps.user.id)
+        },
+    })
 )(Assign);
 
 export default Assign;

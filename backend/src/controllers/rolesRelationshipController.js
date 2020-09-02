@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const {
     isEmpty,
+    empty,
 } = require('../helpers/validation');
 
 const {
@@ -29,7 +30,7 @@ const createRolesRelationship = async (req, res) => {
         idr
     } = req.body;
 
-    if (isEmpty(userid)) {
+    if (empty(userid) || empty(idr)) {
         errorMessage.error = 'User id, id of role cannot be empty';
         return res.status(status.bad).send(errorMessage);
     }

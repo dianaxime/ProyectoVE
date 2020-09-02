@@ -41,27 +41,25 @@ export const failFetchingRoles = error => ({
     },
 });
 
-export const startAddingRoleRelationship = (id, userid, idr) => ({
+export const startAddingRoleRelationship = (userid, idr) => ({
     type: types.ROLES_RELATIONSHIP_ADD_STARTED,
     payload: {
-        id,
         userid,
         idr,
     },
 });
 
-export const completeAddingRoleRelationship = (oldId, rolesRelation) => ({
+export const completeAddingRoleRelationship = (userid, idr) => ({
     type: types.ROLES_RELATIONSHIP_ADD_COMPLETED,
     payload: {
-        oldId,
-        rolesRelation,
+        userid,
+        idr,
     },
 });
 
-export const failAddingRoleRelationship = (oldId, error) => ({
+export const failAddingRoleRelationship = error => ({
     type: types.ROLES_RELATIONSHIP_ADD_FAILED,
     payload: {
-        oldId,
         error,
     },
 });

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import clsx from 'clsx';
 import {
@@ -9,6 +9,7 @@ import { URL } from '../../../settings';
 import Nav from '../../Nav';
 import AssignTable from '../AssignTable';
 import AssignModal from '../AssignModal';
+import * as actions from '../../../actions/rolesRelationship';
 import { makeStyles } from '@material-ui/core/styles';
 
 const drawerWidth = 240;
@@ -43,7 +44,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const AssignPage = ({ open }) => {
+const AssignPage = ({ open, onLoad }) => {
+    useEffect(onLoad, []);
     const classes = useStyles();
     return (
         <div className={classes.root}>
@@ -66,7 +68,11 @@ export default connect(
         isAuth: getAuthToken(state) !== null,
         open: getIsOpen(state),
     }),
-    undefined,
+    dispatch => ({
+        onLoad() {
+            dispatch(actions.startFetchingRoles());
+        },
+    }),
     (stateProps, disptachProps, ownProps) => {
         if (!stateProps.isAuth) {
             window.location.href = URL + 'auth';

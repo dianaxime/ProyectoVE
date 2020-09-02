@@ -83,12 +83,10 @@ function* addRolesRelationship(action) {
                 }
             );
             if (response.status === 201) {
-                const jsonResult = yield response.json();
-                const info = jsonResult.data[0]
                 yield put(
                     actions.completeAddingRoleRelationship(
-                        action.payload.id,
-                        info,
+                        action.payload.userid,
+                        action.payload.idr,
                     ),
                 );
             } else {
