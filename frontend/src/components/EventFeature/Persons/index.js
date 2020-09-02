@@ -11,7 +11,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import Typography from '@material-ui/core/Typography';
-import * as actions from '../../../actions/participation';
+import * as actions from '../../../actions/eventParticipation';
 
 const Person = ({
   users,
@@ -49,14 +49,14 @@ export default connect(
   state => ({
     users: selectors.getUsersByEmail(state),
     isLoading: selectors.isFetchingUsersByEmail(state),
-    selectWS: selectors.getSelectedEvent(state),
-    workshop: selectors.getEvent(state, selectors.getSelectedEvent(state)),
+    selectEvent: selectors.getSelectedEvent(state),
+    event: selectors.getEvent(state, selectors.getSelectedEvent(state)),
   }),
   dispatch => ({
-    onAssign(userid, idw, date1, date2) {
+    onAssign(userid, ide, date1, date2) {
       const startdate = moment(date1);
       const enddate = moment(date2);
-      dispatch(actions.startAddingParticipation(uuidv4(), userid, idw, startdate.format("YYYY-MM-DD"), enddate.format("YYYY-MM-DD")));
+      dispatch(actions.startAddingEventParticipation(uuidv4(), userid, ide, startdate.format("YYYY-MM-DD"), enddate.format("YYYY-MM-DD")));
     }
   }),
   (stateProps, dispatchProps, ownProps) => ({
@@ -64,7 +64,7 @@ export default connect(
     ...stateProps,
     ...dispatchProps,
     onAssign(id) {
-      dispatchProps.onAssign(id, stateProps.selectWS, stateProps.workshop.startdate, stateProps.workshop.enddate);
+      dispatchProps.onAssign(id, stateProps.selectEvent, stateProps.event.startdate, stateProps.event.enddate);
     },
   })
 )(Person);

@@ -47,6 +47,13 @@ import {
     watchUpdateEvent,
 } from './events';
 
+import {
+    watchUsersFetchEventParticipation,
+    watchEventParticipationFetch,
+    watchAddEventParticipation,
+    watchDeleteEventParticipation,
+} from './eventParticipations';
+
 function* mainSaga() {
     yield all([
         /* Auth */
@@ -83,6 +90,11 @@ function* mainSaga() {
         fork(watchAddEvent),
         fork(watchEventsFetch),
         fork(watchUpdateEvent),
+        /* events participations */
+        fork(watchUsersFetchEventParticipation),
+        fork(watchEventParticipationFetch),
+        fork(watchAddEventParticipation),
+        fork(watchDeleteEventParticipation),
     ]);
 }
 

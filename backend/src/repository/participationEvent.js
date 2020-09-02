@@ -9,6 +9,8 @@ const GET_PARTICIPATIONS_EVENT=`SELECT * FROM event_participation`;
 
 const GET_PARTICIPATION_BY_E_ID=`SELECT users.id, users.first_name, users.last_name, users.email  FROM event_participation  JOIN users on users.id=event_participation.userid where idEvent=$1 `;
 
+const DELETE_EVENT_PARTICIPATION = 'DELETE FROM event_participation WHERE userid = $1 AND ide = $2 returning *';
+
 async function createParticipationEventQuery ({
     userid,
     idEvent,
@@ -21,6 +23,19 @@ async function createParticipationEventQuery ({
     ];
 
     const data = await db.query(CREATE_PARTICIPATION_EVENT, values);
+    return data; 
+};
+
+async function deleteEventParticipationQuery ({
+    userid,
+    idEvent
+}) {
+    const values = [
+        userid,
+        idEvent
+    ];
+
+    const data = await db.query(DELETE_EVENT_PARTICIPATION, values);
     return data; 
 };
 
@@ -42,5 +57,6 @@ async function getParticipationByEQuery(idEvent) {
 module.exports = {
     createParticipationEventQuery,
     getParticipationsEventQuery,
-    getParticipationByEQuery
+    getParticipationByEQuery,
+    deleteEventParticipationQuery
 };

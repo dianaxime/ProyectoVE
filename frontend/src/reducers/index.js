@@ -8,6 +8,7 @@ import teams, * as teamsSelectors from './teams';
 import participation, * as participationSelectors from './participation';
 import tournament, * as tournamentSelectors from './tournament';
 import events, * as eventsSelectors from './events';
+import eventParticipation, * as eventParticipationSelectors from './eventParticipation';
 
 import changeDrawer, * as changeDrawerSelectors from './changeDrawer';
 import changeForgot, * as changeForgotSelectors from './modalForgot';
@@ -35,6 +36,7 @@ const reducer = combineReducers({
   tournament,
   events,
   selectedEvent,
+  eventParticipation,
   form: formReducer,
 });
 
@@ -122,3 +124,12 @@ export const getEvent = (state, id) => eventsSelectors.getEvent(state.events, id
 export const getEvents = state => eventsSelectors.getEvents(state.events);
 export const isFetchingEvents = state => eventsSelectors.isFetchingEvents(state.events);
 export const getFetchingEventsError = state => eventsSelectors.getFetchingEventsError(state.events);
+/* events participation */
+export const getUserByEmailEventParticipation = (state, id) => eventParticipationSelectors.getUserByEmailEventParticipation(state.eventParticipation, id);
+export const getUsersByEmailEventParticipation = state => eventParticipationSelectors.getUsersByEmailEventParticipation(state.eventParticipation);
+export const isFetchingUsersByEmailEventParticipation = state => eventParticipationSelectors.isFetchingUsersByEmailEventParticipation(state.eventParticipation);
+export const getFetchingUsersByEmailErrorEventParticipation = state => eventParticipationSelectors.getFetchingUsersByEmailErrorEventParticipation(state.eventParticipation);
+export const getEventParticipation = (state, id) => eventParticipationSelectors.getEventParticipation(state.eventParticipation, id);
+export const getEventParticipations = state => eventParticipationSelectors.getEventParticipations(state.eventParticipation);
+export const isFetchingEventParticipations = state => eventParticipationSelectors.isFetchingEventParticipations(state.eventParticipation);
+export const getFetchingEventParticipationError = state => eventParticipationSelectors.getFetchingEventParticipationError(state.eventParticipation);

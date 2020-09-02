@@ -3,28 +3,29 @@ import { connect } from 'react-redux';
 import {
     getAuthToken,
     getIsOpen,
-    getWorkshop,
-    getSelectedWorkshop,
+    getEvent,
+    getSelectedEvent,
 } from '../../../reducers';
 import './styles.css';
 import ShowPerson from '../ShowPerson';
+// import { getSelectedEvent } from '../../../reducers/selectedEvent';
 
 
 let ShowPersons = ({
-    selectWorkshop,
-    workshop,
+    selectEvent,
+    event,
 }) => {
     return (
         <div className="personasWorkshop">
             <div className="formP">
                 <h1 className="subP">Personas</h1>
                 {
-                    selectWorkshop ? (
+                    selectEvent ? (
 
-                        <p className="subtituloT">{((Object.entries(workshop)[1])[1])}</p>
+                        <p className="subtituloT">{((Object.entries(event)[1])[1])}</p>
                     ) :
                         (
-                            <p className="subtituloT">*Seleccione un taller*</p>
+                            <p className="subtituloT">*Seleccione un evento*</p>
                         )
                 }
                 {
@@ -43,8 +44,8 @@ ShowPersons = connect(
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
         open: getIsOpen(state),
-        selectWorkshop: getSelectedWorkshop(state) !== null,
-        workshop: getWorkshop(state, getSelectedWorkshop(state)),
+        selectEvent: getSelectedEvent(state) !== null,
+        event: getEvent(state, getSelectedEvent(state)),
     }),
     undefined,
 )(ShowPersons);

@@ -9,7 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import Typography from '@material-ui/core/Typography';
-import * as actions from '../../../actions/participation';
+import * as actions from '../../../actions/eventParticipation';
 
 const Person = ({
   users,
@@ -40,7 +40,7 @@ const Person = ({
             }
           </List>
         ) : (
-            <p className="inputPersonaS">No hay personas asignadas a este taller</p>
+            <p className="inputPersonaS">No hay personas asignadas a este evento</p>
           )
       }
     </div>
@@ -51,16 +51,16 @@ export default connect(
   state => ({
     users: selectors.getParticipations(state),
     isLoading: selectors.isFetchingUsersByEmail(state),
-    selectWS: selectors.getSelectedWorkshop(state),
-    workshop: selectors.getWorkshop(state, selectors.getSelectedWorkshop(state)),
+    selectEvent: selectors.getSelectedEvent(state),
+    event: selectors.getEvent(state, selectors.getSelectedEvent(state)),
   }),
   dispatch => ({
-    onLoad(idw) {
-      dispatch(actions.startFetchingParticipation(idw));
+    onLoad(ide) {
+      dispatch(actions.startFetchingEventParticipation(ide));
     },
-    onDelete(idw, userid) {
-      if ( idw != null && userid != null) {
-        dispatch(actions.startRemovingParticipation(idw, userid));
+    onDelete(ide, userid) {
+      if ( ide != null && userid != null) {
+        dispatch(actions.startRemovingEventParticipation(ide, userid));
       }
     },
   }),
@@ -69,11 +69,11 @@ export default connect(
     ...stateProps,
     ...dispatchProps,
     onLoad() {
-      dispatchProps.onLoad(stateProps.selectWS);
+      dispatchProps.onLoad(stateProps.selectEvent);
     },
     onDelete(id) {
       if (id != null) {
-        dispatchProps.onDelete(stateProps.selectWS, id);
+        dispatchProps.onDelete(stateProps.selectEvent, id);
       }
     },
   })

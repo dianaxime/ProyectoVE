@@ -41,17 +41,17 @@ let SearchPersons = ({
     onSubmit,
     isLoading,
     handleSubmit,
-    selectWorkshop,
-    workshop,
+    selectEvent,
+    event,
 }) => {
     return (
         <div className="personasWorkshop">
             <div className="formP">
                 <h1 className="subP">Personas</h1>
                 {
-                    selectWorkshop ? (
+                    selectEvent ? (
 
-                        <p className="subtituloT">{((Object.entries(workshop)[1])[1])}</p>
+                        <p className="subtituloT">{((Object.entries(event)[1])[1])}</p>
                     ) :
                         (
                             <p className="subtituloT">*Seleccione un evento*</p>
@@ -82,8 +82,8 @@ SearchPersons = connect(
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
         open: getIsOpen(state),
-        selectWorkshop: getSelectedEvent(state) !== null,
-        workshop: getEvent(state, getSelectedEvent(state)),
+        selectEvent: getSelectedEvent(state) !== null,
+        event: getEvent(state, getSelectedEvent(state)),
     }),
     dispatch => ({
         onSubmit({ email }) {
