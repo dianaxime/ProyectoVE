@@ -49,8 +49,8 @@ const Person = ({
 
 export default connect(
   state => ({
-    users: selectors.getParticipations(state),
-    isLoading: selectors.isFetchingUsersByEmail(state),
+    users: selectors.getEventParticipations(state),
+    isLoading: selectors.isFetchingUsersByEmailEventParticipation(state),
     selectEvent: selectors.getSelectedEvent(state),
     event: selectors.getEvent(state, selectors.getSelectedEvent(state)),
   }),
