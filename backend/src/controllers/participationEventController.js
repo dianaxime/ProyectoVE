@@ -90,7 +90,7 @@ const getParticipationByEvent = async (req, res) => {
         return res.status(status.bad).send(errorMessage);
     }
     
-    getParticipationByEQuery({idEvent})
+    getParticipationByEQuery(idEvent)
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {

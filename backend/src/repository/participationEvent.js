@@ -7,7 +7,7 @@ returning *`;
 
 const GET_PARTICIPATIONS_EVENT=`SELECT * FROM event_participation`;
 
-const GET_PARTICIPATION_BY_E_ID=`SELECT users.id, users.first_name, users.last_name, users.email  FROM event_participation  JOIN users on users.id=event_participation.userid where idEvent=$1 `;
+const GET_PARTICIPATION_BY_E_ID=`SELECT users.id, users.first_name, users.last_name, users.email  FROM event_participation  JOIN users on users.id=event_participation.userid where ide=$1 `;
 
 const DELETE_EVENT_PARTICIPATION = 'DELETE FROM event_participation WHERE userid = $1 AND ide = $2 returning *';
 
