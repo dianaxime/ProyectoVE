@@ -1,5 +1,4 @@
 import { v4 as uuidv4 } from 'uuid';
-import moment from 'moment';
 import React from 'react';
 import { connect } from 'react-redux';
 import * as selectors from '../../../reducers';
@@ -11,39 +10,107 @@ import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import Typography from '@material-ui/core/Typography';
+import TextField from '@material-ui/core/TextField';
 import * as actions from '../../../actions/eventParticipation';
+import {
+  withStyles,
+} from '@material-ui/core/styles';
+import { Field, reduxForm } from 'redux-form';
 
-const Person = ({
+const CssTextField = withStyles({
+  root: {
+    '& label.Mui-focused': {
+      color: 'white',
+    },
+    '& .MuiInput-underline:after': {
+      borderBottomColor: 'white',
+    },
+    '& .MuiOutlinedInput-root': {
+      '& fieldset': {
+        borderColor: 'white',
+      },
+      '&:hover fieldset': {
+        borderColor: 'white',
+      },
+      '&.Mui-focused fieldset': {
+        borderColor: 'white',
+      },
+    },
+    '& label': {
+      color: 'white',
+    },
+  },
+})(TextField);
+
+const validate = values => {
+  const errors = {};
+  const requiredFields = ['in', 'out'];
+  requiredFields.forEach(field => {
+    if (!values[field]) {
+      errors[field] = 'Obligatorio*';
+    }
+  })
+  return errors;
+}
+
+const renderTime = ({ input, label, meta: { touched, error }, ...custom }) => (
+  <CssTextField
+    id="time"
+    size="small"
+    variant="outlined"
+    label={label}
+    type="time"
+    className="inputBuscarhora"
+    {...input}
+    {...custom}
+  />
+);
+
+let Person = ({
   users,
   isLoading,
   onAssign,
-}) => (
-    <div className='personaIn'>
-      {
-        users.length > 0 && !isLoading ? (
-          <List className="listaper">
-            {
-              users.map(({id, first_name, last_name, email}) =>
-                <ListItem key={id} className="inputPersona">
-                  <ListItemText primary={first_name + " " + last_name} secondary={
+  handleSubmit
+}) => {
+  return (
+    <div className="all">
+      <div className="hora">
+        <Field label="Hora de entrada" component={renderTime} name="in" value="7:30"></Field>
+        <Field label="Hora de salida" component={renderTime} name="out"></Field>
+      </div>
+      <div className="personas">
+        {
+          users.length > 0 && !isLoading ? (
+            <List className="listaper">
+              {
+                users.map(({ id, first_name, last_name, email }) =>
+                  <ListItem key={id} className="inputPersona">
+                    <ListItemText primary={first_name + " " + last_name} secondary={
                       <Typography component="span"
-                      variant="body2" className="inputPersonaS">{email}</Typography>
-                    }/>
-                  <ListItemSecondaryAction>
-                    <IconButton edge="end" aria-label="agregar" onClick={() => onAssign(id)}>
-                      <PersonAddIcon className="inputPersona" />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              )
-            }
-          </List>
-        ) : (
-          <p className="inputPersonaS">No hay usuarios para mostrar</p>
-        )
-      }
+                        variant="body2" className="inputPersonaS">{email}</Typography>
+                    } />
+                    <ListItemSecondaryAction>
+                      <IconButton edge="end" aria-label="agregar" onClick={() => handleSubmit(onAssign(id))}>
+                        <PersonAddIcon className="inputPersona" />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                )
+              }
+            </List>
+          ) : (
+              <p className="inputPersonaS">No hay usuarios para mostrar</p>
+            )
+        }
+      </div>
     </div>
   );
+}
+
+Person = reduxForm({
+  form: 'AssignEventForm',
+  validate
+})(Person);
 
 export default connect(
   state => ({
@@ -51,20 +118,32 @@ export default connect(
     isLoading: selectors.isFetchingUsersByEmail(state),
     selectEvent: selectors.getSelectedEvent(state),
     event: selectors.getEvent(state, selectors.getSelectedEvent(state)),
+    userid: null,
   }),
   dispatch => ({
-    onAssign(userid, ide, date1, date2) {
-      const startdate = moment(date1);
-      const enddate = moment(date2);
-      dispatch(actions.startAddingEventParticipation(uuidv4(), userid, ide, startdate.format("YYYY-MM-DD"), enddate.format("YYYY-MM-DD")));
+    onSubmit(userid, ide, hours) {
+      dispatch(actions.startAddingEventParticipation(uuidv4(), userid, ide, hours));
     }
   }),
   (stateProps, dispatchProps, ownProps) => ({
     ...ownProps,
     ...stateProps,
     ...dispatchProps,
-    onAssign(id) {
-      dispatchProps.onAssign(id, stateProps.selectEvent, stateProps.event.startdate, stateProps.event.enddate);
+    onSubmit(values) {
+      const inicioMinutos = parseInt(values.in.substr(3, 2));
+      const inicioHoras = parseInt(values.in.substr(0, 2));
+
+      const finMinutos = parseInt(values.out.substr(3, 2));
+      const finHoras = parseInt(values.out.substr(0, 2));
+
+      const inicio = (inicioHoras * 60) + inicioMinutos;
+      const fin = (finHoras * 60) + finMinutos;
+      const resta = Math.abs(fin - inicio)
+      const result = (resta/60).toFixed(2)
+      dispatchProps.onSubmit(stateProps.userid, stateProps.selectEvent, result);
     },
+    onAssign(id) {
+      stateProps.userid = id;
+    }
   })
 )(Person);

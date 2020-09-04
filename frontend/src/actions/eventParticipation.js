@@ -22,12 +22,12 @@ export const failFetchingUsersByEmail = error => ({
     },
 });
 
-export const startAddingEventParticipation = (id, userid, ide, hours) => ({
+export const startAddingEventParticipation = (id, userid, idEvent, hours) => ({
     type: types.EVENT_PARTICIPATION_ADD_STARTED,
     payload: {
         id,
         userid,
-        ide,
+        idEvent,
         hours,
     },
 });
@@ -48,10 +48,10 @@ export const failAddingEventParticipation = (oldId, error) => ({
     },
 });
 
-export const startFetchingEventParticipation = ide => ({
+export const startFetchingEventParticipation = idEvent => ({
     type: types.EVENT_PARTICIPATION_FETCH_STARTED,
     payload: {
-        ide,
+        idEvent,
     },
 });
 
@@ -70,10 +70,10 @@ export const failFetchingEventParticipation = error => ({
     },
 });
 
-export const startRemovingEventParticipation = (ide, userid) => ({
+export const startRemovingEventParticipation = (idEvent, userid) => ({
     type: types.EVENT_PARTICIPATION_REMOVE_STARTED,
     payload: {
-        ide,
+        idEvent,
         userid,
     },
 });

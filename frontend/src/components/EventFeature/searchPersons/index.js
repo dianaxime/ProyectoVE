@@ -25,7 +25,6 @@ const validate = values => {
     return errors;
 }
 
-
 const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
     <InputBase className="inputWorkshop" placeholder={label}
         label={label}
@@ -34,8 +33,6 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
         fullWidth
     />
 );
-
-
 
 let SearchPersons = ({
     onSubmit,
@@ -63,7 +60,7 @@ let SearchPersons = ({
                         <SearchIcon className="iconoBusc" />
                     </IconButton>
                 </div>
-                <div className="personas">
+                <div>
                     <Persons />
                 </div>
                 <hr></hr>

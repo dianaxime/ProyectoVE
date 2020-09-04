@@ -32,6 +32,7 @@ const createParticipationEvent = async (req, res) => {
     } = req.body;
 
     if (empty(userid) || empty(idEvent)  || empty(hours) ) {
+        console.log(userid, idEvent, hours);
         errorMessage.error = 'User id, id of event and hours field cannot be empty';
         return res.status(status.bad).send(errorMessage);
     }

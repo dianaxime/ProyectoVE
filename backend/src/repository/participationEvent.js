@@ -1,8 +1,8 @@
 const db = require('../db/config');
 
 const CREATE_PARTICIPATION_EVENT=`INSERT INTO
-event_participation(userid, idEvent, hours)
-VALUES ($1, $2, $3, $4)
+event_participation(userid, ide, hours)
+VALUES ($1, $2, $3)
 returning *`;
 
 const GET_PARTICIPATIONS_EVENT=`SELECT * FROM event_participation`;

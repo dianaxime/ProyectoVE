@@ -116,7 +116,7 @@ function* fetchEventParticipation(action) {
             const token = yield select(selectors.getAuthToken);
             const response = yield call(
                 fetch,
-                `${API_BASE_URL}/participationEvent/participations-by-event/${action.payload.idt}`,
+                `${API_BASE_URL}/participationEvent/participations-by-event/${action.payload.idEvent}`,
                 {
                     method: 'GET',
                     headers: {
@@ -161,11 +161,11 @@ function* deleteEventParticipation(action) {
         const isAuth = yield select(selectors.isAuthenticated);
 
         if (isAuth) {
-            if (action.payload.idt && action.payload.userid) {
+            if (action.payload.idEvent && action.payload.userid) {
                 const token = yield select(selectors.getAuthToken);
                 const response = yield call(
                     fetch,
-                    `${API_BASE_URL}/participationEvent/delete/${action.payload.idt}/${action.payload.userid}`,
+                    `${API_BASE_URL}/participationEvent/delete/${action.payload.idEvent}/${action.payload.userid}`,
                     {
                         method: 'DELETE',
                         headers: {
