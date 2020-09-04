@@ -114,7 +114,7 @@ Person = reduxForm({
 
 export default connect(
   state => ({
-    users: selectors.getUsersByEmail(state),
+    users: selectors.getUsersByEmailEventParticipation(state),
     isLoading: selectors.isFetchingUsersByEmail(state),
     selectEvent: selectors.getSelectedEvent(state),
     event: selectors.getEvent(state, selectors.getSelectedEvent(state)),
@@ -141,6 +141,7 @@ export default connect(
       const resta = Math.abs(fin - inicio)
       const result = (resta/60).toFixed(2)
       dispatchProps.onSubmit(stateProps.userid, stateProps.selectEvent, result);
+      stateProps.userid = null;
     },
     onAssign(id) {
       stateProps.userid = id;
