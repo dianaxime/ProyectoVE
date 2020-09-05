@@ -7,15 +7,25 @@ import { configureStore } from '../../store';
 import AuthPage from '../AuthPage';
 import HomePage from '../HomePage';
 import AuthorizePage from '../AuthorizePage';
+import TokenRefresh from '../TokenRefresh';
+/* Workshops */
 import AddWorkshopPage from '../WorkshopFeature/AddWorkshopPage';
 import WorkshopsPage from '../WorkshopFeature/WorkshopsPage';
 import EditWorkshopPage from '../WorkshopFeature/EditWorkshopPage';
 import SelectedWorkshopPage from '../WorkshopFeature/SelectedWorkshopPage';
-import TokenRefresh from '../TokenRefresh';
+/* Teams */
 import AddTeamPage from '../TeamFeature/AddTeamPage';
 import TeamsPage from '../TeamFeature/TeamsPage';
 import EditTeamPage from '../TeamFeature/EditTeamPage';
 import SelectedTeamPage from '../TeamFeature/SelectedTeamPage';
+import RolesPage from '../RolesRelationshipFeature/RolesPage';
+import AssignPage from '../RolesRelationshipFeature/AssignPage';
+
+/* Events */
+import AddEventPage from '../EventFeature/AddEventPage';
+import EventsPage from '../EventFeature/EventsPage';
+import EditEventPage from '../EventFeature/EditEventPage';
+import SelectedEventPage from '../EventFeature/SelectedEventPage';
 
 import 'fontsource-roboto';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -42,6 +52,12 @@ const App = () => (
           <Route exact path="/equipos" component={TeamsPage} />
           <Route exact path="/equipo" component={SelectedTeamPage} />
           <Route exact path="/editarequipo" component={EditTeamPage} />
+          <Route exact path="/crearevento" component={AddEventPage} />
+          <Route exact path="/eventos" component={EventsPage} />
+          <Route exact path="/evento" component={SelectedEventPage} />
+          <Route exact path="/editarevento" component={EditEventPage} />
+          <Route exact path="/roles" component={RolesPage} />
+          <Route exact path="/asignaroles" component={AssignPage} />
           <Route render={() => <Redirect to="/" />} />
         </Switch>
       </BrowserRouter>

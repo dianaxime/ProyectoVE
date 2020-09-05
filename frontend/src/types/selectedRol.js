@@ -1,0 +1,1 @@
+export const ROL_SELECTED = 'ROL_SELECTED';

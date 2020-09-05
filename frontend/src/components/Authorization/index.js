@@ -45,7 +45,7 @@ const icons = {
 
 const columns = [
     { title: 'Correo Electrónico', field: 'email' },
-    { title: 'Primer Nombre', field: 'first_name' },
+    { title: 'Nombre', field: 'first_name' },
     { title: 'Apellido', field: 'last_name' },
     { title: 'Estado', field: 'status' },
 ];
