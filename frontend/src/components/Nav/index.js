@@ -22,10 +22,13 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import HomeIcon from '@material-ui/icons/Home';
 import VerifiedUserIcon from '@material-ui/icons/VerifiedUser';
+import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import BrushIcon from '@material-ui/icons/Brush';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import ViewModuleRoundedIcon from '@material-ui/icons/ViewModuleRounded';
+import SecurityIcon from '@material-ui/icons/Security';
+import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import Collapse from '@material-ui/core/Collapse';
 import { connect } from 'react-redux';
 import { getAuthToken, getIsOpen } from '../../reducers';
@@ -122,6 +125,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
   const openA = Boolean(anchorEl);
   const [openW, setOpenW] = useState(null);
   const [openT, setOpenT] = useState(null);
+  const [openRT, setOpenRT] = useState(null);
   const [openE, setOpenE] = useState(null);
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -131,6 +135,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
     setOpen(false);
     setOpenW(false);
     setOpenT(false);
+    setOpenRT(false);
     setOpenE(false);
   };
 
@@ -163,6 +168,10 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
 
   const handleClickTeam = () => {
     setOpenT(!openT);
+  };
+
+  const handleClickRT = () => {
+    setOpenRT(!openRT);
   };
 
   const handleClickEvent = () => {
@@ -259,17 +268,6 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
         </List>
         <Divider />
         <List>
-          <Link to="/authorization" className={classes.link} onClick={handleDrawerClose}>
-            <ListItem button>
-              <ListItemIcon>
-                <VerifiedUserIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Autorización de usuarios"} />
-            </ListItem>
-          </Link>
-        </List>
-        <Divider />
-        <List>
           <ListItem button onClick={handleClickWorkshop}>
             <ListItemIcon>
               <BrushIcon />
@@ -303,7 +301,6 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
           </Collapse>
         </List>
         <Divider />
-        <Divider />
         <List>
           <ListItem button onClick={handleClickTeam}>
             <ListItemIcon>
@@ -330,6 +327,50 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
                     <ListItemText primary={"Ver todos"} />
                     <ListItemSecondaryAction>
                       <ViewModuleRoundedIcon />
+                    </ListItemSecondaryAction>
+                  </ListItemIcon>
+                </ListItem>
+              </Link>
+            </List>
+          </Collapse>
+        </List>
+        <Divider />
+        <List>
+          <ListItem button onClick={handleClickRT}>
+            <ListItemIcon>
+              <SecurityIcon />
+            </ListItemIcon>
+            <ListItemText primary="Autorización" />
+            {openRT ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={openRT} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <Link to="/authorization" className={classes.link} onClick={handleDrawerClose}>
+                <ListItem button className={classes.nested}>
+                  <ListItemIcon>
+                    <ListItemText primary={"Autorización de usuarios"} />
+                    <ListItemSecondaryAction>
+                      <VerifiedUserIcon />
+                    </ListItemSecondaryAction>
+                  </ListItemIcon>
+                </ListItem>
+              </Link>
+              <Link to="/roles" className={classes.link} onClick={handleDrawerClose}>
+                <ListItem button className={classes.nested}>
+                  <ListItemIcon>
+                    <ListItemText primary={"Roles de usuario"} />
+                    <ListItemSecondaryAction>
+                      <AssignmentIndIcon />
+                    </ListItemSecondaryAction>
+                  </ListItemIcon>
+                </ListItem>
+              </Link>
+              <Link to="/asignaroles" className={classes.link} onClick={handleDrawerClose}>
+                <ListItem button className={classes.nested}>
+                  <ListItemIcon>
+                    <ListItemText primary={"Asignación de Roles"} />
+                    <ListItemSecondaryAction>
+                      <SupervisedUserCircleIcon />
                     </ListItemSecondaryAction>
                   </ListItemIcon>
                 </ListItem>

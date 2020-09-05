@@ -37,7 +37,7 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
 let Change = ({ open, onHandle, onSubmit, handleSubmit, Message }) => {
     return (
         <MDBContainer>
-            <MDBModal isOpen={open} side position="bottom-left">
+            <MDBModal backdrop={false} isOpen={open} side position="bottom-left">
                 <MDBModalHeader toggle={onHandle}><b>Cambiar Contraseña</b></MDBModalHeader>
                 <MDBModalBody>
                     <div>

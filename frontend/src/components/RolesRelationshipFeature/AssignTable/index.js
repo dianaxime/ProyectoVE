@@ -1,10 +1,15 @@
-import React, { forwardRef, useEffect } from 'react';
-import MaterialTable from 'material-table';
+import React, { forwardRef } from 'react';
+import MaterialTable, { MTableToolbar } from 'material-table';
 import { connect } from 'react-redux';
 import {
-    getPendingUsers
-} from '../../reducers';
-import * as actions from '../../actions/auth';
+    getUsersByEmailRolesRelation,
+} from '../../../reducers';
+import * as actions from '../../../actions/rolesRelationship';
+import * as modalAssign from '../../../actions/modalAssign';
+import * as actionsAU from '../../../actions/selectedAUser';
+import InputBase from '@material-ui/core/InputBase';
+import Chip from '@material-ui/core/Chip';
+import { reset, Field, reduxForm } from 'redux-form';
 
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
@@ -21,7 +26,29 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
-import HowToRegIcon from '@material-ui/icons/HowToReg';
+import MoreIcon from '@material-ui/icons/More';
+import SearchIcon from '@material-ui/icons/Search';
+import IconButton from '@material-ui/core/IconButton';
+
+const validate = values => {
+    const errors = {};
+    const requiredFields = ['email'];
+    requiredFields.forEach(field => {
+        if (!values[field]) {
+            errors[field] = 'Obligatorio*';
+        }
+    })
+    return errors;
+};
+
+const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
+    <InputBase className="inputWorkshop" placeholder={label}
+        label={label}
+        {...input}
+        {...custom}
+        fullWidth
+    />
+);
 
 const icons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -40,20 +67,34 @@ const icons = {
     Search: forwardRef((props, ref) => <Search {...props} ref={ref} />),
     SortArrow: forwardRef((props, ref) => <ArrowDownward {...props} ref={ref} />),
     ThirdStateCheck: forwardRef((props, ref) => <Remove {...props} ref={ref} />),
-    ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />)
+    ViewColumn: forwardRef((props, ref) => <ViewColumn {...props} ref={ref} />),
+    MoreIcon: forwardRef((props, ref) => <MoreIcon {...props} ref={ref} />)
+};
+
+const description = {
+    1: 'Administrador',
+    2: 'Asistente',
+    3: 'Auxiliar oficina',
+    4: 'Miembro asociación',
+    5: 'Miembro taller',
+    6: 'Miembro equipo',
+    7: 'Miembro club',
+    8: 'Auxiliar eventos'
 };
 
 const columns = [
-    { title: 'Correo Electrónico', field: 'email' },
     { title: 'Nombre', field: 'first_name' },
     { title: 'Apellido', field: 'last_name' },
-    { title: 'Estado', field: 'status' },
+    { title: 'Correo', field: 'email' },
 ];
 
-const Authorization = ({ data, onLoad, onAuthorize }) => {
-    useEffect(onLoad, []);
+let AssignRoles = ({ data, onSelect, onHandle, handleSubmit, onSubmit }) => {
+    const onEdit = (idAU) => {
+        onSelect(idAU);
+        onHandle();
+    }
     return (
-        <MaterialTable title="Autorización"
+        <MaterialTable title="Asignar roles de usuario"
             icons={icons}
             columns={columns}
             data={data}
@@ -61,18 +102,29 @@ const Authorization = ({ data, onLoad, onAuthorize }) => {
                 {
                     icon: 'save',
                     tooltip: 'Save User',
-                    onClick: (event, rowData) => onAuthorize(rowData.email),
+                    onClick: (event, rowData) => onEdit(rowData.id),
                 },
             ]}
             components={{
                 Action: props => (
-                    <button style={{backgroundColor: '#2e2e2e'}}
+                    <button style={{ backgroundColor: '#2e2e2e' }}
                         onClick={(event) => props.action.onClick(event, props.data)}
                         variant="contained"
                         size="small"
                     >
-                        <HowToRegIcon  style={{color: '#FFF'}}/>
+                        <MoreIcon style={{ color: '#FFF' }} />
                     </button>
+                ),
+                Toolbar: props => (
+                    <div>
+                        <div style={{ display: 'flex', flexDirection: 'row', height: '40px', width: '250px', float: 'right', borderBottom: 'solid', borderWidth: '1px', marginRight: '10px', marginTop: '10px' }}>
+                            <IconButton edge="end" aria-label="agregar" onClick={handleSubmit(onSubmit)}>
+                                <SearchIcon style={{ Color: '#2e2e2e' }} />
+                            </IconButton>
+                            <Field name="email" component={renderTextField} label="Buscar" ></Field>
+                        </div>
+                        <MTableToolbar {...props} />
+                    </div>
                 ),
             }}
             options={{
@@ -81,7 +133,28 @@ const Authorization = ({ data, onLoad, onAuthorize }) => {
                     backgroundColor: '#2e2e2e',
                     color: '#FFF'
                 },
+                search: false,
             }}
+            detailPanel={[
+                {
+                    tooltip: 'Mostrar Roles',
+                    render: rowData =>
+                        <div>
+                            {
+                                rowData.idrs !== null && (
+                                rowData.idrs.map(s =>
+                                    s !== 0 && (
+                                        <Chip key={s} color="secondary" label={description[s]}
+                                            style={{
+                                                marginRight: 5, backgroundColor: '#2e2e2e',
+                                                Color: '#FFF'
+                                            }} />)
+                                )
+                            )
+                            }
+                        </div>
+                },
+            ]}
             localization={{
                 body: {
                     emptyDataSourceMessage: 'No hay registros que mostrar',
@@ -133,16 +206,27 @@ const Authorization = ({ data, onLoad, onAuthorize }) => {
     );
 }
 
+AssignRoles = reduxForm({
+    form: 'searchAssignForm',
+    validate
+})(AssignRoles);
+
 export default connect(
     state => ({
-        data: getPendingUsers(state),
+        data: getUsersByEmailRolesRelation(state),
     }),
     dispatch => ({
-        onLoad() {
-            dispatch(actions.startFetchingUsers());
+        onSelect(id) {
+            dispatch(actionsAU.selectedAUser(id));
         },
-        onAuthorize(email) {
-            dispatch(actions.startAuthorize(email));
+        onHandle() {
+            dispatch(modalAssign.changeAssign(true));
         },
-    }),
-)(Authorization);
+        onSubmit({ email }) {
+            dispatch(
+                actions.startFetchingUsersByEmail(email),
+                dispatch(reset('searchAssignForm')),
+            );
+        },
+    })
+)(AssignRoles);

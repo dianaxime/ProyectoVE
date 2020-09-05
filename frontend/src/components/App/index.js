@@ -18,6 +18,8 @@ import AddTeamPage from '../TeamFeature/AddTeamPage';
 import TeamsPage from '../TeamFeature/TeamsPage';
 import EditTeamPage from '../TeamFeature/EditTeamPage';
 import SelectedTeamPage from '../TeamFeature/SelectedTeamPage';
+import RolesPage from '../RolesRelationshipFeature/RolesPage';
+import AssignPage from '../RolesRelationshipFeature/AssignPage';
 
 /* Events */
 import AddEventPage from '../EventFeature/AddEventPage';
@@ -54,6 +56,8 @@ const App = () => (
           <Route exact path="/eventos" component={EventsPage} />
           <Route exact path="/evento" component={SelectedEventPage} />
           <Route exact path="/editarevento" component={EditEventPage} />
+          <Route exact path="/roles" component={RolesPage} />
+          <Route exact path="/asignaroles" component={AssignPage} />
           <Route render={() => <Redirect to="/" />} />
         </Switch>
       </BrowserRouter>

@@ -54,6 +54,12 @@ import {
     watchDeleteEventParticipation,
 } from './eventParticipations';
 
+import {
+    watchUsersFetchRolesRelationship,
+    watchAddRolesRelationship,
+    watchFetchRoles,
+} from './rolesRelationship';
+
 function* mainSaga() {
     yield all([
         /* Auth */
@@ -95,6 +101,10 @@ function* mainSaga() {
         fork(watchEventParticipationFetch),
         fork(watchAddEventParticipation),
         fork(watchDeleteEventParticipation),
+        /* Roles Relationship */
+        fork(watchUsersFetchRolesRelationship),
+        fork(watchAddRolesRelationship),
+        fork(watchFetchRoles),
     ]);
 }
 

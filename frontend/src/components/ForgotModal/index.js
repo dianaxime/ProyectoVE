@@ -37,7 +37,7 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
 let Forgot = ({ open, onHandle, Message, onSubmit, handleSubmit }) => {
     return (
         <MDBContainer>
-            <MDBModal  isOpen={open}>
+            <MDBModal  backdrop={false} isOpen={open}>
                 <MDBModalHeader toggle={onHandle}><b>Recuperar Contraseña</b></MDBModalHeader>
                 <MDBModalBody>
                     <div>
