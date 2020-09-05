@@ -336,6 +336,40 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
         </List>
         <Divider />
         <List>
+          <ListItem button onClick={handleClickEvent}>
+            <ListItemIcon>
+              <EventNoteIcon />
+            </ListItemIcon>
+            <ListItemText primary="Eventos" />
+            {openE ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={openE} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <Link to="/crearevento" className={classes.link} onClick={handleDrawerClose}>
+                <ListItem button className={classes.nested}>
+                  <ListItemIcon>
+                    <ListItemText primary={"Crear"} />
+                    <ListItemSecondaryAction>
+                      <NoteAddIcon />
+                    </ListItemSecondaryAction>
+                  </ListItemIcon>
+                </ListItem>
+              </Link>
+              <Link to="/eventos" className={classes.link} onClick={handleDrawerClose}>
+                <ListItem button className={classes.nested}>
+                  <ListItemIcon>
+                    <ListItemText primary={"Ver todos"} />
+                    <ListItemSecondaryAction>
+                      <ViewModuleRoundedIcon />
+                    </ListItemSecondaryAction>
+                  </ListItemIcon>
+                </ListItem>
+              </Link>
+            </List>
+          </Collapse>
+        </List>
+        <Divider />
+        <List>
           <ListItem button onClick={handleClickRT}>
             <ListItemIcon>
               <SecurityIcon />
@@ -371,40 +405,6 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
                     <ListItemText primary={"Asignación de Roles"} />
                     <ListItemSecondaryAction>
                       <SupervisedUserCircleIcon />
-                    </ListItemSecondaryAction>
-                  </ListItemIcon>
-                </ListItem>
-              </Link>
-            </List>
-          </Collapse>
-        </List>
-        <Divider />
-        <List>
-          <ListItem button onClick={handleClickEvent}>
-            <ListItemIcon>
-              <EventNoteIcon />
-            </ListItemIcon>
-            <ListItemText primary="Eventos" />
-            {openE ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={openE} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <Link to="/crearevento" className={classes.link} onClick={handleDrawerClose}>
-                <ListItem button className={classes.nested}>
-                  <ListItemIcon>
-                    <ListItemText primary={"Crear"} />
-                    <ListItemSecondaryAction>
-                      <NoteAddIcon />
-                    </ListItemSecondaryAction>
-                  </ListItemIcon>
-                </ListItem>
-              </Link>
-              <Link to="/eventos" className={classes.link} onClick={handleDrawerClose}>
-                <ListItem button className={classes.nested}>
-                  <ListItemIcon>
-                    <ListItemText primary={"Ver todos"} />
-                    <ListItemSecondaryAction>
-                      <ViewModuleRoundedIcon />
                     </ListItemSecondaryAction>
                   </ListItemIcon>
                 </ListItem>
