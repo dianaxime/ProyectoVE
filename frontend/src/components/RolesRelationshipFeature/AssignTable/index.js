@@ -8,8 +8,8 @@ import * as actions from '../../../actions/rolesRelationship';
 import * as modalAssign from '../../../actions/modalAssign';
 import * as actionsAU from '../../../actions/selectedAUser';
 import InputBase from '@material-ui/core/InputBase';
-import { reset, Field, reduxForm } from 'redux-form';
 import Chip from '@material-ui/core/Chip';
+import { reset, Field, reduxForm } from 'redux-form';
 
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
