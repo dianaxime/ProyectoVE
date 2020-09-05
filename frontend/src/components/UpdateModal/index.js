@@ -83,7 +83,7 @@ let UpdateUserForm = ({ open, onHandle, onSubmit, handleSubmit, Message }) => {
     return (
         <MDBContainer >
             <div className={classes.drawerHeader}></div>
-            <MDBModal isOpen={open} side position="bottom">
+            <MDBModal backdrop={false} isOpen={open} side position="bottom">
                 <MDBModalHeader toggle={onHandle}><b>Actualizar Perfil</b></MDBModalHeader>
                 <MDBModalBody>
                     <MDBCol>

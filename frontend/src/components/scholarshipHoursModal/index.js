@@ -33,7 +33,7 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
 let scholarship_hours= ({ open, onHandle, onSubmit, handleSubmit }) => {
     return (
         <MDBContainer>
-            <MDBModal  isOpen={open} side position="bottom-left">
+            <MDBModal backdrop={false} isOpen={open} side position="bottom-left">
                 <MDBModalHeader toggle={onHandle}><b>Horas de Beca</b></MDBModalHeader>
                 <MDBModalBody>
                     <div>

@@ -32,6 +32,12 @@ JOIN team ON team.id=tournament.idt WHERE users.id=$1`;
 const GET_WS_BY_STUDENT_ID= `SELECT workshop.name, workshop.description FROM users JOIN participation ON users.id=participation.userid
 JOIN workshop ON workshop.id=participation.idw WHERE users.id=$1`;
 
+const GET_ASSOCIATION_BY_STUDENT_ID=`SELECT association_club.name, association_club.description FROM users JOIN association_club_relationship ON users.id=association_club_relationship.userid
+JOIN association_club ON association_club.id=association_club_relationship.idac WHERE users.id=$1 and association_club.type='asociación'`;
+
+const GET_CLUB_BY_STUDENT_ID=`SELECT association_club.name, association_club.description FROM users JOIN association_club_relationship ON users.id=association_club_relationship.userid
+JOIN association_club ON association_club.id=association_club_relationship.idac WHERE users.id=$1 and association_club.type='club'`;
+
 async function createUserQuery({email, password}) {
     
     const created_on = moment(new Date());
@@ -140,6 +146,26 @@ async function getStudentsWSByIdQuery({ id }) {
     return data;
 };
 
+async function getStudentsAByIdQuery( id ) {
+
+    const values = [
+        id
+    ];
+
+    const data = await db.query(GET_ASSOCIATION_BY_STUDENT_ID, values);
+    return data;
+};
+
+async function getStudentsCByIdQuery( id ) {
+
+    const values = [
+        id
+    ];
+
+    const data = await db.query(GET_CLUB_BY_STUDENT_ID, values);
+    return data;
+};
+
 async function forgotPasswordQuery({ email, password }) {
     
     const modified_on = moment(new Date());
@@ -218,5 +244,7 @@ module.exports = {
     getStudentsQuery,
     getStudentByEmailQuery,
     getStudentsTeamsByIdQuery,
-    getStudentsWSByIdQuery
+    getStudentsWSByIdQuery,
+    getStudentsCByIdQuery,
+    getStudentsAByIdQuery
 };

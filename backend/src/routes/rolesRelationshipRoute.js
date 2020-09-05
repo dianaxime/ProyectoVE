@@ -4,7 +4,8 @@ const {
     createRolesRelationship,
     deleteRolesRelationship,
     getWorkshopByRoleAndUser,
-    getTeamByRoleAndUser
+    getTeamByRoleAndUser,
+    getUserByEmailRoles
 } = require('../controllers/rolesRelationshipController');
 const verifyAuth = require('../middleware/verifyAuth');
 
@@ -14,5 +15,6 @@ router.post('/relationship-roles/create', verifyAuth, createRolesRelationship);
 router.delete('/relationship-roles/delete', verifyAuth, deleteRolesRelationship);
 router.get('/relationship-roles/get-workshops-user', verifyAuth, getWorkshopByRoleAndUser);
 router.get('/relationship-roles/get-teams-user', verifyAuth, getTeamByRoleAndUser);
+router.get('/relationship-roles/get-by-email/:email', verifyAuth, getUserByEmailRoles);
 
 module.exports = router;

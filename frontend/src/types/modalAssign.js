@@ -1,0 +1,1 @@
+export const ASSIGN_OPENED = 'ASSIGN_OPENED';

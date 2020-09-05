@@ -7,6 +7,7 @@ const {
     isValidEmail,
     validatePassword,
     isEmpty,
+    empty,
     generateUserToken,
 } = require('../helpers/validation');
 
@@ -27,7 +28,9 @@ const {
     getStudentsQuery,
     getStudentByEmailQuery,
     getStudentsTeamsByIdQuery,
-    getStudentsWSByIdQuery
+    getStudentsWSByIdQuery,
+    getStudentsAByIdQuery,
+    getStudentsCByIdQuery
 } = require('../repository/users');
 
 /**
@@ -299,6 +302,59 @@ const getStudentsTeamsById = async (req, res)=>{
     })
 }
 
+const getStudentsAbyId = async (req, res) => {
+    
+    const id = req.params.id;
+
+    if (empty(id)) {
+        errorMessage.error = 'ID of user detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    getStudentsAByIdQuery(id)
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'No participation of student in associations';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+const getStudentsCbyId = async (req, res) => {
+    
+    const id = req.params.id;
+
+    if (empty(id)) {
+        errorMessage.error = 'ID of user detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    getStudentsCByIdQuery(id)
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'No participation of student in clubs';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
 
 /**
  * Get students by workshop id
@@ -585,5 +641,7 @@ module.exports = {
     getStudents,
     getStudentByEmail,
     getStudentsTeamsById,
-    getStudentsWSById
+    getStudentsWSById,
+    getStudentsCbyId,
+    getStudentsAbyId
 };

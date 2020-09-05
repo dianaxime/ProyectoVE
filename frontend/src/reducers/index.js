@@ -7,20 +7,29 @@ import scholars, * as scholarsSelectors from './scholars';
 import teams, * as teamsSelectors from './teams'; 
 import participation, * as participationSelectors from './participation';
 import tournament, * as tournamentSelectors from './tournament';
+import events, * as eventsSelectors from './events';
+import eventParticipation, * as eventParticipationSelectors from './eventParticipation';
+import rolesRelationship, * as rolesRelationshipSelectors from './rolesRelationship';
 
 import changeDrawer, * as changeDrawerSelectors from './changeDrawer';
 import changeForgot, * as changeForgotSelectors from './modalForgot';
+import changeRole, * as changeRoleSelectors from './modalRoles'; 
 import changeChange, * as changeChangeSelectors from './modalChange';
 import changeUpdate, * as changeUpdateSelectors from './modalUpdate';
 import changeScholar, * as changeScholarSelectors from './modalScholarship';
+import changeAssign, * as changeAssignSelectors from './modalAssign';
 
 import selectedWorkshop, * as selectedWorkshopSelectors from './selectedWorkshop';
 import selectedTeam, * as selectedTeamSelectors from './selectedTeam'; 
+import selectedEvent, * as selectedEventSelectors from './selectedEvent'; 
+import selectedRol, * as selectedRolSelectors from './selectedRol';
+import selectedAUser, * as selectedAUserSelectors from './selectedAUser'; 
 
 const reducer = combineReducers({
   auth,
   changeDrawer,
   changeForgot,
+  changeRole, 
   changeChange,
   changeUpdate,
   workshops,
@@ -31,6 +40,13 @@ const reducer = combineReducers({
   selectedTeam,
   participation,
   tournament,
+  events,
+  selectedEvent,
+  eventParticipation,
+  rolesRelationship,
+  selectedRol,
+  changeAssign,
+  selectedAUser,
   form: formReducer,
 });
 
@@ -72,6 +88,8 @@ export const getIsScholarOpen = state => changeScholarSelectors.getIsScholarOpen
 export const getIsChangeOpen = state => changeChangeSelectors.getIsChangeOpen(state.changeChange);
 /* Update Password Modal */
 export const getIsUpdateOpen = state => changeUpdateSelectors.getIsUpdateOpen(state.changeUpdate);
+/* Assign Password Modal */
+export const getIsAssignOpen = state => changeAssignSelectors.getIsAssignOpen(state.changeAssign);
 /* Workshops */
 export const getWorkshop = (state, id) => workshopsSelectors.getWorkshop(state.workshops, id);
 export const getWorkshops = state => workshopsSelectors.getWorkshops(state.workshops);
@@ -91,6 +109,8 @@ export const getFetchingScholarsError = state => scholarsSelectors.getFetchingSc
 export const getSelectedWorkshop = (state) => selectedWorkshopSelectors.getSelectedWorkshop(state.selectedWorkshop)
 /* Selected Team */ 
 export const getSelectedTeam = (state) => selectedTeamSelectors.getSelectedTeam(state.selectedTeam)
+/* Selected Event */ 
+export const getSelectedEvent = (state) => selectedEventSelectors.getSelectedEvent(state.selectedEvent)
 /* Participations */
 export const getUserByEmail = (state, id) => participationSelectors.getUserByEmail(state.participation, id);
 export const getUsersOrder = state => participationSelectors.getUsersOrder(state.participation);
@@ -111,3 +131,33 @@ export const getTournament = (state, id) => tournamentSelectors.getTournament(st
 export const getTournaments = state => tournamentSelectors.getTournaments(state.tournament);
 export const isFetchingTournaments = state => tournamentSelectors.isFetchingTournaments(state.tournament);
 export const getFetchingTournamentError = state => tournamentSelectors.getFetchingTournamentError(state.tournament);
+/* Events */
+export const getEvent = (state, id) => eventsSelectors.getEvent(state.events, id);
+export const getEvents = state => eventsSelectors.getEvents(state.events);
+export const isFetchingEvents = state => eventsSelectors.isFetchingEvents(state.events);
+export const getFetchingEventsError = state => eventsSelectors.getFetchingEventsError(state.events);
+/* events participation */
+export const getUserByEmailEventParticipation = (state, id) => eventParticipationSelectors.getUserByEmailEventParticipation(state.eventParticipation, id);
+export const getUsersByEmailEventParticipation = state => eventParticipationSelectors.getUsersByEmailEventParticipation(state.eventParticipation);
+export const isFetchingUsersByEmailEventParticipation = state => eventParticipationSelectors.isFetchingUsersByEmailEventParticipation(state.eventParticipation);
+export const getFetchingUsersByEmailErrorEventParticipation = state => eventParticipationSelectors.getFetchingUsersByEmailErrorEventParticipation(state.eventParticipation);
+export const getEventParticipation = (state, id) => eventParticipationSelectors.getEventParticipation(state.eventParticipation, id);
+export const getEventParticipations = state => eventParticipationSelectors.getEventParticipations(state.eventParticipation);
+export const isFetchingEventParticipations = state => eventParticipationSelectors.isFetchingEventParticipations(state.eventParticipation);
+export const getFetchingEventParticipationError = state => eventParticipationSelectors.getFetchingEventParticipationError(state.eventParticipation);
+/* Roles Relationship */
+export const getUserByEmailRolesRelation = (state, id) => rolesRelationshipSelectors.getUserByEmailRolesRelation(state.rolesRelationship, id);
+export const getUsersByEmailRolesRelation = state => rolesRelationshipSelectors.getUsersByEmailRolesRelation(state.rolesRelationship);
+export const isFetchingUsersByEmailRolesRelation = state => rolesRelationshipSelectors.isFetchingUsersByEmailRolesRelation(state.rolesRelationship);
+export const getFetchingUsersByEmailErrorRolesRelation = state => rolesRelationshipSelectors.getFetchingUsersByEmailErrorRolesRelation(state.rolesRelationship);
+/* Roles  Modal */
+export const getIsRolesOpen = state => changeRoleSelectors.getIsRolesOpen(state.changeRole);
+/* Roles */
+export const getRole = (state, id) => rolesRelationshipSelectors.getRole(state.rolesRelationship, id);
+export const getRoles = state => rolesRelationshipSelectors.getRoles(state.rolesRelationship);
+export const isFetchingRoles = state => rolesRelationshipSelectors.isFetchingRoles(state.rolesRelationship);
+export const getFetchingErrorRoles = state => rolesRelationshipSelectors.getFetchingErrorRoles(state.rolesRelationship);
+/* Selected Rol */ 
+export const getSelectedRol = (state) => selectedRolSelectors.getSelectedRol(state.selectedRol)
+/* Selected AUser */ 
+export const getSelectedAUser = (state) => selectedAUserSelectors.getSelectedAUser(state.selectedAUser)
