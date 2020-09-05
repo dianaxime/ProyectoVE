@@ -13,7 +13,7 @@ const Events = ({ event, isLoading, onLoad }) => {
             {
                 event.length > 0 && !isLoading && (
 
-                    <div className="eventsContainer">
+                    <div className="eventssContainer">
 
                         {
                             event.map(({ id }) => <Event key={id}
