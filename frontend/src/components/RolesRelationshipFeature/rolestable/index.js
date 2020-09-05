@@ -2,9 +2,11 @@ import React, { forwardRef, useEffect } from 'react';
 import MaterialTable from 'material-table';
 import { connect } from 'react-redux';
 import {
-    getPendingUsers
-} from '../../reducers';
-import * as actions from '../../actions/auth';
+    getRoles
+} from '../../../reducers';
+import * as actions from '../../../actions/rolesRelationship';
+import * as modalRoles from '../../../actions/modalRoles';
+import * as actionsRol from '../../../actions/selectedRol';
 
 import AddBox from '@material-ui/icons/AddBox';
 import ArrowDownward from '@material-ui/icons/ArrowDownward';
@@ -21,7 +23,7 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
-import HowToRegIcon from '@material-ui/icons/HowToReg';
+import FindInPageIcon from '@material-ui/icons/FindInPage';
 
 const icons = {
     Add: forwardRef((props, ref) => <AddBox {...props} ref={ref} />),
@@ -44,16 +46,18 @@ const icons = {
 };
 
 const columns = [
-    { title: 'Correo Electrónico', field: 'email' },
-    { title: 'Nombre', field: 'first_name' },
-    { title: 'Apellido', field: 'last_name' },
-    { title: 'Estado', field: 'status' },
+    { title: 'Rol', field: 'role' },
+    { title: 'Cant. Personas', field: 'coalesce' },
 ];
 
-const Authorization = ({ data, onLoad, onAuthorize }) => {
+const Roles = ({ data, onLoad, onSelect, onHandle }) => {
     useEffect(onLoad, []);
+    const selectRol = (idRol) => {
+        onSelect(idRol);
+        onHandle();
+    };
     return (
-        <MaterialTable title="Autorización"
+        <MaterialTable title="Roles de usuario"
             icons={icons}
             columns={columns}
             data={data}
@@ -61,7 +65,7 @@ const Authorization = ({ data, onLoad, onAuthorize }) => {
                 {
                     icon: 'save',
                     tooltip: 'Save User',
-                    onClick: (event, rowData) => onAuthorize(rowData.email),
+                    onClick: (event, rowData) => selectRol(rowData.id),
                 },
             ]}
             components={{
@@ -71,7 +75,7 @@ const Authorization = ({ data, onLoad, onAuthorize }) => {
                         variant="contained"
                         size="small"
                     >
-                        <HowToRegIcon  style={{color: '#FFF'}}/>
+                        <FindInPageIcon  style={{color: '#FFF'}}/>
                     </button>
                 ),
             }}
@@ -135,14 +139,17 @@ const Authorization = ({ data, onLoad, onAuthorize }) => {
 
 export default connect(
     state => ({
-        data: getPendingUsers(state),
+        data: getRoles(state),
     }),
     dispatch => ({
         onLoad() {
-            dispatch(actions.startFetchingUsers());
+            dispatch(actions.startFetchingRoles());
         },
-        onAuthorize(email) {
-            dispatch(actions.startAuthorize(email));
+        onSelect(id) {
+            dispatch(actionsRol.selectedRol(id));
         },
+        onHandle() {
+            dispatch(modalRoles.changeRoles(true));
+        }
     }),
-)(Authorization);
+)(Roles);
