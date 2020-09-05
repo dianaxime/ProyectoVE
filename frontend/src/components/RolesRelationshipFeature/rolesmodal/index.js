@@ -1,11 +1,11 @@
-import React from './node_modules/react';
-import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from './node_modules/mdbreact';
+import React from 'react';
+import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter } from 'mdbreact';
 import { 
     getIsRolesOpen,
     getRole,
     getSelectedRol
 } from '../../../reducers';
-import { connect } from './node_modules/react-redux';
+import { connect } from 'react-redux';
 import * as actionsModal from '../../../actions/modalRoles';
 
 
