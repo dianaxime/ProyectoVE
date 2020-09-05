@@ -7,6 +7,8 @@ import scholars, * as scholarsSelectors from './scholars';
 import teams, * as teamsSelectors from './teams'; 
 import participation, * as participationSelectors from './participation';
 import tournament, * as tournamentSelectors from './tournament';
+import events, * as eventsSelectors from './events';
+import eventParticipation, * as eventParticipationSelectors from './eventParticipation';
 import rolesRelationship, * as rolesRelationshipSelectors from './rolesRelationship';
 
 import changeDrawer, * as changeDrawerSelectors from './changeDrawer';
@@ -19,6 +21,7 @@ import changeAssign, * as changeAssignSelectors from './modalAssign';
 
 import selectedWorkshop, * as selectedWorkshopSelectors from './selectedWorkshop';
 import selectedTeam, * as selectedTeamSelectors from './selectedTeam'; 
+import selectedEvent, * as selectedEventSelectors from './selectedEvent'; 
 import selectedRol, * as selectedRolSelectors from './selectedRol';
 import selectedAUser, * as selectedAUserSelectors from './selectedAUser'; 
 
@@ -37,6 +40,9 @@ const reducer = combineReducers({
   selectedTeam,
   participation,
   tournament,
+  events,
+  selectedEvent,
+  eventParticipation,
   rolesRelationship,
   selectedRol,
   changeAssign,
@@ -103,6 +109,8 @@ export const getFetchingScholarsError = state => scholarsSelectors.getFetchingSc
 export const getSelectedWorkshop = (state) => selectedWorkshopSelectors.getSelectedWorkshop(state.selectedWorkshop)
 /* Selected Team */ 
 export const getSelectedTeam = (state) => selectedTeamSelectors.getSelectedTeam(state.selectedTeam)
+/* Selected Event */ 
+export const getSelectedEvent = (state) => selectedEventSelectors.getSelectedEvent(state.selectedEvent)
 /* Participations */
 export const getUserByEmail = (state, id) => participationSelectors.getUserByEmail(state.participation, id);
 export const getUsersOrder = state => participationSelectors.getUsersOrder(state.participation);
@@ -123,6 +131,20 @@ export const getTournament = (state, id) => tournamentSelectors.getTournament(st
 export const getTournaments = state => tournamentSelectors.getTournaments(state.tournament);
 export const isFetchingTournaments = state => tournamentSelectors.isFetchingTournaments(state.tournament);
 export const getFetchingTournamentError = state => tournamentSelectors.getFetchingTournamentError(state.tournament);
+/* Events */
+export const getEvent = (state, id) => eventsSelectors.getEvent(state.events, id);
+export const getEvents = state => eventsSelectors.getEvents(state.events);
+export const isFetchingEvents = state => eventsSelectors.isFetchingEvents(state.events);
+export const getFetchingEventsError = state => eventsSelectors.getFetchingEventsError(state.events);
+/* events participation */
+export const getUserByEmailEventParticipation = (state, id) => eventParticipationSelectors.getUserByEmailEventParticipation(state.eventParticipation, id);
+export const getUsersByEmailEventParticipation = state => eventParticipationSelectors.getUsersByEmailEventParticipation(state.eventParticipation);
+export const isFetchingUsersByEmailEventParticipation = state => eventParticipationSelectors.isFetchingUsersByEmailEventParticipation(state.eventParticipation);
+export const getFetchingUsersByEmailErrorEventParticipation = state => eventParticipationSelectors.getFetchingUsersByEmailErrorEventParticipation(state.eventParticipation);
+export const getEventParticipation = (state, id) => eventParticipationSelectors.getEventParticipation(state.eventParticipation, id);
+export const getEventParticipations = state => eventParticipationSelectors.getEventParticipations(state.eventParticipation);
+export const isFetchingEventParticipations = state => eventParticipationSelectors.isFetchingEventParticipations(state.eventParticipation);
+export const getFetchingEventParticipationError = state => eventParticipationSelectors.getFetchingEventParticipationError(state.eventParticipation);
 /* Roles Relationship */
 export const getUserByEmailRolesRelation = (state, id) => rolesRelationshipSelectors.getUserByEmailRolesRelation(state.rolesRelationship, id);
 export const getUsersByEmailRolesRelation = state => rolesRelationshipSelectors.getUsersByEmailRolesRelation(state.rolesRelationship);

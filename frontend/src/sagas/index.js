@@ -42,6 +42,19 @@ import {
 } from './tournament';
 
 import {
+    watchAddEvent,
+    watchEventsFetch,
+    watchUpdateEvent,
+} from './events';
+
+import {
+    watchUsersFetchEventParticipation,
+    watchEventParticipationFetch,
+    watchAddEventParticipation,
+    watchDeleteEventParticipation,
+} from './eventParticipations';
+
+import {
     watchUsersFetchRolesRelationship,
     watchAddRolesRelationship,
     watchFetchRoles,
@@ -79,6 +92,15 @@ function* mainSaga() {
         fork(watchTournamentFetch),
         fork(watchAddTournament),
         fork(watchDeleteTournament),
+        /* Events */
+        fork(watchAddEvent),
+        fork(watchEventsFetch),
+        fork(watchUpdateEvent),
+        /* events participations */
+        fork(watchUsersFetchEventParticipation),
+        fork(watchEventParticipationFetch),
+        fork(watchAddEventParticipation),
+        fork(watchDeleteEventParticipation),
         /* Roles Relationship */
         fork(watchUsersFetchRolesRelationship),
         fork(watchAddRolesRelationship),

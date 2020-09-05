@@ -1,0 +1,90 @@
+.personaIn{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hora{
+    margin-left: 7px;
+    margin-right: 7px;
+    margin-top: 15px;
+    /*justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: red;
+    */
+    height: 50px;
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 50% 50%; 
+}
+
+.all {
+    margin-left: 7px;
+    margin-right: 7px;
+}
+
+/*.MuiList-padding {
+    /* padding-top: 0; */
+    /* padding-bottom: 0.5px; 
+    height: 70px;
+}*/
+
+.inputPersonaS{
+    color: rgb(170, 169, 169);
+    font-size: 10px;
+}
+
+.inputPersona{
+    color: rgb(209, 209, 209);
+    border-bottom: solid rgb(102, 101, 101) 0.5px;
+}
+
+.listaper{
+    background-color: transparent;
+}
+
+.personas {
+    width: 360px;
+    max-height: 300px;
+}
+
+/* Tamaño del scroll */
+.personas::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+    
+    /* Estilos barra (thumb) de scroll */
+.personas::-webkit-scrollbar-thumb {
+    background: #b3b3b3;
+    border-radius: 4px;
+}
+    
+.personas::-webkit-scrollbar-thumb:active {
+    background-color: rgb(77, 76, 76);
+}
+    
+.personas::-webkit-scrollbar-thumb:hover {
+    background: rgb(77, 76, 76);
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+    
+/* Estilos track de scroll */
+.personas::-webkit-scrollbar-track {
+    background: rgb(77, 76, 76);
+    border-radius: 4px;
+}
+    
+.personas::-webkit-scrollbar-track:hover, 
+.personas::-webkit-scrollbar-track:active {
+    background: rgb(77, 76, 76);
+}
+
+.inputBuscarhora{
+    /*background: #665D5C;*/
+    color: white;
+    border: 0;
+    max-width: 170px;
+    height: 45px;
+}
