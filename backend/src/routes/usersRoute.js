@@ -12,7 +12,9 @@ const {
     getStudents,
     getStudentByEmail,
     getStudentsTeamsById,
-    getStudentsWSById
+    getStudentsWSById,
+    getStudentsCbyId,
+    getStudentsAbyId
 } = require('../controllers/usersController');
 const verifyAuth = require('../middleware/verifyAuth');
 
@@ -32,4 +34,7 @@ router.get('/auth/all-students', verifyAuth, getStudents);
 router.get('/auth/student-email/:email', verifyAuth, getStudentByEmail);
 router.get('/auth/students-teams', verifyAuth, getStudentsTeamsById);
 router.get('/auth/students-workshops', verifyAuth, getStudentsWSById);
+router.get('/auth/students-associations/:id', verifyAuth, getStudentsAbyId);
+router.get('/auth/students-clubs/:id', verifyAuth, getStudentsCbyId);
+
 module.exports = router;
