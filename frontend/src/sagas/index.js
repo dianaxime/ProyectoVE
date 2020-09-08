@@ -60,6 +60,13 @@ import {
     watchFetchRoles,
 } from './rolesRelationship';
 
+import {
+    watchUsersFetchAssociationClub,
+    watchAssociationClubFetch,
+    watchAddAssociationClub,
+    watchDeleteAssociationClub,
+} from './associationClubRelationship'; 
+
 function* mainSaga() {
     yield all([
         /* Auth */
@@ -105,6 +112,11 @@ function* mainSaga() {
         fork(watchUsersFetchRolesRelationship),
         fork(watchAddRolesRelationship),
         fork(watchFetchRoles),
+         /* Association Club */
+         fork(watchUsersFetchAssociationClubRelationship),
+         fork(watchAssociationClubFetchRelationship),
+         fork(watchAddAssociationClubRelationship),
+         fork(watchDeleteAssociationClubRelationship),
     ]);
 }
 
