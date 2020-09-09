@@ -10,6 +10,7 @@ import tournament, * as tournamentSelectors from './tournament';
 import events, * as eventsSelectors from './events';
 import eventParticipation, * as eventParticipationSelectors from './eventParticipation';
 import rolesRelationship, * as rolesRelationshipSelectors from './rolesRelationship';
+import associationClubRelationship, * as associationClubRelationshipSelectors from './associationClubsRelationship';
 
 import changeDrawer, * as changeDrawerSelectors from './changeDrawer';
 import changeForgot, * as changeForgotSelectors from './modalForgot';
@@ -47,6 +48,7 @@ const reducer = combineReducers({
   selectedRol,
   changeAssign,
   selectedAUser,
+  associationClubRelationship, 
   form: formReducer,
 });
 
@@ -161,3 +163,13 @@ export const getFetchingErrorRoles = state => rolesRelationshipSelectors.getFetc
 export const getSelectedRol = (state) => selectedRolSelectors.getSelectedRol(state.selectedRol)
 /* Selected AUser */ 
 export const getSelectedAUser = (state) => selectedAUserSelectors.getSelectedAUser(state.selectedAUser)
+/* Association Club Relationship */
+export const getUserByEmailAssociationClubRelationship = (state, id) => associationClubRelationshipSelectors.getUserByEmailAssociationClubRelationship(state.associationClubRelationship, id);
+export const getUsersOrderAssociationClubRelationship = state => associationClubRelationshipSelectors.getUsersOrderAssociationClubRelationship(state.associationClubRelationship);
+export const getUsersByEmailAssociationClubRelationship = state => associationClubRelationshipSelectors.getUsersByEmailAssociationClubRelationship(state.associationClubRelationship);
+export const isFetchingUsersByEmailAssociationClubRelationship = state => associationClubRelationshipSelectors.isFetchingUsersByEmailAssociationClubRelationship(state.associationClubRelationship);
+export const getFetchingUsersByEmailErrorAssociationClubRelationship = state => associationClubRelationshipSelectors.getFetchingUsersByEmailErrorAssociationClubRelationship(state.associationClubRelationship);
+export const getAssociationClubRelationship = (state, id) => associationClubRelationshipSelectors.getAssociationClubRelationship(state.associationClubRelationship, id);
+export const getAssociationClubRelationships = state => associationClubRelationshipSelectors.getAssociationClubRelationships(state.associationClubRelationship);
+export const isFetchingAssociationClubRelationships = state => associationClubRelationshipSelectors.isFetchingAssociationClubRelationships(state.associationClubRelationship);
+export const getFetchingAssociationClubRelationshipError = state => associationClubRelationshipSelectors.getFetchingAssociationClubRelationshipError(state.associationClubRelationship);
