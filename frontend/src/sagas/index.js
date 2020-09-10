@@ -61,11 +61,16 @@ import {
 } from './rolesRelationship';
 
 import {
-    watchUsersFetchAssociationClub,
-    watchAssociationClubFetch,
-    watchAddAssociationClub,
-    watchDeleteAssociationClub,
+    watchUsersFetchAssociationClubRelationship,
+    watchAssociationClubRelationshipFetch,
+    watchAddAssociationClubRelationship,
+    watchDeleteAssociationClubRelationship,
 } from './associationClubRelationship'; 
+import { 
+    watchAddAssociatonClub, 
+    watchUpdateAssociatonClub, 
+    watchAssociationClubsFetch 
+} from './associationClub';
 
 function* mainSaga() {
     yield all([
@@ -112,11 +117,15 @@ function* mainSaga() {
         fork(watchUsersFetchRolesRelationship),
         fork(watchAddRolesRelationship),
         fork(watchFetchRoles),
-         /* Association Club */
+         /* Association Club Relationship */
          fork(watchUsersFetchAssociationClubRelationship),
-         fork(watchAssociationClubFetchRelationship),
+         fork(watchAssociationClubRelationshipFetch),
          fork(watchAddAssociationClubRelationship),
          fork(watchDeleteAssociationClubRelationship),
+           /* Association Club */ 
+        fork(watchAddAssociatonClub),
+        fork(watchAssociationClubsFetch),
+        fork(watchUpdateAssociatonClub),
     ]);
 }
 
