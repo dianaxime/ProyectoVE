@@ -26,6 +26,7 @@ import selectedTeam, * as selectedTeamSelectors from './selectedTeam';
 import selectedEvent, * as selectedEventSelectors from './selectedEvent'; 
 import selectedRol, * as selectedRolSelectors from './selectedRol';
 import selectedAUser, * as selectedAUserSelectors from './selectedAUser'; 
+import selectedAssociationClub, * as selectedAssociationClubSelectors from './selectedAssociationClub'; 
 
 const reducer = combineReducers({
   auth,
@@ -51,6 +52,7 @@ const reducer = combineReducers({
   selectedAUser,
   associationClubRelationship, 
   associationClub,
+  selectedAssociationClub, 
   
   form: formReducer,
 });
@@ -181,3 +183,5 @@ export const getAssociatonClub = (state, id) => associatonClubSelectors.getAssoc
 export const getAssociatonClubs = state => associatonClubSelectors.getAssociatonClubs(state.associatonClub);
 export const isFetchingAssociatonClubs = state => associatonClubSelectors.isFetchingAssociatonClubs(state.associatonClub);
 export const getFetchingAssociatonClubsError = state => associatonClubSelectors.getFetchingAssociatonClubsError(state.associatonClub);
+/* Selected Association Club */ 
+export const getSelectedAssociationClub = (state) => selectedAssociationClubSelectors.getSelectedAssociationClub(state.selectedAssociationClub)
