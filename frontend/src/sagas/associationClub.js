@@ -10,7 +10,7 @@ import {
   import * as actions from '../actions/associationClub';
   import * as types from '../types/associationClub';
   import * as schemas from '../schemas/associationClub';
-  import * as actionsSelectedTeam from '../actions/selectedTeam';
+  import * as actionsSelectedAssociatonClub from '../actions/selectedAssociationClub';
   
   import { API_BASE_URL } from '../settings';
   
