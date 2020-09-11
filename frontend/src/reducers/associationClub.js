@@ -25,10 +25,10 @@ const byId = (state = {}, action) => {
       return newState;
     }
     case types.ASSOCIATION_CLUB_ADD_COMPLETED: {
-      const { oldId, associatonClub } = action.payload;
+      const { oldId, associationClub } = action.payload;
       const newState = omit(state, oldId);
-      newState[associatonClub.id] = {
-        ...associatonClub,
+      newState[associationClub.id] = {
+        ...associationClub,
         isConfirmed: true,
       };
       return newState;
@@ -43,10 +43,10 @@ const byId = (state = {}, action) => {
       };
     }
     case types.ASSOCIATION_CLUB_UPDATE_COMPLETED: {
-      const { id, associatonClub } = action.payload;
+      const { id, associationClub } = action.payload;
       const newState = omit(state, id);
-      newState[associatonClub.id] = {
-        ...associatonClub,
+      newState[associationClub.id] = {
+        ...associationClub,
         isConfirmed: true,
       };
       return newState;
@@ -66,14 +66,14 @@ const order = (state = [], action) => {
       return [...state, action.payload.id];
     }
     case types.ASSOCIATION_CLUB_ADD_COMPLETED: {
-      const { oldId, associatonClub } = action.payload;
-      return state.map(id => id === oldId ? associatonClub.id : id);
+      const { oldId, associationClub } = action.payload;
+      return state.map(id => id === oldId ? associationClub.id : id);
     }
     case types.ASSOCIATION_CLUB_UPDATE_COMPLETED: {
-      const { id, associatonClub } = action.payload;
+      const { id, associationClub } = action.payload;
       const newState = omit(state, id);
-      newState[associatonClub.id] = {
-        ...associatonClub,
+      newState[associationClub.id] = {
+        ...associationClub,
       };
       return newState;
     }
@@ -124,7 +124,7 @@ export default combineReducers({
   error,
 });
 
-export const getAssociatonClub = (state, id) => state.byId[id];
-export const getAssociatonClubs = state => state.order.map(id => getAssociatonClub(state, id));
-export const isFetchingAssociatonClubs = state => state.isFetching;
-export const getFetchingAssociatonClubsError = state => state.error;
+export const getAssociationClub = (state, id) => state.byId[id];
+export const getAssociationClubs = state => state.order.map(id => getAssociationClub(state, id));
+export const isFetchingAssociationClubs = state => state.isFetching;
+export const getFetchingAssociationClubsError = state => state.error;

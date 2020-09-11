@@ -67,7 +67,7 @@ export const completeUpdatingAssociationClub = (id, associationClub) => ({
   },
 });
 
-export const failUpdatingAssciationClub = (id, error) => ({
+export const failUpdatingAssociationClub = (id, error) => ({
   type: types.ASSOCIATION_CLUB_UPDATE_FAILED,
   payload: {
     id,

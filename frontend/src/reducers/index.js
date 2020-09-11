@@ -11,7 +11,7 @@ import events, * as eventsSelectors from './events';
 import eventParticipation, * as eventParticipationSelectors from './eventParticipation';
 import rolesRelationship, * as rolesRelationshipSelectors from './rolesRelationship';
 import associationClubRelationship, * as associationClubRelationshipSelectors from './associationClubsRelationship';
-import associationClub, * as associatonClubsSelector from './associationClub'; 
+import associationClub, * as associationClubSelectors from './associationClub'; 
 
 import changeDrawer, * as changeDrawerSelectors from './changeDrawer';
 import changeForgot, * as changeForgotSelectors from './modalForgot';
@@ -179,9 +179,9 @@ export const getAssociationClubRelationships = state => associationClubRelations
 export const isFetchingAssociationClubRelationships = state => associationClubRelationshipSelectors.isFetchingAssociationClubRelationships(state.associationClubRelationship);
 export const getFetchingAssociationClubRelationshipError = state => associationClubRelationshipSelectors.getFetchingAssociationClubRelationshipError(state.associationClubRelationship);
 /* Association Club */
-export const getAssociatonClub = (state, id) => associatonClubSelectors.getAssociatonClub(state.associatonClub, id);
-export const getAssociatonClubs = state => associatonClubSelectors.getAssociatonClubs(state.associatonClub);
-export const isFetchingAssociatonClubs = state => associatonClubSelectors.isFetchingAssociatonClubs(state.associatonClub);
-export const getFetchingAssociatonClubsError = state => associatonClubSelectors.getFetchingAssociatonClubsError(state.associatonClub);
+export const getAssociationClub = (state, id) => associationClubSelectors.getAssociationClub(state.associationClub, id);
+export const getAssociationClubs = state => associationClubSelectors.getAssociationClubs(state.associationClub);
+export const isFetchingAssociationClubs = state => associationClubSelectors.isFetchingAssociationClubs(state.associationClub);
+export const getFetchingAssociationClubsError = state => associationClubSelectors.getFetchingAssociationClubsError(state.associationClub);
 /* Selected Association Club */ 
 export const getSelectedAssociationClub = (state) => selectedAssociationClubSelectors.getSelectedAssociationClub(state.selectedAssociationClub)

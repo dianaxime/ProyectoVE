@@ -1,7 +1,7 @@
 import { schema } from 'normalizr';
 
 export const associationClubRelationship = new schema.Entity(
-    'associationClubRelationship',
+    'associationClubRelationships',
 );
 
-export const associationClubRelationship = new schema.Array(associationClubRelationship);
+export const associationClubRelationships = new schema.Array(associationClubRelationship);

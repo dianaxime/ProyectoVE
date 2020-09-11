@@ -67,8 +67,8 @@ import {
     watchDeleteAssociationClubRelationship,
 } from './associationClubRelationship'; 
 import { 
-    watchAddAssociatonClub, 
-    watchUpdateAssociatonClub, 
+    watchAddAssociationClub, 
+    watchUpdateAssociationClub, 
     watchAssociationClubsFetch 
 } from './associationClub';
 
@@ -123,9 +123,9 @@ function* mainSaga() {
          fork(watchAddAssociationClubRelationship),
          fork(watchDeleteAssociationClubRelationship),
            /* Association Club */ 
-        fork(watchAddAssociatonClub),
+        fork(watchAddAssociationClub),
         fork(watchAssociationClubsFetch),
-        fork(watchUpdateAssociatonClub),
+        fork(watchUpdateAssociationClub),
     ]);
 }
 

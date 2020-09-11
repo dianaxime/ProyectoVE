@@ -581,11 +581,11 @@ const dropACrelationshipTable = () => {
 */
 
 const createAllTables = () => {
-    /*createUserTable();
+    createUserTable();
     createRegisterTable();
-    createWorkshoTable();*/
+    createWorkshoTable();
     createScholarsTable();
-    /*createTeamTable();
+    createTeamTable();
     createParticipationTable();
     createTournamentTable();
     createEventTable();
@@ -593,7 +593,7 @@ const createAllTables = () => {
     createRolesTable();
     createRolesRelationshipTable();
     createAssociationClubTable();
-    createAssociationClubRelationshipTable();*/
+    createAssociationClubRelationshipTable();
 
 };
 

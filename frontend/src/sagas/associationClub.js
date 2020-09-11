@@ -10,11 +10,11 @@ import {
   import * as actions from '../actions/associationClub';
   import * as types from '../types/associationClub';
   import * as schemas from '../schemas/associationClub';
-  import * as actionsSelectedAssociatonClub from '../actions/selectedAssociationClub';
+  import * as actionsSelectedAssociationClub from '../actions/selectedAssociationClub';
   
   import { API_BASE_URL } from '../settings';
   
-  function* fetchAssociatonClubs(action) {
+  function* fetchAssociationClubs(action) {
     try {
       const isAuth = yield select(selectors.isAuthenticated);
   
@@ -35,23 +35,23 @@ import {
         if (response.status === 200) {
           const jsonResult = yield response.json();
           const {
-            entities: { associatonClubs },
+            entities: { associationClubs },
             result,
-          } = normalize(jsonResult.data, schemas.associatonClubs);
+          } = normalize(jsonResult.data, schemas.associationClubs);
   
           yield put(
-            actions.completeFetchingAssociatonClubs(
-              associatonClubs,
+            actions.completeFetchingAssociationClubs(
+              associationClubs,
               result,
             ),
           );
         } else {
           const errors = yield response.json();
-          yield put(actions.failFetchingAssociatonClubs(errors.error));
+          yield put(actions.failFetchingAssociationClubs(errors.error));
         }
       }
     } catch (error) {
-      yield put(actions.failFetchingAssociatonClubs("Error de conexión"));
+      yield put(actions.failFetchingAssociationClubs("Error de conexión"));
       console.log("ERROR", error);
     }
   }
@@ -59,11 +59,11 @@ import {
   export function* watchAssociationClubsFetch() {
     yield takeEvery(
       types.ASSOCIATION_CLUBS_FETCH_STARTED,
-      fetchAssociatonClubs,
+      fetchAssociationClubs,
     );
   }
   
-  function* addAssociatonClub(action) {
+  function* addAssociationClub(action) {
     try {
       const isAuth = yield select(selectors.isAuthenticated);
       if (isAuth) {
@@ -84,33 +84,33 @@ import {
           const jsonResult = yield response.json();
           const info = jsonResult.data[0];
           yield put(
-            actions.completeAddingAssociatonClub(
+            actions.completeAddingAssociationClub(
               action.payload.id,
               info,
             ),
           );
   
           yield put(
-            actionsSelectedAssociatonClub.selectedAssociatonClub(info.id),
+            actionsSelectedAssociationClub.selectedAssociationClub(info.id),
           );
         } else {
           const errors = yield response.json();
-          yield put(actions.failAddingAssociatonClub(errors.error));
+          yield put(actions.failAddingAssociationClub(errors.error));
         }
       }
     } catch (error) {
-      yield put(actions.failAddingAssociatonClub("Error de conexión"));
+      yield put(actions.failAddingAssociationClub("Error de conexión"));
     }
   }
   
-  export function* watchAddAssociatonClub() {
+  export function* watchAddAssociationClub() {
     yield takeEvery(
       types.ASSOCIATION_CLUB_ADD_STARTED,
-      addAssociatonClub,
+      addAssociationClub,
     );
   }
   
-  function* updateAssociatonClub(action) {
+  function* updateAssociationClub(action) {
     try {
       const isAuth = yield select(selectors.isAuthenticated);
       if (isAuth) {
@@ -131,24 +131,24 @@ import {
           const jsonResult = yield response.json();
           const info = jsonResult.data[0];
           yield put(
-            actions.completeUpdatingAssociatonClub(
+            actions.completeUpdatingAssociationClub(
               info.id,
               info,
             ),
           );
         } else {
           const errors = yield response.json();
-          yield put(actions.failUpdatingAssociatonClub(errors.error));
+          yield put(actions.failUpdatingAssociationClub(errors.error));
         }
       }
     } catch (error) {
-      yield put(actions.failUpdatingAssociatonClub("Error de conexión"));
+      yield put(actions.failUpdatingAssociationClub("Error de conexión"));
     }
   }
   
-  export function* watchUpdateAssociatonClub() {
+  export function* watchUpdateAssociationClub() {
     yield takeEvery(
       types.ASSOCIATION_CLUB_UPDATE_STARTED,
-      updateAssociatonClub,
+      updateAssociationClub,
     );
   }
