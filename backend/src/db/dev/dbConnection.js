@@ -383,6 +383,7 @@ const createAssistanceTable = () => {
         id SERIAL PRIMARY KEY,
         userID INT NOT NULL,
         idS INT NOT NULL,
+        late BOOLEAN NOT NULL,
         FOREIGN KEY (idS) REFERENCES sessions(id),
         FOREIGN KEY (userID) REFERENCES users(id),
         UNIQUE(userID, idS)
