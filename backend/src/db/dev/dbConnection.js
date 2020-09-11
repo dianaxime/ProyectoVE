@@ -383,9 +383,9 @@ const createAssistanceTable = () => {
         id SERIAL PRIMARY KEY,
         userID INT NOT NULL,
         idS INT NOT NULL,
-        date DATE NOT NULL,
         FOREIGN KEY (idS) REFERENCES sessions(id),
-        FOREIGN KEY (userID) REFERENCES users(id)
+        FOREIGN KEY (userID) REFERENCES users(id),
+        UNIQUE(userID, idS)
     )`;
 
     pool.query(acsrelationshipCreateQuery)
