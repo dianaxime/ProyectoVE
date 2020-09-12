@@ -4,8 +4,8 @@ import clsx from 'clsx';
 import { getAuthToken, getIsOpen } from '../../../reducers';
 import { URL } from '../../../settings';
 import Nav from '../../Nav';
-import Workshops from '../Workshops';
-import * as actions from '../../../actions/workshops';
+import AssociationClubs from '../AssociationClubs';
+import * as actions from '../../../actions/associationClub';
 import { makeStyles } from '@material-ui/core/styles';
 
 const drawerWidth = 240;
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const WorkshopsPage = ({open}) => {
+const AssociationClubsPage = ({open}) => {
     const classes = useStyles();
     return (
         <div className={classes.root}>
@@ -51,7 +51,7 @@ const WorkshopsPage = ({open}) => {
                 })}
             >
                 <div className={classes.drawerHeader} />
-                <Workshops/>
+                <AssociationClubs/>
             </main>
         </div>
     );
@@ -64,7 +64,7 @@ export default connect(
     }),
     dispatch => ({
         onLoad() {
-          dispatch(actions.startFetchingWorkshops());
+          dispatch(actions.startFetchingAssociationClubs());
         },
     }),
     (stateProps, disptachProps, ownProps) => {
@@ -77,4 +77,4 @@ export default connect(
             ...ownProps,
         });
     }
-)(WorkshopsPage);
+)(AssociationClubsPage);

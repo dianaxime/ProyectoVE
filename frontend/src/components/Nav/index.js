@@ -396,7 +396,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
                   </ListItemIcon>
                 </ListItem>
               </Link>
-              <Link to="/asociacionesClubes" className={classes.link} onClick={handleDrawerClose}>
+              <Link to="/asociacionesClubs" className={classes.link} onClick={handleDrawerClose}>
                 <ListItem button className={classes.nested}>
                   <ListItemIcon>
                     <ListItemText primary={"Ver todos"} />

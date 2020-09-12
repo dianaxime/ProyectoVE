@@ -1,22 +1,22 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import * as selectors from '../../../reducers';
-import * as actions from '../../../actions/workshops';
-import Workshop from '../Workshop';
+import * as actions from '../../../actions/associationClub';
+import AssociationClub from '../AssociationClub';
 import './styles.css';
 
-const Workshops = ({ workshop, isLoading, onLoad }) => {
+const AssociationClubs = ({ associationClub, isLoading, onLoad }) => {
     useEffect(onLoad, []);
     return (
 
         <div>
             {
-                workshop.length > 0 && !isLoading && (
+                associationClub.length > 0 && !isLoading && (
 
-                    <div className="workshopsContainer">
+                    <div className="associationClubsContainer">
 
                         {
-                            workshop.map(({ id }) => <Workshop key={id}
+                            associationClub.map(({ id }) => <AssociationClub key={id}
                                 id={id} />)
                         }
                     </div>
@@ -28,12 +28,12 @@ const Workshops = ({ workshop, isLoading, onLoad }) => {
 
 export default connect(
     state => ({
-        workshop: selectors.getWorkshops(state),
-        isLoading: selectors.isFetchingWorkshops(state),
+        associationClub: selectors.getAssociationClubs(state),
+        isLoading: selectors.isFetchingAssociationClubs(state),
     }),
     dispatch => ({
         onLoad() {
-            dispatch(actions.startFetchingWorkshops());
+            dispatch(actions.startFetchingAssociationClubs());
         },
     }),
-)(Workshops);
+)(AssociationClubs);
