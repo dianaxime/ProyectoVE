@@ -82,7 +82,7 @@ let AddAssociationClub = ({
                 </div>
                 <div className="div-field">
                     <Field name="type" component={renderSelectField} label="Tipo" className="selectType_">
-                        <MenuItem value="Association">Asociación</MenuItem>
+                        <MenuItem value="Asociacion">Asociación</MenuItem>
                         <MenuItem value="Club">Club</MenuItem>
                     </Field>
                 </div>

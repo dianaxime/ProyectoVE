@@ -2,12 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
     getAuthToken,
-    getWorkshop,
-    getSelectedWorkshop,
+    getAssociationClub,
+    getSelectedAssociationClub,
 } from '../../../reducers';
 import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
 import { reset, Field, reduxForm } from 'redux-form';
-import * as actions from '../../../actions/workshops';
+import * as actions from '../../../actions/associationClub';
 import DateFnsUtils from '@date-io/date-fns';
 import {
     MuiPickersUtilsProvider,
@@ -18,7 +19,7 @@ import './styles.css';
 
 const validate = values => {
     const errors = {};
-    const requiredFields = ['name', 'startdate', 'enddate', 'classroom', 'description'];
+    const requiredFields = ['name', 'type', 'description', 'startdate', 'enddate',];
     requiredFields.forEach(field => {
         if (!values[field]) {
             errors[field] = 'Obligatorio*';
@@ -31,7 +32,7 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) =
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <KeyboardDatePicker
             autoOk
-            className="inputWorkshop"
+            className="inputAssociationClub"
             disableToolbar
             variant="inline"
             format="yyyy/MM/dd"
@@ -46,7 +47,7 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) =
 );
 
 const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
-    <TextField className="inputWorkshop" placeholder={label}
+    <TextField className="inputAssociationClub" placeholder={label}
         label={label}
         helperText={touched && error}
         {...input}
@@ -56,22 +57,36 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
     />
 );
 
-let UpdateWorkshop = ({
+const renderSelectField = ({ input, label, meta: { touched, error }, ...custom }) => (
+    <TextField placeholder={label}
+        label={label}
+        helperText={touched && error}
+        {...input}
+        {...custom}
+        id="select"
+        select
+    />
+);
+
+let UpdateAssociationClub = ({
     onSubmit,
     isLoading,
     handleSubmit, }) => {
     return (
-        <div className="datosWorkshop">
-            <form className="formW">
-                <h3 className="subw">Datos</h3>
+        <div className="datosAssociationClub">
+            <form className="formAC">
+                <h3 className="subAC">Datos</h3>
                 <div className="div-field">
                     <Field name="name" component={renderTextField} label="Nombre" />
                 </div>
                 <div className="div-field">
-                    <Field name="description" component={renderTextField} label="Descripción" />
+                <Field name="type" component={renderSelectField} label="Tipo" className="selectType_">
+                        <MenuItem value="Asociacion">Asociación</MenuItem>
+                        <MenuItem value="Club">Club</MenuItem>
+                    </Field>
                 </div>
                 <div className="div-field">
-                    <Field name="classroom" component={renderTextField} label="Salon" />
+                    <Field name="description" component={renderTextField} label="Descripción" />
                 </div>
                 <div className="div-field">
                     <Field name="startdate" component={renderDateTimePicker} label="Fecha de Inicio" />
@@ -84,7 +99,7 @@ let UpdateWorkshop = ({
                         isLoading ? (
                             <strong>{'Cargando...'}</strong>
                         ) : (
-                                <button className="buttonformW" type="submit" onClick={handleSubmit(onSubmit)}>
+                                <button className="buttonformAC" type="submit" onClick={handleSubmit(onSubmit)}>
                                     {'Actualizar'}
                                 </button>
                             )
@@ -95,43 +110,43 @@ let UpdateWorkshop = ({
     );
 }
 
-UpdateWorkshop = reduxForm({
-    form: 'updateWorkshopForm',
+UpdateAssociationClub = reduxForm({
+    form: 'updateAssociationClubForm',
     validate
-})(UpdateWorkshop);
+})(UpdateAssociationClub);
 
-UpdateWorkshop = connect(
+UpdateAssociationClub = connect(
     state => ({
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
-        initialValues: getWorkshop(state, getSelectedWorkshop(state)),
-        idWorkshop: getSelectedWorkshop(state),
+        initialValues: getAssociationClub(state, getSelectedAssociationClub(state)),
+        idAssociationClub: getSelectedAssociationClub(state),
     }),
     dispatch => ({
-        onSubmit({ name, startdate, enddate, classroom, description }, id) {
+        onSubmit({ name, type, description, startdate, enddate, }, id) {
             dispatch(
-                actions.startUpdatingWorkshop(
+                actions.startUpdatingAssociationClub(
                     id,
                     name,
-                    classroom,
+                    type,
                     description,
                     startdate,
                     enddate
                 ),
-                console.log("Taller actualizado!"),
-                dispatch(reset('updateWorkshopForm')),
+                console.log("AsociacionClub actualizado!"),
+                dispatch(reset('updateAssociationClubForm')),
             );
-            window.location.href = URL + 'talleres';
+            window.location.href = URL + 'asociacionesClubs';
         },
     }),
     (stateProps, dispatchProps, ownProps) => ({
         ...stateProps,
         ...dispatchProps,
         ...ownProps,
-        onSubmit({ name, startdate, enddate, classroom, description }) {
-            dispatchProps.onSubmit({ name, startdate, enddate, classroom, description }, stateProps.idWorkshop);
+        onSubmit({ name, type, description, startdate, enddate }) {
+            dispatchProps.onSubmit({ name, type, description, startdate, enddate }, stateProps.idAssociationClub);
         },
     })
-)(UpdateWorkshop);
+)(UpdateAssociationClub);
 
-export default UpdateWorkshop;
+export default UpdateAssociationClub;
