@@ -4,6 +4,7 @@ import {
     getAuthToken,
     getAssociationClub,
     getSelectedAssociationClub,
+    getAssociationClubStatus,
 } from '../../../reducers';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -16,6 +17,8 @@ import {
 } from '@material-ui/pickers';
 import { URL } from '../../../settings';
 import './styles.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const validate = values => {
     const errors = {};
@@ -28,7 +31,7 @@ const validate = values => {
     return errors;
 }
 
-const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) => (
+const renderDateTimePicker = ({ input: { onChange, value }, label, meta: { touched, error }, showTime }) => (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <KeyboardDatePicker
             autoOk
@@ -38,6 +41,7 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) =
             format="yyyy/MM/dd"
             margin="normal"
             label={label}
+            helperText={touched && error}
             onChange={onChange}
             time={showTime}
             value={!value ? new Date() : new Date(value)}
@@ -80,7 +84,7 @@ let UpdateAssociationClub = ({
                     <Field name="name" component={renderTextField} label="Nombre" />
                 </div>
                 <div className="div-field">
-                <Field name="type" component={renderSelectField} label="Tipo" className="selectType_">
+                    <Field name="type" component={renderSelectField} label="Tipo" className="selectType_">
                         <MenuItem value="Asociacion">Asociación</MenuItem>
                         <MenuItem value="Club">Club</MenuItem>
                     </Field>
@@ -105,6 +109,15 @@ let UpdateAssociationClub = ({
                             )
                     }
                 </p>
+                <ToastContainer position="bottom-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover />
             </form>
         </div>
     );
@@ -121,6 +134,7 @@ UpdateAssociationClub = connect(
         isAuth: getAuthToken(state) !== null,
         initialValues: getAssociationClub(state, getSelectedAssociationClub(state)),
         idAssociationClub: getSelectedAssociationClub(state),
+        status: getAssociationClubStatus(state),
     }),
     dispatch => ({
         onSubmit({ name, type, description, startdate, enddate, }, id) {
@@ -133,20 +147,31 @@ UpdateAssociationClub = connect(
                     startdate,
                     enddate
                 ),
-                console.log("AsociacionClub actualizado!"),
                 dispatch(reset('updateAssociationClubForm')),
             );
-            window.location.href = URL + 'asociacionesClubs';
+        },
+        onChangeStatus() {
+            dispatch(actions.changeAssociationClubStatus());
         },
     }),
-    (stateProps, dispatchProps, ownProps) => ({
-        ...stateProps,
-        ...dispatchProps,
-        ...ownProps,
-        onSubmit({ name, type, description, startdate, enddate }) {
-            dispatchProps.onSubmit({ name, type, description, startdate, enddate }, stateProps.idAssociationClub);
-        },
-    })
+    (stateProps, dispatchProps, ownProps) => {
+        if (stateProps.status === 'ERROR') {
+            toast.error("Un error inesperado ha ocurrido. Por favor inténtalo de nuevo");
+            dispatchProps.onChangeStatus();
+        }
+        if (stateProps.status === 'SUCCESS') {
+            dispatchProps.onChangeStatus();
+            window.location.href = URL + 'asociacionesClubs';
+        }
+        return ({
+            ...stateProps,
+            ...dispatchProps,
+            ...ownProps,
+            onSubmit({ name, type, description, startdate, enddate }) {
+                dispatchProps.onSubmit({ name, type, description, startdate, enddate }, stateProps.idAssociationClub);
+            },
+        });
+    }
 )(UpdateAssociationClub);
 
 export default UpdateAssociationClub;
