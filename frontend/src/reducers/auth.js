@@ -97,40 +97,6 @@ const isAuthenticating = (state = false, action) => {
     }
 };
 
-const isRegistering = (state = false, action) => {
-    switch (action.type) {
-        case types.REGISTER_STARTED: {
-            return true;
-        }
-        case types.REGISTER_COMPLETED: {
-            return false;
-        }
-        case types.REGISTER_FAILED: {
-            return false;
-        }
-        default: {
-            return state;
-        }
-    }
-};
-
-const registeringCompleted = (state = false, action) => {
-    switch (action.type) {
-        case types.REGISTER_STARTED: {
-            return false;
-        }
-        case types.REGISTER_COMPLETED: {
-            return true;
-        }
-        case types.REGISTER_FAILED: {
-            return false;
-        }
-        default: {
-            return state;
-        }
-    }
-};
-
 const error = (state = null, action) => {
     switch (action.type) {
         case types.AUTHENTICATION_STARTED: {
@@ -182,13 +148,13 @@ const refreshingError = (state = null, action) => {
     }
 };
 
-const registeringError = (state = null, action) => {
+const registeringStatus = (state = null, action) => {
     switch (action.type) {
         case types.REGISTER_STARTED: {
             return null;
         }
         case types.REGISTER_COMPLETED: {
-            return null;
+            return 'SUCCESS';
         }
         case types.REGISTER_FAILED: {
             return action.payload.error;
@@ -199,50 +165,16 @@ const registeringError = (state = null, action) => {
     }
 };
 
-const isRecovering = (state = false, action) => {
-    switch (action.type) {
-        case types.RECOVER_STARTED: {
-            return true;
-        }
-        case types.RECOVER_COMPLETED: {
-            return false;
-        }
-        case types.RECOVER_FAILED: {
-            return false;
-        }
-        default: {
-            return state;
-        }
-    }
-};
-
-const recoveringCompleted = (state = false, action) => {
-    switch (action.type) {
-        case types.RECOVER_STARTED: {
-            return false;
-        }
-        case types.RECOVER_COMPLETED: {
-            return true;
-        }
-        case types.RECOVER_FAILED: {
-            return false;
-        }
-        default: {
-            return state;
-        }
-    }
-};
-
-const recoveringError = (state = null, action) => {
+const recoveringStatus = (state = null, action) => {
     switch (action.type) {
         case types.RECOVER_STARTED: {
             return null;
         }
         case types.RECOVER_COMPLETED: {
-            return null;
+            return 'SUCCESS';
         }
         case types.RECOVER_FAILED: {
-            return action.payload.error;
+            return 'ERROR';
         }
         default: {
             return state;
@@ -250,16 +182,16 @@ const recoveringError = (state = null, action) => {
     }
 };
 
-const updatingError = (state = null, action) => {
+const updatingStatus = (state = false, action) => {
     switch (action.type) {
         case types.UPDATE_USER_STARTED: {
             return null;
         }
         case types.UPDATE_USER_COMPLETED: {
-            return null;
+            return 'SUCCESS';
         }
         case types.UPDATE_USER_FAILED: {
-            return action.payload.error;
+            return 'ERROR';
         }
         default: {
             return state;
@@ -267,67 +199,16 @@ const updatingError = (state = null, action) => {
     }
 };
 
-const isUpdating = (state = false, action) => {
-    switch (action.type) {
-        case types.UPDATE_USER_STARTED: {
-            return true;
-        }
-        case types.UPDATE_USER_COMPLETED: {
-            return false;
-        }
-        case types.UPDATE_USER_FAILED: {
-            return false;
-        }
-        default: {
-            return state;
-        }
-    }
-};
-
-const isChanging = (state = false, action) => {
-    switch (action.type) {
-        case types.CHANGE_PASSWORD_STARTED: {
-            return true;
-        }
-        case types.CHANGE_PASSWORD_COMPLETED: {
-            return false;
-        }
-        case types.CHANGE_PASSWORD_FAILED: {
-            return false;
-        }
-        default: {
-            return state;
-        }
-    }
-};
-
-const changingCompleted = (state = false, action) => {
-    switch (action.type) {
-        case types.CHANGE_PASSWORD_STARTED: {
-            return false;
-        }
-        case types.CHANGE_PASSWORD_COMPLETED: {
-            return true;
-        }
-        case types.CHANGE_PASSWORD_FAILED: {
-            return false;
-        }
-        default: {
-            return state;
-        }
-    }
-};
-
-const changingError = (state = null, action) => {
+const changingStatus = (state = null, action) => {
     switch (action.type) {
         case types.CHANGE_PASSWORD_STARTED: {
             return null;
         }
         case types.CHANGE_PASSWORD_COMPLETED: {
-            return null;
+            return 'SUCCESS';
         }
         case types.CHANGE_PASSWORD_FAILED: {
-            return action.payload.error;
+            return 'ERROR';
         }
         default: {
             return state;
@@ -412,18 +293,11 @@ const auth = combineReducers({
     isRefreshing,
     error,
     refreshingError,
-    isRegistering,
-    registeringError,
-    registeringCompleted,
-    isUpdating,
-    updatingError,
+    registeringStatus,
+    updatingStatus,
     user,
-    isRecovering,
-    recoveringError,
-    recoveringCompleted,
-    isChanging,
-    changingError,
-    changingCompleted,
+    recoveringStatus,
+    changingStatus,
     byId,
     order,
     isFetching,
@@ -438,23 +312,16 @@ export const getAuthToken = state => state.token;
 export const getUser = state => state.user;
 export const getIsAuthenticating = state => state.isAuthenticating;
 export const getAuthenticatingError = state => state.error;
-export const getRegisteringError = state => state.registeringError;
-export const getIsRegistering = state => state.isRegistering;
-export const getRegisteringCompleted = state => state.registeringCompleted;
 export const getAuthUserID = state => state.decoded ? state.decoded.user_id : null;
 export const getAuthExpiration = state => state.decoded ? state.decoded.exp : null;
 export const getAuthEmail = state => state.decoded ? state.decoded.email : null;
 export const getIsRefreshingToken = state => state.isRefreshing;
 export const getRefreshingError = state => state.refreshingError;
-export const getRecoveringError = state => state.recoveringError;
-export const getIsRecovering = state => state.isRecovering;
-export const getRecoveringCompleted = state => state.recoveringCompleted;
-export const getIsUpdating = state => state.isUpdating;
-export const getUpdatingError = state => state.updatingError;
-export const getChangingError = state => state.changingError;
-export const getIsChanging = state => state.isChanging;
-export const getChangingCompleted = state => state.changingCompleted;
 export const getPendingUser = (state, id) => state.byId[id];
 export const getPendingUsers = state => state.order.map(id => getPendingUser(state, id));
 export const isFetchingPendingUsers = state => state.isFetching;
 export const getFetchingPendingUsersError = state => state.error;
+export const getRegisteringStatus = state => state.registeringStatus;
+export const getRecoveringStatus = state => state.recoveringStatus;
+export const getUpdatingStatus = state => state.updatingStatus;
+export const getChangingStatus = state => state.changingStatus;

@@ -5,12 +5,12 @@ import { Field, reduxForm, reset } from 'redux-form';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import {
-    getIsRegistering,
-    getRegisteringError
+    getRegisteringStatus
 } from '../../reducers';
 import * as actions from '../../actions/auth';
-import Loader from 'react-loaders';
 import './style_SignIn.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const validate = values => {
     const errors = {};
@@ -46,7 +46,7 @@ const renderSelectField = ({ input, label, meta: { touched, error }, ...custom }
     />
 );
 
-let SigninForm = ({ Message, onSubmit, signinStatus, handleSubmit }) => {
+let SigninForm = ({ Message, onSubmit, handleSubmit }) => {
     return (
         <MDBContainer className="contenedor">
             <div>
@@ -63,10 +63,10 @@ let SigninForm = ({ Message, onSubmit, signinStatus, handleSubmit }) => {
                                         <Field name="carne" component={renderTextField} label="Carne" className="input" />
                                     </div>
                                     <div>
-                                        <Field name="first_name" component={renderTextField} label="Primer Nombre" className="input" />
+                                        <Field name="first_name" component={renderTextField} label="Nombre" className="input" />
                                     </div>
                                     <div>
-                                        <Field name="last_name" component={renderTextField} label="Primer Apellido" className="input" />
+                                        <Field name="last_name" component={renderTextField} label="Apellido" className="input" />
                                     </div>
                                 </div>
                                 <div>
@@ -142,21 +142,27 @@ let SigninForm = ({ Message, onSubmit, signinStatus, handleSubmit }) => {
                                 </div>
                             </div>
                             <div className="text-center">
-                                {signinStatus ? <Loader type="ball-spin-fade-loader" /> :
-                                    <div >
-                                        <MDBBtn
-                                            outline
-                                            color="black"
-                                            className="boton"
-                                            onClick={handleSubmit(onSubmit)}
-                                        >Registrarse</MDBBtn>
-                                    </div>
-                                }
+                                <div >
+                                    <MDBBtn
+                                        outline
+                                        color="black"
+                                        className="boton"
+                                        onClick={handleSubmit(onSubmit)}
+                                    >Registrarse</MDBBtn>
+                                </div>
                             </div>
                         </form>
                     </MDBRow>
                 </MDBCol>
-                <div>{Message}</div>
+                <ToastContainer position="bottom-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover />
             </div>
         </MDBContainer>
     );
@@ -169,13 +175,7 @@ SigninForm = reduxForm({
 
 SigninForm = connect(
     state => ({
-        Message:
-            getIsRegistering(state) !== null
-                ? getIsRegistering(state)
-                    ? "Cargando"
-                    : getRegisteringError(state)
-                : undefined,
-        signinStatus: getIsRegistering(state),
+        status: getRegisteringStatus(state),
     }),
     dispatch => ({
         onSubmit({
@@ -191,7 +191,22 @@ SigninForm = connect(
             dispatch(actions.startRegister(email, first_name, last_name, carne, sex, type, career, faculty));
             dispatch(reset('signinForm'));
         },
-    })
+    }),
+    (stateProps, dispatchProps, ownProps) => {
+        if (stateProps.status !== null) {
+            if (stateProps.status === 'SUCCESS') {
+                toast.success("Tu cuenta ha sido registrada exitosamente. Por favor espera a que un administrador te autorice");
+            }
+            else {
+                toast.error(stateProps.status);
+            }
+        }
+        return ({
+            ...stateProps,
+            ...dispatchProps,
+            ...ownProps,
+        });
+    },
 )(SigninForm);
 
 export default SigninForm;

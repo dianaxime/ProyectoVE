@@ -16,6 +16,8 @@ import { Field, reduxForm, reset } from 'redux-form';
 import TextField from '@material-ui/core/TextField';
 import Loader from 'react-loaders';
 import './style_login.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const validate = values => {
     const errors = {};
@@ -77,7 +79,15 @@ let Login = ({ Message, onSubmit, loginStatus, handleSubmit, onHandle }) => {
                         </form>
                     </MDBRow>
                 </MDBCol>
-                <div>{Message}</div>
+                <ToastContainer position="bottom-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover />
             </div>
         </MDBContainer>
     );
@@ -90,12 +100,7 @@ Login = reduxForm({
 
 Login = connect(
     state => ({
-        Message:
-            getIsAuthenticating(state) !== null
-                ? getIsAuthenticating(state)
-                    ? "Cargando"
-                    : getAuthenticatingError(state)
-                : undefined,
+        Message: getAuthenticatingError(state),
         loginStatus: getIsAuthenticating(state),
     }),
     dispatch => ({
@@ -107,7 +112,18 @@ Login = connect(
         onHandle() {
             dispatch(actionsModal.changeForgot(true));
         },
-    })
+    }),
+    (stateProps, dispatchProps, ownProps) => {
+        if (stateProps !== null){
+            toast.error(stateProps.Message);
+
+        }
+        return ({
+            ...stateProps,
+            ...dispatchProps,
+            ...ownProps,
+        });
+    },
 )(Login);
 
 export default Login;
