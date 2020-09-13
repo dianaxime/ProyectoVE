@@ -69,14 +69,6 @@ const order = (state = [], action) => {
       const { oldId, associationClub } = action.payload;
       return state.map(id => id === oldId ? associationClub.id : id);
     }
-    case types.ASSOCIATION_CLUB_UPDATE_COMPLETED: {
-      const { id, associationClub } = action.payload;
-      const newState = omit(state, id);
-      newState[associationClub.id] = {
-        ...associationClub,
-      };
-      return newState;
-    }
     default: {
       return state;
     }
@@ -117,14 +109,39 @@ const error = (state = null, action) => {
   }
 };
 
+const status = (state = null, action) => {
+  switch (action.type) {
+    case types.ASSOCIATION_CLUB_ADD_COMPLETED: {
+      return 'SUCCESS';
+    }
+    case types.ASSOCIATION_CLUB_UPDATE_COMPLETED: {
+      return 'SUCCESS';
+    }
+    case types.ASSOCIATION_CLUB_ADD_FAILED: {
+      return 'ERROR';
+    }
+    case types.ASSOCIATION_CLUB_UPDATE_FAILED: {
+      return 'ERROR';
+    }
+    case types.SET_ASSOCIATION_CLUB_STATUS: {
+      return null;
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
 export default combineReducers({
   byId,
   order,
   isFetching,
   error,
+  status,
 });
 
 export const getAssociationClub = (state, id) => state.byId[id];
 export const getAssociationClubs = state => state.order.map(id => getAssociationClub(state, id));
 export const isFetchingAssociationClubs = state => state.isFetching;
 export const getFetchingAssociationClubsError = state => state.error;
+export const getAssociationClubStatus = state => state.status;

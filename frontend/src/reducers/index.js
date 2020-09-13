@@ -186,5 +186,6 @@ export const getAssociationClub = (state, id) => associationClubSelectors.getAss
 export const getAssociationClubs = state => associationClubSelectors.getAssociationClubs(state.associationClub);
 export const isFetchingAssociationClubs = state => associationClubSelectors.isFetchingAssociationClubs(state.associationClub);
 export const getFetchingAssociationClubsError = state => associationClubSelectors.getFetchingAssociationClubsError(state.associationClub);
+export const getAssociationClubStatus = state => associationClubSelectors.getAssociationClubStatus(state.associationClub);
 /* Selected Association Club */ 
 export const getSelectedAssociationClub = (state) => selectedAssociationClubSelectors.getSelectedAssociationClub(state.selectedAssociationClub)

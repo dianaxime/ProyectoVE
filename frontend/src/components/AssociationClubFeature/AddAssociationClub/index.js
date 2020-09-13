@@ -2,7 +2,8 @@ import { v4 as uuidv4 } from 'uuid';
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-    getAuthToken
+    getAuthToken,
+    getAssociationClubStatus,
 } from '../../../reducers';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -14,6 +15,8 @@ import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 const validate = values => {
@@ -27,7 +30,7 @@ const validate = values => {
     return errors;
 }
 
-const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) => (
+const renderDateTimePicker = ({ input: { onChange, value }, label, meta: { touched, error },showTime }) => (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <KeyboardDatePicker
             autoOk
@@ -37,6 +40,7 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) =
             format="yyyy/MM/dd"
             margin="normal"
             label={label}
+            helperText={touched && error}
             onChange={onChange}
             time={showTime}
             value={!value ? new Date() : new Date(value)}
@@ -106,6 +110,15 @@ let AddAssociationClub = ({
                             )
                     }
                 </p>
+                <ToastContainer position="bottom-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover />
             </form>
         </div>
     );
@@ -120,6 +133,7 @@ AddAssociationClub = connect(
     state => ({
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
+        status: getAssociationClubStatus(state),
     }),
     dispatch => ({
         onSubmit({ name, type, description, startdate, enddate, }) {
@@ -135,7 +149,25 @@ AddAssociationClub = connect(
                 dispatch(reset('associationClubForm')),
             );
         },
+        onChangeStatus() {
+            dispatch(actions.changeAssociationClubStatus());
+        },
     }),
+    (stateProps, dispatchProps, ownProps) => {
+        if (stateProps.status === 'SUCCESS') {
+            toast.success("Se ha agregado exitosamente")
+            dispatchProps.onChangeStatus();
+        }
+        if (stateProps.status === 'ERROR') {
+            toast.error("Un error inesperado ha ocurrido. Por favor inténtalo de nuevo")
+            dispatchProps.onChangeStatus();
+        }
+        return ({
+            ...stateProps,
+            ...dispatchProps,
+            ...ownProps,
+        });
+    },
 )(AddAssociationClub);
 
 export default AddAssociationClub;
