@@ -32,17 +32,17 @@ const validate = values => {
     return errors;
 }
 
-const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) => (
+const renderDateTimePicker = ({ input: { onChange, value }, label, meta: { touched, error }, showTime }) => (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <KeyboardDatePicker
             autoOk
-            className="inputWorkshop"
+            className="inputAssociationClub"
             disableToolbar
             variant="inline"
             format="yyyy/MM/dd"
             margin="normal"
-            //id="date-picker-inline"
             label={label}
+            helperText={touched && error}
             onChange={onChange}
             time={showTime}
             value={!value ? new Date() : new Date(value)}
