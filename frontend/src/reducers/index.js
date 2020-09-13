@@ -102,6 +102,7 @@ export const getWorkshop = (state, id) => workshopsSelectors.getWorkshop(state.w
 export const getWorkshops = state => workshopsSelectors.getWorkshops(state.workshops);
 export const isFetchingWorkshops = state => workshopsSelectors.isFetchingWorkshops(state.workshops);
 export const getFetchingWorkshopsError = state => workshopsSelectors.getFetchingWorkshopsError(state.workshops);
+export const getWorkshopStatus = state => workshopsSelectors.getWorkshopStatus(state.workshops);
 /* Teams */
 export const getTeam = (state, id) => teamsSelectors.getTeam(state.teams, id);
 export const getTeams = state => teamsSelectors.getTeams(state.teams);

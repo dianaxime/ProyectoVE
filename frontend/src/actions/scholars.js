@@ -46,3 +46,7 @@ export const failAddingScholar = (oldId, error) => ({
         error,
     },
 });
+
+export const changeScholarStatus = () => ({
+    type: types.SET_SCHOLAR_STATUS,
+});

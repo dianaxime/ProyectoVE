@@ -74,3 +74,7 @@ export const failUpdatingAssociationClub = (id, error) => ({
     error,
   },
 });
+
+export const changeAssociationClubStatus = () => ({
+  type: types.SET_ASSOCIATION_CLUB_STATUS,
+});
