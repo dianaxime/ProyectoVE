@@ -143,6 +143,7 @@ export const getEvent = (state, id) => eventsSelectors.getEvent(state.events, id
 export const getEvents = state => eventsSelectors.getEvents(state.events);
 export const isFetchingEvents = state => eventsSelectors.isFetchingEvents(state.events);
 export const getFetchingEventsError = state => eventsSelectors.getFetchingEventsError(state.events);
+export const getEventStatus = state => eventsSelectors.getEventStatus(state.events);
 /* events participation */
 export const getUserByEmailEventParticipation = (state, id) => eventParticipationSelectors.getUserByEmailEventParticipation(state.eventParticipation, id);
 export const getUsersByEmailEventParticipation = state => eventParticipationSelectors.getUsersByEmailEventParticipation(state.eventParticipation);
