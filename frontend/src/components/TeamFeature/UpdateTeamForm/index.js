@@ -5,6 +5,7 @@ import {
     getIsOpen,
     getTeam,
     getSelectedTeam,
+    getTeamStatus,
 } from '../../../reducers';
 import TextField from '@material-ui/core/TextField';
 import { reset, Field, reduxForm } from 'redux-form';
@@ -17,6 +18,8 @@ import {
 } from '@material-ui/pickers';
 import { URL } from '../../../settings';
 import './styles.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const validate = values => {
     const errors = {};
@@ -107,6 +110,15 @@ let UpdateTeam = ({ open,
                             )
                     }
                 </p>
+                <ToastContainer position="bottom-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover />
             </form>
         </div>
     );
@@ -124,6 +136,7 @@ UpdateTeam = connect(
         open: getIsOpen(state),
         team: getTeam(state, getSelectedTeam(state)),
         idTeam: getSelectedTeam(state),
+        status: getTeamStatus(state),
     }),
     dispatch => ({
         onSubmit({ name, startdate, enddate, sport }, id) {
@@ -138,7 +151,9 @@ UpdateTeam = connect(
                 console.log("Equipo actualizado!"),
                 dispatch(reset('updateTeamForm')),
             );
-            window.location.href = URL + 'equipos';
+        },
+        onChangeStatus() {
+            dispatch(actions.changeTeamStatus());
         },
     }),
     (stateProps, dispatchProps, ownProps) => {
@@ -157,6 +172,14 @@ UpdateTeam = connect(
         }
         if (stateProps.team.sport === 'Baloncesto') {
             sport = 'basketball'
+        }
+        if (stateProps.status === 'ERROR') {
+            toast.error("Un error inesperado ha ocurrido. Por favor inténtalo de nuevo");
+            dispatchProps.onChangeStatus();
+        }
+        if (stateProps.status === 'SUCCESS') {
+            dispatchProps.onChangeStatus();
+            window.location.href = URL + 'equipos';
         }
         return ({
             ...stateProps,
