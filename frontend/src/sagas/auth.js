@@ -38,7 +38,7 @@ function* register(action) {
             yield put(actions.failRegister(errors.error));
         }
     } catch (error) {
-        yield put(actions.failRegister("Error de conexión"));
+        yield put(actions.failRegister("Revisa tu conexión e inténtalo nuevamente"));
     }
 }
 
@@ -74,7 +74,7 @@ function* login(action) {
         }
     } catch (error) {
         console.log(error);
-        yield put(actions.failLogin("Error de conexión"));
+        yield put(actions.failLogin("Revisa tu conexión e inténtalo nuevamente"));
     }
 }
 

@@ -109,7 +109,7 @@ const createUser = async (req, res) => {
             errorMessage.error = 'Ya existe un usuario registrado con ese correo';
             return res.status(status.conflict).send(errorMessage);
         }
-        errorMessage.error = 'Ha ocurrido un error inesperado. Por favor intentalo nuevamente';
+        errorMessage.error = 'Ha ocurrido un error inesperado. Por favor inténtalo nuevamente';
         return res.status(status.error).send(errorMessage);
     })
 };
@@ -139,12 +139,12 @@ const loginUser = async (req, res) => {
         console.log('DATA:', data); // print data;
         data = data[0];
         if (!data) {
-            errorMessage.error = 'User with this email does not exist';
+            errorMessage.error = 'No existe un usuario registrado con ese correo';
             return res.status(status.notfound).send(errorMessage);
         }
     
         if (!comparePassword(data.password, password)) {
-            errorMessage.error = 'The password you provided is incorrect';
+            errorMessage.error = 'La contraseña ingresada es incorrecta';
             return res.status(status.bad).send(errorMessage);
         }
         const token = generateUserToken(data.email, data.id, data.is_admin, data.first_name, data.last_name);
@@ -155,7 +155,7 @@ const loginUser = async (req, res) => {
     })
     .catch(error => {
         console.log('ERROR:', error); // print the error;
-        errorMessage.error = 'Operation was not successful';
+        errorMessage.error = 'Un error inesperado ha ocurrido. Por favor inténtalo nuevamente';
         return res.status(status.error).send(errorMessage);
     })
 };

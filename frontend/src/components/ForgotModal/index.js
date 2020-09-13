@@ -86,13 +86,18 @@ Forgot = connect(
             dispatch(reset('forgotPass'));
             dispatch(actionsModal.changeForgot(false));
         },
+        onChangeStatus() {
+            dispatch(actions.setStatus());
+        },
     }),
     (stateProps, dispatchProps, ownProps) => {
         if (stateProps.status === 'SUCCESS') {
             toast.success("Verifica tu correo, se te ha enviado una nueva contraseña");
+            dispatchProps.onChangeStatus();
         }
         if (stateProps.status === 'ERROR') {
             toast.error("Un error inesperado ha ocurrido. Por favor inténtalo de nuevo");
+            dispatchProps.onChangeStatus();
         }
         return ({
             ...stateProps,

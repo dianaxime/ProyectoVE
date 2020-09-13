@@ -114,7 +114,7 @@ Login = connect(
         },
     }),
     (stateProps, dispatchProps, ownProps) => {
-        if (stateProps !== null){
+        if (stateProps.Message !== null){
             toast.error(stateProps.Message);
 
         }

@@ -191,14 +191,19 @@ SigninForm = connect(
             dispatch(actions.startRegister(email, first_name, last_name, carne, sex, type, career, faculty));
             dispatch(reset('signinForm'));
         },
+        onChangeStatus() {
+            dispatch(actions.setStatus());
+        },
     }),
     (stateProps, dispatchProps, ownProps) => {
         if (stateProps.status !== null) {
             if (stateProps.status === 'SUCCESS') {
                 toast.success("Tu cuenta ha sido registrada exitosamente. Por favor espera a que un administrador te autorice");
+                dispatchProps.onChangeStatus();
             }
             else {
                 toast.error(stateProps.status);
+                dispatchProps.onChangeStatus();
             }
         }
         return ({

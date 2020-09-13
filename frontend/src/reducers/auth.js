@@ -159,6 +159,9 @@ const registeringStatus = (state = null, action) => {
         case types.REGISTER_FAILED: {
             return action.payload.error;
         }
+        case types.SET_AUTHENTICATION_STATUS: {
+            return null;
+        }
         default: {
             return state;
         }
@@ -175,6 +178,9 @@ const recoveringStatus = (state = null, action) => {
         }
         case types.RECOVER_FAILED: {
             return 'ERROR';
+        }
+        case types.SET_AUTHENTICATION_STATUS: {
+            return null;
         }
         default: {
             return state;
@@ -193,6 +199,9 @@ const updatingStatus = (state = false, action) => {
         case types.UPDATE_USER_FAILED: {
             return 'ERROR';
         }
+        case types.SET_AUTHENTICATION_STATUS: {
+            return null;
+        }
         default: {
             return state;
         }
@@ -209,6 +218,9 @@ const changingStatus = (state = null, action) => {
         }
         case types.CHANGE_PASSWORD_FAILED: {
             return 'ERROR';
+        }
+        case types.SET_AUTHENTICATION_STATUS: {
+            return null;
         }
         default: {
             return state;

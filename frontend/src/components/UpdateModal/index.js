@@ -194,13 +194,18 @@ UpdateUserForm = connect(
         onHandle() {
             dispatch(actionsModal.changeUpdate(false));
         },
+        onChangeStatus() {
+            dispatch(actions.setStatus());
+        },
     }),
     (stateProps, dispatchProps, ownProps) => {
         if (stateProps.status === 'SUCCESS') {
             toast.success("Se han actualizado sus datos correctamente");
+            dispatchProps.onChangeStatus();
         }
         if (stateProps.status === 'ERROR') {
             toast.error("Un error inesperado ha ocurrido. Por favor inténtalo de nuevo");
+            dispatchProps.onChangeStatus();
         }
         return ({
             ...stateProps,
