@@ -4,6 +4,7 @@ import {
     getAuthToken,
     getWorkshop,
     getSelectedWorkshop,
+    getWorkshopStatus,
 } from '../../../reducers';
 import TextField from '@material-ui/core/TextField';
 import { reset, Field, reduxForm } from 'redux-form';
@@ -15,6 +16,8 @@ import {
 } from '@material-ui/pickers';
 import { URL } from '../../../settings';
 import './styles.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const validate = values => {
     const errors = {};
@@ -90,6 +93,15 @@ let UpdateWorkshop = ({
                             )
                     }
                 </p>
+                <ToastContainer position="bottom-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover />
             </form>
         </div>
     );
@@ -106,6 +118,7 @@ UpdateWorkshop = connect(
         isAuth: getAuthToken(state) !== null,
         initialValues: getWorkshop(state, getSelectedWorkshop(state)),
         idWorkshop: getSelectedWorkshop(state),
+        status: getWorkshopStatus(state),
     }),
     dispatch => ({
         onSubmit({ name, startdate, enddate, classroom, description }, id) {
@@ -121,17 +134,29 @@ UpdateWorkshop = connect(
                 console.log("Taller actualizado!"),
                 dispatch(reset('updateWorkshopForm')),
             );
-            window.location.href = URL + 'talleres';
+        },
+        onChangeStatus() {
+            dispatch(actions.changeWorkshopStatus());
         },
     }),
-    (stateProps, dispatchProps, ownProps) => ({
-        ...stateProps,
-        ...dispatchProps,
-        ...ownProps,
-        onSubmit({ name, startdate, enddate, classroom, description }) {
-            dispatchProps.onSubmit({ name, startdate, enddate, classroom, description }, stateProps.idWorkshop);
-        },
-    })
+    (stateProps, dispatchProps, ownProps) => {
+        if (stateProps.status === 'ERROR') {
+            toast.error("Un error inesperado ha ocurrido. Por favor inténtalo de nuevo");
+            dispatchProps.onChangeStatus();
+        }
+        if (stateProps.status === 'SUCCESS') {
+            dispatchProps.onChangeStatus();
+            window.location.href = URL + 'talleres';
+        }
+        return ({
+            ...stateProps,
+            ...dispatchProps,
+            ...ownProps,
+            onSubmit({ name, startdate, enddate, classroom, description }) {
+                dispatchProps.onSubmit({ name, startdate, enddate, classroom, description }, stateProps.idWorkshop);
+            },
+        });
+    },
 )(UpdateWorkshop);
 
 export default UpdateWorkshop;
