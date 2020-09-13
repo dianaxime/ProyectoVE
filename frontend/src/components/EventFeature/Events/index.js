@@ -30,6 +30,7 @@ export default connect(
     state => ({
         event: selectors.getEvents(state),
         isLoading: selectors.isFetchingEvents(state),
+        status: selectors.getEventStatus(state),
     }),
     dispatch => ({
         onLoad() {

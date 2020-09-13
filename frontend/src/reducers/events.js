@@ -69,14 +69,6 @@ const order = (state = [], action) => {
       const { oldId, event } = action.payload;
       return state.map(id => id === oldId ? event.id : id);
     }
-    case types.EVENT_UPDATE_COMPLETED: {
-      const { id, event } = action.payload;
-      const newState = omit(state, id);
-      newState[event.id] = {
-        ...event,
-      };
-      return newState;
-    }
     default: {
       return state;
     }
