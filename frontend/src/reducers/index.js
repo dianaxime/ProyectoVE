@@ -108,6 +108,7 @@ export const getTeam = (state, id) => teamsSelectors.getTeam(state.teams, id);
 export const getTeams = state => teamsSelectors.getTeams(state.teams);
 export const isFetchingTeams = state => teamsSelectors.isFetchingTeams(state.teams);
 export const getFetchingTeamsError = state => teamsSelectors.getFetchingTeamsError(state.teams);
+export const getTeamStatus = state => teamsSelectors.getTeamStatus(state.teams);
 /* Scholars */
 export const getScholar = (state, id) => scholarsSelectors.getScholar(state.scholars, id);
 export const getScholars = state => scholarsSelectors.getScholars(state.scholars);

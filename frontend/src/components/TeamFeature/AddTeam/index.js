@@ -2,7 +2,8 @@ import { v4 as uuidv4 } from 'uuid';
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-    getAuthToken
+    getAuthToken,
+    getTeamStatus,
 } from '../../../reducers';
 import TextField from '@material-ui/core/TextField';
 import { reset, Field, reduxForm } from 'redux-form';
@@ -14,6 +15,8 @@ import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 const validate = values => {
@@ -105,6 +108,15 @@ let AddTeam = ({
                             )
                     }
                 </p>
+                <ToastContainer position="bottom-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover />
             </form>
         </div>
     );
@@ -119,6 +131,7 @@ AddTeam = connect(
     state => ({
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
+        status: getTeamStatus(state),
     }),
     dispatch => ({
         onSubmit({ name, startdate, enddate, sport }) {
@@ -133,7 +146,25 @@ AddTeam = connect(
                 dispatch(reset('teamForm')),
             );
         },
+        onChangeStatus() {
+            dispatch(actions.changeTeamStatus());
+        },
     }),
+    (stateProps, dispatchProps, ownProps) => {
+        if (stateProps.status === 'SUCCESS') {
+            toast.success("El equipo se ha agregado exitosamente")
+            dispatchProps.onChangeStatus();
+        }
+        if (stateProps.status === 'ERROR') {
+            toast.error("Un error inesperado ha ocurrido. Por favor inténtalo de nuevo")
+            dispatchProps.onChangeStatus();
+        }
+        return ({
+            ...stateProps,
+            ...dispatchProps,
+            ...ownProps,
+        });
+    },
 )(AddTeam);
 
 export default AddTeam;
