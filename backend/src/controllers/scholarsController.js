@@ -4,6 +4,7 @@ const {
     isEmpty,
     isHoursValid,
     isPercentageValid,
+    empty,
 } = require('../helpers/validation');
 
 const {
@@ -39,18 +40,18 @@ const createScholars = async (req, res) => {
 
     const { userid } = req.user;
 
-    if (isEmpty(hours) || isEmpty(video_photoeditor) || isEmpty(graphicdesign) || isEmpty(spokespersons) || isEmpty(organizer) || isEmpty(leader) || isEmpty(other) ) {
+    if (empty(hours) || empty(video_photoeditor) || empty(graphicdesign) || empty(spokespersons) || empty(organizer) || empty(leader) || empty(other) ) {
         errorMessage.error = 'Hours, video editor, photo editor, spokespersons and organizer field cannot be empty';
         return res.status(status.bad).send(errorMessage);
     }
 
     if (!isHoursValid(hours)){
-        errorMessage.error="Hours can not be negative or higher than 150 "
+        errorMessage.error="La cantidad de horas de beca debe ser entre 0 - 150"
         return res.status(status.bad).send(errorMessage);
     }
 
-    if (!isPercentageValid(video_photoeditor)||!isPercentageValid(spokespersons)||!isPercentageValid(graphicdesign)||!isPercentageValid(organizer) || isEmpty(leader) || isEmpty(other)){
-        errorMessage.error="Percentages can not be negative or higher than 10"
+    if (!isPercentageValid(video_photoeditor)||!isPercentageValid(spokespersons)||!isPercentageValid(graphicdesign)||!isPercentageValid(organizer) || !isPercentageValid(leader)){
+        errorMessage.error="Por favor ingresar valores entre 1 - 10"
         return res.status(status.bad).send(errorMessage);
     }
     
@@ -64,10 +65,10 @@ const createScholars = async (req, res) => {
     .catch (error => {
         console.log('ERROR:', error); // print the error;
         if (error.routine === '_bt_check_unique') {
-            errorMessage.error = 'User has been already registered with a scholarship';
+            errorMessage.error = 'Ya ha registrado su formulario previamente';
             return res.status(status.conflict).send(errorMessage);
         }
-        errorMessage.error = 'Operation was not successful';
+        errorMessage.error = 'Un error inesperado ha ocurrido. Por favor inténtalo nuevamente';
         return res.status(status.error).send(errorMessage);
     })
 };

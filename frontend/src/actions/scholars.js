@@ -19,17 +19,26 @@ export const failFetchingScholars = error => ({
     },
 });
 
-export const startAddingScholar = (id, hours, videoEditor, photoEditor, spokespersons, organizer) => ({
-    type: types.SCHOLAR_ADD_STARTED,
-    payload: {
-        id,
-        hours,
-        videoEditor,
-        photoEditor,
-        spokespersons,
-        organizer,
-    },
-});
+export const startAddingScholar = (id, 
+    hours,
+    video_photoeditor,
+    graphicdesign,
+    spokespersons,
+    organizer,
+    leader,
+    other) => ({
+        type: types.SCHOLAR_ADD_STARTED,
+        payload: {
+            id,
+            hours,
+            video_photoeditor,
+            graphicdesign,
+            spokespersons,
+            organizer,
+            leader,
+            other
+        },
+    });
 
 export const completeAddingScholar = (oldId, scholar) => ({
     type: types.SCHOLAR_ADD_COMPLETED,

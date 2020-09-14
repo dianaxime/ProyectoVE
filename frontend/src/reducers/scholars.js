@@ -91,14 +91,36 @@ const error = (state = null, action) => {
     }
 };
 
+const status = (state = null, action) => {
+    switch (action.type){
+        case types.SCHOLAR_ADD_STARTED:{
+            return null;
+        }
+        case types.SCHOLAR_ADD_COMPLETED: {
+            return 'SUCCESS';
+        }
+        case types.SET_SCHOLAR_STATUS: {
+            return null;
+        }
+        case types.SCHOLAR_ADD_FAILED:{
+            return action.payload.error;
+        }
+        default: {
+            return state;
+        }
+    }
+}
+
 export default combineReducers({
     byId,
     order,
     isFetching,
     error,
+    status,
 });
 
 export const getScholar = (state, id) => state.byId[id];
 export const getScholars = state => state.order.map(id => getScholar(state, id));
 export const isFetchingScholars = state => state.isFetching;
 export const getFetchingScholarsError = state => state.error;
+export const getScholarStatus = state => state.status;
