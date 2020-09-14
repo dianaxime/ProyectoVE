@@ -10,6 +10,8 @@ import Nav from '../../Nav';
 import RolesTable from '../RolesTable';
 import RolesModal from '../RolesModal';
 import { makeStyles } from '@material-ui/core/styles';
+import './styles.css';
+import Footer from '../../Footer';
 
 const drawerWidth = 240;
 
@@ -57,6 +59,9 @@ const RolesPage = ({ open }) => {
                 <RolesTable />
                 <RolesModal />
             </main>
+            <div className="footer">
+                <Footer />
+            </div>
         </div>
     );
 }

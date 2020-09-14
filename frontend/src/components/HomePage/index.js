@@ -6,6 +6,7 @@ import { URL } from '../../settings';
 import Nav from '../Nav';
 import { makeStyles } from '@material-ui/core/styles';
 import './style_home.css';
+import Footer from '../Footer';
 
 const drawerWidth = 240;
 
@@ -14,36 +15,36 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
     },
     drawerHeader: {
-      display: 'flex',
-      alignItems: 'center',
-      padding: theme.spacing(0, 1),
-      // necessary for content to be below app bar
-      ...theme.mixins.toolbar,
-      justifyContent: 'flex-end',
+        display: 'flex',
+        alignItems: 'center',
+        padding: theme.spacing(0, 1),
+        // necessary for content to be below app bar
+        ...theme.mixins.toolbar,
+        justifyContent: 'flex-end',
     },
     content: {
-      flexGrow: 1,
-      padding: theme.spacing(3),
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      marginLeft: -drawerWidth,
+        flexGrow: 1,
+        padding: theme.spacing(3),
+        transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
+        marginLeft: -drawerWidth,
     },
     contentShift: {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
+        transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
     },
 }));
 
-const Home = ({open}) => {
+const Home = ({ open }) => {
     const classes = useStyles();
     return (
         <div className={classes.root}>
-            <Nav/>
+            <Nav />
             <main
                 className={clsx(classes.content, {
                     [classes.contentShift]: open,
@@ -75,6 +76,9 @@ const Home = ({open}) => {
                     accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
                 </p>
             </main>
+            <div className="footer">
+                <Footer />
+            </div>
         </div>
     );
 }
@@ -89,7 +93,7 @@ export default connect(
         if (!stateProps.isAuth) {
             window.location.href = URL + 'auth';
         }
-        return({
+        return ({
             ...stateProps,
             ...disptachProps,
             ...ownProps,

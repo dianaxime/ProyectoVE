@@ -9,6 +9,8 @@ import { URL } from '../../settings';
 import Nav from '../Nav';
 import Authorization from '../Authorization';
 import { makeStyles } from '@material-ui/core/styles';
+import './styles.css';
+import Footer from '../Footer';
 
 const drawerWidth = 240;
 
@@ -55,6 +57,9 @@ const AuthorizePage = ({ open }) => {
                 <div className={classes.drawerHeader} />
                 <Authorization />
             </main>
+            <div className="footer">
+                <Footer />
+            </div>
         </div>
     );
 }

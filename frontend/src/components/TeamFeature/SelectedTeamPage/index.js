@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Nav from '../../Nav';
 import './styles.css';
+import Footer from '../../Footer';
 
 const drawerWidth = 240;
 
@@ -57,8 +58,10 @@ const SelectedTeamPage = ({open}) => {
                     <SelectedTeam />
                     <ShowPersons />
                 </div>
-
             </main>
+            <div className="footer">
+                <Footer />
+            </div>
         </div>
     );
 }

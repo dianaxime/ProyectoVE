@@ -7,6 +7,8 @@ import Nav from '../../Nav';
 import AssociationClubs from '../AssociationClubs';
 import * as actions from '../../../actions/associationClub';
 import { makeStyles } from '@material-ui/core/styles';
+import './styles.css';
+import Footer from '../../Footer';
 
 const drawerWidth = 240;
 
@@ -53,6 +55,9 @@ const AssociationClubsPage = ({open}) => {
                 <div className={classes.drawerHeader} />
                 <AssociationClubs/>
             </main>
+            <div className="footer">
+                <Footer />
+            </div>
         </div>
     );
 }
