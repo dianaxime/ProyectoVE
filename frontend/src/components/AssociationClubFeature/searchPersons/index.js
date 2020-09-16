@@ -8,7 +8,7 @@ import {
 } from '../../../reducers';
 import InputBase from '@material-ui/core/InputBase';
 import { reset, Field, reduxForm } from 'redux-form';
-import * as actions from '../../../actions/participation';
+import * as actions from '../../../actions/associationClubRelationship';
 import './styles.css';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
@@ -41,20 +41,20 @@ let SearchPersons = ({
     onSubmit,
     isLoading,
     handleSubmit,
-    selectWorkshop,
-    workshop,
+    selectAC,
+    associationClub,
 }) => {
     return (
         <div className="personasWorkshop">
             <div className="formP">
                 <h1 className="subP">Personas</h1>
                 {
-                    selectWorkshop ? (
+                    selectAC ? (
 
-                        <p className="subtituloT">{((Object.entries(workshop)[1])[1])}</p>
+                        <p className="subtituloT">{((Object.entries(associationClub)[1])[1])}</p>
                     ) :
                         (
-                            <p className="subtituloT">*Seleccione un taller*</p>
+                            <p className="subtituloT">*Seleccione una asociacion o club*</p>
                         )
                 }
                 <div className="barrabus">
@@ -82,8 +82,8 @@ SearchPersons = connect(
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
         open: getIsOpen(state),
-        selectWorkshop: getSelectedAssociationClub(state) !== null,
-        workshop: getAssociationClub(state, getSelectedAssociationClub(state)),
+        selectAC: getSelectedAssociationClub(state) !== null,
+        associationClub: getAssociationClub(state, getSelectedAssociationClub(state)),
     }),
     dispatch => ({
         onSubmit({ email }) {

@@ -11,7 +11,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import Typography from '@material-ui/core/Typography';
-import * as actions from '../../../actions/participation';
+import * as actions from '../../../actions/associationClubRelationship';
 
 const Person = ({
   users,
@@ -53,10 +53,10 @@ export default connect(
     workshop: selectors.getAssociationClub(state, selectors.getSelectedAssociationClub(state)),
   }),
   dispatch => ({
-    onAssign(userid, idw, date1, date2) {
+    onAssign(userid, idac, date1, date2) {
       const startdate = moment(date1);
       const enddate = moment(date2);
-      dispatch(actions.startAddingParticipation(uuidv4(), userid, idw, startdate.format("YYYY-MM-DD"), enddate.format("YYYY-MM-DD")));
+      dispatch(actions.startAddingAssociationClubRelationship(uuidv4(), userid, idac, startdate.format("YYYY-MM-DD"), enddate.format("YYYY-MM-DD")));
     }
   }),
   (stateProps, dispatchProps, ownProps) => ({

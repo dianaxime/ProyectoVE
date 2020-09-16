@@ -11,20 +11,20 @@ import ShowPerson from '../ShowPerson';
 
 
 let ShowPersons = ({
-    selectWorkshop,
-    workshop,
+    selectAC,
+    associationClub,
 }) => {
     return (
         <div className="personasWorkshop">
             <div className="formP">
                 <h1 className="subP">Personas</h1>
                 {
-                    selectWorkshop ? (
+                    selectAC ? (
 
-                        <p className="subtituloT">{((Object.entries(workshop)[1])[1])}</p>
+                        <p className="subtituloT">{((Object.entries(associationClub)[1])[1])}</p>
                     ) :
                         (
-                            <p className="subtituloT">*Seleccione un taller*</p>
+                            <p className="subtituloT">*Seleccione una Asociación o Club*</p>
                         )
                 }
                 {
@@ -43,8 +43,8 @@ ShowPersons = connect(
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
         open: getIsOpen(state),
-        selectWorkshop: getSelectedAssociationClub(state) !== null,
-        workshop: getAssociationClub(state, getSelectedAssociationClub(state)),
+        selectAC: getSelectedAssociationClub(state) !== null,
+        associationClub: getAssociationClub(state, getSelectedAssociationClub(state)),
     }),
     undefined,
 )(ShowPersons);

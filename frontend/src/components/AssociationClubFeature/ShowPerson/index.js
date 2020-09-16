@@ -40,7 +40,7 @@ const Person = ({
             }
           </List>
         ) : (
-            <p className="inputPersonaS">No hay personas asignadas a este taller</p>
+            <p className="inputPersonaS">No hay personas asignadas</p>
           )
       }
     </div>
@@ -51,16 +51,16 @@ export default connect(
   state => ({
     users: selectors.getParticipations(state),
     isLoading: selectors.isFetchingUsersByEmail(state),
-    selectWS: selectors.getSelectedAssociationClub(state),
-    workshop: selectors.getAssociationClub(state, selectors.getSelectedAssociationClub(state)),
+    selectAC: selectors.getSelectedAssociationClub(state),
+    associationClub: selectors.getAssociationClub(state, selectors.getSelectedAssociationClub(state)),
   }),
   dispatch => ({
     onLoad(idw) {
-      dispatch(actions.startFetchingParticipation(idw));
+      dispatch(actions.startFetchingAssociationClubRelationship(idw));
     },
     onDelete(idw, userid) {
       if ( idw != null && userid != null) {
-        dispatch(actions.startRemovingParticipation(idw, userid));
+        dispatch(actions.startRemovingAssociationClubRelationship(idw, userid));
       }
     },
   }),
@@ -69,11 +69,11 @@ export default connect(
     ...stateProps,
     ...dispatchProps,
     onLoad() {
-      dispatchProps.onLoad(stateProps.selectWS);
+      dispatchProps.onLoad(stateProps.selectAC);
     },
     onDelete(id) {
       if (id != null) {
-        dispatchProps.onDelete(stateProps.selectWS, id);
+        dispatchProps.onDelete(stateProps.selectAC, id);
       }
     },
   })
