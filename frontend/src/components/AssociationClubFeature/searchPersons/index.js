@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import {
     getAuthToken,
     getIsOpen,
-    getWorkshop,
-    getSelectedWorkshop,
+    getAssociationClub,
+    getSelectedAssociationClub,
 } from '../../../reducers';
 import InputBase from '@material-ui/core/InputBase';
 import { reset, Field, reduxForm } from 'redux-form';
@@ -82,8 +82,8 @@ SearchPersons = connect(
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
         open: getIsOpen(state),
-        selectWorkshop: getSelectedWorkshop(state) !== null,
-        workshop: getWorkshop(state, getSelectedWorkshop(state)),
+        selectWorkshop: getSelectedAssociationClub(state) !== null,
+        workshop: getAssociationClub(state, getSelectedAssociationClub(state)),
     }),
     dispatch => ({
         onSubmit({ email }) {

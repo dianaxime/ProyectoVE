@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import {
     getAuthToken,
     getIsOpen,
-    getWorkshop,
-    getSelectedWorkshop,
+    getAssociationClub,
+    getSelectedAssociationClub,
 } from '../../../reducers';
 import './styles.css';
 import ShowPerson from '../ShowPerson';
@@ -43,8 +43,8 @@ ShowPersons = connect(
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
         open: getIsOpen(state),
-        selectWorkshop: getSelectedWorkshop(state) !== null,
-        workshop: getWorkshop(state, getSelectedWorkshop(state)),
+        selectWorkshop: getSelectedAssociationClub(state) !== null,
+        workshop: getAssociationClub(state, getSelectedAssociationClub(state)),
     }),
     undefined,
 )(ShowPersons);

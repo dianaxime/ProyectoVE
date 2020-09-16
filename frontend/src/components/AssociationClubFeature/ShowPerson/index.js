@@ -51,8 +51,8 @@ export default connect(
   state => ({
     users: selectors.getParticipations(state),
     isLoading: selectors.isFetchingUsersByEmail(state),
-    selectWS: selectors.getSelectedWorkshop(state),
-    workshop: selectors.getWorkshop(state, selectors.getSelectedWorkshop(state)),
+    selectWS: selectors.getSelectedAssociationClub(state),
+    workshop: selectors.getAssociationClub(state, selectors.getSelectedAssociationClub(state)),
   }),
   dispatch => ({
     onLoad(idw) {
