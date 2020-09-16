@@ -31,7 +31,7 @@ import SelectedEventPage from '../EventFeature/SelectedEventPage';
 import AddAssociationClubPage from '../AssociationClubFeature/AddAssociationClubPage';
 import AssosiationClubsPage from '../AssociationClubFeature/AssosiationClubsPage';
 import EditAssociationClubPage from '../AssociationClubFeature/EditAssociationClubPage';
-
+import SelectedAssociationClubPage from '../AssociationClubFeature/SelectedAssociationClubPage';
 
 import 'fontsource-roboto';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -67,6 +67,7 @@ const App = () => (
           <Route exact path="/crearAsociacionClub" component={AddAssociationClubPage} />
           <Route exact path="/asociacionesClubs" component={AssosiationClubsPage} />
           <Route exact path="/editarAsociacionClub" component={EditAssociationClubPage} />
+          <Route exact path="/asociacionesClub" component={SelectedAssociationClubPage} />
           <Route render={() => <Redirect to="/" />} />
         </Switch>
       </BrowserRouter>

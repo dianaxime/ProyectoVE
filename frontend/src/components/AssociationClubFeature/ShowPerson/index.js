@@ -9,7 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import Typography from '@material-ui/core/Typography';
-import * as actions from '../../../actions/participation';
+import * as actions from '../../../actions/associationClubRelationship';
 
 const Person = ({
   users,

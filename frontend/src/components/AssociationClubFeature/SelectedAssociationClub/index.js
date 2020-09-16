@@ -4,15 +4,14 @@ import { MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol } from
 'mdbreact';
 import {
     getAuthToken,
-    getWorkshop,
-    getSelectedWorkshop
+    getAssociationClub,
+    getSelectedAssociationClub
 } from '../../../reducers';
 import './styles.css';
 import moment from 'moment';
 
-
-let SelectedWorkshop = ({
-    name, startdate, enddate, classroom, description,
+let SelectedAssociationClub = ({
+    name, startdate, enddate, type, description,
     }) => {
     return (
         <div className="dataWorkshop">
@@ -33,7 +32,7 @@ let SelectedWorkshop = ({
                         <h5 className="edate">{moment(enddate).format('L')}</h5>
                         <hr />
                         <div className='text-center'>
-                        {classroom}
+                        {type}
                         </div>
                     </MDBCardBody>
                     </MDBCard>
@@ -43,16 +42,16 @@ let SelectedWorkshop = ({
     );
 }
 
-SelectedWorkshop = connect(
+SelectedAssociationClub = connect(
     state => ({
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
-        name: getWorkshop(state, getSelectedWorkshop(state)).name,
-        description: getWorkshop(state, getSelectedWorkshop(state)).description,
-        startdate: getWorkshop(state, getSelectedWorkshop(state)).startdate,
-        enddate: getWorkshop(state, getSelectedWorkshop(state)).enddate,
-        classroom: getWorkshop(state, getSelectedWorkshop(state)).classroom,
+        name: getAssociationClub(state, getSelectedAssociationClub(state)).name,
+        description: getAssociationClub(state, getSelectedAssociationClub(state)).description,
+        startdate: getAssociationClub(state, getSelectedAssociationClub(state)).startdate,
+        enddate: getAssociationClub(state, getSelectedAssociationClub(state)).enddate,
+        type: getAssociationClub(state, getSelectedAssociationClub(state)).type,
     }),
-)(SelectedWorkshop);
+)(SelectedAssociationClub);
 
-export default SelectedWorkshop;
+export default SelectedAssociationClub;

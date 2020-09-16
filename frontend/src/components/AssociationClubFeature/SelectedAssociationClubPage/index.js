@@ -1,5 +1,5 @@
 import React from 'react';
-import SelectedWorkshop from '../SelectedWorkshop';
+import SelectedAssociationClub from '../SelectedAssociationClub';
 import ShowPersons from '../ShowPersons';
 import { connect } from 'react-redux';
 import { getAuthToken, getIsOpen } from '../../../reducers';
@@ -9,6 +9,7 @@ import clsx from 'clsx';
 import Nav from '../../Nav';
 import './styles.css';
 import Footer from '../../Footer';
+
 
 const drawerWidth = 240;
 
@@ -42,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const SelectedWorkshopPage = ({open}) => {
+const SelectedAssociationClubPage = ({open}) => {
     const classes = useStyles();
     return (
 
@@ -55,7 +56,7 @@ const SelectedWorkshopPage = ({open}) => {
             >
                 <div className={classes.drawerHeader} />
                 <div className="contenedorW">
-                    <SelectedWorkshop />
+                    <SelectedAssociationClub />
                     <ShowPersons />
                 </div>
             </main>
@@ -82,4 +83,4 @@ export default connect(
             ...ownProps,
         });
     }
-)(SelectedWorkshopPage);
+)(SelectedAssociationClubPage);

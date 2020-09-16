@@ -36,7 +36,7 @@ const AssociationClub = ({
             <MDBCardText className='white-text'>
             Tipo: {((Object.entries(associationClub)[2])[1])}
             </MDBCardText>
-            <Link to='/asociacionClub'>
+            <Link to='/asociacionesClub'>
               <button className='more_button' onClick={onClick}>
               VER MÁS
               </button>
