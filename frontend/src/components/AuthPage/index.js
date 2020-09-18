@@ -9,15 +9,17 @@ import './styles.css';
 import Footer from '../Footer';
 
 const Auth = () => (
-    <div>
-        <img src={require('./logo_uvg.jpg')} alt="logo" />
-        <div className='auth-container'>
-            <Login />
-            <SignIn />
-        </div>
-        <ForgotModal />
-        <div className="footer">
-            <Footer />
+    <div className="bg">
+        <div>
+            <img src={require('./logo_uvg.jpg')} alt="logo" />
+            <div className='auth-container'>
+                <Login />
+                <SignIn />
+            </div>
+            <ForgotModal />
+            <footer className="footer">
+                <Footer />
+            </footer>
         </div>
     </div>
 );
