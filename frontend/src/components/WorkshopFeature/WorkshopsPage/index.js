@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 const WorkshopsPage = ({open}) => {
     const classes = useStyles();
     return (
-        <div className={classes.root}>
+        <div className="bgw">
             <Nav/>
             <main
                 className={clsx(classes.content, {

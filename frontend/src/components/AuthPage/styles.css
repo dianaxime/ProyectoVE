@@ -47,8 +47,8 @@ img {
 .auth-container {
     margin-top: 10px;
     display: flex;
-    /*display: grid;
-    grid-template-columns: 300px 500px;*/
+    display: grid;
+    grid-template-columns: 350px 500px;
     border-radius: 40px;
     align-items: center;
     justify-content: center;

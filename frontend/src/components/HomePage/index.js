@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 const Home = ({ open }) => {
     const classes = useStyles();
     return (
-        <div className={classes.root}>
+        <div className="bghome">
             <Nav />
             <main
                 className={clsx(classes.content, {

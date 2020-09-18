@@ -21,3 +21,12 @@
     color: white;
     text-align: center;*/
 }
+
+.bgaw {
+    background-image: url(marimba.jpg);
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+}

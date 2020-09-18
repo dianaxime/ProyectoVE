@@ -46,7 +46,7 @@ const AddWorkshopPage = ({open}) => {
     const classes = useStyles();
     return (
 
-        <div className={classes.root}>
+        <div className="bgaw">
             <Nav />
             <main
                 className={clsx(classes.content, {
