@@ -5,7 +5,7 @@ import * as types from '../types/associationClubRelationship';
 
 const byId = (state = {}, action) => {
     switch (action.type) {
-      case types.USERS_BY_EMAIL_FETCH_COMPLETED: {
+      case types.USERS_BY_EMAIL_FETCH_COMPLETED_AC: {
         const { entities, order } = action.payload;
         const newState = { };
         order.forEach(id => {
@@ -29,7 +29,7 @@ const byId = (state = {}, action) => {
   
   const order = (state = [], action) => {
     switch (action.type) {
-      case types.USERS_BY_EMAIL_FETCH_COMPLETED: {
+      case types.USERS_BY_EMAIL_FETCH_COMPLETED_AC: {
         return  [...action.payload.order];
       }
       case types.ASSOCIATION_CLUB_RELATIONSHIP_ADD_COMPLETED: {
@@ -44,13 +44,13 @@ const byId = (state = {}, action) => {
   
   const isFetching = (state = false, action) => {
     switch (action.type) {
-      case types.USERS_BY_EMAIL_FETCH_STARTED: {
+      case types.USERS_BY_EMAIL_FETCH_STARTED_AC: {
         return true;
       }
-      case types.USERS_BY_EMAIL_FETCH_COMPLETED: {
+      case types.USERS_BY_EMAIL_FETCH_COMPLETED_AC: {
         return false;
       }
-      case types.USERS_BY_EMAIL_FETCH_FAILED: {
+      case types.USERS_BY_EMAIL_FETCH_FAILED_AC: {
         return false;
       }
       default: {
@@ -61,13 +61,13 @@ const byId = (state = {}, action) => {
   
   const error = (state = null, action) => {
     switch (action.type) {
-      case types.USERS_BY_EMAIL_FETCH_FAILED: {
+      case types.USERS_BY_EMAIL_FETCH_FAILED_AC: {
         return action.payload.error;
       }
-      case types.USERS_BY_EMAIL_FETCH_STARTED: {
+      case types.USERS_BY_EMAIL_FETCH_STARTED_AC: {
         return null;
       }
-      case types.USERS_BY_EMAIL_FETCH_COMPLETED: {
+      case types.USERS_BY_EMAIL_FETCH_COMPLETED_AC: {
         return null;
       }
       default: {

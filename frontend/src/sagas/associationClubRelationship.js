@@ -60,7 +60,7 @@ function* fetchUsers(action) {
 
 export function* watchUsersFetchAssociationClubRelationship() {
     yield takeEvery(
-        types.USERS_BY_EMAIL_FETCH_STARTED,
+        types.USERS_BY_EMAIL_FETCH_STARTED_AC,
         fetchUsers,
     );
 }

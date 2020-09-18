@@ -1,21 +1,21 @@
 import * as types from '../types/rolesRelationship';
 
 export const startFetchingUsersByEmail = email => ({
-    type: types.USERS_BY_EMAIL_FETCH_STARTED,
+    type: types.USERS_BY_EMAIL_FETCH_STARTED_ROLES,
     payload: {
         email
     },
 });
 
 export const completeFetchingUsersByEmail = (entities, order) => ({
-    type: types.USERS_BY_EMAIL_FETCH_COMPLETED,
+    type: types.USERS_BY_EMAIL_FETCH_COMPLETED_ROLES,
     payload: {
         entities,
         order,
     },
 });
 export const failFetchingUsersByEmail = error => ({
-    type: types.USERS_BY_EMAIL_FETCH_FAILED,
+    type: types.USERS_BY_EMAIL_FETCH_FAILED_ROLES,
     payload: {
         error,
     },
