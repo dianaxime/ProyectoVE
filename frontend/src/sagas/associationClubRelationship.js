@@ -116,7 +116,7 @@ function* fetchAssociationClubRelationship(action) {
             const token = yield select(selectors.getAuthToken);
             const response = yield call(
                 fetch,
-                `${API_BASE_URL}/AC-participation/all-AC-participations/${action.payload.idac}`,
+                `${API_BASE_URL}/AC-participation/participations-by-AC/${action.payload.idac}`,
                 {
                     method: 'GET',
                     headers: {

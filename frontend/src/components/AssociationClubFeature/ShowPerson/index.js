@@ -49,7 +49,7 @@ const Person = ({
 
 export default connect(
   state => ({
-    users: selectors.getParticipations(state),
+    users: selectors.getAssociationClubRelationships(state),
     isLoading: selectors.isFetchingUsersByEmail(state),
     selectAC: selectors.getSelectedAssociationClub(state),
     associationClub: selectors.getAssociationClub(state, selectors.getSelectedAssociationClub(state)),
