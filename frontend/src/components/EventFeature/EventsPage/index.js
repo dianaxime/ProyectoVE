@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 const EventsPage = ({open}) => {
     const classes = useStyles();
     return (
-        <div className={classes.root}>
+        <div className="bge">
             <Nav/>
             <main
                 className={clsx(classes.content, {

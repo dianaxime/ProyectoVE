@@ -46,7 +46,7 @@ const AddEventPage = ({open}) => {
     const classes = useStyles();
     return (
 
-        <div className={classes.root}>
+        <div className="bgae">
             <Nav />
             <main
                 className={clsx(classes.content, {

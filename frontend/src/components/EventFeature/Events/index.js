@@ -8,7 +8,6 @@ import './styles.css';
 const Events = ({ event, isLoading, onLoad }) => {
     useEffect(onLoad, []);
     return (
-
         <div>
             {
                 event.length > 0 && !isLoading && (

@@ -45,8 +45,7 @@ const useStyles = makeStyles((theme) => ({
 const EditEventPage = ({open}) => {
     const classes = useStyles();
     return (
-
-        <div className={classes.root}>
+        <div className="bgee">
             <Nav />
             <main
                 className={clsx(classes.content, {

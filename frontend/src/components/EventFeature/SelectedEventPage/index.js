@@ -46,7 +46,7 @@ const SelectedEventPage = ({open}) => {
     const classes = useStyles();
     return (
 
-        <div className={classes.root}>
+        <div className="bgse">
             <Nav />
             <main
                 className={clsx(classes.content, {
