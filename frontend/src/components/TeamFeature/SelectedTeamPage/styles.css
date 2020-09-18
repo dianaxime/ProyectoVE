@@ -16,3 +16,12 @@
     color: white;
     text-align: center;*/
 }
+
+.bgst {
+    background-image: url(basket.jpg);
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+}

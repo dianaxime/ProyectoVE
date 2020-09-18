@@ -46,7 +46,7 @@ const SelectedTeamPage = ({open}) => {
     const classes = useStyles();
     return (
 
-        <div className={classes.root}>
+        <div className="bgst">
             <Nav />
             <main
                 className={clsx(classes.content, {

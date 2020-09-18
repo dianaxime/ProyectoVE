@@ -46,7 +46,7 @@ const AddTeamPage = ({open}) => {
     const classes = useStyles();
     return (
 
-        <div className={classes.root}>
+        <div className="bgat">
             <Nav />
             <main
                 className={clsx(classes.content, {

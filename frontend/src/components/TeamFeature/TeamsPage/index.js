@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 const TeamsPage = ({open}) => {
     const classes = useStyles();
     return (
-        <div className={classes.root}>
+        <div className="bgt">
             <Nav/>
             <main
                 className={clsx(classes.content, {

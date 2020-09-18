@@ -46,7 +46,7 @@ const EditTeamPage = ({open}) => {
     const classes = useStyles();
     return (
 
-        <div className={classes.root}>
+        <div className="bget">
             <Nav />
             <main
                 className={clsx(classes.content, {
