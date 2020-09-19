@@ -50,8 +50,5 @@ promise.then(function(title)
 
 console.log(title);
 
-//console.log("hola");
 
 });
-
-//driver.quit();
