@@ -7,3 +7,12 @@
     color: white;
     text-align: center;*/
 }
+
+.bgaup {
+    background-image: url(febrero.jpg);
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+}

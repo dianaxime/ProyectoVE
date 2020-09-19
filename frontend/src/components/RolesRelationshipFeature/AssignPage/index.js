@@ -50,7 +50,7 @@ const AssignPage = ({ open, onLoad }) => {
     useEffect(onLoad, []);
     const classes = useStyles();
     return (
-        <div className={classes.root}>
+        <div className="bgap">
             <Nav />
             <main
                 className={clsx(classes.content, {

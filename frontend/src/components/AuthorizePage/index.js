@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 const AuthorizePage = ({ open }) => {
     const classes = useStyles();
     return (
-        <div className={classes.root}>
+        <div className="bgaup">
             <Nav />
             <main
                 className={clsx(classes.content, {

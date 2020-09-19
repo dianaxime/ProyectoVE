@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 const RolesPage = ({ open }) => {
     const classes = useStyles();
     return (
-        <div className={classes.root}>
+        <div className="bgrp">
             <Nav />
             <main
                 className={clsx(classes.content, {
