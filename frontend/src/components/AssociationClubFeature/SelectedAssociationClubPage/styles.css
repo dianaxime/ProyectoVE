@@ -16,3 +16,12 @@
     color: white;
     text-align: center;*/
 }
+
+.bgsac {
+    background-image: url(coro.jpg);
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+}

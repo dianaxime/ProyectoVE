@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 const AssociationClubsPage = ({open}) => {
     const classes = useStyles();
     return (
-        <div className={classes.root}>
+        <div className="bgac">
             <Nav/>
             <main
                 className={clsx(classes.content, {
