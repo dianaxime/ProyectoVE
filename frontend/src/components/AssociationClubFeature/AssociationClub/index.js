@@ -11,60 +11,66 @@ import './styles.css';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 
-const AssociationClub = ({ 
-    associationClub,
-    onClick,
-    onEdit=false,
-  }) => (
-      <div className='associationClubBox'>
-    <MDBRow>
-      <MDBCol md='4'>
-        <MDBCard>
-          <MDBCardBody className='elegant-color white-text rounded-bottom, carta'>
-            <div className="tituloCard">
+const AssociationClub = ({
+  associationClub,
+  onClick,
+  onEdit = false,
+}) => (
+    <div className='associationClubBox'>
+      <MDBCard style={{ height: '14rem' }}>
+        <MDBCardBody className='elegant-color white-text rounded-bottom, carta'>
+          <MDBRow>
+            <MDBCol md='8'>
               <MDBCardTitle className="tituloAC">{((Object.entries(associationClub)[1])[1])}</MDBCardTitle>
+            </MDBCol>
+            <MDBCol md='4'>
               <Link to='/editarAsociacionClub'>
-              <IconButton onClick={onEdit}>
-               <EditIcon  className="iconoedit"/>
-              </IconButton>
+                <IconButton onClick={onEdit}>
+                  <EditIcon className="iconoedit" />
+                </IconButton>
               </Link>
-            </div>
-            <hr className='hr-light' />
-            <MDBCardText className='des'>
+            </MDBCol>
+          </MDBRow>
+          <hr className='hr-light' />
+          <MDBCardText className='desevent line-clamp'>
             {((Object.entries(associationClub)[3])[1])}
-            </MDBCardText>
-            <MDBCardText className='white-text'>
-            Tipo: {((Object.entries(associationClub)[2])[1])}
-            </MDBCardText>
-            <Link to='/asociacionesClub'>
-              <button className='more_button' onClick={onClick}>
-              VER MÁS
+          </MDBCardText>
+          <MDBRow>
+            <MDBCol md='6'>
+              <MDBCardText className='white-text'>
+                Tipo: {((Object.entries(associationClub)[2])[1])}
+              </MDBCardText>
+            </MDBCol>
+            <MDBCol md='6'>
+              <Link to='/asociacionesClub'>
+                <button className='more_ac' onClick={onClick}>
+                  VER MÁS
               </button>
-            </Link>
-          </MDBCardBody>
-        </MDBCard>
-      </MDBCol>
-    </MDBRow>
+              </Link>
+            </MDBCol>
+          </MDBRow>
+        </MDBCardBody>
+      </MDBCard>
     </div>
   );
-  
-  export default connect(
-    (state, { id }) => ({
-      ...selectors.getAssociationClub(state, id),
-      associationClub: selectors.getAssociationClub(state, id),
-      isSelected: selectors.getSelectedAssociationClub(state) === id,
-      //name: ((Object.entries(associationClub)[1])[1]),
-    }),
-    (dispatch, {id}) => ({
-      onClick() {
-        dispatch(selectedActions.selectedAssociationClub(id));
-        dispatch(<Redirect to='/' />);
-        // console.log(((Object.entries(id)[1])[1]))
-      },
-      onEdit() {
-        dispatch(selectedActions.selectedAssociationClub(id));
-        dispatch(<Redirect to='/' />);
-        //console.log(((Object.entries(id)[1])[1]))
-      },
-    }),
-  )(AssociationClub);
+
+export default connect(
+  (state, { id }) => ({
+    ...selectors.getAssociationClub(state, id),
+    associationClub: selectors.getAssociationClub(state, id),
+    isSelected: selectors.getSelectedAssociationClub(state) === id,
+    //name: ((Object.entries(associationClub)[1])[1]),
+  }),
+  (dispatch, { id }) => ({
+    onClick() {
+      dispatch(selectedActions.selectedAssociationClub(id));
+      dispatch(<Redirect to='/' />);
+      // console.log(((Object.entries(id)[1])[1]))
+    },
+    onEdit() {
+      dispatch(selectedActions.selectedAssociationClub(id));
+      dispatch(<Redirect to='/' />);
+      //console.log(((Object.entries(id)[1])[1]))
+    },
+  }),
+)(AssociationClub);

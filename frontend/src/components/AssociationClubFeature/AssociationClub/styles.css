@@ -1,44 +1,10 @@
 
 .tituloAC{
     width: 160px;
-    height: 29px;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-
-/* Tamaño del scroll */
-.tituloAC::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-}
-    
-    /* Estilos barra (thumb) de scroll */
-.tituloAC::-webkit-scrollbar-thumb {
-    background: #b3b3b3;
-    border-radius: 4px;
-}
-    
-.tituloAC::-webkit-scrollbar-thumb:active {
-    background-color: rgb(77, 76, 76);
-}
-    
-.tituloAC::-webkit-scrollbar-thumb:hover {
-    background: transparent;
-}
-    
-/* Estilos track de scroll */
-.tituloAC::-webkit-scrollbar-track {
-    background: transparent;
-    border-radius: 4px;
-}
-    
-.tituloAC::-webkit-scrollbar-track:active {
-    background:rgb(77, 76, 76);
-}
-
-.tituloAC::-webkit-scrollbar-track:hover{
-    background: transparent;
-} 
 
 .tituloCard{
     display: grid;
@@ -46,49 +12,22 @@
     grid-column-gap: 20px;
 }
 
-.des{
-    height: 54px;
-    overflow-y: scroll;
-    overflow-x: hidden;
+.line-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+}
+
+.desevent {
+    height: 42px;
+    overflow: hidden;
+    text-overflow: ellipsis;
     /*background-color: lavender;*/
 }
 
-/* Tamaño del scroll */
-.des::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-}
-    
-    /* Estilos barra (thumb) de scroll */
-.des::-webkit-scrollbar-thumb {
-    background: #b3b3b3;
-    border-radius: 4px;
-}
-    
-.des::-webkit-scrollbar-thumb:active {
-    background-color: rgb(77, 76, 76);
-}
-    
-.des::-webkit-scrollbar-thumb:hover {
-    background: rgb(77, 76, 76);
-    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
-}
-    
-/* Estilos track de scroll */
-.des::-webkit-scrollbar-track {
-    background: rgb(77, 76, 76);
-    border-radius: 4px;
-}
-    
-.des::-webkit-scrollbar-track:hover, 
-.des::-webkit-scrollbar-track:active {
-    background: rgb(77, 76, 76);
-}
-
-
 .associationClubBox{
-    width: 50rem;
-    margin: 15px;
+    width: 15rem;
+    /*margin: 15px;*/
 }
 
 .workshop--clicked{
@@ -131,13 +70,15 @@
     margin-bottom: 20px;
 }
 
-.more_button{
+.more_ac{
+    /*
     margin-left: 125px;
+    margin-top: 10px;
+    */
     border-style: none;
     border-radius: 3px;
     background-color: green;
     color: white;
-    margin-top: 10px;
     height: 30px;
 }
 
