@@ -17,7 +17,7 @@ const Workshop = ({
   onEdit = false,
 }) => (
     <div className='workshopBoxs'>
-      <MDBCard style={{ height: '16rem' }}>
+      <MDBCard style={{ height: '14rem' }}>
         <MDBCardBody className='elegant-color white-text rounded-bottom, carta'>
           <MDBRow>
             <MDBCol md='8'>
