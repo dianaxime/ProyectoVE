@@ -37,15 +37,15 @@ let SelectedWorkshop = ({
                     </MDBRow>
                 </MDBCardImage>
                 <MDBRow start>
-                    <MDBCol md='4'>
+                    <MDBCol md='0'>
                         <Link to="/talleres">
                             <button className="kc_fab_main_btn">
                                 <MDBIcon icon='chevron-left' />
                             </button>
                         </Link>
                     </MDBCol>
-                    <MDBCol md='8'>
-                        <div style={{ padding: '1rem' }}>
+                    <MDBCol md='12'>
+                        <div className='text-center' style={{ padding: '1rem' }}>
                             {classroom}
                         </div>
                     </MDBCol>
