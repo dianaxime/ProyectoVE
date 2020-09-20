@@ -9,13 +9,10 @@
 
 
 .tituloEvent{
-    font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
-    color: white;
-    background-color: black;
-    border-radius: 6px;
-    padding: 15px;
-    height: auto;
-    max-height: 70px;
+    width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .descr{
