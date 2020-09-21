@@ -11,60 +11,66 @@ import './styles.css';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 
-const Workshop = ({ 
-    workshop,
-    onClick,
-    onEdit=false,
-  }) => (
-      <div className='workshopBox'>
-    <MDBRow>
-      <MDBCol md='4'>
-        <MDBCard>
-          <MDBCardBody className='elegant-color white-text rounded-bottom, carta'>
-            <div className="tituloCard">
-              <MDBCardTitle className="titulotaller">{((Object.entries(workshop)[1])[1])}</MDBCardTitle>
+const Workshop = ({
+  workshop,
+  onClick,
+  onEdit = false,
+}) => (
+    <div className='workshopBoxs'>
+      <MDBCard style={{ height: '14rem' }}>
+        <MDBCardBody className='elegant-color white-text rounded-bottom, carta'>
+          <MDBRow>
+            <MDBCol md='8'>
+              <MDBCardTitle className="titulotallers">{((Object.entries(workshop)[1])[1])}</MDBCardTitle>
+            </MDBCol>
+            <MDBCol md='4'>
               <Link to='/editartaller'>
-              <IconButton onClick={onEdit}>
-               <EditIcon  className="iconoedit"/>
-              </IconButton>
+                <IconButton onClick={onEdit}>
+                  <EditIcon className="iconoedit" />
+                </IconButton>
               </Link>
-            </div>
-            <hr className='hr-light' />
-            <MDBCardText className='des'>
+            </MDBCol>
+          </MDBRow>
+          <hr className='hr-light' />
+          <MDBCardText className='dess line-clamp'>
             {((Object.entries(workshop)[3])[1])}
-            </MDBCardText>
-            <MDBCardText className='white-text'>
-            Salón: {((Object.entries(workshop)[2])[1])}
-            </MDBCardText>
-            <Link to='/taller'>
-              <button className='more_button' onClick={onClick}>
-              VER MÁS
-              </button>
-            </Link>
-          </MDBCardBody>
-        </MDBCard>
-      </MDBCol>
-    </MDBRow>
+          </MDBCardText>
+          <MDBRow>
+            <MDBCol md='6'>
+              <MDBCardText className='white-text'>
+                Salón: {((Object.entries(workshop)[2])[1])}
+              </MDBCardText>
+            </MDBCol>
+            <MDBCol md='6'>
+              <Link to='/taller'>
+                <button className='more_buttons' onClick={onClick}>
+                  VER MÁS
+                </button>
+              </Link>
+            </MDBCol>
+          </MDBRow>
+        </MDBCardBody>
+      </MDBCard>
     </div>
   );
-  
-  export default connect(
-    (state, { id }) => ({
-      ...selectors.getWorkshop(state, id),
-      workshop: selectors.getWorkshop(state, id),
-      isSelected: selectors.getSelectedWorkshop(state) === id,
-      //name: ((Object.entries(workshop)[1])[1]),
-    }),
-    (dispatch, {id}) => ({
-      onClick() {
-        dispatch(selectedActions.selectedWorkshop(id));
-        dispatch(<Redirect to='/' />);
-        // console.log(((Object.entries(id)[1])[1]))
-      },
-      onEdit() {
-        dispatch(selectedActions.selectedWorkshop(id));
-        dispatch(<Redirect to='/' />);
-        //console.log(((Object.entries(id)[1])[1]))
-      },
-    }),
-  )(Workshop);
+
+export default connect(
+  (state, { id }) => ({
+    ...selectors.getWorkshop(state, id),
+    workshop: selectors.getWorkshop(state, id),
+    isSelected: selectors.getSelectedWorkshop(state) === id,
+    //name: ((Object.entries(workshop)[1])[1]),
+  }),
+  (dispatch, { id }) => ({
+    onClick() {
+      dispatch(selectedActions.selectedWorkshop(id));
+      dispatch(<Redirect to='/' />);
+      // console.log(((Object.entries(id)[1])[1]))
+    },
+    onEdit() {
+      dispatch(selectedActions.selectedWorkshop(id));
+      dispatch(<Redirect to='/' />);
+      //console.log(((Object.entries(id)[1])[1]))
+    },
+  }),
+)(Workshop);

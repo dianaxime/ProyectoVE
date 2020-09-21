@@ -5,11 +5,12 @@ import { Field, reduxForm, reset } from 'redux-form';
 import * as actionsModal from '../../actions/modalChange';
 import * as actions from '../../actions/auth';
 import TextField from '@material-ui/core/TextField';
-import { 
-    getIsChanging,
-    getChangingError,
+import {
+    getChangingStatus,
     getIsChangeOpen
 } from '../../reducers';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const validate = values => {
     const errors = {};
@@ -44,7 +45,17 @@ let Change = ({ open, onHandle, onSubmit, handleSubmit, Message }) => {
                         <Field name="oldPassword" component={renderTextField} label="Contraseña Actual" type="password" />
                         <p></p>
                         <Field name="newPassword" component={renderTextField} label="Contraseña Nueva" type="password" />
-                        <div>{Message}</div>
+                        <div>
+                            <ToastContainer position="bottom-right"
+                                autoClose={5000}
+                                hideProgressBar={false}
+                                newestOnTop={false}
+                                closeOnClick
+                                rtl={false}
+                                pauseOnFocusLoss
+                                draggable
+                                pauseOnHover />
+                        </div>
                     </div>
                 </MDBModalBody>
                 <MDBModalFooter>
@@ -64,12 +75,7 @@ Change = reduxForm({
 
 Change = connect(
     state => ({
-        Message:
-            getIsChanging(state) !== null
-                ? getIsChanging(state)
-                    ? "Cargando"
-                    : getChangingError(state)
-                : undefined,
+        status: getChangingStatus(state),
         open: getIsChangeOpen(state),
     }),
     dispatch => ({
@@ -81,7 +87,25 @@ Change = connect(
             dispatch(reset('changePass'));
             dispatch(actionsModal.changeChange(false));
         },
-    })
+        onChangeStatus() {
+            dispatch(actions.setStatus());
+        },
+    }),
+    (stateProps, dispatchProps, ownProps) => {
+        if (stateProps.status === 'SUCCESS') {
+            toast.success("Se ha actualizado su contraseña correctamente");
+            dispatchProps.onChangeStatus();
+        }
+        if (stateProps.status === 'ERROR') {
+            toast.error("Un error inesperado ha ocurrido. Por favor inténtalo de nuevo");
+            dispatchProps.onChangeStatus();
+        }
+        return ({
+            ...stateProps,
+            ...dispatchProps,
+            ...ownProps,
+        });
+    },
 )(Change);
 
 export default Change;

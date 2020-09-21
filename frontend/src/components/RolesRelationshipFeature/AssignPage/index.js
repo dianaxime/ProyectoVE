@@ -11,6 +11,8 @@ import AssignTable from '../AssignTable';
 import AssignModal from '../AssignModal';
 import * as actions from '../../../actions/rolesRelationship';
 import { makeStyles } from '@material-ui/core/styles';
+import './styles.css';
+import Footer from '../../Footer';
 
 const drawerWidth = 240;
 
@@ -48,7 +50,7 @@ const AssignPage = ({ open, onLoad }) => {
     useEffect(onLoad, []);
     const classes = useStyles();
     return (
-        <div className={classes.root}>
+        <div className="bgap">
             <Nav />
             <main
                 className={clsx(classes.content, {
@@ -59,6 +61,9 @@ const AssignPage = ({ open, onLoad }) => {
                 <AssignTable />
                 <AssignModal/>
             </main>
+            <div className="footer">
+                <Footer />
+            </div>
         </div>
     );
 }

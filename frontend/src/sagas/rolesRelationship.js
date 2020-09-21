@@ -40,7 +40,7 @@ function* fetchUsers(action) {
                     entities: { users },
                     result,
                 } = normalize(jsonResult.data, schemas.users);
-
+                console.log(users)
                 yield put(
                     actions.completeFetchingUsersByEmail(
                         users,
@@ -60,7 +60,7 @@ function* fetchUsers(action) {
 
 export function* watchUsersFetchRolesRelationship() {
     yield takeEvery(
-        types.USERS_BY_EMAIL_FETCH_STARTED,
+        types.USERS_BY_EMAIL_FETCH_STARTED_ROLES,
         fetchUsers,
     );
 }

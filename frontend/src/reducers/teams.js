@@ -69,14 +69,6 @@ const order = (state = [], action) => {
       const { oldId, team } = action.payload;
       return state.map(id => id === oldId ? team.id : id);
     }
-    case types.TEAM_UPDATE_COMPLETED: {
-      const { id, team } = action.payload;
-      const newState = omit(state, id);
-      newState[team.id] = {
-        ...team,
-      };
-      return newState;
-    }
     default: {
       return state;
     }
@@ -117,14 +109,39 @@ const error = (state = null, action) => {
   }
 };
 
+const status = (state = null, action) => {
+  switch (action.type) {
+    case types.TEAM_ADD_COMPLETED: {
+      return 'SUCCESS';
+    }
+    case types.TEAM_UPDATE_COMPLETED: {
+      return 'SUCCESS';
+    }
+    case types.TEAM_ADD_FAILED: {
+      return 'ERROR';
+    }
+    case types.TEAM_UPDATE_FAILED: {
+      return 'ERROR';
+    }
+    case types.SET_TEAM_STATUS: {
+      return null;
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
 export default combineReducers({
   byId,
   order,
   isFetching,
   error,
+  status,
 });
 
 export const getTeam = (state, id) => state.byId[id];
 export const getTeams = state => state.order.map(id => getTeam(state, id));
 export const isFetchingTeams = state => state.isFetching;
 export const getFetchingTeamsError = state => state.error;
+export const getTeamStatus = state => state.status;

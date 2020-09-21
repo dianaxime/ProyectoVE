@@ -2,7 +2,8 @@ import { v4 as uuidv4 } from 'uuid';
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-    getAuthToken
+    getAuthToken,
+    getEventStatus,
 } from '../../../reducers';
 import TextField from '@material-ui/core/TextField';
 import { reset, Field, reduxForm } from 'redux-form';
@@ -13,7 +14,8 @@ import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const validate = values => {
     const errors = {};
@@ -26,16 +28,17 @@ const validate = values => {
     return errors;
 }
 
-const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) => (
+const renderDateTimePicker = ({ input: { onChange, value }, label, meta: { touched, error }, showTime }) => (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <KeyboardDatePicker
             autoOk
-            className="inputEvent"
+            className="inputAssociationClub"
             disableToolbar
             variant="inline"
             format="yyyy/MM/dd"
             margin="normal"
             label={label}
+            helperText={touched && error}
             onChange={onChange}
             time={showTime}
             value={!value ? new Date() : new Date(value)}
@@ -86,6 +89,15 @@ let AddEvent = ({
                             )
                     }
                 </p>
+                <ToastContainer position="bottom-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover />
             </form>
         </div>
     );
@@ -100,6 +112,7 @@ AddEvent = connect(
     state => ({
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
+        status: getEventStatus(state),
     }),
     dispatch => ({
         onSubmit({ name, classroom, description, date }) {
@@ -114,7 +127,25 @@ AddEvent = connect(
                 dispatch(reset('eventForm')),
             );
         },
+        onChangeStatus() {
+            dispatch(actions.changeEventStatus());
+        }
     }),
+    (stateProps, dispatchProps, ownProps) => {
+        if (stateProps.status === 'SUCCESS') {
+            toast.success("El evento se ha agregado exitosamente")
+            dispatchProps.onChangeStatus();
+        }
+        if (stateProps.status === 'ERROR') {
+            toast.error("Un error inesperado ha ocurrido. Por favor inténtalo de nuevo")
+            dispatchProps.onChangeStatus();
+        }
+        return ({
+            ...stateProps,
+            ...dispatchProps,
+            ...ownProps,
+        });
+    },
 )(AddEvent);
 
 export default AddEvent;

@@ -5,7 +5,7 @@ import * as types from '../types/eventParticipation';
 
 const byId = (state = {}, action) => {
     switch (action.type) {
-      case types.USERS_BY_EMAIL_FETCH_COMPLETED: {
+      case types.USERS_BY_EMAIL_FETCH_COMPLETED_EVENT: {
         const { entities, order } = action.payload;
         const newState = { };
         order.forEach(id => {
@@ -29,7 +29,7 @@ const byId = (state = {}, action) => {
   
   const order = (state = [], action) => {
     switch (action.type) {
-      case types.USERS_BY_EMAIL_FETCH_COMPLETED: {
+      case types.USERS_BY_EMAIL_FETCH_COMPLETED_EVENT: {
         return  [...action.payload.order];
       }
       case types.EVENT_PARTICIPATION_ADD_COMPLETED: {
@@ -44,13 +44,13 @@ const byId = (state = {}, action) => {
   
   const isFetching = (state = false, action) => {
     switch (action.type) {
-      case types.USERS_BY_EMAIL_FETCH_STARTED: {
+      case types.USERS_BY_EMAIL_FETCH_STARTED_EVENT: {
         return true;
       }
-      case types.USERS_BY_EMAIL_FETCH_COMPLETED: {
+      case types.USERS_BY_EMAIL_FETCH_COMPLETED_EVENT: {
         return false;
       }
-      case types.USERS_BY_EMAIL_FETCH_FAILED: {
+      case types.USERS_BY_EMAIL_FETCH_FAILED_EVENT: {
         return false;
       }
       default: {
@@ -61,13 +61,13 @@ const byId = (state = {}, action) => {
   
   const error = (state = null, action) => {
     switch (action.type) {
-      case types.USERS_BY_EMAIL_FETCH_FAILED: {
+      case types.USERS_BY_EMAIL_FETCH_FAILED_EVENT: {
         return action.payload.error;
       }
-      case types.USERS_BY_EMAIL_FETCH_STARTED: {
+      case types.USERS_BY_EMAIL_FETCH_STARTED_EVENT: {
         return null;
       }
-      case types.USERS_BY_EMAIL_FETCH_COMPLETED: {
+      case types.USERS_BY_EMAIL_FETCH_COMPLETED_EVENT: {
         return null;
       }
       default: {

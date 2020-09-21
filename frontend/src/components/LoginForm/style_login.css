@@ -22,3 +22,9 @@
     top: 15px;
     width: 200px;
 }
+
+.input{
+    width: 200px;
+    height: 55px;
+    text-align: left;
+}
