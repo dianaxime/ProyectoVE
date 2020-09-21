@@ -72,3 +72,7 @@ export const failUpdatingTeam = (id, error) => ({
     error,
   },
 });
+
+export const changeTeamStatus = () => ({
+  type: types.SET_TEAM_STATUS,
+});

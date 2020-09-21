@@ -74,3 +74,7 @@ export const failUpdatingWorkshop = (id, error) => ({
     error,
   },
 });
+
+export const changeWorkshopStatus = () => ({
+  type: types.SET_WORKSHOP_STATUS,
+});

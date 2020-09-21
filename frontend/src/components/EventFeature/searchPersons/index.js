@@ -8,7 +8,7 @@ import {
 } from '../../../reducers';
 import InputBase from '@material-ui/core/InputBase';
 import { reset, Field, reduxForm } from 'redux-form';
-import * as actions from '../../../actions/participation';
+import * as actions from '../../../actions/eventParticipation';
 import './styles.css';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';

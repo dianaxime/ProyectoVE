@@ -581,19 +581,19 @@ const dropACrelationshipTable = () => {
 */
 
 const createAllTables = () => {
-    /*createUserTable();
+    createUserTable();
     createRegisterTable();
-    createWorkshoTable();*/
-    createScholarsTable();
-    /*createTeamTable();
+    createWorkshoTable();
+    createTeamTable();
     createParticipationTable();
     createTournamentTable();
     createEventTable();
     createEventParticipationTable();
     createRolesTable();
     createRolesRelationshipTable();
+    createScholarsTable();
     createAssociationClubTable();
-    createAssociationClubRelationshipTable();*/
+    createAssociationClubRelationshipTable();
 
 };
 
@@ -605,7 +605,6 @@ const dropAllTables = () => {
     dropUserTable();
     dropRegisterTable();
     dropWorkshopTable();
-    dropScholarsTable();
     dropParticipationTable();
     dropTournamentTable();
     dropEventTable();
@@ -615,6 +614,7 @@ const dropAllTables = () => {
     dropTeamTable();
     dropACTable();
     dropACrelationshipTable();
+    dropScholarsTable();
 };
 
 pool.on('remove', () => {

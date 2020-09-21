@@ -1,0 +1,42 @@
+.associationClubsContainer {
+    display: grid;
+    height: 470px;
+    grid-gap: 20px;
+    grid-template-columns: 260px 260px 260px 260px; 
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+/* Tamaño del scroll */
+.associationClubsContainer::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+    
+    /* Estilos barra (thumb) de scroll */
+.associationClubsContainer::-webkit-scrollbar-thumb {
+    background: rgb(77, 76, 76);
+    border-radius: 4px;
+}
+    
+.associationClubsContainer::-webkit-scrollbar-thumb:active {
+    background-color: #999999;
+}
+    
+.associationClubsContainer::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+    
+/* Estilos track de scroll */
+.associationClubsContainer::-webkit-scrollbar-track {
+    background: #d4d4d4;
+    border-radius: 4px;
+}
+    
+.associationClubsContainer::-webkit-scrollbar-track:hover, 
+.associationClubsContainer::-webkit-scrollbar-track:active {
+    background: #d4d4d4;
+}
+
+

@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Nav from '../../Nav';
 import './styles.css';
+import Footer from '../../Footer';
 
 const drawerWidth = 240;
 
@@ -44,8 +45,7 @@ const useStyles = makeStyles((theme) => ({
 const EditWorkshopPage = ({open}) => {
     const classes = useStyles();
     return (
-
-        <div className={classes.root}>
+        <div className="bgew">
             <Nav />
             <main
                 className={clsx(classes.content, {
@@ -58,8 +58,10 @@ const EditWorkshopPage = ({open}) => {
                     <UpdateWorkshop />
                     <SearchPersons />
                 </div>
-
             </main>
+            <div className="footer">
+                <Footer />
+            </div>
         </div>
     );
 }

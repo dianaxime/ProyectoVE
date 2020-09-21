@@ -1,10 +1,29 @@
 body {
+    /*background-image: url(uvg.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;*/
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: white;
+}
+
+/*.image_container {
     background-image: url(uvg.jpg);
     background-size: 100%;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    justify-content: center;
-    align-items: center;
+    min-width: 1000px;
+}
+*/
+
+.bg {
+    background-image: url(uvg.jpg);
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .marca{
@@ -30,7 +49,7 @@ img {
     margin-top: 10px;
     display: flex;
     display: grid;
-    grid-template-columns: 300px 500px;
+    grid-template-columns: 350px 500px;
     border-radius: 40px;
     align-items: center;
     justify-content: center;
@@ -46,3 +65,12 @@ img {
     justify-content: center;
 }
 
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    /*background-color: red;
+    color: white;
+    text-align: center;*/
+}

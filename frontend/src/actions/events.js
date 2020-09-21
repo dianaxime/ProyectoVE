@@ -72,3 +72,7 @@ export const failUpdatingEvent = (id, error) => ({
     error,
   },
 });
+
+export const changeEventStatus = () => ({
+  type: types.SET_EVENT_STATUS,
+});

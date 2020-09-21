@@ -7,6 +7,8 @@ import Nav from '../../Nav';
 import Teams from '../Teams';
 import * as actions from '../../../actions/teams';
 import { makeStyles } from '@material-ui/core/styles';
+import './styles.css';
+import Footer from '../../Footer';
 
 const drawerWidth = 240;
 
@@ -43,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 const TeamsPage = ({open}) => {
     const classes = useStyles();
     return (
-        <div className={classes.root}>
+        <div className="bgt">
             <Nav/>
             <main
                 className={clsx(classes.content, {
@@ -53,6 +55,9 @@ const TeamsPage = ({open}) => {
                 <div className={classes.drawerHeader} />
                 <Teams/>
             </main>
+            <div className="footer">
+                <Footer />
+            </div>
         </div>
     );
 }

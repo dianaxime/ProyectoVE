@@ -9,15 +9,10 @@
 
 
 .tituloEvent{
-    font-family: 'Gill Sans', 'Gill Sans MT', 'Trebuchet MS', sans-serif;
-    color: white;
-    background-color: black;
-    border-radius: 6px;
-    padding: 15px;
-    height: auto;
-    max-height: 70px;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    width: 160px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .descr{
@@ -29,76 +24,6 @@
     max-height: 100px;
     margin-left: 10px;
     margin-right: 10px;
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-
-/* Tamaño del scroll */
-.descr::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
-}
-    
-    /* Estilos barra (thumb) de scroll */
-.descr::-webkit-scrollbar-thumb {
-    background: #a7a6a6;
-    border-radius: 4px;
-}
-    
-.descr::-webkit-scrollbar-thumb:active {
-    background-color: rgb(172, 169, 169);
-}
-    
-.descr::-webkit-scrollbar-thumb:hover {
-    background: rgb(218, 217, 217);
-}
-    
-/* Estilos track de scroll */
-.descr::-webkit-scrollbar-track {
-    background: rgb(218, 217, 217);
-    border-radius: 4px;
-}
-    
-.descr::-webkit-scrollbar-track:active {
-    background:rgb(218, 217, 217);
-}
-
-.descr::-webkit-scrollbar-track:hover{
-    background: rgb(218, 217, 217);
-} 
-
-/* Estilos barra (thumb) de scroll */
-.tituloEvent::-webkit-scrollbar-thumb {
-    background: #a7a6a6;
-    border-radius: 4px;
-}
-    
-.tituloEvent::-webkit-scrollbar-thumb:active {
-    background-color: rgb(172, 169, 169);
-}
-    
-.tituloEvent::-webkit-scrollbar-thumb:hover {
-    background: rgb(218, 217, 217);
-}
-    
-/* Estilos track de scroll */
-.tituloEvent::-webkit-scrollbar-track {
-    background: rgb(218, 217, 217);
-    border-radius: 4px;
-}
-    
-.tituloEvent::-webkit-scrollbar-track:active {
-    background:rgb(218, 217, 217);
-}
-
-.tituloEvent::-webkit-scrollbar-track:hover{
-    background: rgb(218, 217, 217);
-}
-
-/* Tamaño del scroll */
-.tituloEvent::-webkit-scrollbar {
-    width: 4px;
-    height: 4px;
 }
 
 .cartaE{
@@ -115,6 +40,7 @@
     margin-right: 10px;
     font-weight: bold;
 }
+
 .sdate{
     color: black;
     font-size: 15px;
@@ -123,6 +49,7 @@
     margin-right: 10px;
     font-style: italic;
 }
+
 .edatetitle{
     color: green;
     font-size: 15px;
@@ -140,5 +67,18 @@
     margin-right: 10px;
 }
 
-
+.kc_fab_main_btn{
+    background-color:#1C2331;
+    width:40px;
+    height:40px;
+    border-radius:100%;
+    background:#1C2331;
+    border:none;
+    outline:none;
+    color:#FFF;
+    font-size:15px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    transition:.3s;  
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
 
