@@ -87,16 +87,16 @@ function* addScholar(action) {
                 yield put(
                     actions.completeAddingScholar(
                         action.payload.id,
-                        jsonResult.data,
+                        jsonResult.data[0],
                     ),
                 );
             } else {
                 const errors = yield response.json();
-                yield put(actions.failAddingScholar(errors.error));
+                yield put(actions.failAddingScholar(action.payload.id, errors.error));
             }
         }
     } catch (error) {
-        yield put(actions.failAddingScholar("Error de conexión"));
+        yield put(actions.failAddingScholar(action.payload.id, "Verifica tu conexión e inténtalo nuevamente"));
     }
 }
 

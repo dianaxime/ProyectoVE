@@ -355,6 +355,51 @@ const createAssociationClubRelationshipTable = () => {
     });
 };
 
+/*sessions of ca */
+const createSessionsTable = () => {
+    const acsrelationshipCreateQuery = `CREATE TABLE IF NOT EXISTS sessions
+    (
+        id SERIAL PRIMARY KEY,
+        idAC INT NOT NULL,
+        date DATE NOT NULL,
+        FOREIGN KEY (idAC) REFERENCES association_club(id)
+    )`;
+
+    pool.query(acsrelationshipCreateQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+/*assitance of ca*/
+const createAssistanceTable = () => {
+    const acsrelationshipCreateQuery = `CREATE TABLE IF NOT EXISTS assistance
+    (
+        id SERIAL PRIMARY KEY,
+        userID INT NOT NULL,
+        idS INT NOT NULL,
+        late BOOLEAN NOT NULL,
+        FOREIGN KEY (idS) REFERENCES sessions(id),
+        FOREIGN KEY (userID) REFERENCES users(id),
+        UNIQUE(userID, idS)
+    )`;
+
+    pool.query(acsrelationshipCreateQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
 /**
  * Drop User Table
 */
@@ -583,18 +628,20 @@ const dropACrelationshipTable = () => {
 const createAllTables = () => {
     /*createUserTable();
     createRegisterTable();
-    createWorkshoTable();*/
+    createWorkshoTable();
     createScholarsTable();
-    /*createTeamTable();
+    createTeamTable();
     createParticipationTable();
     createTournamentTable();
     createEventTable();
     createEventParticipationTable();
     createRolesTable();
     createRolesRelationshipTable();
+    createScholarsTable();
     createAssociationClubTable();
-    createAssociationClubRelationshipTable();*/
-
+    createAssociationClubRelationshipTable();
+    createSessionsTable();
+    createAssistanceTable();*/
 };
 
 /**
@@ -605,7 +652,6 @@ const dropAllTables = () => {
     dropUserTable();
     dropRegisterTable();
     dropWorkshopTable();
-    dropScholarsTable();
     dropParticipationTable();
     dropTournamentTable();
     dropEventTable();
@@ -615,6 +661,7 @@ const dropAllTables = () => {
     dropTeamTable();
     dropACTable();
     dropACrelationshipTable();
+    dropScholarsTable();
 };
 
 pool.on('remove', () => {

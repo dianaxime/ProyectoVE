@@ -129,7 +129,7 @@ function* updateTeam(action) {
       );
       if (response.status === 200) {
         const jsonResult = yield response.json();
-        const info = jsonResult.data[0];
+        const info = jsonResult.data;
         yield put(
           actions.completeUpdatingTeam(
             info.id,

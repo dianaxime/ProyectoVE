@@ -8,12 +8,11 @@ import './styles.css';
 const Events = ({ event, isLoading, onLoad }) => {
     useEffect(onLoad, []);
     return (
-
         <div>
             {
                 event.length > 0 && !isLoading && (
 
-                    <div className="eventsContainer">
+                    <div className="eventssContainer">
 
                         {
                             event.map(({ id }) => <Event key={id}
@@ -30,6 +29,7 @@ export default connect(
     state => ({
         event: selectors.getEvents(state),
         isLoading: selectors.isFetchingEvents(state),
+        status: selectors.getEventStatus(state),
     }),
     dispatch => ({
         onLoad() {

@@ -8,13 +8,10 @@ import './styles.css';
 const Workshops = ({ workshop, isLoading, onLoad }) => {
     useEffect(onLoad, []);
     return (
-
         <div>
             {
                 workshop.length > 0 && !isLoading && (
-
                     <div className="workshopsContainer">
-
                         {
                             workshop.map(({ id }) => <Workshop key={id}
                                 id={id} />)

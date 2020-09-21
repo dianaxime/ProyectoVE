@@ -5,7 +5,7 @@ import * as types from '../types/tournament';
 
 const byId = (state = {}, action) => {
     switch (action.type) {
-      case types.USERS_BY_EMAIL_FETCH_COMPLETED: {
+      case types.USERS_BY_EMAIL_FETCH_COMPLETED_TOURNAMENT: {
         const { entities, order } = action.payload;
         const newState = { };
         order.forEach(id => {
@@ -29,7 +29,7 @@ const byId = (state = {}, action) => {
   
   const order = (state = [], action) => {
     switch (action.type) {
-      case types.USERS_BY_EMAIL_FETCH_COMPLETED: {
+      case types.USERS_BY_EMAIL_FETCH_COMPLETED_TOURNAMENT: {
         return  [...action.payload.order];
       }
       case types.TOURNAMENT_ADD_COMPLETED: {
@@ -44,13 +44,13 @@ const byId = (state = {}, action) => {
   
   const isFetching = (state = false, action) => {
     switch (action.type) {
-      case types.USERS_BY_EMAIL_FETCH_STARTED: {
+      case types.USERS_BY_EMAIL_FETCH_STARTED_TOURNAMENT: {
         return true;
       }
-      case types.USERS_BY_EMAIL_FETCH_COMPLETED: {
+      case types.USERS_BY_EMAIL_FETCH_COMPLETED_TOURNAMENT: {
         return false;
       }
-      case types.USERS_BY_EMAIL_FETCH_FAILED: {
+      case types.USERS_BY_EMAIL_FETCH_FAILED_TOURNAMENT: {
         return false;
       }
       default: {
@@ -61,13 +61,13 @@ const byId = (state = {}, action) => {
   
   const error = (state = null, action) => {
     switch (action.type) {
-      case types.USERS_BY_EMAIL_FETCH_FAILED: {
+      case types.USERS_BY_EMAIL_FETCH_FAILED_TOURNAMENT: {
         return action.payload.error;
       }
-      case types.USERS_BY_EMAIL_FETCH_STARTED: {
+      case types.USERS_BY_EMAIL_FETCH_STARTED_TOURNAMENT: {
         return null;
       }
-      case types.USERS_BY_EMAIL_FETCH_COMPLETED: {
+      case types.USERS_BY_EMAIL_FETCH_COMPLETED_TOURNAMENT: {
         return null;
       }
       default: {
