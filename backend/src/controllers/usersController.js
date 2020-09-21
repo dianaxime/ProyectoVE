@@ -30,7 +30,8 @@ const {
     getStudentsTeamsByIdQuery,
     getStudentsWSByIdQuery,
     getStudentsAByIdQuery,
-    getStudentsCByIdQuery
+    getStudentsCByIdQuery,
+    getStudentsSessionsByIdQuery
 } = require('../repository/users');
 
 /**
@@ -285,6 +286,33 @@ const getStudentsTeamsById = async (req, res)=>{
     }
 
     getStudentsTeamsByIdQuery({...req.body})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'No students teams found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+}
+
+const getStudentsSessionsById = async (req, res)=>{
+
+    const id = req.params.id;
+
+    if (empty(id)) {
+        errorMessage.error = 'User id detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+
+    getStudentsSessionsByIdQuery(id)
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
@@ -643,5 +671,6 @@ module.exports = {
     getStudentsTeamsById,
     getStudentsWSById,
     getStudentsCbyId,
-    getStudentsAbyId
+    getStudentsAbyId,
+    getStudentsSessionsById
 };

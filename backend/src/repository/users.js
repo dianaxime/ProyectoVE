@@ -38,6 +38,11 @@ JOIN association_club ON association_club.id=association_club_relationship.idac 
 const GET_CLUB_BY_STUDENT_ID=`SELECT association_club.name, association_club.description FROM users JOIN association_club_relationship ON users.id=association_club_relationship.userid
 JOIN association_club ON association_club.id=association_club_relationship.idac WHERE users.id=$1 and association_club.type='club'`;
 
+const GET_SESSIONS_BY_STUDENT_ID=`SELECT sessions.date, association_club.name FROM users JOIN assistance ON users.id=assistance.userid
+JOIN sessions ON assistance.ids=sessions.id
+JOIN association_club on association_club.id=sessions.idac 
+WHERE users.id=$1`;
+
 async function createUserQuery({email, password}) {
     
     const created_on = moment(new Date());
@@ -166,6 +171,16 @@ async function getStudentsCByIdQuery( id ) {
     return data;
 };
 
+async function getStudentsSessionsByIdQuery( id ) {
+
+    const values = [
+        id
+    ];
+
+    const data = await db.query(GET_SESSIONS_BY_STUDENT_ID, values);
+    return data;
+};
+
 async function forgotPasswordQuery({ email, password }) {
     
     const modified_on = moment(new Date());
@@ -246,5 +261,6 @@ module.exports = {
     getStudentsTeamsByIdQuery,
     getStudentsWSByIdQuery,
     getStudentsCByIdQuery,
-    getStudentsAByIdQuery
+    getStudentsAByIdQuery,
+    getStudentsSessionsByIdQuery
 };
