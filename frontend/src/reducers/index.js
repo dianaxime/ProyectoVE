@@ -11,6 +11,7 @@ import events, * as eventsSelectors from './events';
 import eventParticipation, * as eventParticipationSelectors from './eventParticipation';
 import rolesRelationship, * as rolesRelationshipSelectors from './rolesRelationship';
 import associationClubRelationship, * as associationClubRelationshipSelectors from './associationClubsRelationship';
+import sessions, * as sessionsSelectors from './sessions';
 import associationClub, * as associationClubSelectors from './associationClub'; 
 
 import changeDrawer, * as changeDrawerSelectors from './changeDrawer';
@@ -53,6 +54,7 @@ const reducer = combineReducers({
   associationClubRelationship, 
   associationClub,
   selectedAssociationClub, 
+  sessions,
   
   form: formReducer,
 });
@@ -182,4 +184,14 @@ export const isFetchingAssociationClubs = state => associationClubSelectors.isFe
 export const getFetchingAssociationClubsError = state => associationClubSelectors.getFetchingAssociationClubsError(state.associationClub);
 export const getAssociationClubStatus = state => associationClubSelectors.getAssociationClubStatus(state.associationClub);
 /* Selected Association Club */ 
-export const getSelectedAssociationClub = (state) => selectedAssociationClubSelectors.getSelectedAssociationClub(state.selectedAssociationClub)
+export const getSelectedAssociationClub = (state) => selectedAssociationClubSelectors.getSelectedAssociationClub(state.selectedAssociationClub);
+/* Association Club Relationship */
+export const getClubByNameSession = (state, id) => sessionsSelectors.getClubByNameSession(state.session, id);
+export const getClubsOrderSession = state => sessionsSelectors.getClubsOrderSession(state.session);
+export const getClubsByNameSession = state => sessionsSelectors.getClubsByNameSession(state.session);
+export const isFetchingClubsByNameSession = state => sessionsSelectors.isFetchingClubsByNameSession(state.session);
+export const getFetchingClubByNameErrorSession = state => sessionsSelectors.getFetchingClubByNameErrorSession(state.session);
+export const getSession = (state, id) => sessionsSelectors.getSession(state.session, id);
+export const getSessions = state => sessionsSelectors.getSessions(state.session);
+export const isFetchingSessions = state => sessionsSelectors.isFetchingSessions(state.session);
+export const getFetchingSessionError = state => sessionsSelectors.getFetchingSessionError(state.session);

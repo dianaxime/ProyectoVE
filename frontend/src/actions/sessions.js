@@ -1,0 +1,89 @@
+import * as types from '../types/sessions';
+
+export const startFetchingClubsByName = club => ({
+    type: types.CLUBS_BY_NAME_FETCH_STARTED_AC,
+    payload: {
+        club
+    },
+});
+
+export const completeFetchingClubsByName = (entities, order) => ({
+    type: types.CLUBS_BY_NAME_FETCH_COMPLETED_AC,
+    payload: {
+        entities,
+        order,
+    },
+});
+
+export const failFetchingClubsByName = error => ({
+    type: types.CLUBS_BY_NAME_FETCH_FAILED_AC,
+    payload: {
+        error,
+    },
+});
+
+export const startAddingSession = (id, idac, date) => ({
+    type: types.SESSION_ADD_STARTED,
+    payload: {
+        id,
+        idac,
+        date
+    },
+});
+
+export const completeAddingSession = (oldId, session) => ({
+    type: types.SESSION_ADD_COMPLETED,
+    payload: {
+        oldId,
+        session,
+    },
+});
+
+export const failAddingSession = (oldId, error) => ({
+    type: types.SESSION_ADD_FAILED,
+    payload: {
+        oldId,
+        error,
+    },
+});
+
+export const startFetchingSessions = idac => ({
+    type: types.SESSIONS_FETCH_STARTED,
+    payload: {
+        idac,
+    },
+});
+
+export const completeFetchingSessions = (entities, order) => ({
+    type: types.SESSIONS_FETCH_COMPLETED,
+    payload: {
+        entities,
+        order,
+    },
+});
+
+export const failFetchingSession = error => ({
+    type: types.SESSIONS_FETCH_FAILED,
+    payload: {
+        error,
+    },
+});
+
+export const startRemovingSession = (idac) => ({
+    type: types.SESSION_REMOVE_STARTED,
+    payload: {
+        idac,
+    },
+});
+
+export const completeRemovingSession = idac => ({
+    type: types.SESSION_REMOVE_COMPLETED,
+    payload: idac,
+});
+
+export const failRemovingSession = error => ({
+    type: types.SESSION_REMOVE_FAILED,
+    payload: {
+        error,
+    },
+});
