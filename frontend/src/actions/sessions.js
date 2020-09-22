@@ -62,27 +62,8 @@ export const completeFetchingSessions = (entities, order) => ({
     },
 });
 
-export const failFetchingSession = error => ({
+export const failFetchingSessions = error => ({
     type: types.SESSIONS_FETCH_FAILED,
-    payload: {
-        error,
-    },
-});
-
-export const startRemovingSession = (idac) => ({
-    type: types.SESSION_REMOVE_STARTED,
-    payload: {
-        idac,
-    },
-});
-
-export const completeRemovingSession = idac => ({
-    type: types.SESSION_REMOVE_COMPLETED,
-    payload: idac,
-});
-
-export const failRemovingSession = error => ({
-    type: types.SESSION_REMOVE_FAILED,
     payload: {
         error,
     },

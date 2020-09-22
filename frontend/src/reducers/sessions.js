@@ -106,10 +106,6 @@ const byId = (state = {}, action) => {
         };
         return newState;
       }
-      case types.SESSION_REMOVE_COMPLETED: {
-        const newState = omit(state, action.payload);
-        return newState;
-      }
       default: {
         return state;
       }
@@ -127,9 +123,6 @@ const byId = (state = {}, action) => {
       case types.SESSION_ADD_COMPLETED: {
         const { oldId, session } = action.payload;
         return state.map(id => id === oldId ? session.id : id);
-      }
-      case types.SESSION_REMOVE_COMPLETED: {
-        return state.filter(id => id !== action.payload);
       }
       default: {
         return state;
