@@ -14,6 +14,7 @@ import * as actions from '../actions/sessions';
 import * as types from '../types/sessions';
 import * as schemas from '../schemas/associationClub';
 import * as schemas1 from '../schemas/sessions';
+import * as actionsSelectedSession from '../actions/selectedSession';
 
 import { API_BASE_URL } from '../settings';
 
@@ -90,6 +91,9 @@ function* addSession(action) {
                         action.payload.id,
                         info,
                     ),
+                );
+                yield put(
+                    actionsSelectedSession.selectedSession(info.id),
                 );
             } else {
                 const errors = yield response.json();

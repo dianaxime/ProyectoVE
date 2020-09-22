@@ -28,6 +28,7 @@ import selectedEvent, * as selectedEventSelectors from './selectedEvent';
 import selectedRol, * as selectedRolSelectors from './selectedRol';
 import selectedAUser, * as selectedAUserSelectors from './selectedAUser'; 
 import selectedAssociationClub, * as selectedAssociationClubSelectors from './selectedAssociationClub'; 
+import selectedSession, * as selectedSessionSelectors from './selectedSession';
 
 const reducer = combineReducers({
   auth,
@@ -55,7 +56,7 @@ const reducer = combineReducers({
   associationClub,
   selectedAssociationClub, 
   sessions,
-  
+  selectedSession,
   form: formReducer,
 });
 
@@ -195,3 +196,5 @@ export const getSession = (state, id) => sessionsSelectors.getSession(state.sess
 export const getSessions = state => sessionsSelectors.getSessions(state.session);
 export const isFetchingSessions = state => sessionsSelectors.isFetchingSessions(state.session);
 export const getFetchingSessionError = state => sessionsSelectors.getFetchingSessionError(state.session);
+/* Selected Session*/
+export const getSelectedSession = (state) => selectedSessionSelectors.getSelectedSession(state.selectedSession)
