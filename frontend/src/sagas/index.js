@@ -77,7 +77,14 @@ import {
     watchClubsFetchSession,
     watchSessionsFetch,
     watchAddSession,
-} from './sessions'; 
+} from './sessions';
+
+import {
+    watchUsersFetchAssistance,
+    watchAssistancesFetch,
+    watchAddAssistance,
+    watchDeleteAssistance,
+} from './assistances'; 
 
 function* mainSaga() {
     yield all([
@@ -137,6 +144,11 @@ function* mainSaga() {
         fork(watchClubsFetchSession),
         fork(watchSessionsFetch),
         fork(watchAddSession),
+        /* Assistances */
+        fork(watchUsersFetchAssistance),
+        fork(watchAssistancesFetch),
+        fork(watchAddAssistance),
+        fork(watchDeleteAssistance),
     ]);
 }
 

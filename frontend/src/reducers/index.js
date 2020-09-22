@@ -13,6 +13,7 @@ import rolesRelationship, * as rolesRelationshipSelectors from './rolesRelations
 import associationClubRelationship, * as associationClubRelationshipSelectors from './associationClubsRelationship';
 import sessions, * as sessionsSelectors from './sessions';
 import associationClub, * as associationClubSelectors from './associationClub'; 
+import assistances, * as assistancesSelectors from './assistances'; 
 
 import changeDrawer, * as changeDrawerSelectors from './changeDrawer';
 import changeForgot, * as changeForgotSelectors from './modalForgot';
@@ -57,6 +58,7 @@ const reducer = combineReducers({
   selectedAssociationClub, 
   sessions,
   selectedSession,
+  assistances,
   form: formReducer,
 });
 
@@ -187,14 +189,24 @@ export const getAssociationClubStatus = state => associationClubSelectors.getAss
 /* Selected Association Club */ 
 export const getSelectedAssociationClub = (state) => selectedAssociationClubSelectors.getSelectedAssociationClub(state.selectedAssociationClub);
 /* Association Club Relationship */
-export const getClubByNameSession = (state, id) => sessionsSelectors.getClubByNameSession(state.session, id);
-export const getClubsOrderSession = state => sessionsSelectors.getClubsOrderSession(state.session);
-export const getClubsByNameSession = state => sessionsSelectors.getClubsByNameSession(state.session);
-export const isFetchingClubsByNameSession = state => sessionsSelectors.isFetchingClubsByNameSession(state.session);
-export const getFetchingClubByNameErrorSession = state => sessionsSelectors.getFetchingClubByNameErrorSession(state.session);
-export const getSession = (state, id) => sessionsSelectors.getSession(state.session, id);
-export const getSessions = state => sessionsSelectors.getSessions(state.session);
-export const isFetchingSessions = state => sessionsSelectors.isFetchingSessions(state.session);
-export const getFetchingSessionError = state => sessionsSelectors.getFetchingSessionError(state.session);
+export const getClubByNameSession = (state, id) => sessionsSelectors.getClubByNameSession(state.sessions, id);
+export const getClubsOrderSession = state => sessionsSelectors.getClubsOrderSession(state.sessions);
+export const getClubsByNameSession = state => sessionsSelectors.getClubsByNameSession(state.sessions);
+export const isFetchingClubsByNameSession = state => sessionsSelectors.isFetchingClubsByNameSession(state.sessions);
+export const getFetchingClubByNameErrorSession = state => sessionsSelectors.getFetchingClubByNameErrorSession(state.sessions);
+export const getSession = (state, id) => sessionsSelectors.getSession(state.sessions, id);
+export const getSessions = state => sessionsSelectors.getSessions(state.sessions);
+export const isFetchingSessions = state => sessionsSelectors.isFetchingSessions(state.sessions);
+export const getFetchingSessionError = state => sessionsSelectors.getFetchingSessionError(state.sessions);
 /* Selected Session*/
 export const getSelectedSession = (state) => selectedSessionSelectors.getSelectedSession(state.selectedSession)
+/* Assistances */
+export const getUserByEmailAssistance = (state, id) => assistancesSelectors.getUserByEmailAssistance(state.assistances, id);
+export const getUsersOrderAssistance = state => assistancesSelectors.getUsersOrderAssistance(state.assistances);
+export const getUsersByEmailAssistance = state => assistancesSelectors.getUsersByEmailAssistance(state.assistances);
+export const isFetchingUsersByEmailAssistance = state => assistancesSelectors.isFetchingUsersByEmailAssistance(state.assistances);
+export const getFetchingUsersByEmailErrorAssistance = state => assistancesSelectors.getFetchingUsersByEmailErrorAssistance(state.assistances);
+export const getAssistance = (state, id) => assistancesSelectors.getAssistance(state.assistances, id);
+export const getAssistances = state => assistancesSelectors.getAssistances(state.assistances);
+export const isFetchingAssistances = state => assistancesSelectors.isFetchingAssistances(state.assistances);
+export const getFetchingAssistanceError = state => assistancesSelectors.getFetchingAssistanceError(state.assistances);
