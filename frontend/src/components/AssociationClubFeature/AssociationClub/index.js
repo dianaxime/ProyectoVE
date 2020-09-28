@@ -10,6 +10,7 @@ import * as selectedActions from '../../../actions/selectedAssociationClub';
 import './styles.css';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
+import AddIcon from '@material-ui/icons/Add';
 
 const AssociationClub = ({
   associationClub,
@@ -27,6 +28,13 @@ const AssociationClub = ({
               <Link to='/editarAsociacionClub'>
                 <IconButton onClick={onEdit}>
                   <EditIcon className="iconoedit" />
+                </IconButton>
+              </Link>
+            </MDBCol>
+            <MDBCol>
+              <Link to='/session'>
+                <IconButton >
+                  <AddIcon className="iconoedit" />
                 </IconButton>
               </Link>
             </MDBCol>

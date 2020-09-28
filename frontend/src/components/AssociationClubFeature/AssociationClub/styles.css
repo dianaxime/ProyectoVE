@@ -8,8 +8,8 @@
 
 .tituloCard{
     display: grid;
-    grid-template-columns: 150px 35px;
-    grid-column-gap: 20px;
+    grid-template-columns: 500px 35px 35px;
+    grid-column-gap: 5px;
 }
 
 .line-clamp {
