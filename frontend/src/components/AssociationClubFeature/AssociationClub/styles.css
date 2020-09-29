@@ -1,6 +1,6 @@
 
 .tituloAC{
-    width: 160px;
+    width: 20px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -8,8 +8,7 @@
 
 .tituloCard{
     display: grid;
-    grid-template-columns: 500px 35px 35px;
-    grid-column-gap: 5px;
+    grid-template-columns: 30% 25% 25%;
 }
 
 .line-clamp {
@@ -83,6 +82,7 @@
 }
 
 .iconoedit{
+    /* margin-left: -20px; */
     color: white;
 }
 
@@ -90,4 +90,8 @@
     border: none;
     color: initial;
     border-color: initial;
+}
+
+.mas{
+    width: 15px;
 }

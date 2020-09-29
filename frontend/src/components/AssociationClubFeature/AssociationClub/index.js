@@ -21,17 +21,17 @@ const AssociationClub = ({
       <MDBCard style={{ height: '14rem' }}>
         <MDBCardBody className='elegant-color white-text rounded-bottom, carta'>
           <MDBRow>
-            <MDBCol md='8'>
+            <MDBCol >
               <MDBCardTitle className="tituloAC">{((Object.entries(associationClub)[1])[1])}</MDBCardTitle>
             </MDBCol>
-            <MDBCol md='4'>
+            <MDBCol size="2">
               <Link to='/editarAsociacionClub'>
                 <IconButton onClick={onEdit}>
                   <EditIcon className="iconoedit" />
                 </IconButton>
               </Link>
             </MDBCol>
-            <MDBCol>
+            <MDBCol size="3">
               <Link to='/session'>
                 <IconButton >
                   <AddIcon className="iconoedit" />
