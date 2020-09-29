@@ -33,8 +33,8 @@ const AssociationClub = ({
             </MDBCol>
             <MDBCol size="3">
               <Link to='/session'>
-                <IconButton >
-                  <AddIcon className="iconoedit" />
+                <IconButton  >
+                  <AddIcon className="iconoedit"/>
                 </IconButton>
               </Link>
             </MDBCol>
