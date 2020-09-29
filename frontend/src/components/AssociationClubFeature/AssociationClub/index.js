@@ -24,17 +24,10 @@ const AssociationClub = ({
             <MDBCol >
               <MDBCardTitle className="tituloAC">{((Object.entries(associationClub)[1])[1])}</MDBCardTitle>
             </MDBCol>
-            <MDBCol size="2">
+            <MDBCol md="4">
               <Link to='/editarAsociacionClub'>
                 <IconButton onClick={onEdit}>
                   <EditIcon className="iconoedit" />
-                </IconButton>
-              </Link>
-            </MDBCol>
-            <MDBCol size="3">
-              <Link to='/session'>
-                <IconButton  >
-                  <AddIcon className="iconoedit"/>
                 </IconButton>
               </Link>
             </MDBCol>

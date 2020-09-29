@@ -19,7 +19,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const validate = values => {
     const errors = {};
-    const requiredFields = ['name', 'classroom', 'description', 'date'];
+    const requiredFields = ['date'];
     requiredFields.forEach(field => {
         if (!values[field]) {
             errors[field] = 'Obligatorio*';
@@ -104,9 +104,10 @@ AddSession = connect(
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
         idac: getSelectedAssociationClub(state) === id,
+        idac1: getSelectedAssociationClub(state),
     }),
     dispatch => ({
-        onSubmit({date, idac,}) {
+        onSubmit(date, idac) {
             dispatch(
                 actions.startAddingSession(
                     uuidv4(),
@@ -130,6 +131,10 @@ AddSession = connect(
             ...stateProps,
             ...dispatchProps,
             ...ownProps,
+            onSubmit({date}){
+                console.log(date, stateProps.idac1)
+                dispatchProps.onSubmit(date, stateProps.idac1);
+            }
         });
     },
 )(AddSession);

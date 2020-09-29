@@ -33,7 +33,7 @@ const createSession = async (req, res) => {
         date
     } = req.body;
 
-    if (isEmpty(idac) || isEmpty(date) ) {
+    if (empty(idac) || isEmpty(date) ) {
         errorMessage.error = 'Id of club/association and date field cannot be empty';
         return res.status(status.bad).send(errorMessage);
     }
