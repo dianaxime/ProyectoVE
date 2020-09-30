@@ -11,7 +11,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import Typography from '@material-ui/core/Typography';
-import * as actions from '../../../actions/associationClubRelationship';
+import * as actions from '../../../actions/assistances';
 
 const Person = ({
   users,
@@ -47,16 +47,16 @@ const Person = ({
 
 export default connect(
   state => ({
-    users: selectors.getUsersByEmailAssociationClubRelationship(state),
+    users: selectors.getUserByEmailAssistance(state),
     isLoading: selectors.isFetchingUsersByEmail(state),
-    selectAC: selectors.getSelectedAssociationClub(state),
-    associationClub: selectors.getAssociationClub(state, selectors.getSelectedAssociationClub(state)),
+    selectAC: selectors.getSelectedAssistance(state),
+    assistance: selectors.getAssistance(state, selectors.getSelectedAssistance(state)),
   }),
   dispatch => ({
     onAssign(userid, idac, date1, date2) {
       const startdate = moment(date1);
       const enddate = moment(date2);
-      dispatch(actions.startAddingAssociationClubRelationship(uuidv4(), userid, idac, startdate.format("YYYY-MM-DD"), enddate.format("YYYY-MM-DD")));
+      dispatch(actions.startAddingAssistance(uuidv4(), userid, idac, startdate.format("YYYY-MM-DD"), enddate.format("YYYY-MM-DD")));
     }
   }),
   (stateProps, dispatchProps, ownProps) => ({
@@ -64,7 +64,7 @@ export default connect(
     ...stateProps,
     ...dispatchProps,
     onAssign(id) {
-      dispatchProps.onAssign(id, stateProps.selectAC, stateProps.associationClub.startdate, stateProps.associationClub.enddate);
+      dispatchProps.onAssign(id, stateProps.selectAC, stateProps.assistance.startdate, stateProps.assistance.enddate);
     },
   })
 )(Person);

@@ -3,16 +3,17 @@ import { connect } from 'react-redux';
 import {
     getAuthToken,
     getIsOpen,
-    getAssociationClub,
-    getSelectedAssociationClub,
+    getAssistance,
+    getSelectedAssistances,
 } from '../../../reducers';
 import InputBase from '@material-ui/core/InputBase';
 import { reset, Field, reduxForm } from 'redux-form';
-import * as actions from '../../../actions/associationClubRelationship';
+import * as actions from '../../../actions/assistances';
 import './styles.css';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
 import Persons from '../Persons';
+import { getAssistance } from '../../../reducers/assistances';
 
 const validate = values => {
     const errors = {};
@@ -42,7 +43,7 @@ let SearchPersons = ({
     isLoading,
     handleSubmit,
     selectAC,
-    associationClub,
+    assistances,
 }) => {
     return (
         <div className="personasWorkshop">
@@ -51,10 +52,10 @@ let SearchPersons = ({
                 {
                     selectAC ? (
 
-                        <p className="subtituloT">{((Object.entries(associationClub)[1])[1])}</p>
+                        <p className="subtituloT">{((Object.entries(assistances)[1])[1])}</p>
                     ) :
                         (
-                            <p className="subtituloT">*Seleccione una asociacion o club*</p>
+                            <p className="subtituloT">*Seleccione su asistencia*</p>
                         )
                 }
                 <div className="barrabus">
@@ -82,8 +83,8 @@ SearchPersons = connect(
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
         open: getIsOpen(state),
-        selectAC: getSelectedAssociationClub(state) !== null,
-        associationClub: getAssociationClub(state, getSelectedAssociationClub(state)),
+        selectAC: getSelectedAssistances(state) !== null,
+        assistances: getAssistance(state, getSelectedAssistances(state)),
     }),
     dispatch => ({
         onSubmit({ email }) {

@@ -9,7 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import Typography from '@material-ui/core/Typography';
-import * as actions from '../../../actions/associationClubRelationship';
+import * as actions from '../../../actions/assistances';
 
 const Person = ({
   users,
@@ -49,18 +49,18 @@ const Person = ({
 
 export default connect(
   state => ({
-    users: selectors.getAssociationClubRelationships(state),
+    users: selectors.getAssistances(state),
     isLoading: selectors.isFetchingUsersByEmail(state),
-    selectAC: selectors.getSelectedAssociationClub(state),
-    associationClub: selectors.getAssociationClub(state, selectors.getSelectedAssociationClub(state)),
+    selectAC: selectors.getSelectedAssistances(state),
+    assistance: selectors.getAssistance(state, selectors.getSelectedAssistances(state)),
   }),
   dispatch => ({
     onLoad(idw) {
-      dispatch(actions.startFetchingAssociationClubRelationship(idw));
+      dispatch(actions.startAddingAssistance(idw));
     },
     onDelete(idw, userid) {
       if ( idw != null && userid != null) {
-        dispatch(actions.startRemovingAssociationClubRelationship(idw, userid));
+        dispatch(actions.startRemovingAssistance(idw, userid));
       }
     },
   }),

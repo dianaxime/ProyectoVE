@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import {
     getAuthToken,
     getIsOpen,
-    getAssociationClub,
-    getSelectedAssociationClub,
+    getAssistances,
+    getSelectedAssistances,
 } from '../../../reducers';
 import './styles.css';
 import ShowPerson from '../ShowPerson';
@@ -12,7 +12,7 @@ import ShowPerson from '../ShowPerson';
 
 let ShowPersons = ({
     selectAC,
-    associationClub,
+    assistances,
 }) => {
     return (
         <div className="personasWorkshop">
@@ -21,7 +21,7 @@ let ShowPersons = ({
                 {
                     selectAC ? (
 
-                        <p className="subtituloT">{((Object.entries(associationClub)[1])[1])}</p>
+                        <p className="subtituloT">{((Object.entries(assistances)[1])[1])}</p>
                     ) :
                         (
                             <p className="subtituloT">*Seleccione una Asociación o Club*</p>
@@ -43,8 +43,8 @@ ShowPersons = connect(
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
         open: getIsOpen(state),
-        selectAC: getSelectedAssociationClub(state) !== null,
-        associationClub: getAssociationClub(state, getSelectedAssociationClub(state)),
+        selectAC: getSelectedAssistances(state) !== null,
+        assistances: getAssistances(state, getSelectedAssistances(state)),
     }),
     undefined,
 )(ShowPersons);
