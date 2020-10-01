@@ -5,7 +5,6 @@ import {
     getAuthToken,
     getSelectedAssociationClub,
 } from '../../../reducers';
-import TextField from '@material-ui/core/TextField';
 import { reset, Field, reduxForm } from 'redux-form';
 import * as actions from '../../../actions/sessions';
 import './styles.css';
@@ -45,17 +44,6 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, meta: { touch
             fullWidth
         />
     </MuiPickersUtilsProvider>
-);
-
-const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
-    <TextField className="inputEvent" placeholder={label}
-        label={label}
-        helperText={touched && error}
-        {...input}
-        {...custom}
-        margin="dense"
-        fullWidth
-    />
 );
 
 let AddSession = ({

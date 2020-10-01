@@ -34,7 +34,7 @@ const AssociationClubSession = ({
               </Link>
             </MDBCol>
             <MDBCol size="2" style={{ paddingLeft: '5px', paddingRight: '5px' }}>
-              <Link to='/session'>
+              <Link to='/session' onClick={onEdit}>
                 <IconButton style={{ padding: '0px' }} >
                   <AddIcon className="iconosessions" />
                 </IconButton>
