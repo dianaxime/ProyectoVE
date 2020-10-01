@@ -17,30 +17,30 @@ const AssociationClubSession = ({
   onClick,
   onEdit = false,
 }) => (
-    <div className='associationClubBox'>
+    <div className='SessionBox'>
       <MDBCard style={{ height: '14rem' }}>
         <MDBCardBody className='elegant-color white-text rounded-bottom, carta'>
           <MDBRow>
-            <MDBCol >
-              <MDBCardTitle className="tituloAC">{((Object.entries(associationClub)[1])[1])}</MDBCardTitle>
+            <MDBCol size="8">
+              <MDBCardTitle className="tituloSession">{((Object.entries(associationClub)[1])[1])}</MDBCardTitle>
             </MDBCol>
-            <MDBCol size="2">
+            <MDBCol size="2" style={{paddingRight: '5px', paddingLeft: '5px'}}>
               <Link to='/editarAsociacionClub'>
-                <IconButton onClick={onEdit}>
-                  <EditIcon className="iconoedit" />
+                <IconButton onClick={onEdit} style={{padding: '0px'}}>
+                  <EditIcon className="iconosessions" />
                 </IconButton>
               </Link>
             </MDBCol>
-            <MDBCol size="3">
+            <MDBCol size="2" style={{paddingLeft: '5px', paddingRight: '5px'}}>
               <Link to='/session'>
-                <IconButton  >
-                  <AddIcon className="iconoedit"/>
+                <IconButton style={{padding: '0px'}} >
+                  <AddIcon className="iconosessions"/>
                 </IconButton>
               </Link>
             </MDBCol>
           </MDBRow>
           <hr className='hr-light' />
-          <MDBCardText className='desevent line-clamp'>
+          <MDBCardText className='dessessions line-clamp'>
             {((Object.entries(associationClub)[3])[1])}
           </MDBCardText>
           <MDBRow>
