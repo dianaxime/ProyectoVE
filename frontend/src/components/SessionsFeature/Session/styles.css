@@ -68,16 +68,30 @@
     margin-bottom: 20px;
 }
 
-.more_sessions{
+.all-sessions{
     /*
     margin-left: 125px;
     margin-top: 10px;
     */
     border-style: none;
-    border-radius: 3px;
+    border-radius: 5px;
+    background-color: #197180;
+    color: white;
+    height: 40px;
+    width: 85px;
+}
+
+.all-sessions1{
+    /*
+    margin-left: 125px;
+    margin-top: 10px;
+    */
+    border-style: none;
+    border-radius: 5px;
     background-color: green;
     color: white;
-    height: 30px;
+    height: 40px;
+    width: 85px;
 }
 
 .iconosessions{

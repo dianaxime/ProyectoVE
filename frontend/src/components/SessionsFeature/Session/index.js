@@ -11,6 +11,8 @@ import './styles.css';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
+import DateRangeIcon from '@material-ui/icons/DateRange';
+import BarChartIcon from '@material-ui/icons/BarChart';
 
 const AssociationClubSession = ({
   associationClub,
@@ -24,17 +26,17 @@ const AssociationClubSession = ({
             <MDBCol size="8">
               <MDBCardTitle className="tituloSession">{((Object.entries(associationClub)[1])[1])}</MDBCardTitle>
             </MDBCol>
-            <MDBCol size="2" style={{paddingRight: '5px', paddingLeft: '5px'}}>
+            <MDBCol size="2" style={{ paddingRight: '5px', paddingLeft: '5px' }}>
               <Link to='/editarAsociacionClub'>
-                <IconButton onClick={onEdit} style={{padding: '0px'}}>
+                <IconButton onClick={onEdit} style={{ padding: '0px' }}>
                   <EditIcon className="iconosessions" />
                 </IconButton>
               </Link>
             </MDBCol>
-            <MDBCol size="2" style={{paddingLeft: '5px', paddingRight: '5px'}}>
+            <MDBCol size="2" style={{ paddingLeft: '5px', paddingRight: '5px' }}>
               <Link to='/session'>
-                <IconButton style={{padding: '0px'}} >
-                  <AddIcon className="iconosessions"/>
+                <IconButton style={{ padding: '0px' }} >
+                  <AddIcon className="iconosessions" />
                 </IconButton>
               </Link>
             </MDBCol>
@@ -45,15 +47,17 @@ const AssociationClubSession = ({
           </MDBCardText>
           <MDBRow>
             <MDBCol md='6'>
-              <MDBCardText className='white-text'>
-                Tipo: {((Object.entries(associationClub)[2])[1])}
-              </MDBCardText>
+              <Link to='/session'>
+                <button className='all-sessions1'>
+                  <DateRangeIcon className="iconosessions"/>
+                </button>
+              </Link>
             </MDBCol>
             <MDBCol md='6'>
-              <Link to='/asociacionesClub'>
-                <button className='more_ac' onClick={onClick}>
-                  VER MÁS
-              </button>
+              <Link to='/session'>
+                <button className='all-sessions'>
+                  <BarChartIcon className="iconosessions"/>
+                </button>
               </Link>
             </MDBCol>
           </MDBRow>
