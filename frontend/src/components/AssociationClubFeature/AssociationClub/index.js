@@ -10,7 +10,6 @@ import * as selectedActions from '../../../actions/selectedAssociationClub';
 import './styles.css';
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Edit';
-import AddIcon from '@material-ui/icons/Add';
 
 const AssociationClub = ({
   associationClub,
@@ -21,7 +20,7 @@ const AssociationClub = ({
       <MDBCard style={{ height: '14rem' }}>
         <MDBCardBody className='elegant-color white-text rounded-bottom, carta'>
           <MDBRow>
-            <MDBCol >
+            <MDBCol md="8">
               <MDBCardTitle className="tituloAC">{((Object.entries(associationClub)[1])[1])}</MDBCardTitle>
             </MDBCol>
             <MDBCol md="4">
@@ -33,7 +32,7 @@ const AssociationClub = ({
             </MDBCol>
           </MDBRow>
           <hr className='hr-light' />
-          <MDBCardText className='desevent line-clamp'>
+          <MDBCardText className='desac line-clamp'>
             {((Object.entries(associationClub)[3])[1])}
           </MDBCardText>
           <MDBRow>

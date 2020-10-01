@@ -640,8 +640,8 @@ const createAllTables = () => {
     createScholarsTable();
     createAssociationClubTable();
     createAssociationClubRelationshipTable();
-    createSessionsTable();
-    createAssistanceTable();*/
+    createSessionsTable();*/
+    createAssistanceTable();
 };
 
 /**
