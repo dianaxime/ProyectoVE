@@ -36,6 +36,7 @@ import SelectedAssociationClubPage from '../AssociationClubFeature/SelectedAssoc
 /* Sessions */
 import AddSessionPage from '../SessionsFeature/AddSessionPage';
 import SessionPage from '../SessionsFeature/SessionsPage';
+import SelectedACSessionsPage from '../SessionsFeature/SelectedACSessionsPage';
 
 import 'fontsource-roboto';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -74,6 +75,7 @@ const App = () => (
           <Route exact path="/asociacionesClub" component={SelectedAssociationClubPage} />
           <Route exact path="/session" component={AddSessionPage} />
           <Route exact path="/sessions" component={SessionPage} />
+          <Route exact path="/sessionsclub" component={SelectedACSessionsPage} />
           <Route render={() => <Redirect to="/" />} />
         </Switch>
       </BrowserRouter>

@@ -47,15 +47,15 @@ const AssociationClubSession = ({
           </MDBCardText>
           <MDBRow>
             <MDBCol md='6'>
-              <Link to='/session'>
-                <button className='all-sessions1'>
+              <Link to='/sessionsclub'>
+                <button className='all-sessions1' onClick={onEdit}>
                   <DateRangeIcon className="iconosessions"/>
                 </button>
               </Link>
             </MDBCol>
             <MDBCol md='6'>
               <Link to='/session'>
-                <button className='all-sessions'>
+                <button className='all-sessions' onClick={onEdit}>
                   <BarChartIcon className="iconosessions"/>
                 </button>
               </Link>

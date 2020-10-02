@@ -51,12 +51,12 @@ export default connect(
   state => ({
     users: selectors.getAssistances(state),
     isLoading: selectors.isFetchingUsersByEmail(state),
-    selectAC: selectors.getSelectedAssistances(state),
-    assistance: selectors.getAssistance(state, selectors.getSelectedAssistances(state)),
+    selectAC: selectors.getSelectedSession(state),
+    assistance: selectors.getSession(state, selectors.getSelectedSession(state)),
   }),
   dispatch => ({
     onLoad(idw) {
-      dispatch(actions.startAddingAssistance(idw));
+      dispatch(actions.startFetchingAssistances(idw));
     },
     onDelete(idw, userid) {
       if ( idw != null && userid != null) {
