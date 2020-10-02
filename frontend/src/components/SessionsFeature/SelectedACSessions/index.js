@@ -11,8 +11,6 @@ import './styles.css';
 import moment from 'moment';
 import { Link } from "react-router-dom";
 import { reset, Field, reduxForm } from 'redux-form';
-/*import DayPicker from 'react-day-picker';
-import 'react-day-picker/lib/style.css';*/
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
 import { Calendar } from "react-modern-calendar-datepicker";
 
@@ -26,33 +24,6 @@ const validate = values => {
     })
     return errors;
 }
-
-const MONTHS = [
-    'Enero',
-    'Febrero',
-    'Marzo',
-    'Abril',
-    'Mayo',
-    'Junio',
-    'Julio',
-    'Agosto',
-    'Septiembre',
-    'Octubre',
-    'Noviembre',
-    'Diciembre',
-];
-
-const WEEKDAYS_LONG = [
-    'Domingo',
-    'Lunes',
-    'Martes',
-    'Miércoles',
-    'Jueves',
-    'Viernes',
-    'Sábado',
-];
-
-const WEEKDAYS_SHORT = ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'];
 
 const myCustomLocale = {
     // months list by order
@@ -154,31 +125,7 @@ const myCustomLocale = {
   
 
 const renderDateTimePicker = ({ input: { onChange, value }, label, meta: { touched, error }, showTime }) => {
-    /*const modifiers = {
-        disabled: { daysOfWeek: [6] },
-        birthday: new Date(2020, 10, 23),
-        monday: { daysOfWeek: [1] },
-    };*/
     return (
-        /*<>
-            <style>{`
-          .DayPicker-Day--birthday {
-            background-color: #00bcd4;
-            color: white;
-          }
-          .DayPicker-Day--monday {
-            color: #00bcd4;
-          }
-          `}</style>
-            <DayPicker
-                months={MONTHS}
-                weekdaysLong={WEEKDAYS_LONG}
-                weekdaysShort={WEEKDAYS_SHORT}
-                onDayClick={onChange}
-                selectedDays={!value ? new Date() : new Date(value)}
-                modifiers={modifiers}
-            />
-        </>*/
         <Calendar
             value={value}
             onChange={onChange}
@@ -202,7 +149,7 @@ let SelectedACSession = ({
 }) => {
     return (
         <div className="dataAC">
-            <MDBCard wide style={{ width: "22rem", maxHeight: "31rem" }}>
+            <MDBCard wide style={{ width: "24rem", maxHeight: "32rem" }}>
                 <MDBCardImage
                     className='view view-cascade gradient-card-header heavy-rain-gradient'
                     cascade
