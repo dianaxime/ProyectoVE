@@ -17,7 +17,7 @@ import {
 } from '@material-ui/pickers';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import gtLocale from 'date-fns/locale/es';
 
 const validate = values => {
     const errors = {};
@@ -31,7 +31,7 @@ const validate = values => {
 }
 
 const renderDateTimePicker = ({ input: { onChange, value }, label, meta: { touched, error },showTime }) => (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={gtLocale}>
         <KeyboardDatePicker
             autoOk
             className="inputAssociationClub"
