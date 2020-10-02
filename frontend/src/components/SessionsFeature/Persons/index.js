@@ -1,5 +1,4 @@
 import { v4 as uuidv4 } from 'uuid';
-import moment from 'moment';
 import React from 'react';
 import { connect } from 'react-redux';
 import * as selectors from '../../../reducers';
@@ -9,14 +8,18 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import IconButton from '@material-ui/core/IconButton';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import DoneOutlineIcon from '@material-ui/icons/DoneOutline';
+import AccessTimeIcon from '@material-ui/icons/AccessTime';
+import BlockIcon from '@material-ui/icons/Block';
 import Typography from '@material-ui/core/Typography';
 import * as actions from '../../../actions/assistances';
 
 const Person = ({
   users,
   isLoading,
-  onAssign,
+  onTime,
+  onLate,
+  onAbsent,
 }) => (
     <div className='personaIn'>
       {
@@ -30,8 +33,14 @@ const Person = ({
                       variant="body2" className="inputPersonaS">{email}</Typography>
                     }/>
                   <ListItemSecondaryAction>
-                    <IconButton edge="end" aria-label="agregar" onClick={() => onAssign(id)}>
-                      <PersonAddIcon className="inputPersona" />
+                    <IconButton edge="end" aria-label="agregar" onClick={() => onTime(id)}>
+                      <DoneOutlineIcon className="inputPersona" />
+                    </IconButton>
+                    <IconButton edge="end" aria-label="agregar" onClick={() => onLate(id)}>
+                      <AccessTimeIcon className="inputPersona" />
+                    </IconButton>
+                    <IconButton edge="end" aria-label="agregar" onClick={() => onAbsent(id)}>
+                      <BlockIcon className="inputPersona" />
                     </IconButton>
                   </ListItemSecondaryAction>
                 </ListItem>
@@ -47,24 +56,28 @@ const Person = ({
 
 export default connect(
   state => ({
-    users: selectors.getUserByEmailAssistance(state),
+    users: selectors.getUsersByEmailAssistance(state),
     isLoading: selectors.isFetchingUsersByEmail(state),
-    selectAC: selectors.getSelectedAssistance(state),
-    assistance: selectors.getAssistance(state, selectors.getSelectedAssistance(state)),
+    selectAC: selectors.getSelectedSession(state),
+    assistance: selectors.getSession(state, selectors.getSelectedSession(state)),
   }),
   dispatch => ({
-    onAssign(userid, idac, date1, date2) {
-      const startdate = moment(date1);
-      const enddate = moment(date2);
-      dispatch(actions.startAddingAssistance(uuidv4(), userid, idac, startdate.format("YYYY-MM-DD"), enddate.format("YYYY-MM-DD")));
-    }
+    onAssign(userid, ids, late) {
+      dispatch(actions.startAddingAssistance(uuidv4(), userid, ids, late));
+    },
   }),
   (stateProps, dispatchProps, ownProps) => ({
     ...ownProps,
     ...stateProps,
     ...dispatchProps,
-    onAssign(id) {
-      dispatchProps.onAssign(id, stateProps.selectAC, stateProps.assistance.startdate, stateProps.assistance.enddate);
+    onTime(id) {
+      dispatchProps.onAssign(id, stateProps.selectAC, 'p');
+    },
+    onLate(id) {
+      dispatchProps.onAssign(id, stateProps.selectAC, 't');
+    },
+    onAbsent(id) {
+      dispatchProps.onAssign(id, stateProps.selectAC, 'a');
     },
   })
 )(Person);

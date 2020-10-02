@@ -1,5 +1,5 @@
 import React from 'react';
-import AddEvent from '../AddSession';
+import AddSession from '../AddSession';
 import { connect } from 'react-redux';
 import { getAuthToken, getIsOpen } from '../../../reducers';
 import { URL } from '../../../settings';
@@ -8,6 +8,7 @@ import clsx from 'clsx';
 import Nav from '../../Nav';
 import './styles.css';
 import Footer from '../../Footer';
+import SearchPersons from '../searchPersons';
 
 const drawerWidth = 240;
 
@@ -55,8 +56,8 @@ const AddSessionPage = ({open}) => {
                 <div className={classes.drawerHeader} />
                 <center><b><h2 className="tituloformE">{'Nueva Sesión'}</h2></b></center>
                 <div className="addEvent">
-                    <AddEvent />
-                   
+                    <AddSession />
+                    <SearchPersons />
                 </div>
             </main>
             <div className="footer">

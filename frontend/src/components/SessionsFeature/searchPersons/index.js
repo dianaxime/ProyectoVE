@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import {
     getAuthToken,
     getIsOpen,
-    getAssistance,
-    getSelectedAssistances,
+    getSession,
+    getSelectedSession,
 } from '../../../reducers';
 import InputBase from '@material-ui/core/InputBase';
 import { reset, Field, reduxForm } from 'redux-form';
@@ -13,7 +13,7 @@ import './styles.css';
 import SearchIcon from '@material-ui/icons/Search';
 import IconButton from '@material-ui/core/IconButton';
 import Persons from '../Persons';
-import { getAssistance } from '../../../reducers/assistances';
+import moment from 'moment';
 
 const validate = values => {
     const errors = {};
@@ -26,7 +26,6 @@ const validate = values => {
     return errors;
 }
 
-
 const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) => (
     <InputBase className="inputWorkshop" placeholder={label}
         label={label}
@@ -35,8 +34,6 @@ const renderTextField = ({ input, label, meta: { touched, error }, ...custom }) 
         fullWidth
     />
 );
-
-
 
 let SearchPersons = ({
     onSubmit,
@@ -52,10 +49,10 @@ let SearchPersons = ({
                 {
                     selectAC ? (
 
-                        <p className="subtituloT">{((Object.entries(assistances)[1])[1])}</p>
+                        <p className="subtituloT">{moment((Object.entries(assistances)[2])[1]).format('DD-MM-YYYY')}</p>
                     ) :
                         (
-                            <p className="subtituloT">*Seleccione su asistencia*</p>
+                            <p className="subtituloT">*Seleccione una sesión*</p>
                         )
                 }
                 <div className="barrabus">
@@ -83,8 +80,8 @@ SearchPersons = connect(
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
         open: getIsOpen(state),
-        selectAC: getSelectedAssistances(state) !== null,
-        assistances: getAssistance(state, getSelectedAssistances(state)),
+        selectAC: getSelectedSession(state) !== null,
+        assistances: getSession(state, getSelectedSession(state)),
     }),
     dispatch => ({
         onSubmit({ email }) {
