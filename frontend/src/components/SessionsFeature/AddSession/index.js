@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import {
     getAuthToken,
     getSelectedAssociationClub,
+    getSessionStatus,
 } from '../../../reducers';
 import { reset, Field, reduxForm } from 'redux-form';
 import * as actions from '../../../actions/sessions';
@@ -93,6 +94,7 @@ AddSession = connect(
         isAuth: getAuthToken(state) !== null,
         idac: getSelectedAssociationClub(state) === id,
         idac1: getSelectedAssociationClub(state),
+        status: getSessionStatus(state),
     }),
     dispatch => ({
         onSubmit(date, idac) {
@@ -104,7 +106,10 @@ AddSession = connect(
                 ),
                 dispatch(reset('sessionForm')),
             );
-        }
+        },
+        onChangeStatus() {
+            dispatch(actions.changeSessionStatus());
+        },
     }),
     (stateProps, dispatchProps, ownProps) => {
         if (stateProps.status === 'SUCCESS') {

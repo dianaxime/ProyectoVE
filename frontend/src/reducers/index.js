@@ -198,6 +198,7 @@ export const getSession = (state, id) => sessionsSelectors.getSession(state.sess
 export const getSessions = state => sessionsSelectors.getSessions(state.sessions);
 export const isFetchingSessions = state => sessionsSelectors.isFetchingSessions(state.sessions);
 export const getFetchingSessionError = state => sessionsSelectors.getFetchingSessionError(state.sessions);
+export const getSessionStatus = state => sessionsSelectors.getSessionStatus(state.sessions);
 /* Selected Session*/
 export const getSelectedSession = (state) => selectedSessionSelectors.getSelectedSession(state.selectedSession)
 /* Assistances */

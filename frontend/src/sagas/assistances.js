@@ -14,7 +14,6 @@ import * as actions from '../actions/assistances';
 import * as types from '../types/assistances';
 import * as schemas from '../schemas/users';
 import * as schemas1 from '../schemas/assistances';
-import * as schemas2 from '../schemas/associationClub';
 
 import { API_BASE_URL } from '../settings';
 

@@ -68,3 +68,7 @@ export const failFetchingSessions = error => ({
         error,
     },
 });
+
+export const changeSessionStatus = () => ({
+    type: types.SET_SESSION_STATUS,
+});
