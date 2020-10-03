@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol, MDBIcon, MDBCardText } from
     'mdbreact';
 import {
     getAuthToken,
     getAssociationClub,
-    getSelectedAssociationClub
+    getSelectedAssociationClub,
+    getSessionFormat,
 } from '../../../reducers';
 import './styles.css';
 import moment from 'moment';
@@ -13,6 +14,7 @@ import { Link } from "react-router-dom";
 import { reset, Field, reduxForm } from 'redux-form';
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
 import { Calendar } from "react-modern-calendar-datepicker";
+import * as sessionActions from '../../../actions/sessions';
 
 const validate = values => {
     const errors = {};
@@ -124,29 +126,31 @@ const myCustomLocale = {
   }
   
 
-const renderDateTimePicker = ({ input: { onChange, value }, label, meta: { touched, error }, showTime }) => {
+const renderDateTimePicker = ({ input: { onChange, value }, label, meta, ...custom }) => {
     return (
         <Calendar
             value={value}
             onChange={onChange}
             locale={myCustomLocale}
+            {...custom}
             /*
             shouldHighlightWeekends
-            customDaysClassName={[
-                // here we add some CSS classes
-                { year: 2019, month: 3, day: 4, className: 'purpleDay' },
-                { year: 2019, month: 3, day: 12, className: 'orangeDay' },
-                { year: 2019, month: 3, day: 18, className: 'yellowDay' },
-                { year: 2019, month: 3, day: 26, className: 'navyBlueDay' },
-            ]}
             */
+           /*customDaysClassName={[
+            // here we add some CSS classes
+            { year: 2020, month: 10, day: 4, className: 'myCustomDay' },
+            { year: 2020, month: 10, day: 12, className: 'myCustomDay' },
+            { year: 2020, month: 10, day: 18, className: 'myCustomDay' },
+            { year: 2020, month: 10, day: 26, className: 'myCustomDay' }
+          ]}*/
         />
     );
 }
 
 let SelectedACSession = ({
-    name,
+    name, onLoad, format,
 }) => {
+    useEffect(onLoad, []);
     return (
         <div className="dataAC">
             <MDBCard wide style={{ width: "24rem", maxHeight: "32rem" }}>
@@ -177,7 +181,11 @@ let SelectedACSession = ({
                     </MDBCol>
                 </MDBRow>
                 <MDBCardBody cascade className='text-center'>
-                    <Field name="date" component={renderDateTimePicker} label="Fecha" />
+                    {
+                        format !== null && (
+                            <Field name="date" component={renderDateTimePicker} label="Fecha" customDaysClassName={format}/>
+                        )
+                    }
                 </MDBCardBody>
             </MDBCard>
         </div>
@@ -194,11 +202,22 @@ SelectedACSession = connect(
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
         name: getAssociationClub(state, getSelectedAssociationClub(state)).name,
-        description: getAssociationClub(state, getSelectedAssociationClub(state)).description,
-        startdate: getAssociationClub(state, getSelectedAssociationClub(state)).startdate,
-        enddate: getAssociationClub(state, getSelectedAssociationClub(state)).enddate,
-        type: getAssociationClub(state, getSelectedAssociationClub(state)).type,
+        idac: getSelectedAssociationClub(state),
+        format: getSessionFormat(state),
     }),
+    dispatch => ({
+        onLoad(idac) {
+            dispatch(sessionActions.startFetchingSessionsFormat(idac));
+        },
+    }),
+    (stateProps, dispatchProps, ownProps) => ({
+        ...ownProps,
+        ...stateProps,
+        ...dispatchProps,
+        onLoad() {
+          dispatchProps.onLoad(stateProps.idac);
+        },
+    })
 )(SelectedACSession);
 
 export default SelectedACSession;

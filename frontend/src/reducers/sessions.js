@@ -181,6 +181,23 @@ const status = (state = null, action) => {
   }
 };
 
+const formatSession = (state = null, action) => {
+  switch (action.type) {
+    case types.SESSIONS_FORMAT_FETCH_FAILED: {
+      return null;
+    }
+    case types.SESSIONS_FORMAT_FETCH_STARTED: {
+      return null;
+    }
+    case types.SESSIONS_FORMAT_FETCH_COMPLETED: {
+      return action.payload.sessions;
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
 export default combineReducers({
   byId,
   order,
@@ -191,6 +208,7 @@ export default combineReducers({
   isFetchingSession,
   errorSession,
   status,
+  formatSession,
 });
 
 export const getClubByNameSession = (state, id) => state.byId[id];
@@ -203,3 +221,4 @@ export const getSessions = state => state.orderSession.map(id => getSession(stat
 export const isFetchingSessions = state => state.isFetchingSession;
 export const getFetchingSessionError = state => state.errorSession;
 export const getSessionStatus = state => state.status;
+export const getSessionFormat = state => state.formatSession;

@@ -17,7 +17,8 @@ const {
     createSessionQuery,
     getSessionsQuery,
     getSessionByDateQuery,
-    getSessionByACQuery
+    getSessionByACQuery,
+    getSessionsByACQuery
 } = require('../repository/sessions');
 
 /**
@@ -119,6 +120,42 @@ const getSessionByAC=async (req, res)=>{
 }
 
 /**
+ * Get session by AC
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+const getSessionsByAC=async (req, res)=>{
+
+    const idac = req.params.idac;
+
+    if (empty(idac)) {
+        errorMessage.error = 'Id detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+
+    getSessionsByACQuery({idac})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'No sessions with that ac found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+        for(var i = 0; i < data.length; i++){
+            data[i].className = 'myCustomDay'
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+}
+
+/**
  * Get sessions
  * @param {object} req
  * @param {object} res
@@ -149,5 +186,6 @@ module.exports = {
     createSession,
     getSessions,
     getSessionByDate,
-    getSessionByAC
+    getSessionByAC,
+    getSessionsByAC
 };

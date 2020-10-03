@@ -120,7 +120,7 @@ function* fetchSessions(action) {
             const token = yield select(selectors.getAuthToken);
             const response = yield call(
                 fetch,
-                `${API_BASE_URL}/sessions/sessions-by-ac/${action.payload.idac}`,
+                `${API_BASE_URL}/sessions/session-by-ac/${action.payload.idac}`,
                 {
                     method: 'GET',
                     headers: {
@@ -157,5 +157,48 @@ export function* watchSessionsFetch() {
     yield takeEvery(
         types.SESSIONS_FETCH_STARTED,
         fetchSessions,
+    );
+}
+
+function* fetchSessionsFormat(action) {
+    try {
+        const isAuth = yield select(selectors.isAuthenticated);
+
+        if (isAuth) {
+            const token = yield select(selectors.getAuthToken);
+            const response = yield call(
+                fetch,
+                `${API_BASE_URL}/sessions/sessions-by-ac/${action.payload.idac}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'token': `${token}`,
+                    },
+                }
+            );
+            if (response.status === 200) {
+                const jsonResult = yield response.json();
+                
+                yield put(
+                    actions.completeFetchingSessionsFormat(
+                        jsonResult.data
+                    ),
+                );
+            } else {
+                const errors = yield response.json();
+                yield put(actions.failFetchingSessionsFormat(errors.error));
+            }
+        }
+    } catch (error) {
+        yield put(actions.failFetchingSessionsFormat("Error de conexión"));
+        console.log("ERROR", error);
+    }
+}
+
+export function* watchSessionsFormatFetch() {
+    yield takeEvery(
+        types.SESSIONS_FORMAT_FETCH_STARTED,
+        fetchSessionsFormat,
     );
 }

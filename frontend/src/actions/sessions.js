@@ -69,6 +69,28 @@ export const failFetchingSessions = error => ({
     },
 });
 
+
+export const startFetchingSessionsFormat = idac => ({
+    type: types.SESSIONS_FORMAT_FETCH_STARTED,
+    payload: {
+        idac,
+    },
+});
+
+export const completeFetchingSessionsFormat = sessions => ({
+    type: types.SESSIONS_FORMAT_FETCH_COMPLETED,
+    payload: {
+        sessions
+    },
+});
+
+export const failFetchingSessionsFormat = error => ({
+    type: types.SESSIONS_FORMAT_FETCH_FAILED,
+    payload: {
+        error,
+    },
+});
+
 export const changeSessionStatus = () => ({
     type: types.SET_SESSION_STATUS,
 });
