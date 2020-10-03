@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import {
     getAuthToken,
     getIsOpen,
-    getSession,
     getSelectedSession
 } from '../../../reducers';
 import './styles.css';
@@ -21,7 +20,7 @@ let ShowPersons = ({
                 {
                     selectAC ? (
 
-                        <p className="subtituloT">{((Object.entries(assistances)[1])[1])}</p>
+                        <p className="subtituloT">{assistances}</p>
                     ) :
                         (
                             <p className="subtituloT">*Seleccione una Sesión*</p>
@@ -44,7 +43,7 @@ ShowPersons = connect(
         isAuth: getAuthToken(state) !== null,
         open: getIsOpen(state),
         selectAC: getSelectedSession(state) !== null,
-        assistances: getSession(state, getSelectedSession(state)),
+        assistances: getSelectedSession(state),
     }),
     undefined,
 )(ShowPersons);

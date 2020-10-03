@@ -16,6 +16,7 @@ import "react-modern-calendar-datepicker/lib/DatePicker.css";
 import { Calendar } from "react-modern-calendar-datepicker";
 import * as sessionActions from '../../../actions/sessions';
 import * as actions from '../../../actions/assistances';
+import * as selectSessions from '../../../actions/selectedSession';
 
 const validate = values => {
     const errors = {};
@@ -203,6 +204,7 @@ SelectedACSession = connect(
         onSearch(date, idac) {
             const newDate = moment({year: date.year, month: date.month - 1, day: date.day}).format('YYYY-MM-DD');
             dispatch(actions.startFetchingAssistances(newDate, idac));
+            dispatch(selectSessions.selectedSession(newDate));
             dispatch(reset('assistanceForm'));
         }
     }),
