@@ -9,7 +9,6 @@ import * as selectors from '../../../reducers';
 import * as selectedActions from '../../../actions/selectedAssociationClub';
 import './styles.css';
 import IconButton from '@material-ui/core/IconButton';
-import EditIcon from '@material-ui/icons/Edit';
 import AddIcon from '@material-ui/icons/Add';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import BarChartIcon from '@material-ui/icons/BarChart';
@@ -26,16 +25,9 @@ const AssociationClubSession = ({
             <MDBCol size="8">
               <MDBCardTitle className="tituloSession">{((Object.entries(associationClub)[1])[1])}</MDBCardTitle>
             </MDBCol>
-            <MDBCol size="2" style={{ paddingRight: '5px', paddingLeft: '5px' }}>
-              <Link to='/editarAsociacionClub'>
-                <IconButton onClick={onEdit} style={{ padding: '0px' }}>
-                  <EditIcon className="iconosessions" />
-                </IconButton>
-              </Link>
-            </MDBCol>
-            <MDBCol size="2" style={{ paddingLeft: '5px', paddingRight: '5px' }}>
+            <MDBCol size="4">
               <Link to='/session' onClick={onEdit}>
-                <IconButton style={{ padding: '0px' }} >
+                <IconButton style={{ padding: '5px' }} >
                   <AddIcon className="iconosessions" />
                 </IconButton>
               </Link>
