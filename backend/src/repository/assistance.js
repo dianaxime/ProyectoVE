@@ -7,7 +7,7 @@ returning *`;
 
 const GET_ASSISTANCES=`SELECT * FROM assistance`;
 
-const GET_ASSISTANCE_BY_SESSION_ID=`SELECT users.id, users.first_name, users.last_name, users.email  FROM assistance 
+const GET_ASSISTANCE_BY_SESSION_ID=`SELECT users.id, users.first_name, users.last_name, users.email, assistance.late  FROM assistance 
 JOIN users ON users.id=assistance.userid JOIN sessions ON sessions.id = assistance.ids 
 WHERE sessions.date = $1 AND sessions.idac = $2`;
 
@@ -48,8 +48,8 @@ async function getAssistanceBySessionQuery({ ids, idac }){
 };
 
 async function deleteAssistanceQuery ({
-    userid,
     ids,
+    userid,
     idac
 }) {
     const values = [
