@@ -133,16 +133,6 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, meta, ...cust
             onChange={onChange}
             locale={myCustomLocale}
             {...custom}
-            /*
-            shouldHighlightWeekends
-            */
-           /*customDaysClassName={[
-            // here we add some CSS classes
-            { year: 2020, month: 10, day: 4, className: 'myCustomDay' },
-            { year: 2020, month: 10, day: 12, className: 'myCustomDay' },
-            { year: 2020, month: 10, day: 18, className: 'myCustomDay' },
-            { year: 2020, month: 10, day: 26, className: 'myCustomDay' }
-          ]}*/
         />
     );
 }
