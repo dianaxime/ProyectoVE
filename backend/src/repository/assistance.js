@@ -7,9 +7,12 @@ returning *`;
 
 const GET_ASSISTANCES=`SELECT * FROM assistance`;
 
-const GET_ASSISTANCE_BY_SESSION_ID=`SELECT users.id, users.first_name, users.last_name, users.email  FROM assistance JOIN users on users.id=assistance.userid where ids=$1 `;
+const GET_ASSISTANCE_BY_SESSION_ID=`SELECT users.id, users.first_name, users.last_name, users.email  FROM assistance 
+JOIN users ON users.id=assistance.userid JOIN sessions ON sessions.id = assistance.ids 
+WHERE sessions.date = $1 AND sessions.idac = $2`;
 
-const DELETE_ASSISTANCE = 'DELETE FROM assistance WHERE userid = $1 AND ids = $2 returning *';
+const DELETE_ASSISTANCE = `DELETE FROM assistance USING sessions 
+WHERE sessions.id = assistance.ids AND userid = $1 AND sessions.date = $2 AND sessions.idac = $3 returning *`;
 
 async function createAssistanceQuery({
     userid,
@@ -33,22 +36,26 @@ async function getAssistancesQuery(){
     return data;
 };
 
-async function getAssistanceBySessionQuery({ ids }){
+async function getAssistanceBySessionQuery({ ids, idac }){
     const values = [
-        ids
+        ids,
+        idac
     ];
 
+    console.log("aca", ids, idac);
     const data = await db.query(GET_ASSISTANCE_BY_SESSION_ID, values);
     return data;
 };
 
 async function deleteAssistanceQuery ({
     userid,
-    ids
+    ids,
+    idac
 }) {
     const values = [
         userid,
-        ids
+        ids,
+        idac
     ];
 
     const data = await db.query(DELETE_ASSISTANCE, values);

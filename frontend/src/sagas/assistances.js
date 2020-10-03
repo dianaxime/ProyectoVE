@@ -116,7 +116,7 @@ function* fetchAssistances(action) {
             const token = yield select(selectors.getAuthToken);
             const response = yield call(
                 fetch,
-                `${API_BASE_URL}/assistances/assistances-by-session/:ids/${action.payload.ids}`,
+                `${API_BASE_URL}/assistances/assistances-by-session/${action.payload.ids}/${action.payload.idac}`,
                 {
                     method: 'GET',
                     headers: {
@@ -165,7 +165,7 @@ function* deleteAssistance(action) {
                 const token = yield select(selectors.getAuthToken);
                 const response = yield call(
                     fetch,
-                    `${API_BASE_URL}/assistances/delete/${action.payload.ids}/${action.payload.userid}`,
+                    `${API_BASE_URL}/assistances/delete/${action.payload.ids}/${action.payload.userid}/${action.payload.idac}`,
                     {
                         method: 'DELETE',
                         headers: {

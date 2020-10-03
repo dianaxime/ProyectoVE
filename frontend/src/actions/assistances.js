@@ -48,10 +48,11 @@ export const failAddingAssistance = (oldId, error) => ({
     },
 });
 
-export const startFetchingAssistances = ids => ({
+export const startFetchingAssistances = (ids, idac) => ({
     type: types.ASSISTANCES_FETCH_STARTED,
     payload: {
         ids,
+        idac,
     },
 });
 
@@ -70,11 +71,12 @@ export const failFetchingAssistances = error => ({
     },
 });
 
-export const startRemovingAssistance = (userid, ids) => ({
+export const startRemovingAssistance = (userid, ids, idac) => ({
     type: types.ASSISTANCE_REMOVE_STARTED,
     payload: {
         userid,
         ids,
+        idac,
     },
 });
 

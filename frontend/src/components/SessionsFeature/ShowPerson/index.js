@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import * as selectors from '../../../reducers';
 import './styles.css';
@@ -17,7 +17,7 @@ const Person = ({
   onDelete,
   onLoad,
 }) => {
-  useEffect(onLoad, []);
+  //useEffect(onLoad, []);
   return (
     <div className='personaIn'>
       {
@@ -55,9 +55,9 @@ export default connect(
     assistance: selectors.getSession(state, selectors.getSelectedSession(state)),
   }),
   dispatch => ({
-    onLoad(idw) {
+    /*onLoad(idw) {
       dispatch(actions.startFetchingAssistances(idw));
-    },
+    },*/
     onDelete(idw, userid) {
       if ( idw != null && userid != null) {
         dispatch(actions.startRemovingAssistance(idw, userid));
@@ -68,9 +68,9 @@ export default connect(
     ...ownProps,
     ...stateProps,
     ...dispatchProps,
-    onLoad() {
+    /*onLoad() {
       dispatchProps.onLoad(stateProps.selectAC);
-    },
+    },*/
     onDelete(id) {
       if (id != null) {
         dispatchProps.onDelete(stateProps.selectAC, id);

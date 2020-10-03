@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol, MDBIcon, MDBCardText } from
+import { MDBCard, MDBCardBody, MDBCardImage, MDBRow, MDBCol, MDBIcon } from
     'mdbreact';
 import {
     getAuthToken,
@@ -15,6 +15,7 @@ import { reset, Field, reduxForm } from 'redux-form';
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
 import { Calendar } from "react-modern-calendar-datepicker";
 import * as sessionActions from '../../../actions/sessions';
+import * as actions from '../../../actions/assistances';
 
 const validate = values => {
     const errors = {};
@@ -138,7 +139,7 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, meta, ...cust
 }
 
 let SelectedACSession = ({
-    name, onLoad, format,
+    name, onLoad, format, onSearch, handleSubmit,
 }) => {
     useEffect(onLoad, []);
     return (
@@ -165,7 +166,7 @@ let SelectedACSession = ({
                         </button>
                     </MDBCol>
                     <MDBCol md='2'>
-                        <button className="kc_fab_main_btn1">
+                        <button className="kc_fab_main_btn1" onClick={handleSubmit(onSearch)}>
                             <MDBIcon icon="search" />
                         </button>
                     </MDBCol>
@@ -183,7 +184,7 @@ let SelectedACSession = ({
 }
 
 SelectedACSession = reduxForm({
-    form: 'sessionForm',
+    form: 'assistanceForm',
     validate
 })(SelectedACSession);
 
@@ -199,6 +200,11 @@ SelectedACSession = connect(
         onLoad(idac) {
             dispatch(sessionActions.startFetchingSessionsFormat(idac));
         },
+        onSearch(date, idac) {
+            const newDate = moment({year: date.year, month: date.month - 1, day: date.day}).format('YYYY-MM-DD');
+            dispatch(actions.startFetchingAssistances(newDate, idac));
+            dispatch(reset('assistanceForm'));
+        }
     }),
     (stateProps, dispatchProps, ownProps) => ({
         ...ownProps,
@@ -206,6 +212,9 @@ SelectedACSession = connect(
         ...dispatchProps,
         onLoad() {
           dispatchProps.onLoad(stateProps.idac);
+        },
+        onSearch({date}) {
+            dispatchProps.onSearch(date, stateProps.idac);
         },
     })
 )(SelectedACSession);
