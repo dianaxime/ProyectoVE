@@ -27,6 +27,13 @@ const failAddingTournament = (oldId, error) => ({
     },
 });
 
+const selectedTournament = index => ({
+    type: 'TOURNAMENT_SELECTED',
+    payload: {
+        index,
+    },
+});
+
 
 const state = {
     byIdTournament: {},
@@ -42,15 +49,39 @@ describe('Tournament', () => {
         assert.equal(action.type, 'TOURNAMENT_ADD_STARTED');
     });
 
+    it('should handle TOURNAMENT_ADD_STARTED', () => {
+        const action = startAddingTournament(1, 5, 8, '04/09/2020', '20/09/2020');
+        assert.equal(action.payload.startdate, '04/09/2020');
+    });
+
     it('should handle TOURNAMENT_ADD_COMPLETED', () => {
         const action = completeAddingTournament(1, {id: 1, userid: 5, idt: 8, startdate: '04/09/2020', enddate: '20/09/2020'});
         assert.equal(action.type, 'TOURNAMENT_ADD_COMPLETED');
     });
 
+    it('should handle TOURNAMENT_ADD_COMPLETED', () => {
+        const action = completeAddingTournament(1, {id: 1, userid: 5, idt: 8, startdate: '04/09/2020', enddate: '20/09/2020'});
+        assert.equal(action.payload.tournament.userid, 5);
+    });
+
     it('should handle TOURNAMENT_ADD_FAILED', () => {
         const action = failAddingTournament(1, 'UNEXPECTED ERROR');
         assert.equal(action.type, 'TOURNAMENT_ADD_FAILED');
+    });
+
+    it('should handle TOURNAMENT_ADD_FAILED', () => {
+        const action = failAddingTournament(1, 'UNEXPECTED ERROR');
         assert.equal(action.payload.error, 'UNEXPECTED ERROR');
+    });
+
+    it('should handle TOURNAMENT_SELECTED', () => {
+        const action = selectedTournament(10);
+        assert.equal(action.type, 'TOURNAMENT_SELECTED');
+    });
+
+    it('should handle TOURNAMENT_SELECTED', () => {
+        const action = selectedTournament(10);
+        assert.equal(action.payload.index, 10);
     });
 
 });
