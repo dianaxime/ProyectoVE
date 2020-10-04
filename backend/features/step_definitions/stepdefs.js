@@ -6,6 +6,8 @@ const { createEventQuery } = require('../../src/repository/event');
 const { createParticipationQuery } = require('../../src/repository/participation');
 const { createTournamentQuery } = require('../../src/repository/tournament');
 const { createParticipationEventQuery } = require('../../src/repository/participationEvent');
+const { createSessionQuery } = require('../../src/repository/sessions');
+const { createACQuery } = require('../../src/repository/association_club');
 
 let workshop = {};
 let team = {};
@@ -13,6 +15,8 @@ let participation = {};
 let tournament = {};
 let event = {};
 let eventP = {};
+let sessions = {};
+let AC = {};
 
 When('I create a new workshop with details:', async function (dataTable) {
     // Write code here that turns the phrase above into concrete actions
@@ -95,5 +99,33 @@ When('I create a new event participation with details:', async function (dataTab
 Then('the event participation is created successfully, the userid should be {string}', function (string) {
     // Write code here that turns the phrase above into concrete actions
     return assert.equal(eventP.userid, string);
+    // return 'pending';
+});
+
+When('I create a new session with details:', async function (dataTable) {
+    // Write code here that turns the phrase above into concrete actions
+    const dataSession = dataTable.rowsHash();
+    sessions = await createSessionQuery(dataSession);
+    sessions = sessions[0];
+    // return 'pending';
+});
+
+Then('the session is created successfully, the session idac should be {string}', function (string) {
+    // Write code here that turns the phrase above into concrete actions
+    return assert.equal(sessions.idac, string);
+    // return 'pending';
+});
+
+When('I create a new club with details:', async function (dataTable) {
+    // Write code here that turns the phrase above into concrete actions
+    const dataClub = dataTable.rowsHash();
+    AC = await createACQuery(dataClub);
+    AC = AC[0];
+    // return 'pending';
+});
+
+Then('the club is created successfully, the club description should be {string}', function (string) {
+    // Write code here that turns the phrase above into concrete actions
+    return assert.equal(AC.description, string);
     // return 'pending';
 });
