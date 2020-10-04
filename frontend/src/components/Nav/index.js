@@ -411,6 +411,17 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
         </List>
         <Divider />
         <List>
+          <Link to="/sessions" className={classes.link} onClick={handleDrawerClose}>
+            <ListItem button>
+              <ListItemIcon>
+                <ViewModuleRoundedIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Asistencia"} />
+            </ListItem>
+          </Link>
+        </List>
+        <Divider />
+        <List>
           <ListItem button onClick={handleClickRT}>
             <ListItemIcon>
               <SecurityIcon />

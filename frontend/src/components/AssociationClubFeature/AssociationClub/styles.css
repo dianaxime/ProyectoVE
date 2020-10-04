@@ -8,8 +8,7 @@
 
 .tituloCard{
     display: grid;
-    grid-template-columns: 150px 35px;
-    grid-column-gap: 20px;
+    grid-template-columns: 30% 25% 25%;
 }
 
 .line-clamp {
@@ -18,7 +17,7 @@
     -webkit-box-orient: vertical;  
 }
 
-.desevent {
+.desac {
     height: 42px;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -83,6 +82,7 @@
 }
 
 .iconoedit{
+    /* margin-left: -20px; */
     color: white;
 }
 
@@ -90,4 +90,8 @@
     border: none;
     color: initial;
     border-color: initial;
+}
+
+.mas{
+    width: 15px;
 }
