@@ -35,6 +35,7 @@ import SelectedAssociationClubPage from '../AssociationClubFeature/SelectedAssoc
 
 /* Sessions */
 import AddSessionPage from '../SessionsFeature/AddSessionPage';
+import EditSessionPage from '../SessionsFeature/EditSessionPage';
 import SessionPage from '../SessionsFeature/SessionsPage';
 import SelectedACSessionsPage from '../SessionsFeature/SelectedACSessionsPage';
 
@@ -74,6 +75,7 @@ const App = () => (
           <Route exact path="/editarAsociacionClub" component={EditAssociationClubPage} />
           <Route exact path="/asociacionesClub" component={SelectedAssociationClubPage} />
           <Route exact path="/session" component={AddSessionPage} />
+          <Route exact path="/editarsession" component={EditSessionPage} />
           <Route exact path="/sessions" component={SessionPage} />
           <Route exact path="/sessionsclub" component={SelectedACSessionsPage} />
           <Route render={() => <Redirect to="/" />} />

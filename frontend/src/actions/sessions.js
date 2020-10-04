@@ -47,10 +47,11 @@ export const failAddingSession = (oldId, error) => ({
     },
 });
 
-export const startFetchingSessions = idac => ({
+export const startFetchingSessions = (idac, date) => ({
     type: types.SESSIONS_FETCH_STARTED,
     payload: {
         idac,
+        date,
     },
 });
 

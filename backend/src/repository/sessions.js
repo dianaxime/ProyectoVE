@@ -7,13 +7,12 @@ returning *`;
 
 const GET_SESSIONS=`SELECT * FROM sessions`;
 
-const GET_SESSION_BY_DATE=`SELECT * FROM sessions WHERE date= $1 AND idac=$2`;
+const GET_SESSION_BY_DATE=`SELECT * FROM sessions WHERE date= $1 AND idac=$2 LIMIT 1`;
 
 const GET_SESSION_BY_AC=`SELECT sessions.date, association_club.name FROM sessions JOIN association_club ON sessions.idac=association_club.id
 WHERE association_club.id=$1`;
 
 const GET_SESSIONS_BY_AC=`SELECT EXTRACT(year from date) as year, EXTRACT(month from date) as month, EXTRACT(day from date) as day from sessions where sessions.idac=$1`;
-
 
 async function createSessionQuery({
     idac,

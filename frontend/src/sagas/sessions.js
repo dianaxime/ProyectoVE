@@ -120,7 +120,7 @@ function* fetchSessions(action) {
             const token = yield select(selectors.getAuthToken);
             const response = yield call(
                 fetch,
-                `${API_BASE_URL}/sessions/session-by-ac/${action.payload.idac}`,
+                `${API_BASE_URL}/sessions/sessions-by-date/${action.payload.idac}/${action.payload.date}`,
                 {
                     method: 'GET',
                     headers: {
@@ -135,12 +135,16 @@ function* fetchSessions(action) {
                     entities: { sessions },
                     result,
                 } = normalize(jsonResult.data, schemas1.sessions);
-
+                
                 yield put(
                     actions.completeFetchingSessions(
                         sessions,
                         result,
                     ),
+                );
+
+                yield put(
+                    actionsSelectedSession.selectedSession(jsonResult.data[0].id),
                 );
             } else {
                 const errors = yield response.json();

@@ -16,4 +16,4 @@ const selectedSession = (state = null, action) => {
 export default selectedSession;
 
 
-export const getSelectedSession = state => state;
+export const getSelectedSession = state => state ? state : null;

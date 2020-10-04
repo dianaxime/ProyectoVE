@@ -8,6 +8,7 @@ import {
     getSelectedAssociationClub,
     getSessionFormat,
 } from '../../../reducers';
+import { URL } from '../../../settings';
 import './styles.css';
 import moment from 'moment';
 import { Link } from "react-router-dom";
@@ -45,64 +46,64 @@ const myCustomLocale = {
         'Noviembre',
         'Diciembre',
     ],
-  
+
     // week days by order
     weekDays: [
-      {
-        name: 'Domingo', // used for accessibility 
-        short: 'Do', // displayed at the top of days' rows
-        isWeekend: true, // is it a formal weekend or not?
-      },
-      {
-        name: 'Lunes',
-        short: 'Lu',
-      },
-      {
-        name: 'Martes',
-        short: 'Ma',
-      },
-      {
-        name: 'Miércoles',
-        short: 'Mi',
-      },
-      {
-        name: 'Jueves',
-        short: 'Ju',
-      },
-      {
-        name: 'Viernes',
-        short: 'Vi',
-      },
-      {
-        name: 'Sábado',
-        short: 'Sa',
-        isWeekend: true,
-      },
+        {
+            name: 'Domingo', // used for accessibility 
+            short: 'Do', // displayed at the top of days' rows
+            isWeekend: true, // is it a formal weekend or not?
+        },
+        {
+            name: 'Lunes',
+            short: 'Lu',
+        },
+        {
+            name: 'Martes',
+            short: 'Ma',
+        },
+        {
+            name: 'Miércoles',
+            short: 'Mi',
+        },
+        {
+            name: 'Jueves',
+            short: 'Ju',
+        },
+        {
+            name: 'Viernes',
+            short: 'Vi',
+        },
+        {
+            name: 'Sábado',
+            short: 'Sa',
+            isWeekend: true,
+        },
     ],
-  
+
     // just play around with this number between 0 and 6
     weekStartingIndex: 0,
-  
+
     // return a { year: number, month: number, day: number } object
     getToday(gregorainTodayObject) {
-      return gregorainTodayObject;
+        return gregorainTodayObject;
     },
-  
+
     // return a native JavaScript date here
     toNativeDate(date) {
-      return new Date(date.year, date.month - 1, date.day);
+        return new Date(date.year, date.month - 1, date.day);
     },
-  
+
     // return a number for date's month length
     getMonthLength(date) {
-      return new Date(date.year, date.month, 0).getDate();
+        return new Date(date.year, date.month, 0).getDate();
     },
-  
+
     // return a transformed digit to your locale
     transformDigit(digit) {
-      return digit;
+        return digit;
     },
-  
+
     // texts in the date picker
     nextMonth: 'Mes siguiente',
     previousMonth: 'Mes previo',
@@ -111,22 +112,22 @@ const myCustomLocale = {
     closeMonthSelector: 'Cerrar',
     closeYearSelector: 'Cerrar',
     defaultPlaceholder: 'Seleccionar...',
-  
+
     // for input range value
     from: 'Desde',
     to: 'hasta',
-  
-  
+
+
     // used for input value when multi dates are selected
     digitSeparator: ',',
-  
+
     // if your provide -2 for example, year will be 2 digited
     yearLetterSkip: 0,
-  
+
     // is your language rtl or ltr?
     isRtl: false,
-  }
-  
+}
+
 
 const renderDateTimePicker = ({ input: { onChange, value }, label, meta, ...custom }) => {
     return (
@@ -140,7 +141,7 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, meta, ...cust
 }
 
 let SelectedACSession = ({
-    name, onLoad, format, onSearch, handleSubmit,
+    name, onLoad, format, onSearch, handleSubmit, onEdit
 }) => {
     useEffect(onLoad, []);
     return (
@@ -162,7 +163,7 @@ let SelectedACSession = ({
                         </Link>
                     </MDBCol>
                     <MDBCol md='2'>
-                        <button className="kc_fab_main_btn1">
+                        <button className="kc_fab_main_btn1" onClick={handleSubmit(onEdit)}>
                             <MDBIcon icon="pen" />
                         </button>
                     </MDBCol>
@@ -175,7 +176,7 @@ let SelectedACSession = ({
                 <MDBCardBody cascade className='text-center'>
                     {
                         format !== null && (
-                            <Field name="date" component={renderDateTimePicker} label="Fecha" customDaysClassName={format}/>
+                            <Field name="date" component={renderDateTimePicker} label="Fecha" customDaysClassName={format} />
                         )
                     }
                 </MDBCardBody>
@@ -202,10 +203,17 @@ SelectedACSession = connect(
             dispatch(sessionActions.startFetchingSessionsFormat(idac));
         },
         onSearch(date, idac) {
-            const newDate = moment({year: date.year, month: date.month - 1, day: date.day}).format('YYYY-MM-DD');
+            const newDate = moment({ year: date.year, month: date.month - 1, day: date.day }).format('YYYY-MM-DD');
             dispatch(actions.startFetchingAssistances(newDate, idac));
             dispatch(selectSessions.selectedSession(newDate));
             dispatch(reset('assistanceForm'));
+        },
+        onEdit(date, idac) {
+            dispatch(selectSessions.selectedSession(null));
+            const newDate = moment({ year: date.year, month: date.month - 1, day: date.day }).format('YYYY-MM-DD');
+            dispatch(sessionActions.startFetchingSessions(idac, newDate));
+            dispatch(reset('assistanceForm'));
+            window.location.href = URL + 'editarsession';
         }
     }),
     (stateProps, dispatchProps, ownProps) => ({
@@ -213,10 +221,13 @@ SelectedACSession = connect(
         ...stateProps,
         ...dispatchProps,
         onLoad() {
-          dispatchProps.onLoad(stateProps.idac);
+            dispatchProps.onLoad(stateProps.idac);
         },
-        onSearch({date}) {
+        onSearch({ date }) {
             dispatchProps.onSearch(date, stateProps.idac);
+        },
+        onEdit({ date }) {
+            dispatchProps.onEdit(date, stateProps.idac);
         },
     })
 )(SelectedACSession);
