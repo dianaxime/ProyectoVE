@@ -78,6 +78,7 @@ import {
     watchSessionsFetch,
     watchAddSession,
     watchSessionsFormatFetch,
+    watchUpdateSession
 } from './sessions';
 
 import {
@@ -146,6 +147,7 @@ function* mainSaga() {
         fork(watchSessionsFetch),
         fork(watchAddSession),
         fork(watchSessionsFormatFetch),
+        fork(watchUpdateSession),
         /* Assistances */
         fork(watchUsersFetchAssistance),
         fork(watchAssistancesFetch),

@@ -135,7 +135,7 @@ function* fetchSessions(action) {
                     entities: { sessions },
                     result,
                 } = normalize(jsonResult.data, schemas1.sessions);
-                
+
                 yield put(
                     actions.completeFetchingSessions(
                         sessions,
@@ -146,6 +146,7 @@ function* fetchSessions(action) {
                 yield put(
                     actionsSelectedSession.selectedSession(jsonResult.data[0].id),
                 );
+                console.log(jsonResult.data[0].id);
             } else {
                 const errors = yield response.json();
                 yield put(actions.failFetchingSessions(errors.error));
@@ -183,7 +184,7 @@ function* fetchSessionsFormat(action) {
             );
             if (response.status === 200) {
                 const jsonResult = yield response.json();
-                
+
                 yield put(
                     actions.completeFetchingSessionsFormat(
                         jsonResult.data
@@ -204,5 +205,48 @@ export function* watchSessionsFormatFetch() {
     yield takeEvery(
         types.SESSIONS_FORMAT_FETCH_STARTED,
         fetchSessionsFormat,
+    );
+}
+
+function* updateSession(action) {
+    try {
+        const isAuth = yield select(selectors.isAuthenticated);
+        if (isAuth) {
+            const token = yield select(selectors.getAuthToken);
+            const response = yield call(
+                fetch,
+                `${API_BASE_URL}/sessions/update-session`,
+                {
+                    method: 'PATCH',
+                    body: JSON.stringify(action.payload),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'token': `${token}`,
+                    },
+                }
+            );
+            if (response.status === 200) {
+                const jsonResult = yield response.json();
+                const info = jsonResult.data;
+                yield put(
+                    actions.completeUpdatingSession(
+                        info.id,
+                        info,
+                    ),
+                );
+            } else {
+                const errors = yield response.json();
+                yield put(actions.failUpdatingSession(errors.error));
+            }
+        }
+    } catch (error) {
+        yield put(actions.failUpdatingSession("Error de conexión"));
+    }
+}
+
+export function* watchUpdateSession() {
+    yield takeEvery(
+        types.SESSION_UPDATE_STARTED,
+        updateSession,
     );
 }

@@ -6,6 +6,7 @@ const {
     getSessionByDate,
     getSessionsByAC,
     getSessionByAC,
+    updateSession
 } = require('../controllers/sessionsController');
 const verifyAuth = require('../middleware/verifyAuth');
 
@@ -18,5 +19,6 @@ router.get('/sessions/all-sessions', verifyAuth, getSessions);
 router.get('/sessions/sessions-by-date/:idac/:date', verifyAuth, getSessionByDate);
 router.get('/sessions/sessions-by-ac/:idac', verifyAuth, getSessionsByAC);
 router.get('/sessions/session-by-ac/:idac', verifyAuth, getSessionByAC);
+router.patch('/sessions/update-session', verifyAuth, updateSession);
 
 module.exports = router;

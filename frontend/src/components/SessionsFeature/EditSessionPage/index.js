@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const AddSessionPage = ({open}) => {
+const EditSessionPage = ({open}) => {
     const classes = useStyles();
     return (
 
@@ -83,5 +83,5 @@ export default connect(
             ...ownProps,
         });
     }
-)(AddSessionPage);
+)(EditSessionPage);
 

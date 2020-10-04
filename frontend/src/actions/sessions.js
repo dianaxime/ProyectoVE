@@ -95,3 +95,27 @@ export const failFetchingSessionsFormat = error => ({
 export const changeSessionStatus = () => ({
     type: types.SET_SESSION_STATUS,
 });
+
+export const startUpdatingSession = (id, date) => ({
+    type: types.SESSION_UPDATE_STARTED,
+    payload: {
+        id,
+        date,
+    },
+});
+
+export const completeUpdatingSession = (id, session) => ({
+    type: types.SESSION_UPDATE_COMPLETED,
+    payload: {
+        id,
+        session,
+    },
+});
+
+export const failUpdatingSession = (id, error) => ({
+    type: types.SESSION_UPDATE_FAILED,
+    payload: {
+        id,
+        error,
+    },
+});

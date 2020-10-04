@@ -8,10 +8,9 @@ import {
     getSelectedAssociationClub,
     getSessionFormat,
 } from '../../../reducers';
-import { URL } from '../../../settings';
 import './styles.css';
 import moment from 'moment';
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { reset, Field, reduxForm } from 'redux-form';
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
 import { Calendar } from "react-modern-calendar-datepicker";
@@ -163,9 +162,11 @@ let SelectedACSession = ({
                         </Link>
                     </MDBCol>
                     <MDBCol md='2'>
-                        <button className="kc_fab_main_btn1" onClick={handleSubmit(onEdit)}>
-                            <MDBIcon icon="pen" />
-                        </button>
+                        <Link to="/editarsession">
+                            <button className="kc_fab_main_btn1" onClick={handleSubmit(onEdit)}>
+                                <MDBIcon icon="pen" />
+                            </button>
+                        </Link>
                     </MDBCol>
                     <MDBCol md='2'>
                         <button className="kc_fab_main_btn1" onClick={handleSubmit(onSearch)}>
@@ -209,11 +210,12 @@ SelectedACSession = connect(
             dispatch(reset('assistanceForm'));
         },
         onEdit(date, idac) {
-            dispatch(selectSessions.selectedSession(null));
+            //dispatch(selectSessions.selectedSession(null));
             const newDate = moment({ year: date.year, month: date.month - 1, day: date.day }).format('YYYY-MM-DD');
             dispatch(sessionActions.startFetchingSessions(idac, newDate));
-            dispatch(reset('assistanceForm'));
-            window.location.href = URL + 'editarsession';
+            //dispatch(reset('assistanceForm'));
+            dispatch(<Redirect to='/' />);
+            console.log("por que???")
         }
     }),
     (stateProps, dispatchProps, ownProps) => ({

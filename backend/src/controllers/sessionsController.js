@@ -18,7 +18,8 @@ const {
     getSessionsQuery,
     getSessionByDateQuery,
     getSessionByACQuery,
-    getSessionsByACQuery
+    getSessionsByACQuery,
+    updateSessionQuery
 } = require('../repository/sessions');
 
 /**
@@ -182,10 +183,44 @@ const getSessions = async (req, res) => {
     })
 };
 
+/**
+ * Update Session
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const updateSession = async (req, res) => {
+    
+    const {
+        date,
+        id
+    } = req.body;
+
+    if (empty(date) || empty(id)) {
+        errorMessage.error = 'ID or date detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+
+    updateSessionQuery({...req.body})
+    .then(data => {
+        console.log('DATA:', data);
+        data = data[0];
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
 module.exports = {
     createSession,
     getSessions,
     getSessionByDate,
     getSessionByAC,
-    getSessionsByAC
+    getSessionsByAC,
+    updateSession
 };

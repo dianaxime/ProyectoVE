@@ -1,10 +1,11 @@
-import { v4 as uuidv4 } from 'uuid';
 import React from 'react';
 import { connect } from 'react-redux';
 import {
     getAuthToken,
     getSelectedAssociationClub,
     getSessionStatus,
+    getSession,
+    getSelectedSession
 } from '../../../reducers';
 import { reset, Field, reduxForm } from 'redux-form';
 import * as actions from '../../../actions/sessions';
@@ -85,7 +86,7 @@ let UpdateSession = ({
 }
 
 UpdateSession = reduxForm({
-    form: 'sessionForm',
+    form: 'sessionUpdateForm',
     validate
 })(UpdateSession);
 
@@ -96,16 +97,17 @@ UpdateSession = connect(
         idac: getSelectedAssociationClub(state) === id,
         idac1: getSelectedAssociationClub(state),
         status: getSessionStatus(state),
+        initialValues: getSession(state, getSelectedSession(state)),
+        idSession: getSelectedSession(state),
     }),
     dispatch => ({
         onSubmit(date, idac) {
             dispatch(
-                actions.startAddingSession(
-                    uuidv4(),
+                actions.startUpdatingSession(
                     idac,
                     date
                 ),
-                dispatch(reset('sessionForm')),
+                dispatch(reset('sessionUpdateForm')),
             );
         },
         onChangeStatus() {
@@ -126,8 +128,7 @@ UpdateSession = connect(
             ...dispatchProps,
             ...ownProps,
             onSubmit({date}){
-                console.log(date, stateProps.idac1)
-                dispatchProps.onSubmit(date, stateProps.idac1);
+                dispatchProps.onSubmit(date, stateProps.idSession);
             }
         });
     },

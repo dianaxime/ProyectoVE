@@ -14,6 +14,8 @@ WHERE association_club.id=$1`;
 
 const GET_SESSIONS_BY_AC=`SELECT EXTRACT(year from date) as year, EXTRACT(month from date) as month, EXTRACT(day from date) as day from sessions where sessions.idac=$1`;
 
+const UPDATE_SESSION = 'UPDATE sessions SET date=$1 WHERE id=$2 returning *';
+
 async function createSessionQuery({
     idac,
     date
@@ -64,11 +66,24 @@ async function getSessionsQuery() {
     return data;
 };
 
+async function updateSessionQuery({
+    id, date
+}) {
+    
+    const values = [
+        date,
+        id, 
+    ];
+
+    const data = await db.query(UPDATE_SESSION, values);
+    return data;
+};
 
 module.exports = {
     createSessionQuery,
     getSessionsQuery,
     getSessionByDateQuery,
     getSessionByACQuery,
-    getSessionsByACQuery
+    getSessionsByACQuery,
+    updateSessionQuery,
 };

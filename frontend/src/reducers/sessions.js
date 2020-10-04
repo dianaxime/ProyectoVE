@@ -106,6 +106,15 @@ const byIdSession = (state = {}, action) => {
       };
       return newState;
     }
+    case types.SESSION_UPDATE_COMPLETED: {
+      const { id, session } = action.payload;
+      const newState = omit(state, id);
+      newState[session.id] = {
+        ...session,
+        isConfirmed: true,
+      };
+      return newState;
+    }
     default: {
       return state;
     }
@@ -170,6 +179,12 @@ const status = (state = null, action) => {
       return 'SUCCESS';
     }
     case types.SESSION_ADD_FAILED: {
+      return 'ERROR';
+    }
+    case types.SESSION_UPDATE_COMPLETED: {
+      return 'SUCCESS';
+    }
+    case types.SESSION_UPDATE_FAILED: {
       return 'ERROR';
     }
     case types.SET_SESSION_STATUS: {
