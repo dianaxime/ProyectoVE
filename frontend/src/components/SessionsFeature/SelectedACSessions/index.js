@@ -162,11 +162,11 @@ let SelectedACSession = ({
                         </Link>
                     </MDBCol>
                     <MDBCol md='2'>
-                        <Link to="/editarsession">
                             <button className="kc_fab_main_btn1" onClick={handleSubmit(onEdit)}>
+                        <Link to="/editarsession" style={{color: 'white'}}>
                                 <MDBIcon icon="pen" />
-                            </button>
                         </Link>
+                            </button>
                     </MDBCol>
                     <MDBCol md='2'>
                         <button className="kc_fab_main_btn1" onClick={handleSubmit(onSearch)}>
@@ -210,12 +210,12 @@ SelectedACSession = connect(
             dispatch(reset('assistanceForm'));
         },
         onEdit(date, idac) {
-            //dispatch(selectSessions.selectedSession(null));
+            dispatch(selectSessions.selectedSession(null));
             const newDate = moment({ year: date.year, month: date.month - 1, day: date.day }).format('YYYY-MM-DD');
             dispatch(sessionActions.startFetchingSessions(idac, newDate));
-            //dispatch(reset('assistanceForm'));
+            dispatch(reset('assistanceForm'));
             dispatch(<Redirect to='/' />);
-            console.log("por que???")
+            //console.log("por que???")
         }
     }),
     (stateProps, dispatchProps, ownProps) => ({

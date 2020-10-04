@@ -146,7 +146,8 @@ function* fetchSessions(action) {
                 yield put(
                     actionsSelectedSession.selectedSession(jsonResult.data[0].id),
                 );
-                console.log(jsonResult.data[0].id);
+                //console.log(jsonResult.data[0].id);
+                //window.location.href = URL + 'editarsession';
             } else {
                 const errors = yield response.json();
                 yield put(actions.failFetchingSessions(errors.error));
