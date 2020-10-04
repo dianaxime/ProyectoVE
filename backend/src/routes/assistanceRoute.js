@@ -14,7 +14,7 @@ const router = express.Router();
 
 router.post('/assistances/create', verifyAuth, createAssistance);
 router.get('/assistances/all-assistances', verifyAuth, getAssistances);
-router.get('/assistances/assistances-by-session/:ids', verifyAuth, getAssistanceBySession);
-router.delete('/assistances/delete/:ids/:userid', verifyAuth, deleteAssistanceByUserS);
+router.get('/assistances/assistances-by-session/:ids/:idac', verifyAuth, getAssistanceBySession);
+router.delete('/assistances/delete/:ids/:userid/:idac', verifyAuth, deleteAssistanceByUserS);
 
 module.exports = router;

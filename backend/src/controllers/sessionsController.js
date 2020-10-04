@@ -17,7 +17,9 @@ const {
     createSessionQuery,
     getSessionsQuery,
     getSessionByDateQuery,
-    getSessionByACQuery
+    getSessionByACQuery,
+    getSessionsByACQuery,
+    updateSessionQuery
 } = require('../repository/sessions');
 
 /**
@@ -33,7 +35,7 @@ const createSession = async (req, res) => {
         date
     } = req.body;
 
-    if (isEmpty(idac) || isEmpty(date) ) {
+    if (empty(idac) || isEmpty(date) ) {
         errorMessage.error = 'Id of club/association and date field cannot be empty';
         return res.status(status.bad).send(errorMessage);
     }
@@ -119,6 +121,42 @@ const getSessionByAC=async (req, res)=>{
 }
 
 /**
+ * Get session by AC
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+const getSessionsByAC=async (req, res)=>{
+
+    const idac = req.params.idac;
+
+    if (empty(idac)) {
+        errorMessage.error = 'Id detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+
+    getSessionsByACQuery({idac})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'No sessions with that ac found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+        for(var i = 0; i < data.length; i++){
+            data[i].className = 'myCustomDay'
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+}
+
+/**
  * Get sessions
  * @param {object} req
  * @param {object} res
@@ -145,9 +183,44 @@ const getSessions = async (req, res) => {
     })
 };
 
+/**
+ * Update Session
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const updateSession = async (req, res) => {
+    
+    const {
+        date,
+        id
+    } = req.body;
+
+    if (empty(date) || empty(id)) {
+        errorMessage.error = 'ID or date detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+
+    updateSessionQuery({...req.body})
+    .then(data => {
+        console.log('DATA:', data);
+        data = data[0];
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
 module.exports = {
     createSession,
     getSessions,
     getSessionByDate,
-    getSessionByAC
+    getSessionByAC,
+    getSessionsByAC,
+    updateSession
 };

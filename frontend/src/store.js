@@ -39,7 +39,10 @@ export const configureStore = () => {
                 'selectedEvent',
                 'associationClubRelationship',
                 'associationClub',
-                'selectedAssociationClub'
+                'selectedAssociationClub',
+                'sessions',
+                'selectedSession',
+                'assistances',
             ],
         },
         reducer,

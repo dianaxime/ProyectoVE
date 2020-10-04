@@ -90,13 +90,14 @@ const getAssistances = async (req, res) => {
 const getAssistanceBySession = async (req, res) => {
     
     const ids = req.params.ids;
+    const idac = req.params.idac;
 
-    if (empty(ids)) {
+    if (empty(ids) || empty(idac)) {
         errorMessage.error = 'ID of session detail is missing';
         return res.status(status.bad).send(errorMessage);
     }
     
-    getAssistanceBySessionQuery({ids})
+    getAssistanceBySessionQuery({ids, idac})
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
@@ -118,13 +119,14 @@ const deleteAssistanceByUserS = async (req, res) => {
     
     const ids = req.params.ids;
     const userid = req.params.userid;
+    const idac = req.params.idac;
 
-    if (empty(ids) || empty(userid)) {
+    if (empty(ids) || empty(userid) || empty(idac)) {
         errorMessage.error = 'ID of session detail is missing or user ID';
         return res.status(status.bad).send(errorMessage);
     }
     
-    deleteAssistanceQuery({ids, userid})
+    deleteAssistanceQuery({ids, userid, idac})
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
