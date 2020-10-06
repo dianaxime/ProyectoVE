@@ -1,8 +1,8 @@
 const db = require('../db/config');
 
 const CREATE_AC_RELATIONSHIP=`INSERT INTO
-association_club_relationship(userid, idac, startdate, enddate)
-VALUES ($1, $2, $3, $4)
+association_club_relationship(userid, idac, startdate, enddate, type)
+VALUES ($1, $2, $3, $4, $5)
 returning *`;
 
 const GET_AC_RELATIONSHIPS=`SELECT * FROM association_club_relationship`;
@@ -15,13 +15,15 @@ async function createACParticipationQuery ({
     userid,
     idac,
     startdate,
-    enddate
+    enddate,
+    type
 }) {
     const values = [
         userid,
         idac,
         startdate,
-        enddate
+        enddate,
+        type
     ];
 
     const data = await db.query(CREATE_AC_RELATIONSHIP, values);

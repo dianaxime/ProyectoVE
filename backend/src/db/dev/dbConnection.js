@@ -339,6 +339,7 @@ const createAssociationClubRelationshipTable = () => {
         idAC INT NOT NULL,
         startdate DATE NOT NULL,
         enddate DATE NOT NULL,
+        type VARCHAR(5),
         FOREIGN KEY (userID) REFERENCES users(id),
         FOREIGN KEY (idAC) REFERENCES association_club(id),
         UNIQUE(userID, idAC)
@@ -584,7 +585,7 @@ const createAllTables = () => {
     /*createUserTable();
     createRegisterTable();
     createWorkshoTable();*/
-    createScholarsTable();
+    //createScholarsTable();
     /*createTeamTable();
     createParticipationTable();
     createTournamentTable();
@@ -594,6 +595,7 @@ const createAllTables = () => {
     createRolesRelationshipTable();
     createAssociationClubTable();
     createAssociationClubRelationshipTable();*/
+    createAssociationClubRelationshipTable();
 
 };
 
