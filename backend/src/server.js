@@ -14,6 +14,9 @@ const roleRelationshipRoute = require('./routes/rolesRelationshipRoute');
 const roleRoute = require('./routes/roleRoute');
 const ACRoute = require('./routes/association_clubRoute');
 const ACParticipationRoute = require('./routes/association_clubRelationshipRoute');
+const sessionRoute = require('./routes/sessionsRoute');
+const assistanceRoute = require('./routes/assistanceRoute');
+const statisticsRoute = require('./routes/statisticsRoute');
 
 
 const app = express();
@@ -37,6 +40,10 @@ app.use('/api/v1', roleRelationshipRoute);
 app.use('/api/v1', roleRoute);
 app.use('/api/v1', ACRoute);
 app.use('/api/v1', ACParticipationRoute );
+app.use('/api/v1', sessionRoute );
+app.use('/api/v1', assistanceRoute );
+app.use('/api/v1', statisticsRoute );
+//app.use('/api/v1', statisticsRoute );
 
 app.listen(env.port).on('listening', () => {
     console.log(`are live on ${env.port}`);

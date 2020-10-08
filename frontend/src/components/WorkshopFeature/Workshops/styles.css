@@ -1,6 +1,6 @@
-.workshopsContainer {
+.workshopContainers {
     display: grid;
-    height: 470px;
+    height: 550px;
     grid-gap: 20px;
     grid-template-columns: 260px 260px 260px 260px; 
     overflow-y: scroll;
@@ -38,5 +38,3 @@
 .workshopsContainer::-webkit-scrollbar-track:active {
     background: #d4d4d4;
 }
-
-

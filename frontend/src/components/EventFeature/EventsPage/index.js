@@ -7,6 +7,8 @@ import Nav from '../../Nav';
 import Events from '../Events';
 import * as actions from '../../../actions/events';
 import { makeStyles } from '@material-ui/core/styles';
+import './styles.css';
+import Footer from '../../Footer';
 
 const drawerWidth = 240;
 
@@ -43,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 const EventsPage = ({open}) => {
     const classes = useStyles();
     return (
-        <div className={classes.root}>
+        <div className="bge">
             <Nav/>
             <main
                 className={clsx(classes.content, {
@@ -53,6 +55,9 @@ const EventsPage = ({open}) => {
                 <div className={classes.drawerHeader} />
                 <Events/>
             </main>
+            <div className="footer">
+                <Footer />
+            </div>
         </div>
     );
 }

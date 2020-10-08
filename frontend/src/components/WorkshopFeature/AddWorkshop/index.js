@@ -2,7 +2,8 @@ import { v4 as uuidv4 } from 'uuid';
 import React from 'react';
 import { connect } from 'react-redux';
 import {
-    getAuthToken
+    getAuthToken,
+    getWorkshopStatus,
 } from '../../../reducers';
 import TextField from '@material-ui/core/TextField';
 import { reset, Field, reduxForm } from 'redux-form';
@@ -13,7 +14,9 @@ import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import gtLocale from 'date-fns/locale/es';
 
 const validate = values => {
     const errors = {};
@@ -26,16 +29,17 @@ const validate = values => {
     return errors;
 }
 
-const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) => (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+const renderDateTimePicker = ({ input: { onChange, value }, label, meta: { touched, error }, showTime }) => (
+    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={gtLocale}>
         <KeyboardDatePicker
             autoOk
-            className="inputWorkshop"
+            className="inputAssociationClub"
             disableToolbar
             variant="inline"
             format="yyyy/MM/dd"
             margin="normal"
             label={label}
+            helperText={touched && error}
             onChange={onChange}
             time={showTime}
             value={!value ? new Date() : new Date(value)}
@@ -89,6 +93,15 @@ let AddWorkshop = ({
                             )
                     }
                 </p>
+                <ToastContainer position="bottom-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover />
             </form>
         </div>
     );
@@ -103,6 +116,7 @@ AddWorkshop = connect(
     state => ({
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
+        status: getWorkshopStatus(state),
     }),
     dispatch => ({
         onSubmit({ name, startdate, enddate, classroom, description }) {
@@ -118,7 +132,25 @@ AddWorkshop = connect(
                 dispatch(reset('workshopForm')),
             );
         },
+        onChangeStatus() {
+            dispatch(actions.changeWorkshopStatus());
+        },
     }),
+    (stateProps, dispatchProps, ownProps) => {
+        if (stateProps.status === 'SUCCESS') {
+            toast.success("El taller se ha agregado exitosamente")
+            dispatchProps.onChangeStatus();
+        }
+        if (stateProps.status === 'ERROR') {
+            toast.error("Un error inesperado ha ocurrido. Por favor inténtalo de nuevo")
+            dispatchProps.onChangeStatus();
+        }
+        return ({
+            ...stateProps,
+            ...dispatchProps,
+            ...ownProps,
+        });
+    },
 )(AddWorkshop);
 
 export default AddWorkshop;

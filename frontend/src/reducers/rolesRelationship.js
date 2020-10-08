@@ -4,7 +4,7 @@ import * as types from '../types/rolesRelationship';
 
 const byId = (state = {}, action) => {
   switch (action.type) {
-    case types.USERS_BY_EMAIL_FETCH_COMPLETED: {
+    case types.USERS_BY_EMAIL_FETCH_COMPLETED_ROLES: {
       const { entities, order } = action.payload;
       const newState = { };
       order.forEach(id => {
@@ -34,7 +34,7 @@ const byId = (state = {}, action) => {
 
 const order = (state = [], action) => {
   switch (action.type) {
-    case types.USERS_BY_EMAIL_FETCH_COMPLETED: {
+    case types.USERS_BY_EMAIL_FETCH_COMPLETED_ROLES: {
       return  [...action.payload.order];
     }
     default: {
@@ -45,13 +45,13 @@ const order = (state = [], action) => {
 
 const isFetching = (state = false, action) => {
   switch (action.type) {
-    case types.USERS_BY_EMAIL_FETCH_STARTED: {
+    case types.USERS_BY_EMAIL_FETCH_STARTED_ROLES: {
       return true;
     }
-    case types.USERS_BY_EMAIL_FETCH_COMPLETED: {
+    case types.USERS_BY_EMAIL_FETCH_COMPLETED_ROLES: {
       return false;
     }
-    case types.USERS_BY_EMAIL_FETCH_FAILED: {
+    case types.USERS_BY_EMAIL_FETCH_FAILED_ROLES: {
       return false;
     }
     default: {
@@ -62,13 +62,13 @@ const isFetching = (state = false, action) => {
 
 const error = (state = null, action) => {
   switch (action.type) {
-    case types.USERS_BY_EMAIL_FETCH_FAILED: {
+    case types.USERS_BY_EMAIL_FETCH_FAILED_ROLES: {
       return action.payload.error;
     }
-    case types.USERS_BY_EMAIL_FETCH_STARTED: {
+    case types.USERS_BY_EMAIL_FETCH_STARTED_ROLES: {
       return null;
     }
-    case types.USERS_BY_EMAIL_FETCH_COMPLETED: {
+    case types.USERS_BY_EMAIL_FETCH_COMPLETED_ROLES: {
       return null;
     }
     default: {

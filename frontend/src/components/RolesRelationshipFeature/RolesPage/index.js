@@ -10,6 +10,8 @@ import Nav from '../../Nav';
 import RolesTable from '../RolesTable';
 import RolesModal from '../RolesModal';
 import { makeStyles } from '@material-ui/core/styles';
+import './styles.css';
+import Footer from '../../Footer';
 
 const drawerWidth = 240;
 
@@ -46,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 const RolesPage = ({ open }) => {
     const classes = useStyles();
     return (
-        <div className={classes.root}>
+        <div className="bgrp">
             <Nav />
             <main
                 className={clsx(classes.content, {
@@ -57,6 +59,9 @@ const RolesPage = ({ open }) => {
                 <RolesTable />
                 <RolesModal />
             </main>
+            <div className="footer">
+                <Footer />
+            </div>
         </div>
     );
 }

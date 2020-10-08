@@ -69,14 +69,6 @@ const order = (state = [], action) => {
       const { oldId, event } = action.payload;
       return state.map(id => id === oldId ? event.id : id);
     }
-    case types.EVENT_UPDATE_COMPLETED: {
-      const { id, event } = action.payload;
-      const newState = omit(state, id);
-      newState[event.id] = {
-        ...event,
-      };
-      return newState;
-    }
     default: {
       return state;
     }
@@ -117,14 +109,39 @@ const error = (state = null, action) => {
   }
 };
 
+const status = (state = null, action) => {
+  switch (action.type) {
+    case types.EVENT_ADD_COMPLETED: {
+      return 'SUCCESS';
+    }
+    case types.EVENT_UPDATE_COMPLETED: {
+      return 'SUCCESS';
+    }
+    case types.EVENT_ADD_FAILED: {
+      return 'ERROR';
+    }
+    case types.EVENT_UPDATE_FAILED: {
+      return 'ERROR';
+    }
+    case types.SET_EVENT_STATUS: {
+      return null;
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
 export default combineReducers({
   byId,
   order,
   isFetching,
   error,
+  status,
 });
 
 export const getEvent = (state, id) => state.byId[id];
 export const getEvents = state => state.order.map(id => getEvent(state, id));
 export const isFetchingEvents = state => state.isFetching;
 export const getFetchingEventsError = state => state.error;
+export const getEventStatus = state => state.status;

@@ -158,3 +158,7 @@ export const failFetchingUsers = error => ({
     type: types.PENDING_USERS_FETCH_FAILED,
     payload: { error },
 });
+
+export const setStatus = () => ({
+    type: types.SET_AUTHENTICATION_STATUS,
+});

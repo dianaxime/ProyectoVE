@@ -26,6 +26,7 @@ import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
 import BrushIcon from '@material-ui/icons/Brush';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
+import WcIcon from '@material-ui/icons/Wc';
 import ViewModuleRoundedIcon from '@material-ui/icons/ViewModuleRounded';
 import SecurityIcon from '@material-ui/icons/Security';
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
@@ -80,7 +81,7 @@ const useStyles = makeStyles((theme) => ({
   },
   drawerPaper: {
     width: drawerWidth,
-    background: '#F1F1F2',
+    background: '#FFF6F2',
   },
   drawerHeader: {
     display: 'flex',
@@ -127,6 +128,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
   const [openT, setOpenT] = useState(null);
   const [openRT, setOpenRT] = useState(null);
   const [openE, setOpenE] = useState(null);
+  const [openAC, setOpenAC] = useState(null);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -137,6 +139,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
     setOpenT(false);
     setOpenRT(false);
     setOpenE(false);
+    setOpenAC(false);
   };
 
   const handleMenu = (event) => {
@@ -176,6 +179,10 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
 
   const handleClickEvent = () => {
     setOpenE(!openE);
+  };
+
+  const handleClickAssociationClub = () => {
+    setOpenAC(!openAC);
   };
 
   return (
@@ -367,6 +374,51 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
               </Link>
             </List>
           </Collapse>
+        </List>
+        <Divider />
+        <List>
+          <ListItem button onClick={handleClickAssociationClub}>
+            <ListItemIcon>
+              <WcIcon />
+            </ListItemIcon>
+            <ListItemText primary="Asociaciones y Clubes" />
+            {openAC ? <ExpandLess /> : <ExpandMore />}
+          </ListItem>
+          <Collapse in={openAC} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <Link to="/crearAsociacionClub" className={classes.link} onClick={handleDrawerClose}>
+                <ListItem button className={classes.nested}>
+                  <ListItemIcon>
+                    <ListItemText primary={"Crear"} />
+                    <ListItemSecondaryAction>
+                      <NoteAddIcon />
+                    </ListItemSecondaryAction>
+                  </ListItemIcon>
+                </ListItem>
+              </Link>
+              <Link to="/asociacionesClubs" className={classes.link} onClick={handleDrawerClose}>
+                <ListItem button className={classes.nested}>
+                  <ListItemIcon>
+                    <ListItemText primary={"Ver todos"} />
+                    <ListItemSecondaryAction>
+                      <ViewModuleRoundedIcon />
+                    </ListItemSecondaryAction>
+                  </ListItemIcon>
+                </ListItem>
+              </Link>
+            </List>
+          </Collapse>
+        </List>
+        <Divider />
+        <List>
+          <Link to="/sessions" className={classes.link} onClick={handleDrawerClose}>
+            <ListItem button>
+              <ListItemIcon>
+                <ViewModuleRoundedIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Asistencia"} />
+            </ListItem>
+          </Link>
         </List>
         <Divider />
         <List>

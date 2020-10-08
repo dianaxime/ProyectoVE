@@ -10,6 +10,10 @@ import tournament, * as tournamentSelectors from './tournament';
 import events, * as eventsSelectors from './events';
 import eventParticipation, * as eventParticipationSelectors from './eventParticipation';
 import rolesRelationship, * as rolesRelationshipSelectors from './rolesRelationship';
+import associationClubRelationship, * as associationClubRelationshipSelectors from './associationClubsRelationship';
+import sessions, * as sessionsSelectors from './sessions';
+import associationClub, * as associationClubSelectors from './associationClub'; 
+import assistances, * as assistancesSelectors from './assistances'; 
 
 import changeDrawer, * as changeDrawerSelectors from './changeDrawer';
 import changeForgot, * as changeForgotSelectors from './modalForgot';
@@ -24,6 +28,8 @@ import selectedTeam, * as selectedTeamSelectors from './selectedTeam';
 import selectedEvent, * as selectedEventSelectors from './selectedEvent'; 
 import selectedRol, * as selectedRolSelectors from './selectedRol';
 import selectedAUser, * as selectedAUserSelectors from './selectedAUser'; 
+import selectedAssociationClub, * as selectedAssociationClubSelectors from './selectedAssociationClub'; 
+import selectedSession, * as selectedSessionSelectors from './selectedSession';
 
 const reducer = combineReducers({
   auth,
@@ -47,6 +53,12 @@ const reducer = combineReducers({
   selectedRol,
   changeAssign,
   selectedAUser,
+  associationClubRelationship, 
+  associationClub,
+  selectedAssociationClub, 
+  sessions,
+  selectedSession,
+  assistances,
   form: formReducer,
 });
 
@@ -57,23 +69,16 @@ export const getAuthToken = state => authSelectors.getAuthToken(state.auth);
 export const getUser = state => authSelectors.getUser(state.auth);
 export const getIsAuthenticating = state => authSelectors.getIsAuthenticating(state.auth);
 export const getAuthenticatingError = state => authSelectors.getAuthenticatingError(state.auth);
-export const getIsRegistering = state => authSelectors.getIsRegistering(state.auth);
-export const getRegisteringError = state => authSelectors.getRegisteringError(state.auth);
-export const getRegisteringCompleted = state => authSelectors.getRegisteringCompleted(state.auth);
 export const isAuthenticated = state => getAuthToken(state) != null;
 export const getAuthUserID = state => authSelectors.getAuthUserID(state.auth);
 export const getAuthExpiration = state => authSelectors.getAuthExpiration(state.auth);
 export const getAuthEmail = state => authSelectors.getAuthEmail(state.auth);
 export const getIsRefreshingToken = state => authSelectors.getIsRefreshingToken(state.auth);
 export const getRefreshingError = state => authSelectors.getRefreshingError(state.auth);
-export const getIsRecovering = state => authSelectors.getIsRecovering(state.auth);
-export const getRecoveringError = state => authSelectors.getRecoveringError(state.auth);
-export const getRecoveringCompleted = state => authSelectors.getRecoveringCompleted(state.auth);
-export const getIsUpdating = state => authSelectors.getIsUpdating(state.auth);
-export const getUpdatingError = state => authSelectors.getUpdatingError(state.auth);
-export const getIsChanging = state => authSelectors.getIsChanging(state.auth);
-export const getChangingError = state => authSelectors.getChangingError(state.auth);
-export const getChangingCompleted = state => authSelectors.getChangingCompleted(state.auth);
+export const getRegisteringStatus = state => authSelectors.getRegisteringStatus(state.auth);
+export const getRecoveringStatus = state => authSelectors.getRecoveringStatus(state.auth);
+export const getUpdatingStatus = state => authSelectors.getUpdatingStatus(state.auth);
+export const getChangingStatus = state => authSelectors.getChangingStatus(state.auth);
 export const getPendingUser = (state, id) => authSelectors.getPendingUser(state.auth, id);
 export const getPendingUsers = state => authSelectors.getPendingUsers(state.auth);
 export const isFetchingPendingUsers = state => authSelectors.isFetchingPendingUsers(state.auth);
@@ -95,16 +100,19 @@ export const getWorkshop = (state, id) => workshopsSelectors.getWorkshop(state.w
 export const getWorkshops = state => workshopsSelectors.getWorkshops(state.workshops);
 export const isFetchingWorkshops = state => workshopsSelectors.isFetchingWorkshops(state.workshops);
 export const getFetchingWorkshopsError = state => workshopsSelectors.getFetchingWorkshopsError(state.workshops);
+export const getWorkshopStatus = state => workshopsSelectors.getWorkshopStatus(state.workshops);
 /* Teams */
 export const getTeam = (state, id) => teamsSelectors.getTeam(state.teams, id);
 export const getTeams = state => teamsSelectors.getTeams(state.teams);
 export const isFetchingTeams = state => teamsSelectors.isFetchingTeams(state.teams);
 export const getFetchingTeamsError = state => teamsSelectors.getFetchingTeamsError(state.teams);
+export const getTeamStatus = state => teamsSelectors.getTeamStatus(state.teams);
 /* Scholars */
 export const getScholar = (state, id) => scholarsSelectors.getScholar(state.scholars, id);
 export const getScholars = state => scholarsSelectors.getScholars(state.scholars);
 export const isFetchingScholars = state => scholarsSelectors.isFetchingScholars(state.scholars);
 export const getFetchingScholarsError = state => scholarsSelectors.getFetchingScholarsError(state.scholars);
+export const getScholarStatus = state => scholarsSelectors.getScholarStatus(state.scholars);
 /* Selected Workshop*/
 export const getSelectedWorkshop = (state) => selectedWorkshopSelectors.getSelectedWorkshop(state.selectedWorkshop)
 /* Selected Team */ 
@@ -136,6 +144,7 @@ export const getEvent = (state, id) => eventsSelectors.getEvent(state.events, id
 export const getEvents = state => eventsSelectors.getEvents(state.events);
 export const isFetchingEvents = state => eventsSelectors.isFetchingEvents(state.events);
 export const getFetchingEventsError = state => eventsSelectors.getFetchingEventsError(state.events);
+export const getEventStatus = state => eventsSelectors.getEventStatus(state.events);
 /* events participation */
 export const getUserByEmailEventParticipation = (state, id) => eventParticipationSelectors.getUserByEmailEventParticipation(state.eventParticipation, id);
 export const getUsersByEmailEventParticipation = state => eventParticipationSelectors.getUsersByEmailEventParticipation(state.eventParticipation);
@@ -161,3 +170,45 @@ export const getFetchingErrorRoles = state => rolesRelationshipSelectors.getFetc
 export const getSelectedRol = (state) => selectedRolSelectors.getSelectedRol(state.selectedRol)
 /* Selected AUser */ 
 export const getSelectedAUser = (state) => selectedAUserSelectors.getSelectedAUser(state.selectedAUser)
+/* Association Club Relationship */
+export const getUserByEmailAssociationClubRelationship = (state, id) => associationClubRelationshipSelectors.getUserByEmailAssociationClubRelationship(state.associationClubRelationship, id);
+export const getUsersOrderAssociationClubRelationship = state => associationClubRelationshipSelectors.getUsersOrderAssociationClubRelationship(state.associationClubRelationship);
+export const getUsersByEmailAssociationClubRelationship = state => associationClubRelationshipSelectors.getUsersByEmailAssociationClubRelationship(state.associationClubRelationship);
+export const isFetchingUsersByEmailAssociationClubRelationship = state => associationClubRelationshipSelectors.isFetchingUsersByEmailAssociationClubRelationship(state.associationClubRelationship);
+export const getFetchingUsersByEmailErrorAssociationClubRelationship = state => associationClubRelationshipSelectors.getFetchingUsersByEmailErrorAssociationClubRelationship(state.associationClubRelationship);
+export const getAssociationClubRelationship = (state, id) => associationClubRelationshipSelectors.getAssociationClubRelationship(state.associationClubRelationship, id);
+export const getAssociationClubRelationships = state => associationClubRelationshipSelectors.getAssociationClubRelationships(state.associationClubRelationship);
+export const isFetchingAssociationClubRelationships = state => associationClubRelationshipSelectors.isFetchingAssociationClubRelationships(state.associationClubRelationship);
+export const getFetchingAssociationClubRelationshipError = state => associationClubRelationshipSelectors.getFetchingAssociationClubRelationshipError(state.associationClubRelationship);
+/* Association Club */
+export const getAssociationClub = (state, id) => associationClubSelectors.getAssociationClub(state.associationClub, id);
+export const getAssociationClubs = state => associationClubSelectors.getAssociationClubs(state.associationClub);
+export const isFetchingAssociationClubs = state => associationClubSelectors.isFetchingAssociationClubs(state.associationClub);
+export const getFetchingAssociationClubsError = state => associationClubSelectors.getFetchingAssociationClubsError(state.associationClub);
+export const getAssociationClubStatus = state => associationClubSelectors.getAssociationClubStatus(state.associationClub);
+/* Selected Association Club */ 
+export const getSelectedAssociationClub = (state) => selectedAssociationClubSelectors.getSelectedAssociationClub(state.selectedAssociationClub);
+/* Association Club Relationship */
+export const getClubByNameSession = (state, id) => sessionsSelectors.getClubByNameSession(state.sessions, id);
+export const getClubsOrderSession = state => sessionsSelectors.getClubsOrderSession(state.sessions);
+export const getClubsByNameSession = state => sessionsSelectors.getClubsByNameSession(state.sessions);
+export const isFetchingClubsByNameSession = state => sessionsSelectors.isFetchingClubsByNameSession(state.sessions);
+export const getFetchingClubByNameErrorSession = state => sessionsSelectors.getFetchingClubByNameErrorSession(state.sessions);
+export const getSession = (state, id) => sessionsSelectors.getSession(state.sessions, id);
+export const getSessions = state => sessionsSelectors.getSessions(state.sessions);
+export const isFetchingSessions = state => sessionsSelectors.isFetchingSessions(state.sessions);
+export const getFetchingSessionError = state => sessionsSelectors.getFetchingSessionError(state.sessions);
+export const getSessionStatus = state => sessionsSelectors.getSessionStatus(state.sessions);
+export const getSessionFormat = state => sessionsSelectors.getSessionFormat(state.sessions);
+/* Selected Session*/
+export const getSelectedSession = (state) => selectedSessionSelectors.getSelectedSession(state.selectedSession)
+/* Assistances */
+export const getUserByEmailAssistance = (state, id) => assistancesSelectors.getUserByEmailAssistance(state.assistances, id);
+export const getUsersOrderAssistance = state => assistancesSelectors.getUsersOrderAssistance(state.assistances);
+export const getUsersByEmailAssistance = state => assistancesSelectors.getUsersByEmailAssistance(state.assistances);
+export const isFetchingUsersByEmailAssistance = state => assistancesSelectors.isFetchingUsersByEmailAssistance(state.assistances);
+export const getFetchingUsersByEmailErrorAssistance = state => assistancesSelectors.getFetchingUsersByEmailErrorAssistance(state.assistances);
+export const getAssistance = (state, id) => assistancesSelectors.getAssistance(state.assistances, id);
+export const getAssistances = state => assistancesSelectors.getAssistances(state.assistances);
+export const isFetchingAssistances = state => assistancesSelectors.isFetchingAssistances(state.assistances);
+export const getFetchingAssistanceError = state => assistancesSelectors.getFetchingAssistanceError(state.assistances);

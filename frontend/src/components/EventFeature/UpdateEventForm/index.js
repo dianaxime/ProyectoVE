@@ -4,6 +4,7 @@ import {
     getAuthToken,
     getEvent,
     getSelectedEvent,
+    getEventStatus,
 } from '../../../reducers';
 import TextField from '@material-ui/core/TextField';
 import { reset, Field, reduxForm } from 'redux-form';
@@ -15,6 +16,9 @@ import {
 } from '@material-ui/pickers';
 import { URL } from '../../../settings';
 import './styles.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import gtLocale from 'date-fns/locale/es';
 
 const validate = values => {
     const errors = {};
@@ -27,16 +31,17 @@ const validate = values => {
     return errors;
 }
 
-const renderDateTimePicker = ({ input: { onChange, value }, label, showTime }) => (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
+const renderDateTimePicker = ({ input: { onChange, value }, label, meta: { touched, error }, showTime }) => (
+    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={gtLocale}>
         <KeyboardDatePicker
             autoOk
-            className="inputEvent"
+            className="inputAssociationClub"
             disableToolbar
             variant="inline"
             format="yyyy/MM/dd"
             margin="normal"
             label={label}
+            helperText={touched && error}
             onChange={onChange}
             time={showTime}
             value={!value ? new Date() : new Date(value)}
@@ -87,6 +92,15 @@ let UpdateEvent = ({
                             )
                     }
                 </p>
+                <ToastContainer position="bottom-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover />
             </form>
         </div>
     );
@@ -103,6 +117,7 @@ UpdateEvent = connect(
         isAuth: getAuthToken(state) !== null,
         initialValues: getEvent(state, getSelectedEvent(state)),
         idEvent: getSelectedEvent(state),
+        status: getEventStatus(state),
     }),
     dispatch => ({
         onSubmit({ name, classroom, description, date }, id) {
@@ -116,17 +131,29 @@ UpdateEvent = connect(
                 ),
                 dispatch(reset('updateEventForm')),
             );
-            window.location.href = URL + 'eventos';
+        },
+        onChangeStatus() {
+            dispatch(actions.changeEventStatus());
         },
     }),
-    (stateProps, dispatchProps, ownProps) => ({
-        ...stateProps,
-        ...dispatchProps,
-        ...ownProps,
-        onSubmit({ name, classroom, description, date }) {
-            dispatchProps.onSubmit({ name, classroom, description, date }, stateProps.idEvent);
-        },
-    })
+    (stateProps, dispatchProps, ownProps) => {
+        if (stateProps.status === 'ERROR') {
+            toast.error("Un error inesperado ha ocurrido. Por favor inténtalo de nuevo");
+            dispatchProps.onChangeStatus();
+        }
+        if (stateProps.status === 'SUCCESS') {
+            dispatchProps.onChangeStatus();
+            window.location.href = URL + 'eventos';
+        }
+        return ({
+            ...stateProps,
+            ...dispatchProps,
+            ...ownProps,
+            onSubmit({ name, classroom, description, date }) {
+                dispatchProps.onSubmit({ name, classroom, description, date }, stateProps.idEvent);
+            },
+        });
+    },
 )(UpdateEvent);
 
 export default UpdateEvent;

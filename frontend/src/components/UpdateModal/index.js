@@ -1,8 +1,7 @@
 import React from 'react';
 import { MDBContainer, MDBBtn, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBCol } from 'mdbreact';
 import {
-    getIsUpdating,
-    getUpdatingError,
+    getUpdatingStatus,
     getIsUpdateOpen,
     getUser
 } from '../../reducers';
@@ -14,6 +13,8 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 import './styles.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const drawerWidth = 240;
 
@@ -22,28 +23,28 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
     },
     drawerHeader: {
-      display: 'flex',
-      alignItems: 'center',
-      padding: theme.spacing(0, 1),
-      // necessary for content to be below app bar
-      ...theme.mixins.toolbar,
-      justifyContent: 'flex-end',
+        display: 'flex',
+        alignItems: 'center',
+        padding: theme.spacing(0, 1),
+        // necessary for content to be below app bar
+        ...theme.mixins.toolbar,
+        justifyContent: 'flex-end',
     },
     content: {
-      flexGrow: 1,
-      padding: theme.spacing(3),
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      marginLeft: -drawerWidth,
+        flexGrow: 1,
+        padding: theme.spacing(3),
+        transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+        }),
+        marginLeft: -drawerWidth,
     },
     contentShift: {
-      transition: theme.transitions.create('margin', {
-        easing: theme.transitions.easing.easeOut,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      marginLeft: 0,
+        transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginLeft: 0,
     },
 }));
 
@@ -78,7 +79,7 @@ const renderSelectField = ({ input, label, meta: { touched, error }, ...custom }
     />
 );
 
-let UpdateUserForm = ({ open, onHandle, onSubmit, handleSubmit, Message }) => {
+let UpdateUserForm = ({ open, onHandle, onSubmit, handleSubmit, }) => {
     const classes = useStyles();
     return (
         <MDBContainer >
@@ -87,73 +88,83 @@ let UpdateUserForm = ({ open, onHandle, onSubmit, handleSubmit, Message }) => {
                 <MDBModalHeader toggle={onHandle}><b>Actualizar Perfil</b></MDBModalHeader>
                 <MDBModalBody>
                     <MDBCol>
-                        <Field name="first_name" component={renderTextField} label="Primer Nombre" className="input_" />
-                        <Field name="last_name" component={renderTextField} label="Primer Apellido" className="input_" />
+                        <Field name="first_name" component={renderTextField} label="Nombre" className="input_" />
+                        <Field name="last_name" component={renderTextField} label="Apellido" className="input_" />
                     </MDBCol>
                     <MDBCol>
-                        <Field name="carne" component={renderTextField} label="Carne" className="input_"/>
+                        <Field name="carne" component={renderTextField} label="Carne" className="input_" />
                         <Field name="sex" component={renderSelectField} label="Genero" className="input_">
                             <MenuItem value="F">F</MenuItem>
                             <MenuItem value="M">M</MenuItem>
                         </Field>
                     </MDBCol>
                     <MDBCol>
-                                <Field name="type" component={renderSelectField} label="Tipo" className="input_">
-                                    <MenuItem value="student">Estudiante</MenuItem>
-                                    <MenuItem value="graduate">Graduado</MenuItem>
-                                    <MenuItem value="collaborator">Colaborador</MenuItem>
-                                    <MenuItem value="graduate/collaborator">Graduado/Colaborador</MenuItem>
-                                </Field>
-                                <Field name="career" component={renderSelectField} label="Carrera" className="input_">
-                                    <MenuItem value="Bioinformática">Bioinformática</MenuItem>
-                                    <MenuItem value="Biomédica">Biomédica</MenuItem>
-                                    <MenuItem value="Biotecnología_Industrial">Biotecnología Industrial</MenuItem>
-                                    <MenuItem value="Ciencias_de_Alimentos">Ciencias de Alimentos</MenuItem>
-                                    <MenuItem value="Ciencia_de_la_Administración">Ciencia de la Administración</MenuItem>
-                                    <MenuItem value="Ciencia_de_Datos">Ciencia de Datos</MenuItem>
-                                    <MenuItem value="Civil">Civil</MenuItem>
-                                    <MenuItem value="Civil_Ambiental">Civil Ambiental</MenuItem>
-                                    <MenuItem value="Civil_Arquitectónica">Civil Arquitectónica</MenuItem>
-                                    <MenuItem value="Civil_Industrial">Civil Industrial</MenuItem>
-                                    <MenuItem value="Computación">Ciencia de la Computación y Tecnologías de la Información</MenuItem>
-                                    <MenuItem value="Electrónica">Electrónica</MenuItem>
-                                    <MenuItem value="Industrial">Industrial</MenuItem>
-                                    <MenuItem value="Mecánica">Mecánica</MenuItem>
-                                    <MenuItem value="Mecánica_Industrial">Mecánica Industrial</MenuItem>
-                                    <MenuItem value="Mecatrónica">Mecatrónica</MenuItem>
-                                    <MenuItem value="Ingeniería_Química">Ingeniería Química</MenuItem>
-                                    <MenuItem value="Ingeniería_Química_Industrial">Ingeniería Química Industrial</MenuItem>
-                                    <MenuItem value="Licenciatura_en_Educación">Licenciatura en Educación</MenuItem>
-                                    <MenuItem value="Ciencias_Biológicas_y_Químicas">Profesorado y Licenciatura en Educación con Especialidad en Ciencias Biológicas y Químicas</MenuItem>
-                                    <MenuItem value="Ciencias_Sociales">Profesorado y Licenciatura en Educación con Especialidad en Ciencias Sociales</MenuItem>
-                                    <MenuItem value="Comunicación_y_Lenguaje">Profesorado y Licenciatura en Educación con Especialidad en Comunicación y Lenguaje</MenuItem>
-                                    <MenuItem value="Educación_Inclusiva">Profesorado y Licenciatura en Educación con Especialidad en Educación Inclusiva</MenuItem>
-                                    <MenuItem value="Educación_Musical">Profesorado y Licenciatura en Educación con Especialidad en Educación Musical</MenuItem>
-                                    <MenuItem value="Educación_Primaria">Profesorado y Licenciatura en Educación con Especialidad en Educación Primaria</MenuItem>
-                                    <MenuItem value="English_Language_Teaching">Profesorado y Licenciatura en Educación con Especialidad en English Language Teaching</MenuItem>
-                                    <MenuItem value="Matemática_y_Ciencias_Físicas">Profesorado y Licenciatura en Educación con Especialidad en Matemática y Ciencias Físicas</MenuItem>
-                                    <MenuItem value="Comunidad_Educativa">Programas de Actualización para la Comunidad Educativa</MenuItem>
-                                    <MenuItem value="Biología">Biología</MenuItem>
-                                    <MenuItem value="Bioquímica_y_Microbiología">Bioquímica y Microbiología</MenuItem>
-                                    <MenuItem value="Biotecnología_Molecular">Biotecnología Molecular</MenuItem>
-                                    <MenuItem value="Comunicación_y_Letras">Comunicación y Letras</MenuItem>
-                                    <MenuItem value="Física">Física</MenuItem>
-                                    <MenuItem value="Matemática_Aplicada">Matemática Aplicada</MenuItem>
-                                    <MenuItem value="Nutrición">Nutrición</MenuItem>
-                                    <MenuItem value="Química">Química</MenuItem>
-                                    <MenuItem value="Química_Farmacéutica">Química Farmacéutica</MenuItem>
-                                    <MenuItem value="Antropología_y_Sociología">Antropología y Sociología</MenuItem>
-                                    <MenuItem value="Arqueología">Arqueología</MenuItem>
-                                    <MenuItem value="Psicología">Psicología</MenuItem>
-                                    <MenuItem value="Relaciones_Internacionales">Relaciones Internacionales y Master of Arts in Global Affairs</MenuItem>
-                                </Field>
-                                <Field name="faculty" component={renderSelectField} label="Faculty" className="input_">
-                                    <MenuItem value="ingenieria">Ingeniería</MenuItem>
-                                    <MenuItem value="ciencias_y_humanidades">Ciencias y Humanidades</MenuItem>
-                                    <MenuItem value="Ciencias_Sociales">Ciencias Sociales</MenuItem>
-                                    <MenuItem value="Ciencias_Sociales">Educación</MenuItem>
-                                </Field>
-                            <div>{Message}</div>
+                        <Field name="type" component={renderSelectField} label="Tipo" className="input_">
+                            <MenuItem value="student">Estudiante</MenuItem>
+                            <MenuItem value="graduate">Graduado</MenuItem>
+                            <MenuItem value="collaborator">Colaborador</MenuItem>
+                            <MenuItem value="graduate/collaborator">Graduado/Colaborador</MenuItem>
+                        </Field>
+                        <Field name="career" component={renderSelectField} label="Carrera" className="input_">
+                            <MenuItem value="Bioinformática">Bioinformática</MenuItem>
+                            <MenuItem value="Biomédica">Biomédica</MenuItem>
+                            <MenuItem value="Biotecnología_Industrial">Biotecnología Industrial</MenuItem>
+                            <MenuItem value="Ciencias_de_Alimentos">Ciencias de Alimentos</MenuItem>
+                            <MenuItem value="Ciencia_de_la_Administración">Ciencia de la Administración</MenuItem>
+                            <MenuItem value="Ciencia_de_Datos">Ciencia de Datos</MenuItem>
+                            <MenuItem value="Civil">Civil</MenuItem>
+                            <MenuItem value="Civil_Ambiental">Civil Ambiental</MenuItem>
+                            <MenuItem value="Civil_Arquitectónica">Civil Arquitectónica</MenuItem>
+                            <MenuItem value="Civil_Industrial">Civil Industrial</MenuItem>
+                            <MenuItem value="Computación">Ciencia de la Computación y Tecnologías de la Información</MenuItem>
+                            <MenuItem value="Electrónica">Electrónica</MenuItem>
+                            <MenuItem value="Industrial">Industrial</MenuItem>
+                            <MenuItem value="Mecánica">Mecánica</MenuItem>
+                            <MenuItem value="Mecánica_Industrial">Mecánica Industrial</MenuItem>
+                            <MenuItem value="Mecatrónica">Mecatrónica</MenuItem>
+                            <MenuItem value="Ingeniería_Química">Ingeniería Química</MenuItem>
+                            <MenuItem value="Ingeniería_Química_Industrial">Ingeniería Química Industrial</MenuItem>
+                            <MenuItem value="Licenciatura_en_Educación">Licenciatura en Educación</MenuItem>
+                            <MenuItem value="Ciencias_Biológicas_y_Químicas">Profesorado y Licenciatura en Educación con Especialidad en Ciencias Biológicas y Químicas</MenuItem>
+                            <MenuItem value="Ciencias_Sociales">Profesorado y Licenciatura en Educación con Especialidad en Ciencias Sociales</MenuItem>
+                            <MenuItem value="Comunicación_y_Lenguaje">Profesorado y Licenciatura en Educación con Especialidad en Comunicación y Lenguaje</MenuItem>
+                            <MenuItem value="Educación_Inclusiva">Profesorado y Licenciatura en Educación con Especialidad en Educación Inclusiva</MenuItem>
+                            <MenuItem value="Educación_Musical">Profesorado y Licenciatura en Educación con Especialidad en Educación Musical</MenuItem>
+                            <MenuItem value="Educación_Primaria">Profesorado y Licenciatura en Educación con Especialidad en Educación Primaria</MenuItem>
+                            <MenuItem value="English_Language_Teaching">Profesorado y Licenciatura en Educación con Especialidad en English Language Teaching</MenuItem>
+                            <MenuItem value="Matemática_y_Ciencias_Físicas">Profesorado y Licenciatura en Educación con Especialidad en Matemática y Ciencias Físicas</MenuItem>
+                            <MenuItem value="Comunidad_Educativa">Programas de Actualización para la Comunidad Educativa</MenuItem>
+                            <MenuItem value="Biología">Biología</MenuItem>
+                            <MenuItem value="Bioquímica_y_Microbiología">Bioquímica y Microbiología</MenuItem>
+                            <MenuItem value="Biotecnología_Molecular">Biotecnología Molecular</MenuItem>
+                            <MenuItem value="Comunicación_y_Letras">Comunicación y Letras</MenuItem>
+                            <MenuItem value="Física">Física</MenuItem>
+                            <MenuItem value="Matemática_Aplicada">Matemática Aplicada</MenuItem>
+                            <MenuItem value="Nutrición">Nutrición</MenuItem>
+                            <MenuItem value="Química">Química</MenuItem>
+                            <MenuItem value="Química_Farmacéutica">Química Farmacéutica</MenuItem>
+                            <MenuItem value="Antropología_y_Sociología">Antropología y Sociología</MenuItem>
+                            <MenuItem value="Arqueología">Arqueología</MenuItem>
+                            <MenuItem value="Psicología">Psicología</MenuItem>
+                            <MenuItem value="Relaciones_Internacionales">Relaciones Internacionales y Master of Arts in Global Affairs</MenuItem>
+                        </Field>
+                        <Field name="faculty" component={renderSelectField} label="Faculty" className="input_">
+                            <MenuItem value="ingenieria">Ingeniería</MenuItem>
+                            <MenuItem value="ciencias_y_humanidades">Ciencias y Humanidades</MenuItem>
+                            <MenuItem value="Ciencias_Sociales">Ciencias Sociales</MenuItem>
+                            <MenuItem value="Ciencias_Sociales">Educación</MenuItem>
+                        </Field>
+                        <div>
+                            <ToastContainer position="bottom-center"
+                                autoClose={5000}
+                                hideProgressBar={false}
+                                newestOnTop={false}
+                                closeOnClick
+                                rtl={false}
+                                pauseOnFocusLoss
+                                draggable
+                                pauseOnHover />
+                        </div>
                     </MDBCol>
                 </MDBModalBody>
                 <MDBModalFooter>
@@ -172,12 +183,7 @@ UpdateUserForm = reduxForm({
 
 UpdateUserForm = connect(
     state => ({
-        Message:
-            getIsUpdating(state) !== null
-                ? getIsUpdating(state)
-                    ? ""
-                    : getUpdatingError(state)
-                : undefined,
+        status: getUpdatingStatus(state),
         open: getIsUpdateOpen(state),
         initialValues: getUser(state),
     }),
@@ -188,7 +194,25 @@ UpdateUserForm = connect(
         onHandle() {
             dispatch(actionsModal.changeUpdate(false));
         },
-    })
+        onChangeStatus() {
+            dispatch(actions.setStatus());
+        },
+    }),
+    (stateProps, dispatchProps, ownProps) => {
+        if (stateProps.status === 'SUCCESS') {
+            toast.success("Se han actualizado sus datos correctamente");
+            dispatchProps.onChangeStatus();
+        }
+        if (stateProps.status === 'ERROR') {
+            toast.error("Un error inesperado ha ocurrido. Por favor inténtalo de nuevo");
+            dispatchProps.onChangeStatus();
+        }
+        return ({
+            ...stateProps,
+            ...dispatchProps,
+            ...ownProps,
+        });
+    },
 )(UpdateUserForm);
 
 export default UpdateUserForm;

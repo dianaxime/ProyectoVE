@@ -6,16 +6,21 @@ import { connect } from 'react-redux';
 import { getAuthToken } from '../../reducers';
 import { URL } from '../../settings';
 import './styles.css';
+import Footer from '../Footer';
 
 const Auth = () => (
-    <div>
-        <img src={require('./logo_uvg.jpg')} alt="logo" />
-        <div className='auth-container'>
-            <Login />
-            <SignIn />
+    <div className="bg">
+        <div>
+            <img src={require('./logo_uvg.jpg')} alt="logo" />
+            <div className='auth-container'>
+                <Login />
+                <SignIn />
+            </div>
+            <ForgotModal />
+            <footer className="footer">
+                <Footer />
+            </footer>
         </div>
-        <ForgotModal />
-        <p className="marca">2020, Grupo 4</p>
     </div>
 );
 

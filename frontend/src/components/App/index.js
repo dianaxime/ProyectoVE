@@ -27,6 +27,18 @@ import EventsPage from '../EventFeature/EventsPage';
 import EditEventPage from '../EventFeature/EditEventPage';
 import SelectedEventPage from '../EventFeature/SelectedEventPage';
 
+/* Association Club */
+import AddAssociationClubPage from '../AssociationClubFeature/AddAssociationClubPage';
+import AssosiationClubsPage from '../AssociationClubFeature/AssosiationClubsPage';
+import EditAssociationClubPage from '../AssociationClubFeature/EditAssociationClubPage';
+import SelectedAssociationClubPage from '../AssociationClubFeature/SelectedAssociationClubPage';
+
+/* Sessions */
+import AddSessionPage from '../SessionsFeature/AddSessionPage';
+import EditSessionPage from '../SessionsFeature/EditSessionPage';
+import SessionPage from '../SessionsFeature/SessionsPage';
+import SelectedACSessionsPage from '../SessionsFeature/SelectedACSessionsPage';
+
 import 'fontsource-roboto';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
@@ -58,6 +70,14 @@ const App = () => (
           <Route exact path="/editarevento" component={EditEventPage} />
           <Route exact path="/roles" component={RolesPage} />
           <Route exact path="/asignaroles" component={AssignPage} />
+          <Route exact path="/crearAsociacionClub" component={AddAssociationClubPage} />
+          <Route exact path="/asociacionesClubs" component={AssosiationClubsPage} />
+          <Route exact path="/editarAsociacionClub" component={EditAssociationClubPage} />
+          <Route exact path="/asociacionesClub" component={SelectedAssociationClubPage} />
+          <Route exact path="/session" component={AddSessionPage} />
+          <Route exact path="/editarsession" component={EditSessionPage} />
+          <Route exact path="/sessions" component={SessionPage} />
+          <Route exact path="/sessionsclub" component={SelectedACSessionsPage} />
           <Route render={() => <Redirect to="/" />} />
         </Switch>
       </BrowserRouter>

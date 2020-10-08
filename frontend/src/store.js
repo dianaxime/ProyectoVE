@@ -11,33 +11,39 @@ import mainSaga from './sagas';
 
 
 const composeEnhancers =
-typeof window === 'object' &&
-window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?   
-window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
-// Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
-}) : compose;
+    typeof window === 'object' &&
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+        window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+            // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+        }) : compose;
 
 export const configureStore = () => {
     const sagaMiddleware = createSagaMiddleware();
     const persistedReducer = persistReducer(
         {
-        key: 'rootx',
-        storage,
-        whitelist: ['auth', 
-                    'workshops', 
-                    'scholars', 
-                    'selectedWorkshop', 
-                    'participation', 
-                    'selectedTeam',  
-                    'teams' , 
-                    'tournament', 
-                    'rolesRelationship', 
-                    'selectedRol', 
-                    'selectedAUser', 
-                    'eventParticipation', 
-                    'events', 
-                    'selectedEvent'
-                ],
+            key: 'rootx',
+            storage,
+            whitelist: ['auth',
+                'workshops',
+                'scholars',
+                'selectedWorkshop',
+                'participation',
+                'selectedTeam',
+                'teams',
+                'tournament',
+                'rolesRelationship',
+                'selectedRol',
+                'selectedAUser',
+                'eventParticipation',
+                'events',
+                'selectedEvent',
+                'associationClubRelationship',
+                'associationClub',
+                'selectedAssociationClub',
+                'sessions',
+                'selectedSession',
+                'assistances',
+            ],
         },
         reducer,
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
