@@ -53,11 +53,12 @@ let SearchClubStatistics = ({
     isLoading,
     handleSubmit, }) => {
     return (
-        <div className="datosEvent">
-            <form className="formE">
-                <h3 className="sube">Datos</h3>
-                <div className="div-field">
-                    <Field name="startdate" component={renderDateTimePicker} label="Inicio" />
+        <div className="datosStatic">
+            <form className="formStatistic">
+                <h3 className="subtittle">Datos</h3>
+                <div className="div-inputs">
+                    <Field name="startdate" component={renderDateTimePicker} label="Inicio"/>
+                    <p className="space">es solo espacio</p>
                     <Field name="enddate" component={renderDateTimePicker} label="Fin" />
                 </div>
                 <p>
