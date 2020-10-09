@@ -38,6 +38,7 @@ import AddSessionPage from '../SessionsFeature/AddSessionPage';
 import EditSessionPage from '../SessionsFeature/EditSessionPage';
 import SessionPage from '../SessionsFeature/SessionsPage';
 import SelectedACSessionsPage from '../SessionsFeature/SelectedACSessionsPage';
+import StatisticsClubPage from '../SessionsFeature/StatisticsClubPage';
 
 import 'fontsource-roboto';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -78,6 +79,7 @@ const App = () => (
           <Route exact path="/editarsession" component={EditSessionPage} />
           <Route exact path="/sessions" component={SessionPage} />
           <Route exact path="/sessionsclub" component={SelectedACSessionsPage} />
+          <Route exact path="/statisticsclub" component={StatisticsClubPage} />
           <Route render={() => <Redirect to="/" />} />
         </Switch>
       </BrowserRouter>
