@@ -20,6 +20,7 @@ import EditTeamPage from '../TeamFeature/EditTeamPage';
 import SelectedTeamPage from '../TeamFeature/SelectedTeamPage';
 import RolesPage from '../RolesRelationshipFeature/RolesPage';
 import AssignPage from '../RolesRelationshipFeature/AssignPage';
+import StatisticsTeamsPage from '../TeamFeature/StatisticsTeamsPage';
 
 /* Events */
 import AddEventPage from '../EventFeature/AddEventPage';
@@ -39,6 +40,7 @@ import EditSessionPage from '../SessionsFeature/EditSessionPage';
 import SessionPage from '../SessionsFeature/SessionsPage';
 import SelectedACSessionsPage from '../SessionsFeature/SelectedACSessionsPage';
 import StatisticsClubPage from '../SessionsFeature/StatisticsClubPage';
+
 
 import 'fontsource-roboto';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -80,6 +82,7 @@ const App = () => (
           <Route exact path="/sessions" component={SessionPage} />
           <Route exact path="/sessionsclub" component={SelectedACSessionsPage} />
           <Route exact path="/statisticsclub" component={StatisticsClubPage} />
+          <Route exact path="/estadisticasEquipos" component={StatisticsTeamsPage} />
           <Route render={() => <Redirect to="/" />} />
         </Switch>
       </BrowserRouter>
