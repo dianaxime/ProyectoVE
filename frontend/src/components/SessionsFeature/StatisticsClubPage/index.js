@@ -7,6 +7,7 @@ import clsx from 'clsx';
 import Nav from '../../Nav';
 import './styles.css';
 import Footer from '../../Footer';
+import StatisticsClubForm from '../StatisticsClubForm';
 
 
 const drawerWidth = 240;
@@ -53,7 +54,7 @@ const StatisticsClubPage = ({open}) => {
             >
                 <div className={classes.drawerHeader} />
                 <div className="contenedorW">
-                    
+                    <StatisticsClubForm />
                 </div>
             </main>
             <div className="footer">
