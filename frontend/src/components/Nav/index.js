@@ -46,6 +46,7 @@ import { Link } from "react-router-dom";
 import { URL } from '../../settings';
 import SportsIcon from '@material-ui/icons/Sports';
 import EventNoteIcon from '@material-ui/icons/EventNote';
+import InsertChartIcon from '@material-ui/icons/InsertChart';
 
 const drawerWidth = 270;
 
@@ -304,6 +305,16 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
                   </ListItemIcon>
                 </ListItem>
               </Link>
+              <Link to="/talleres" className={classes.link} onClick={handleDrawerClose}>
+                <ListItem button className={classes.nested}>
+                  <ListItemIcon>
+                    <ListItemText primary={"Estadísticas"} />
+                    <ListItemSecondaryAction>
+                      <InsertChartIcon />
+                    </ListItemSecondaryAction>
+                  </ListItemIcon>
+                </ListItem>
+              </Link>
             </List>
           </Collapse>
         </List>
@@ -334,6 +345,16 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
                     <ListItemText primary={"Ver todos"} />
                     <ListItemSecondaryAction>
                       <ViewModuleRoundedIcon />
+                    </ListItemSecondaryAction>
+                  </ListItemIcon>
+                </ListItem>
+              </Link>
+              <Link to="/equipos" className={classes.link} onClick={handleDrawerClose}>
+                <ListItem button className={classes.nested}>
+                  <ListItemIcon>
+                    <ListItemText primary={"Estadísticas"} />
+                    <ListItemSecondaryAction>
+                      <InsertChartIcon />
                     </ListItemSecondaryAction>
                   </ListItemIcon>
                 </ListItem>
@@ -372,6 +393,16 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
                   </ListItemIcon>
                 </ListItem>
               </Link>
+              <Link to="/eventos" className={classes.link} onClick={handleDrawerClose}>
+                <ListItem button className={classes.nested}>
+                  <ListItemIcon>
+                    <ListItemText primary={"Estadísticas"} />
+                    <ListItemSecondaryAction>
+                      <InsertChartIcon />
+                    </ListItemSecondaryAction>
+                  </ListItemIcon>
+                </ListItem>
+              </Link>
             </List>
           </Collapse>
         </List>
@@ -402,6 +433,16 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
                     <ListItemText primary={"Ver todos"} />
                     <ListItemSecondaryAction>
                       <ViewModuleRoundedIcon />
+                    </ListItemSecondaryAction>
+                  </ListItemIcon>
+                </ListItem>
+              </Link>
+              <Link to="/asociacionesClubs" className={classes.link} onClick={handleDrawerClose}>
+                <ListItem button className={classes.nested}>
+                  <ListItemIcon>
+                    <ListItemText primary={"Estadísticas"} />
+                    <ListItemSecondaryAction>
+                      <InsertChartIcon />
                     </ListItemSecondaryAction>
                   </ListItemIcon>
                 </ListItem>
