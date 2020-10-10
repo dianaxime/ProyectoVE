@@ -3,10 +3,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
     getAuthToken,
-    getTeamStatus,
 } from '../../../reducers';
 import { reset, Field, reduxForm } from 'redux-form';
-import * as actions from '../../../actions/sessions';
+import * as actions from '../../../actions/statistics';
 import './styles.css';
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -19,10 +18,11 @@ import gtLocale from 'date-fns/locale/es';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
+import moment from 'moment';
 
 const validate = values => {
     const errors = {};
-    const requiredFields = ['date'];
+    const requiredFields = ['startdate', 'enddate', 'sport'];
     requiredFields.forEach(field => {
         if (!values[field]) {
             errors[field] = 'Obligatorio*';
@@ -69,7 +69,7 @@ let SearchTeamsSportStatistics = ({
         <div className="datosStatic">
             <form className="formStatistic">
                 <div className="div-inputs">
-                    <Field name="startdate" component={renderDateTimePicker} label="Inicio"/>
+                    <Field name="startdate" component={renderDateTimePicker} label="Inicio" />
                     <p className="space">es solo espacio</p>
                     <Field name="enddate" component={renderDateTimePicker} label="Fin" />
                 </div>
@@ -88,7 +88,7 @@ let SearchTeamsSportStatistics = ({
                             <strong>{'Cargando...'}</strong>
                         ) : (
                                 <button className="buttonformST" type="submit" onClick={handleSubmit(onSubmit)}>
-                                    <SearchIcon/>
+                                    <SearchIcon />
                                 </button>
                             )
                     }
@@ -108,48 +108,45 @@ let SearchTeamsSportStatistics = ({
 }
 
 SearchTeamsSportStatistics = reduxForm({
-    form: 'teamsStatisticsForm',
+    form: 'teamsStatisticsFormSport',
     validate
 })(SearchTeamsSportStatistics);
 
 SearchTeamsSportStatistics = connect(
-    (state, { id }) => ({
+    state => ({
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
-        status: getTeamStatus(state),
     }),
     dispatch => ({
-        onSubmit(date, idac) {
+        onSubmit({ startdate, enddate, sport }) {
             dispatch(
-                actions.startAddingSession(
-                    uuidv4(),
-                    idac,
-                    date
-                ),
-                dispatch(reset('sessionForm')),
+                actions.startFetchingGendertSport(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'), sport)
             );
+            dispatch(
+                actions.startFetchingPlayersSport(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'), sport)
+            );
+            dispatch(
+                actions.startFetchingTeamstSport(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'), sport)
+            );
+            dispatch(reset('teamsStatisticsFormSport'));
         },
-        onChangeStatus() {
+        /*onChangeStatus() {
             dispatch(actions.changeSessionStatus());
-        },
+        },*/
     }),
     (stateProps, dispatchProps, ownProps) => {
-        if (stateProps.status === 'SUCCESS') {
+        /*if (stateProps.status === 'SUCCESS') {
             toast.success("La sesión se ha agregado exitosamente")
             dispatchProps.onChangeStatus();
         }
         if (stateProps.status === 'ERROR') {
             toast.error("Un error inesperado ha ocurrido. Por favor inténtalo de nuevo")
             dispatchProps.onChangeStatus();
-        }
+        }*/
         return ({
             ...stateProps,
             ...dispatchProps,
             ...ownProps,
-            onSubmit({date}){
-                console.log(date, stateProps.idac1)
-                dispatchProps.onSubmit(date, stateProps.idac1);
-            }
         });
     },
 )(SearchTeamsSportStatistics);

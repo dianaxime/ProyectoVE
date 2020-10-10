@@ -313,7 +313,7 @@ function* fetchGendert(action) {
 
 export function* watchGendertFetch() {
     yield takeEvery(
-        types.TEAMST_SPORT_FETCH_STARTED,
+        types.GENDERT_FETCH_STARTED,
         fetchGendert,
     );
 }
@@ -356,7 +356,7 @@ function* fetchGendertSport(action) {
 
 export function* watchGendertSportFetch() {
     yield takeEvery(
-        types.TEAMST_SPORT_FETCH_STARTED,
+        types.GENDERT_SPORT_FETCH_STARTED,
         fetchGendertSport,
     );
 }

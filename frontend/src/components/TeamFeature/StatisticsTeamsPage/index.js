@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme) => ({
 const StatisticsTeamsPage = ({open}) => {
     const classes = useStyles();
     return (
-        <div className="bgsac">
+        <div className="backstats">
             <Nav />
             <main
                 className={clsx(classes.content, {

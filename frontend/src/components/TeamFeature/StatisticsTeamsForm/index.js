@@ -3,10 +3,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
     getAuthToken,
-    getTeamStatus,
 } from '../../../reducers';
 import { reset, Field, reduxForm } from 'redux-form';
-import * as actions from '../../../actions/sessions';
+import * as actions from '../../../actions/statistics';
 import './styles.css';
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -16,10 +15,12 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import gtLocale from 'date-fns/locale/es';
+import SearchIcon from '@material-ui/icons/Search';
+import moment from 'moment';
 
 const validate = values => {
     const errors = {};
-    const requiredFields = ['date'];
+    const requiredFields = ['startdate', 'enddate'];
     requiredFields.forEach(field => {
         if (!values[field]) {
             errors[field] = 'Obligatorio*';
@@ -55,7 +56,7 @@ let SearchTeamsStatistics = ({
         <div className="datosStatic">
             <form className="formStatistic">
                 <div className="div-inputs">
-                    <Field name="startdate" component={renderDateTimePicker} label="Inicio"/>
+                    <Field name="startdate" component={renderDateTimePicker} label="Inicio" />
                     <p className="space">es solo espacio</p>
                     <Field name="enddate" component={renderDateTimePicker} label="Fin" />
                 </div>
@@ -64,8 +65,8 @@ let SearchTeamsStatistics = ({
                         isLoading ? (
                             <strong>{'Cargando...'}</strong>
                         ) : (
-                                <button className="buttonformE" type="submit" onClick={handleSubmit(onSubmit)}>
-                                    {'Buscar'}
+                                <button className="buttonformST" type="submit" onClick={handleSubmit(onSubmit)}>
+                                    <SearchIcon />
                                 </button>
                             )
                     }
@@ -90,43 +91,40 @@ SearchTeamsStatistics = reduxForm({
 })(SearchTeamsStatistics);
 
 SearchTeamsStatistics = connect(
-    (state, { id }) => ({
+    state => ({
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
-        status: getTeamStatus(state),
     }),
     dispatch => ({
-        onSubmit(date, idac) {
+        onSubmit({ startdate, enddate }) {
             dispatch(
-                actions.startAddingSession(
-                    uuidv4(),
-                    idac,
-                    date
-                ),
-                dispatch(reset('sessionForm')),
+                actions.startFetchingPlayers(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
             );
+            dispatch(
+                actions.startFetchingTeamst(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
+            );
+            dispatch(
+                actions.startFetchingGendert(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
+            );
+            dispatch(reset('teamsStatisticsForm'));
         },
-        onChangeStatus() {
+        /*onChangeStatus() {
             dispatch(actions.changeSessionStatus());
-        },
+        },*/
     }),
     (stateProps, dispatchProps, ownProps) => {
-        if (stateProps.status === 'SUCCESS') {
+        /*if (stateProps.status === 'SUCCESS') {
             toast.success("La sesión se ha agregado exitosamente")
             dispatchProps.onChangeStatus();
         }
         if (stateProps.status === 'ERROR') {
             toast.error("Un error inesperado ha ocurrido. Por favor inténtalo de nuevo")
             dispatchProps.onChangeStatus();
-        }
+        }*/
         return ({
             ...stateProps,
             ...dispatchProps,
             ...ownProps,
-            onSubmit({date}){
-                console.log(date, stateProps.idac1)
-                dispatchProps.onSubmit(date, stateProps.idac1);
-            }
         });
     },
 )(SearchTeamsStatistics);
