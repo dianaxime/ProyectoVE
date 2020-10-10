@@ -16,6 +16,9 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import gtLocale from 'date-fns/locale/es';
+import MenuItem from '@material-ui/core/MenuItem';
+import TextField from '@material-ui/core/TextField';
+import SearchIcon from '@material-ui/icons/Search';
 
 const validate = values => {
     const errors = {};
@@ -47,7 +50,18 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, meta: { touch
     </MuiPickersUtilsProvider>
 );
 
-let SearchTeamsStatistics = ({
+const renderSelectField = ({ input, label, meta: { touched, error }, ...custom }) => (
+    <TextField placeholder={label}
+        label={label}
+        helperText={touched && error}
+        {...input}
+        {...custom}
+        select
+        fullWidth
+    />
+);
+
+let SearchTeamsSportStatistics = ({
     onSubmit,
     isLoading,
     handleSubmit, }) => {
@@ -59,13 +73,22 @@ let SearchTeamsStatistics = ({
                     <p className="space">es solo espacio</p>
                     <Field name="enddate" component={renderDateTimePicker} label="Fin" />
                 </div>
+                <div className="div-sport">
+                    <Field name="sport" component={renderSelectField} label="Deporte">
+                        <MenuItem value="indoorfootball">Futsal masculino</MenuItem>
+                        <MenuItem value="socceradmin">Futsal colaboradores</MenuItem>
+                        <MenuItem value="womensfootball">Futsal femenino</MenuItem>
+                        <MenuItem value="volleyball">Voleibol</MenuItem>
+                        <MenuItem value="basketball">Baloncesto</MenuItem>
+                    </Field>
+                </div>
                 <p>
                     {
                         isLoading ? (
                             <strong>{'Cargando...'}</strong>
                         ) : (
-                                <button className="buttonformE" type="submit" onClick={handleSubmit(onSubmit)}>
-                                    {'Buscar'}
+                                <button className="buttonformST" type="submit" onClick={handleSubmit(onSubmit)}>
+                                    <SearchIcon/>
                                 </button>
                             )
                     }
@@ -84,12 +107,12 @@ let SearchTeamsStatistics = ({
     );
 }
 
-SearchTeamsStatistics = reduxForm({
+SearchTeamsSportStatistics = reduxForm({
     form: 'teamsStatisticsForm',
     validate
-})(SearchTeamsStatistics);
+})(SearchTeamsSportStatistics);
 
-SearchTeamsStatistics = connect(
+SearchTeamsSportStatistics = connect(
     (state, { id }) => ({
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
@@ -129,6 +152,6 @@ SearchTeamsStatistics = connect(
             }
         });
     },
-)(SearchTeamsStatistics);
+)(SearchTeamsSportStatistics);
 
-export default SearchTeamsStatistics;
+export default SearchTeamsSportStatistics;

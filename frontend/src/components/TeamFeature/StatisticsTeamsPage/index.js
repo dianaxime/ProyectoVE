@@ -1,4 +1,3 @@
-import React from 'react';
 import { connect } from 'react-redux';
 import { getAuthToken, getIsOpen } from '../../../reducers';
 import { URL } from '../../../settings';
@@ -8,7 +7,8 @@ import Nav from '../../Nav';
 import './styles.css';
 import Footer from '../../Footer';
 import StatisticsTeamsForm from '../StatisticsTeamsForm';
-
+import StatisticsTeamsTab from '../StatisticsTeamsTab';
+import React from "react";
 
 const drawerWidth = 240;
 
@@ -53,8 +53,8 @@ const StatisticsTeamsPage = ({open}) => {
                 })}
             >
                 <div className={classes.drawerHeader} />
-                <div className="contenedorW">
-                    <StatisticsTeamsForm />
+                <div className="contenedorST">
+                    <StatisticsTeamsTab/>
                 </div>
             </main>
             <div className="footer">
@@ -81,3 +81,4 @@ export default connect(
         });
     }
 )(StatisticsTeamsPage);
+
