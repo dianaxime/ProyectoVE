@@ -1,11 +1,6 @@
 import { connect } from 'react-redux';
 import { getAuthToken, getIsOpen } from '../../../reducers';
 import { URL } from '../../../settings';
-import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
-import Nav from '../../Nav';
-import './styles.css';
-import Footer from '../../Footer';
 import StatisticsTeamsForm from '../StatisticsTeamsForm';
 import StatisticsTeamsSportForm from '../StatisticsTeamsSportForm';
 import React, { Component } from "react";
@@ -13,7 +8,7 @@ import { MDBContainer, MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink
 import { Bar } from "react-chartjs-2";
 
 const stateBar = {
-  dataBar: {
+    dataBar: {
     labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
     datasets: [
       {
@@ -64,8 +59,7 @@ const stateBar = {
         }
       ]
     }
-  }
-}
+  }}
 
 class StatisticsTeamsTab extends Component {
   state = {
@@ -115,4 +109,21 @@ class StatisticsTeamsTab extends Component {
     );
   }
 }
-export default StatisticsTeamsTab;
+
+export default connect(
+  state => ({
+      isAuth: getAuthToken(state) !== null,
+      open: getIsOpen(state),
+  }),
+  undefined,
+  (stateProps, disptachProps, ownProps) => {
+      if (!stateProps.isAuth) {
+          window.location.href = URL + 'auth';
+      }
+      return ({
+          ...stateProps,
+          ...disptachProps,
+          ...ownProps,
+      });
+  }
+)(StatisticsTeamsTab);

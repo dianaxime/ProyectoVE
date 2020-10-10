@@ -125,7 +125,7 @@ function* fetchPlayers(action) {
 
                 yield put(
                     actions.completeFetchingPlayers(
-                        jsonResult.data,
+                        jsonResult.data[0],
                     ),
                 );
             } else {
@@ -168,7 +168,7 @@ function* fetchPlayersSport(action) {
 
                 yield put(
                     actions.completeFetchingPlayersSport(
-                        jsonResult.data,
+                        jsonResult.data[0],
                     ),
                 );
             } else {
@@ -297,7 +297,7 @@ function* fetchGendert(action) {
 
                 yield put(
                     actions.completeFetchingGendert(
-                        jsonResult.data,
+                        jsonResult.data[0],
                     ),
                 );
             } else {
@@ -340,7 +340,7 @@ function* fetchGendertSport(action) {
 
                 yield put(
                     actions.completeFetchingGendertSport(
-                        jsonResult.data,
+                        jsonResult.data[0],
                     ),
                 );
             } else {
