@@ -3,11 +3,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {
     getAuthToken,
-    getSelectedAssociationClub,
-    getSessionStatus,
 } from '../../../reducers';
 import { reset, Field, reduxForm } from 'redux-form';
-import * as actions from '../../../actions/sessions';
+import * as actions from '../../../actions/statistics';
 import './styles.css';
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -18,10 +16,11 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import gtLocale from 'date-fns/locale/es';
 import SearchIcon from '@material-ui/icons/Search';
+import moment from 'moment';
 
 const validate = values => {
     const errors = {};
-    const requiredFields = ['date'];
+    const requiredFields = ['startdate', 'enddate'];
     requiredFields.forEach(field => {
         if (!values[field]) {
             errors[field] = 'Obligatorio*';
@@ -34,7 +33,6 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, meta: { touch
     <MuiPickersUtilsProvider utils={DateFnsUtils} locale={gtLocale}>
         <KeyboardDatePicker
             autoOk
-            className="inputAssociationClub"
             disableToolbar
             variant="inline"
             format="yyyy/MM/dd"
@@ -49,7 +47,7 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, meta: { touch
     </MuiPickersUtilsProvider>
 );
 
-let SearchClubStatistics = ({
+let SearchEventsStatistics = ({
     onSubmit,
     isLoading,
     handleSubmit, }) => {
@@ -57,7 +55,7 @@ let SearchClubStatistics = ({
         <div className="datosStatic">
             <form className="formStatistic">
                 <div className="div-inputs">
-                    <Field name="startdate" component={renderDateTimePicker} label="Inicio"/>
+                    <Field name="startdate" component={renderDateTimePicker} label="Inicio" />
                     <p className="space">es solo espacio</p>
                     <Field name="enddate" component={renderDateTimePicker} label="Fin" />
                 </div>
@@ -86,53 +84,48 @@ let SearchClubStatistics = ({
     );
 }
 
-SearchClubStatistics = reduxForm({
-    form: 'sessionForm',
+SearchEventsStatistics = reduxForm({
+    form: 'eventsStatisticsForm',
     validate
-})(SearchClubStatistics);
+})(SearchEventsStatistics);
 
-SearchClubStatistics = connect(
-    (state, { id }) => ({
+SearchEventsStatistics = connect(
+    state => ({
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
-        idac: getSelectedAssociationClub(state) === id,
-        idac1: getSelectedAssociationClub(state),
-        status: getSessionStatus(state),
     }),
     dispatch => ({
-        onSubmit(date, idac) {
-            dispatch(
-                actions.startAddingSession(
-                    uuidv4(),
-                    idac,
-                    date
-                ),
-                dispatch(reset('sessionForm')),
+        onSubmit({ startdate, enddate }) {
+            /*dispatch(
+                actions.startFetchingPlayers(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
             );
+            dispatch(
+                actions.startFetchingEvents(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
+            );
+            dispatch(
+                actions.startFetchingGendert(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
+            );
+            dispatch(reset('eventsStatisticsForm'));*/
         },
-        onChangeStatus() {
+        /*onChangeStatus() {
             dispatch(actions.changeSessionStatus());
-        },
+        },*/
     }),
     (stateProps, dispatchProps, ownProps) => {
-        if (stateProps.status === 'SUCCESS') {
+        /*if (stateProps.status === 'SUCCESS') {
             toast.success("La sesión se ha agregado exitosamente")
             dispatchProps.onChangeStatus();
         }
         if (stateProps.status === 'ERROR') {
             toast.error("Un error inesperado ha ocurrido. Por favor inténtalo de nuevo")
             dispatchProps.onChangeStatus();
-        }
+        }*/
         return ({
             ...stateProps,
             ...dispatchProps,
             ...ownProps,
-            onSubmit({date}){
-                console.log(date, stateProps.idac1)
-                dispatchProps.onSubmit(date, stateProps.idac1);
-            }
         });
     },
-)(SearchClubStatistics);
+)(SearchEventsStatistics);
 
-export default SearchClubStatistics;
+export default SearchEventsStatistics;

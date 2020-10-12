@@ -6,8 +6,8 @@ import clsx from 'clsx';
 import Nav from '../../Nav';
 import './styles.css';
 import Footer from '../../Footer';
-import StatisticsClubForm from '../StatisticsClubForm';
-import StatisticsClubTab from '../StatisticsClubTab';
+import StatisticsEventsForm from '../StatisticsEventsForm';
+import StatisticsEventsTab from '../StatisticsEventsTab';
 import React from "react";
 
 const drawerWidth = 240;
@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const StatisticsClubPage = ({open}) => {
+const StatisticsEventsPage = ({open}) => {
     const classes = useStyles();
     return (
         <div className="backstats">
@@ -54,7 +54,7 @@ const StatisticsClubPage = ({open}) => {
             >
                 <div className={classes.drawerHeader} />
                 <div className="contenedorST">
-                    <StatisticsClubTab/>
+                    <StatisticsEventsTab/>
                 </div>
             </main>
             <div className="footer">
@@ -80,4 +80,5 @@ export default connect(
             ...ownProps,
         });
     }
-)(StatisticsClubPage);
+)(StatisticsEventsPage);
+

@@ -8,11 +8,14 @@ import AuthPage from '../AuthPage';
 import HomePage from '../HomePage';
 import AuthorizePage from '../AuthorizePage';
 import TokenRefresh from '../TokenRefresh';
+
 /* Workshops */
 import AddWorkshopPage from '../WorkshopFeature/AddWorkshopPage';
 import WorkshopsPage from '../WorkshopFeature/WorkshopsPage';
 import EditWorkshopPage from '../WorkshopFeature/EditWorkshopPage';
 import SelectedWorkshopPage from '../WorkshopFeature/SelectedWorkshopPage';
+import StatisticsWorkshopsPage from '../WorkshopFeature/StatisticsWorkshopsPage';
+
 /* Teams */
 import AddTeamPage from '../TeamFeature/AddTeamPage';
 import TeamsPage from '../TeamFeature/TeamsPage';
@@ -27,12 +30,14 @@ import AddEventPage from '../EventFeature/AddEventPage';
 import EventsPage from '../EventFeature/EventsPage';
 import EditEventPage from '../EventFeature/EditEventPage';
 import SelectedEventPage from '../EventFeature/SelectedEventPage';
+import StatisticsEventsPage from '../EventFeature/StatisticsEventsPage';
 
 /* Association Club */
 import AddAssociationClubPage from '../AssociationClubFeature/AddAssociationClubPage';
 import AssosiationClubsPage from '../AssociationClubFeature/AssosiationClubsPage';
 import EditAssociationClubPage from '../AssociationClubFeature/EditAssociationClubPage';
 import SelectedAssociationClubPage from '../AssociationClubFeature/SelectedAssociationClubPage';
+import StatisticsACPage from '../AssociationClubFeature/StatisticsACPage';
 
 /* Sessions */
 import AddSessionPage from '../SessionsFeature/AddSessionPage';
@@ -83,6 +88,9 @@ const App = () => (
           <Route exact path="/sessionsclub" component={SelectedACSessionsPage} />
           <Route exact path="/statisticsclub" component={StatisticsClubPage} />
           <Route exact path="/estadisticasEquipos" component={StatisticsTeamsPage} />
+          <Route exact path="/estadisticasTalleres" component={StatisticsWorkshopsPage} />
+          <Route exact path="/estadisticasEventos" component={StatisticsEventsPage} />
+          <Route exact path="/estadisticasAsociacionClub" component={StatisticsACPage} />
           <Route render={() => <Redirect to="/" />} />
         </Switch>
       </BrowserRouter>
