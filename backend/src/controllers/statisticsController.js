@@ -41,7 +41,7 @@ const getAssistanceOfClub = async (req, res) => {
     const enddate = req.params.enddate;
     
     
-    if (empty(idc) || isEmpty(startdate) || isEmpty(enddate)) {
+    if (empty(idc) || empty(startdate) || empty(enddate)) {
         errorMessage.error = 'ID of club, startdate or enddate detail is missing';
         return res.status(status.bad).send(errorMessage);
     }

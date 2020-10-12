@@ -6,8 +6,8 @@ union
 select assistance.late, CAST(COUNT(*) as FLOAT)/(select cast(COUNT(*) as float ) from association_club join sessions on association_club.id = sessions.idac join assistance on sessions.id= assistance.ids where association_club.id=$3 and sessions.date>=$1 and sessions.date<=$2) as porcentaje
 from association_club join sessions on association_club.id = sessions.idac join assistance on sessions.id= assistance.ids where association_club.id=$3 and assistance.late='a' and sessions.date>=$1 and sessions.date<=$2 group by assistance.late
 union
-select assistance.late, CAST(COUNT(*) as FLOAT)/(select cast(COUNT(*) as float ) from association_club join sessions on association_club.id = sessions.idac join assistance on sessions.id= assistance.ids where association_club.id=2 and sessions.date>=$1 and sessions.date<=$2) as porcentaje
-from association_club join sessions on association_club.id = sessions.idac join assistance on sessions.id= assistance.ids where association_club.id=2 and assistance.late='t' and sessions.date>=$1 and sessions.date<=$2 group by assistance.late`;
+select assistance.late, CAST(COUNT(*) as FLOAT)/(select cast(COUNT(*) as float ) from association_club join sessions on association_club.id = sessions.idac join assistance on sessions.id= assistance.ids where association_club.id=$3 and sessions.date>=$1 and sessions.date<=$2) as porcentaje
+from association_club join sessions on association_club.id = sessions.idac join assistance on sessions.id= assistance.ids where association_club.id=$3 and assistance.late='t' and sessions.date>=$1 and sessions.date<=$2 group by assistance.late`;
 
 const GET_ASSISTANCE_OF_ALL_CLUBS=`select assistance.late, CAST(COUNT(*) as FLOAT)/(select cast(COUNT(*) as float ) from association_club join sessions on association_club.id = sessions.idac join assistance on sessions.id= assistance.ids where sessions.date>=$1 and sessions.date<=$2) as porcentaje
 from association_club join sessions on association_club.id = sessions.idac join assistance on sessions.id= assistance.ids where assistance.late='p' and sessions.date>=$1 and sessions.date<=$2 group by assistance.late

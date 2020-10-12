@@ -1,27 +1,25 @@
-import { v4 as uuidv4 } from 'uuid';
 import React from 'react';
 import { connect } from 'react-redux';
 import {
     getAuthToken,
     getSelectedAssociationClub,
-    getSessionStatus,
 } from '../../../reducers';
 import { reset, Field, reduxForm } from 'redux-form';
-import * as actions from '../../../actions/sessions';
+import * as actions from '../../../actions/statistics';
 import './styles.css';
 import DateFnsUtils from '@date-io/date-fns';
 import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import gtLocale from 'date-fns/locale/es';
 import SearchIcon from '@material-ui/icons/Search';
+import moment from 'moment';
 
 const validate = values => {
     const errors = {};
-    const requiredFields = ['date'];
+    const requiredFields = ['startdate', 'enddate'];
     requiredFields.forEach(field => {
         if (!values[field]) {
             errors[field] = 'Obligatorio*';
@@ -57,7 +55,7 @@ let SearchClubStatistics = ({
         <div className="datosStatic">
             <form className="formStatistic">
                 <div className="div-inputs">
-                    <Field name="startdate" component={renderDateTimePicker} label="Inicio"/>
+                    <Field name="startdate" component={renderDateTimePicker} label="Inicio" />
                     <p className="space">es solo espacio</p>
                     <Field name="enddate" component={renderDateTimePicker} label="Fin" />
                 </div>
@@ -72,22 +70,13 @@ let SearchClubStatistics = ({
                             )
                     }
                 </p>
-                <ToastContainer position="bottom-right"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover />
             </form>
         </div>
     );
 }
 
 SearchClubStatistics = reduxForm({
-    form: 'sessionForm',
+    form: 'sessionStatsForm',
     validate
 })(SearchClubStatistics);
 
@@ -97,39 +86,26 @@ SearchClubStatistics = connect(
         isAuth: getAuthToken(state) !== null,
         idac: getSelectedAssociationClub(state) === id,
         idac1: getSelectedAssociationClub(state),
-        status: getSessionStatus(state),
     }),
     dispatch => ({
-        onSubmit(date, idac) {
+        onSubmit(startdate, enddate, idac) {
             dispatch(
-                actions.startAddingSession(
-                    uuidv4(),
+                actions.startFetchingAssistanceClub(
                     idac,
-                    date
-                ),
-                dispatch(reset('sessionForm')),
+                    moment(startdate).format('YYYY-MM-DD'),
+                    moment(enddate).format('YYYY-MM-DD'),
+                )
             );
-        },
-        onChangeStatus() {
-            dispatch(actions.changeSessionStatus());
+            dispatch(reset('sessionStatsForm'));
         },
     }),
     (stateProps, dispatchProps, ownProps) => {
-        if (stateProps.status === 'SUCCESS') {
-            toast.success("La sesión se ha agregado exitosamente")
-            dispatchProps.onChangeStatus();
-        }
-        if (stateProps.status === 'ERROR') {
-            toast.error("Un error inesperado ha ocurrido. Por favor inténtalo de nuevo")
-            dispatchProps.onChangeStatus();
-        }
         return ({
             ...stateProps,
             ...dispatchProps,
             ...ownProps,
-            onSubmit({date}){
-                console.log(date, stateProps.idac1)
-                dispatchProps.onSubmit(date, stateProps.idac1);
+            onSubmit({ startdate, enddate }) {
+                dispatchProps.onSubmit(startdate, enddate, stateProps.idac1);
             }
         });
     },
