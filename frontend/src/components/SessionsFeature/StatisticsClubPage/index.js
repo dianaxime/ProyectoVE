@@ -6,7 +6,6 @@ import clsx from 'clsx';
 import Nav from '../../Nav';
 import './styles.css';
 import Footer from '../../Footer';
-import StatisticsClubForm from '../StatisticsClubForm';
 import StatisticsClubTab from '../StatisticsClubTab';
 import React from "react";
 

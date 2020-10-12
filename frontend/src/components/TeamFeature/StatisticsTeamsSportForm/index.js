@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 import React from 'react';
 import { connect } from 'react-redux';
 import {
@@ -12,7 +11,6 @@ import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import gtLocale from 'date-fns/locale/es';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -35,7 +33,6 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, meta: { touch
     <MuiPickersUtilsProvider utils={DateFnsUtils} locale={gtLocale}>
         <KeyboardDatePicker
             autoOk
-            className="inputAssociationTeams"
             disableToolbar
             variant="inline"
             format="yyyy/MM/dd"
@@ -93,15 +90,6 @@ let SearchTeamsSportStatistics = ({
                             )
                     }
                 </p>
-                <ToastContainer position="bottom-right"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover />
             </form>
         </div>
     );
@@ -130,19 +118,8 @@ SearchTeamsSportStatistics = connect(
             );
             dispatch(reset('teamsStatisticsFormSport'));
         },
-        /*onChangeStatus() {
-            dispatch(actions.changeSessionStatus());
-        },*/
     }),
     (stateProps, dispatchProps, ownProps) => {
-        /*if (stateProps.status === 'SUCCESS') {
-            toast.success("La sesión se ha agregado exitosamente")
-            dispatchProps.onChangeStatus();
-        }
-        if (stateProps.status === 'ERROR') {
-            toast.error("Un error inesperado ha ocurrido. Por favor inténtalo de nuevo")
-            dispatchProps.onChangeStatus();
-        }*/
         return ({
             ...stateProps,
             ...dispatchProps,

@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
 import React from 'react';
 import { connect } from 'react-redux';
 import {
@@ -12,7 +11,6 @@ import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import gtLocale from 'date-fns/locale/es';
 import SearchIcon from '@material-ui/icons/Search';
@@ -70,15 +68,6 @@ let SearchWorkshopsStatistics = ({
                             )
                     }
                 </p>
-                <ToastContainer position="bottom-right"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover />
             </form>
         </div>
     );
@@ -96,30 +85,11 @@ SearchWorkshopsStatistics = connect(
     }),
     dispatch => ({
         onSubmit({ startdate, enddate }) {
-            /*dispatch(
-                actions.startFetchingPlayers(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingWorkshops(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingGendert(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(reset('workshopsStatisticsForm'));*/
+            
+            dispatch(reset('workshopsStatisticsForm'));
         },
-        /*onChangeStatus() {
-            dispatch(actions.changeSessionStatus());
-        },*/
     }),
     (stateProps, dispatchProps, ownProps) => {
-        /*if (stateProps.status === 'SUCCESS') {
-            toast.success("La sesión se ha agregado exitosamente")
-            dispatchProps.onChangeStatus();
-        }
-        if (stateProps.status === 'ERROR') {
-            toast.error("Un error inesperado ha ocurrido. Por favor inténtalo de nuevo")
-            dispatchProps.onChangeStatus();
-        }*/
         return ({
             ...stateProps,
             ...dispatchProps,

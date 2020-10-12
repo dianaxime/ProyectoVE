@@ -7,7 +7,6 @@ import {
     //delay,
     select,
 } from 'redux-saga/effects';
-import { normalize } from 'normalizr';
 
 import * as selectors from '../reducers';
 import * as actions from '../actions/statistics';

@@ -2,12 +2,12 @@ import { connect } from 'react-redux';
 import { getAuthToken, getIsOpen, getAssistanceClub } from '../../../reducers';
 import { URL } from '../../../settings';
 import StatisticsClubForm from '../StatisticsClubForm';
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import { MDBContainer, MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink } from "mdbreact";
-import { VictoryPie, VictoryContainer, VictoryChart } from 'victory';
+import { VictoryPie } from 'victory';
 
 let StatisticsClubTab = ({ statistics }) => {
-  const [activeItem, changeActiveItem] = useState('');
+  const [activeItem, changeActiveItem] = useState('1');
   return (
     <MDBContainer className="chart-background" >
       <MDBNav className="nav-tabs mt-5">
@@ -23,10 +23,19 @@ let StatisticsClubTab = ({ statistics }) => {
             <StatisticsClubForm />
           </div>
           <MDBContainer>
-            <div style={{ width: "400px", height: "400px" }}>
+            <div style={{ width: "450px", height: "400px" }}>
               {
                 statistics !== null && (
-                  <VictoryPie data={statistics} x={"late"} y={"porcentaje"} colorScale={["tomato", "orange", "gold", "cyan", "navy" ]}/>
+                  <VictoryPie data={statistics}
+                    x={"late"}
+                    y={"porcentaje"}
+                    colorScale={["tomato", "orange", "gold", "cyan", "navy"]}
+                    labels={({ datum }) => `${datum.late}: ${(datum.porcentaje * 100).toFixed(2)}%`}
+                    labelPosition={({ index }) => index
+                      ? "centroid"
+                      : "startAngle"
+                    }
+                  />
                 )
               }
             </div>
