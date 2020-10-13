@@ -387,7 +387,7 @@ const getParticipactionWorkshop = async (req, res) => {
     const enddate = req.params.enddate;
     
 
-    if (empty(idw) ) {
+    if (empty(startdate) || empty(enddate)) {
         errorMessage.error = ' id of workshop detail is missing';
         return res.status(status.bad).send(errorMessage);
     }
@@ -458,7 +458,7 @@ const getGenderParticipactionOfWorkshop = async (req, res) => {
     const startdate = req.params.startdate;
     const enddate = req.params.enddate; 
 
-    if (empty(idw) ) {
+    if (empty(startdate) || empty(enddate)) {
         errorMessage.error = ' id of workshop detail is missing';
         return res.status(status.bad).send(errorMessage);
     }

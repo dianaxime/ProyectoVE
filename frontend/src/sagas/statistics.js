@@ -425,7 +425,7 @@ function* fetchParticipationWKTime(action) {
 
                 yield put(
                     actions.completeFetchingParticipationWKTime(
-                        jsonResult.data,
+                        jsonResult.data[0],
                     ),
                 );
             } else {

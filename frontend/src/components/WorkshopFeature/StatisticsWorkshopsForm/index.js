@@ -85,7 +85,10 @@ SearchWorkshopsStatistics = connect(
     }),
     dispatch => ({
         onSubmit({ startdate, enddate }) {
-            
+            dispatch(actions.startFetchingParticipationWK(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD')));
+            dispatch(actions.startFetchingParticipationWKG(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD')));
+            dispatch(actions.startFetchingParticipationWKTime(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD')));
+            dispatch(actions.startFetchingParticipationWKTimeG(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD')));
             dispatch(reset('workshopsStatisticsForm'));
         },
     }),

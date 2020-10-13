@@ -1,104 +1,59 @@
 import { connect } from 'react-redux';
-import { getAuthToken, getIsOpen } from '../../../reducers';
+import { getAuthToken, 
+getIsOpen,
+getParticipationwkTime,
+getParticipationwk,
+getParticipationwkTimeg,
+getParticipationwkG,
+} from '../../../reducers';
 import { URL } from '../../../settings';
 import StatisticsWorkshopsForm from '../StatisticsWorkshopsForm';
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { MDBContainer, MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink } from "mdbreact";
-import { Bar } from "react-chartjs-2";
 
-const stateBar = {
-    dataBar: {
-    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-    datasets: [
-      {
-        label: "% of Votes",
-        data: [12, 19, 3, 5, 2, 3],
-        
-        borderWidth: 2,
-        
-      }
-    ]
-  },
-  barChartOptions: {
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      xAxes: [
-        {
-          barPercentage: 1,
-          gridLines: {
-            display: true,
-            color: "rgba(0, 250, 0, 0.2)"
-          }
-        }
-      ],
-      yAxes: [
-        {
-          gridLines: {
-            display: true,
-            color: "rgba(0, 250, 0, 0.2)"
-          },
-          ticks: {
-            beginAtZero: true
-          }
-        }
-      ]
-    }
-  }}
-
-class StatisticsWorkshopsTab extends Component {
-  state = {
-    activeItem: "1"
-  };
-
-  toggle = tab => e => {
-    if (this.state.activeItem !== tab) {
-      this.setState({
-        activeItem: tab
-      });
-    }
-  };
-
-  render() {
-    return (
-      <MDBContainer className="chart-background">
-        <MDBNav className="nav-tabs mt-5">
-          <MDBNavItem>
-            <MDBNavLink link to="#" active={this.state.activeItem === "1"} onClick={this.toggle("1")} role="tab">
-              Asistencia
+let StatisticsWorkshopsTab = ({partwk, partwkTime, wkG, wkTimeG}) => {
+  const [activeItem, changeActiveItem] = useState('1');
+  return (
+    <MDBContainer className="chart-background">
+      <MDBNav className="nav-tabs mt-5">
+        <MDBNavItem>
+          <MDBNavLink link to="#" active={activeItem === "1"} onClick={() => changeActiveItem("1")} role="tab">
+            Asistencia
             </MDBNavLink>
-          </MDBNavItem>
-        </MDBNav>
-        <MDBTabContent activeItem={this.state.activeItem} >
-          <MDBTabPane tabId="1" role="tabpanel" >
-            <div className="mt-2">
-              <StatisticsWorkshopsForm />
-            </div>
-            <MDBContainer>
-              <h3 className="mt-5">Bar chart</h3>
-              <Bar data={stateBar.dataBar} options={stateBar.barChartOptions} />
-            </MDBContainer>
-          </MDBTabPane>
-        </MDBTabContent>
-      </MDBContainer>
-    );
-  }
+        </MDBNavItem>
+      </MDBNav>
+      <MDBTabContent activeItem={activeItem} >
+        <MDBTabPane tabId="1" role="tabpanel" >
+          <div className="mt-2">
+            <StatisticsWorkshopsForm />
+          </div>
+          <MDBContainer>
+            <h3 className="mt-5">Bar chart</h3>
+          </MDBContainer>
+        </MDBTabPane>
+      </MDBTabContent>
+    </MDBContainer>
+  );
 }
 
 export default connect(
   state => ({
-      isAuth: getAuthToken(state) !== null,
-      open: getIsOpen(state),
+    isAuth: getAuthToken(state) !== null,
+    open: getIsOpen(state),
+    partwkTime: getParticipationwkTime(state),
+    partwk: getParticipationwk(state),
+    wkTimeG: getParticipationwkTimeg(state),
+    wkG: getParticipationwkG(state),
   }),
   undefined,
   (stateProps, disptachProps, ownProps) => {
-      if (!stateProps.isAuth) {
-          window.location.href = URL + 'auth';
-      }
-      return ({
-          ...stateProps,
-          ...disptachProps,
-          ...ownProps,
-      });
+    if (!stateProps.isAuth) {
+      window.location.href = URL + 'auth';
+    }
+    return ({
+      ...stateProps,
+      ...disptachProps,
+      ...ownProps,
+    });
   }
 )(StatisticsWorkshopsTab);

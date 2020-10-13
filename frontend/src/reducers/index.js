@@ -248,6 +248,9 @@ export const getFetchingParticipationwkError = state => statisticsSelectors.getF
 export const getParticipationwkTimeg = state => statisticsSelectors.getParticipationwkTimeg(state.statistics);
 export const getIsFetchingParticipationwkTimeg = state => statisticsSelectors.getIsFetchingParticipationwkTimeg(state.statistics);
 export const getFetchingParticipationwkTimegError = state => statisticsSelectors.getFetchingParticipationwkTimegError(state.statistics);
+export const getParticipationwkTime = state => statisticsSelectors.getParticipationwkTime(state.statistics);
+export const getIsFetchingParticipationwkTime = state => statisticsSelectors.getIsFetchingParticipationwkTime(state.statistics);
+export const getFetchingParticipationwkTimeError = state => statisticsSelectors.getFetchingParticipationwkTimeError(state.statistics);
 export const getParticipationwkG = state => statisticsSelectors.getParticipationwkG(state.statistics);
 export const getIsFetchingParticipationwkG = state => statisticsSelectors.getIsFetchingParticipationwkG(state.statistics);
 export const getFetchingParticipationwkGError = state => statisticsSelectors.getFetchingParticipationwkGError(state.statistics);
