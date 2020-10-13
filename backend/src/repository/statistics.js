@@ -31,13 +31,11 @@ where tournament.startdate>=$1 and tournament.enddate<=$2
 GROUP BY team.sport`;
 
 /* Este si*/
-const GET_TEAMS_ON_RANGE_OF_TIME=`select team.sport, COUNT(*) from tournament join team on tournament.idt = team.id 
-join users on tournament.userid = users.id 
-where tournament.startdate>=$1 and tournament.enddate<=$2 group by team.sport`;
+const GET_TEAMS_ON_RANGE_OF_TIME=`select team.sport, COUNT(*) from team 
+where team.startdate >= $1 and team.enddate <= $2 group by team.sport`;
 
 /* Este si */
-const GET_TEAMS_OF_SPORT_ON_RANGE_OF_TIME=`select count(*) from tournament 
-join team on tournament.idt = team.id 
+const GET_TEAMS_OF_SPORT_ON_RANGE_OF_TIME=`select count(*) from team
 where team.startdate >= $1 and team.enddate <= $2`;
 
 /* Este si */
