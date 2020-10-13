@@ -29,7 +29,7 @@ let StatisticsClubTab = ({ statistics }) => {
                   <VictoryPie data={statistics}
                     x={"late"}
                     y={"porcentaje"}
-                    colorScale={["tomato", "orange", "gold", "cyan", "navy"]}
+                    colorScale={["green", "#57A61F", "#0C591E"]}
                     labels={({ datum }) => `${datum.late}: ${(datum.porcentaje * 100).toFixed(2)}%`}
                     labelPosition={({ index }) => index
                       ? "centroid"
