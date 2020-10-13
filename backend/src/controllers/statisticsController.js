@@ -383,7 +383,8 @@ const getParticipactionWorkshopsInTime = async (req, res) => {
 
 const getParticipactionWorkshop = async (req, res) => {
     
-    const idw = req.params.idw;
+    const startdate = req.params.startdate;
+    const enddate = req.params.enddate;
     
 
     if (empty(idw) ) {
@@ -391,7 +392,7 @@ const getParticipactionWorkshop = async (req, res) => {
         return res.status(status.bad).send(errorMessage);
     }
     
-    getParticipactionWorkshopQuery({idw})
+    getParticipactionWorkshopQuery({startdate, enddate})
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
@@ -454,15 +455,15 @@ const getGenderParticipactionWorkshopsInTime = async (req, res) => {
 
 const getGenderParticipactionOfWorkshop = async (req, res) => {
     
-    const idw = req.params.idw;
-    
+    const startdate = req.params.startdate;
+    const enddate = req.params.enddate; 
 
     if (empty(idw) ) {
         errorMessage.error = ' id of workshop detail is missing';
         return res.status(status.bad).send(errorMessage);
     }
     
-    getGenderParticipactionOfWorkshopQuery({idw})
+    getGenderParticipactionOfWorkshopQuery({startdate, enddate})
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {

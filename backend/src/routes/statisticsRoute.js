@@ -31,8 +31,8 @@ router.get('/statistics/genders-tournament/:startdate/:enddate', verifyAuth, get
 router.get('/statistics/genders-of-sport-tournament/:startdate/:enddate', verifyAuth, getGenderOfSportInTournament);
 router.get('/statistics/quantity-scholars/', verifyAuth, getAllScholars);
 router.get('/statistics/participation-workshops/:startdate/:enddate', verifyAuth, getParticipactionWorkshopsInTime);
-router.get('/statistics/participation-workshop/:idw', verifyAuth, getParticipactionWorkshop);
+router.get('/statistics/participation-workshop/:startdate/:enddate', verifyAuth, getParticipactionWorkshop);
 router.get('/statistics/gender-participation-workshops/:startdate/:enddate', verifyAuth, getGenderParticipactionWorkshopsInTime);
-router.get('/statistics/gender-participation-workshop/:idw', verifyAuth, getGenderParticipactionOfWorkshop);
+router.get('/statistics/gender-participation-workshop/:startdate/:enddate', verifyAuth, getGenderParticipactionOfWorkshop);
 
 module.exports = router;
