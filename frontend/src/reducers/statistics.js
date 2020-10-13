@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 
 import * as types from '../types/statistics';
 
-  const byIdAssistanceClub = (state = {}, action) => {
+  const byIdAssistanceClub = (state = [], action) => {
     switch (action.type) {
       case types.ASSISTANCE_CLUB_FETCH_COMPLETED: {
         return action.payload.entities;
@@ -48,7 +48,7 @@ import * as types from '../types/statistics';
   };
 
 
-  const byIdAssistanceClubs = (state = {}, action) => {
+  const byIdAssistanceClubs = (state = [], action) => {
     switch (action.type) {
       case types.ASSISTANCE_CLUBS_FETCH_COMPLETED: {
         return action.payload.entities;
@@ -94,7 +94,7 @@ import * as types from '../types/statistics';
   };
 
 
-  const byIdPlayers = (state = {}, action) => {
+  const byIdPlayers = (state = [], action) => {
     switch (action.type) {
       case types.PLAYERS_FETCH_COMPLETED: {
         return action.payload.entities;
@@ -140,7 +140,7 @@ import * as types from '../types/statistics';
   };
 
 
-  const byIdPlayersSport = (state = {}, action) => {
+  const byIdPlayersSport = (state = [], action) => {
     switch (action.type) {
       case types.PLAYERS_SPORT_FETCH_COMPLETED: {
         return action.payload.entities;
@@ -186,7 +186,7 @@ import * as types from '../types/statistics';
   };
 
 
-  const byIdTeamsT = (state = {}, action) => {
+  const byIdTeamsT = (state = [], action) => {
     switch (action.type) {
       case types.TEAMST_FETCH_COMPLETED: {
         return action.payload.entities;
@@ -232,7 +232,7 @@ import * as types from '../types/statistics';
   };
 
 
-  const byIdTeamsTSport = (state = {}, action) => {
+  const byIdTeamsTSport = (state = [], action) => {
     switch (action.type) {
       case types.TEAMST_SPORT_FETCH_COMPLETED: {
         return action.payload.entities;
@@ -278,7 +278,7 @@ import * as types from '../types/statistics';
   };
 
 
-  const byIdGendert = (state = {}, action) => {
+  const byIdGendert = (state = [], action) => {
     switch (action.type) {
       case types.GENDERT_FETCH_COMPLETED: {
         return action.payload.entities;
@@ -324,7 +324,7 @@ import * as types from '../types/statistics';
   };
 
 
-  const byIdGendertSport = (state = {}, action) => {
+  const byIdGendertSport = (state = [], action) => {
     switch (action.type) {
       case types.GENDERT_SPORT_FETCH_COMPLETED: {
         return action.payload.entities;
@@ -370,7 +370,7 @@ import * as types from '../types/statistics';
   };
 
 
-  const byIdScholarss = (state = {}, action) => {
+  const byIdScholarss = (state = [], action) => {
     switch (action.type) {
       case types.SCHOLARSS_FETCH_COMPLETED: {
         return action.payload.entities;
@@ -416,7 +416,7 @@ import * as types from '../types/statistics';
   };
   
 
-  const byIdParticipationwkTime = (state = {}, action) => {
+  const byIdParticipationwkTime = (state = [], action) => {
     switch (action.type) {
       case types.PARTICIPATIONWK_TIME_FETCH_COMPLETED: {
         return action.payload.entities;
@@ -462,7 +462,7 @@ import * as types from '../types/statistics';
   };
 
 
-  const byIdParticipationwk = (state = {}, action) => {
+  const byIdParticipationwk = (state = [], action) => {
     switch (action.type) {
       case types.PARTICIPATIONWK_FETCH_COMPLETED: {
         return action.payload.entities;
@@ -508,7 +508,7 @@ import * as types from '../types/statistics';
   };
 
 
-  const byIdParticipationwkTimeg = (state = {}, action) => {
+  const byIdParticipationwkTimeg = (state = [], action) => {
     switch (action.type) {
       case types.PARTICIPATIONWK_TIME_G_FETCH_COMPLETED: {
         return action.payload.entities;
@@ -554,7 +554,7 @@ import * as types from '../types/statistics';
   };
 
 
-  const byIdParticipationwkG = (state = {}, action) => {
+  const byIdParticipationwkG = (state = [], action) => {
     switch (action.type) {
       case types.PARTICIPATIONWK_G_FETCH_COMPLETED: {
         return action.payload.entities;
