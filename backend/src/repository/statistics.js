@@ -1,5 +1,6 @@
 const db = require('../db/config');
 
+/* Este si */
 const GET_ASSISTANCE_OF_CLUB=`select assistance.late, CAST(COUNT(*) as FLOAT)/(select cast(COUNT(*) as float ) from association_club join sessions on association_club.id = sessions.idac join assistance on sessions.id= assistance.ids where association_club.id=$3 and sessions.date>=$1 and sessions.date<=$2) as porcentaje
 from association_club join sessions on association_club.id = sessions.idac join assistance on sessions.id= assistance.ids where association_club.id=$3 and assistance.late='p' and sessions.date>=$1 and sessions.date<=$2 group by assistance.late
 union
@@ -18,33 +19,38 @@ union
 select assistance.late, CAST(COUNT(*) as FLOAT)/(select cast(COUNT(*) as float ) from association_club join sessions on association_club.id = sessions.idac join assistance on sessions.id= assistance.ids where sessions.date>=$1 and sessions.date<=$2) as porcentaje
 from association_club join sessions on association_club.id = sessions.idac join assistance on sessions.id= assistance.ids where assistance.late='t' and sessions.date>=$1 and sessions.date<=$2 group by assistance.late`;
 
-const GET_PLAYERS_COUNT_IN_TOURNAMENT=`select COUNT(*) from tournament join users on tournament.userid = users.id where tournament.startdate>=$1 and tournament.enddate<=$2`;
+/* Este si */
+const GET_PLAYERS_COUNT_IN_TOURNAMENT=`select COUNT(*) from tournament join users on tournament.userid = users.id 
+where tournament.startdate>=$1 and tournament.enddate<=$2`;
 
-const GET_PLAYERS_COUNT_ON_SPORT_IN_TOURNAMENT=`select COUNT(*) from tournament join users on tournament.userid = users.id 
+/* Este si */
+const GET_PLAYERS_COUNT_ON_SPORT_IN_TOURNAMENT=`select team.sport, COUNT(*) from tournament 
+join users on tournament.userid = users.id 
 join team on tournament.idt = team.id 
-where tournament.startdate>=$1 and tournament.enddate<=$2 and team.sport =$3`;
+where tournament.startdate>=$1 and tournament.enddate<=$2 
+GROUP BY team.sport`;
 
-const GET_TEAMS_ON_RANGE_OF_TIME=`select team.name, team.sport, COUNT(*) from tournament join team on tournament.idt = team.id 
+/* Este si*/
+const GET_TEAMS_ON_RANGE_OF_TIME=`select team.sport, COUNT(*) from tournament join team on tournament.idt = team.id 
 join users on tournament.userid = users.id 
-where tournament.startdate>=$1 and tournament.enddate<=$2 group by team.name, team.sport`;
+where tournament.startdate>=$1 and tournament.enddate<=$2 group by team.sport`;
 
-const GET_TEAMS_OF_SPORT_ON_RANGE_OF_TIME=`select team.name, team.sport, COUNT(*) from tournament join team on tournament.idt = team.id 
-join users on tournament.userid = users.id 
-where tournament.startdate>=$1 and tournament.enddate<=$2 and team.sport= $3 group by team.name, team.sport`;
+/* Este si */
+const GET_TEAMS_OF_SPORT_ON_RANGE_OF_TIME=`select count(*) from tournament 
+join team on tournament.idt = team.id 
+where team.startdate >= $1 and team.enddate <= $2`;
 
-const GET_PORCENTAGE_OF_GENDERS_IN_TOURNAMENTS_IN_RANGE_OF_TIME=`select users.sex , CAST(COUNT(*) as FLOAT)/(select cast(COUNT(*) as float ) from tournament join users on tournament.userid = users.id where tournament.startdate>=$1 and tournament.enddate<=$2) as porcentaje
-from tournament join users on tournament.userid = users.id where tournament.startdate>=$1 and tournament.enddate<=$2 and users.sex = 'F'group by users.sex
-union
-select users.sex , CAST(COUNT(*) as FLOAT)/(select cast(COUNT(*) as float ) from tournament join users on tournament.userid = users.id where tournament.startdate>=$1 and tournament.enddate<=$2) as porcentaje
-from tournament join users on tournament.userid = users.id where tournament.startdate>=$1 and tournament.enddate<=$2 and users.sex = 'M' group by users.sex
-`;
+/* Este si */
+const GET_PORCENTAGE_OF_GENDERS_IN_TOURNAMENTS_IN_RANGE_OF_TIME=`select team.sport, users.sex , COUNT(*) 
+from tournament join users on tournament.userid = users.id join team on tournament.idt = team.id
+where tournament.startdate >= $1 and tournament.enddate <= $2 
+and users.sex = 'M' group by users.sex, team.sport`;
 
-const GET_PORCENTAGE_OF_GENDERS_IN_A_SPORT_IN_TOURNAMENTS_IN_RANGE_OF_TIME=`select users.sex , CAST(COUNT(*) as FLOAT)/(select cast(COUNT(*) as float ) from tournament join users on tournament.userid = users.id join team on tournament.idt = team.id where tournament.startdate>=$1 and tournament.enddate<=$2 and team.sport =$3) as porcentaje
-from tournament join users on tournament.userid = users.id join team on tournament.idt = team.id where tournament.startdate>=$1 and tournament.enddate<=$2 and users.sex = 'F' and team.sport =$3 group by users.sex
-union
-select users.sex , CAST(COUNT(*) as FLOAT)/(select cast(COUNT(*) as float ) from tournament join users on tournament.userid = users.id join team on tournament.idt = team.id  where tournament.startdate>=$1 and tournament.enddate<=$2 and team.sport =$3) as porcentaje
-from tournament join users on tournament.userid = users.id join team on tournament.idt = team.id where tournament.startdate>=$1 and tournament.enddate<=$2 and users.sex = 'M' and team.sport =$3 group by users.sex
-`;
+/* Este si */
+const GET_PORCENTAGE_OF_GENDERS_IN_A_SPORT_IN_TOURNAMENTS_IN_RANGE_OF_TIME=` select team.sport, users.sex , COUNT(*) 
+from tournament join users on tournament.userid = users.id join team on tournament.idt = team.id
+where tournament.startdate >= $1 and tournament.enddate <= $2 
+and users.sex = 'F' group by users.sex, team.sport`;
 
 const GET_COUNT_OF_SCHOLARS=`select COUNT(*) from scholars`;
 
@@ -97,11 +103,10 @@ async function getPlayersInTournamentQuery({ startdate, enddate }){
     return data;
 };
 
-async function getPlayersOfSportInTournamentQuery({ startdate, enddate, sport }){
+async function getPlayersOfSportInTournamentQuery({ startdate, enddate }){
     const values = [
         startdate,
-        enddate, 
-        sport
+        enddate
     ];
 
     const data = await db.query(GET_PLAYERS_COUNT_ON_SPORT_IN_TOURNAMENT, values);
@@ -118,11 +123,10 @@ async function getTeamsOfTournamentQuery({ startdate, enddate }){
     return data;
 };
 
-async function getTeamsOfASportInTournamentQuery({ startdate, enddate, sport }){
+async function getTeamsOfASportInTournamentQuery({ startdate, enddate}){
     const values = [
         startdate,
-        enddate,
-        sport
+        enddate
     ];
 
     const data = await db.query(GET_TEAMS_OF_SPORT_ON_RANGE_OF_TIME, values);
@@ -139,11 +143,10 @@ async function getGenderOfTournamentQuery({ startdate, enddate }){
     return data;
 };
 
-async function getGenderOfSportInTournamentQuery({ startdate, enddate, sport }){
+async function getGenderOfSportInTournamentQuery({ startdate, enddate }){
     const values = [
         startdate,
-        enddate,
-        sport
+        enddate
     ];
 
     const data = await db.query(GET_PORCENTAGE_OF_GENDERS_IN_A_SPORT_IN_TOURNAMENTS_IN_RANGE_OF_TIME, values);

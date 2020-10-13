@@ -2,7 +2,6 @@ require('dotenv').config();
 
 const {
     empty,
-    isEmpty,
 } = require('../helpers/validation');
 
 const {
@@ -146,14 +145,13 @@ const getPlayersOfSportInTournament = async (req, res) => {
     
     const startdate = req.params.startdate;
     const enddate = req.params.enddate;
-    const sport = req.params.sport;
 
-    if (empty(sport) || empty(startdate) || empty(enddate)) {
+    if (empty(startdate) || empty(enddate)) {
         errorMessage.error = 'sport, Startdate or enddate detail is missing';
         return res.status(status.bad).send(errorMessage);
     }
     
-    getPlayersOfSportInTournamentQuery({startdate, enddate, sport})
+    getPlayersOfSportInTournamentQuery({startdate, enddate})
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
@@ -218,14 +216,13 @@ const getTeamsOfASportInTournament = async (req, res) => {
     
     const startdate = req.params.startdate;
     const enddate = req.params.enddate;
-    const sport = req.params.sport;
 
-    if (empty(sport) || empty(startdate) || empty(enddate)) {
+    if (empty(startdate) || empty(enddate)) {
         errorMessage.error = 'sport, Startdate or enddate detail is missing';
         return res.status(status.bad).send(errorMessage);
     }
     
-    getTeamsOfASportInTournamentQuery({startdate, enddate, sport})
+    getTeamsOfASportInTournamentQuery({startdate, enddate})
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
@@ -290,14 +287,13 @@ const getGenderOfSportInTournament = async (req, res) => {
     
     const startdate = req.params.startdate;
     const enddate = req.params.enddate;
-    const sport = req.params.sport;
 
-    if (empty(sport) || empty(startdate) || empty(enddate)) {
+    if (empty(startdate) || empty(enddate)) {
         errorMessage.error = 'sport, Startdate or enddate detail is missing';
         return res.status(status.bad).send(errorMessage);
     }
     
-    getGenderOfSportInTournamentQuery({startdate, enddate, sport})
+    getGenderOfSportInTournamentQuery({startdate, enddate})
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {

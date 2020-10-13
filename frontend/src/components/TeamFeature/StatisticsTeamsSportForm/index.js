@@ -13,14 +13,12 @@ import {
 } from '@material-ui/pickers';
 import "react-toastify/dist/ReactToastify.css";
 import gtLocale from 'date-fns/locale/es';
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
 import SearchIcon from '@material-ui/icons/Search';
 import moment from 'moment';
 
 const validate = values => {
     const errors = {};
-    const requiredFields = ['startdate', 'enddate', 'sport'];
+    const requiredFields = ['startdate', 'enddate'];
     requiredFields.forEach(field => {
         if (!values[field]) {
             errors[field] = 'Obligatorio*';
@@ -47,17 +45,6 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, meta: { touch
     </MuiPickersUtilsProvider>
 );
 
-const renderSelectField = ({ input, label, meta: { touched, error }, ...custom }) => (
-    <TextField placeholder={label}
-        label={label}
-        helperText={touched && error}
-        {...input}
-        {...custom}
-        select
-        fullWidth
-    />
-);
-
 let SearchTeamsSportStatistics = ({
     onSubmit,
     isLoading,
@@ -69,15 +56,6 @@ let SearchTeamsSportStatistics = ({
                     <Field name="startdate" component={renderDateTimePicker} label="Inicio" />
                     <p className="space">es solo espacio</p>
                     <Field name="enddate" component={renderDateTimePicker} label="Fin" />
-                </div>
-                <div className="div-sport">
-                    <Field name="sport" component={renderSelectField} label="Deporte">
-                        <MenuItem value="indoorfootball">Futsal masculino</MenuItem>
-                        <MenuItem value="socceradmin">Futsal colaboradores</MenuItem>
-                        <MenuItem value="womensfootball">Futsal femenino</MenuItem>
-                        <MenuItem value="volleyball">Voleibol</MenuItem>
-                        <MenuItem value="basketball">Baloncesto</MenuItem>
-                    </Field>
                 </div>
                 <p>
                     {
@@ -106,15 +84,15 @@ SearchTeamsSportStatistics = connect(
         isAuth: getAuthToken(state) !== null,
     }),
     dispatch => ({
-        onSubmit({ startdate, enddate, sport }) {
+        onSubmit({ startdate, enddate }) {
             dispatch(
-                actions.startFetchingGendertSport(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'), sport)
+                actions.startFetchingGendertSport(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
             );
             dispatch(
-                actions.startFetchingPlayersSport(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'), sport)
+                actions.startFetchingPlayersSport(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
             );
             dispatch(
-                actions.startFetchingTeamstSport(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'), sport)
+                actions.startFetchingTeamstSport(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
             );
             dispatch(reset('teamsStatisticsFormSport'));
         },

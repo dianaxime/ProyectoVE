@@ -70,12 +70,11 @@ export const failFetchingPlayers = error => ({
 });
 
 
-export const startFetchingPlayersSport = (startdate, enddate, sport) => ({
+export const startFetchingPlayersSport = (startdate, enddate) => ({
     type: types.PLAYERS_SPORT_FETCH_STARTED,
     payload: {
         startdate, 
-        enddate,
-        sport
+        enddate
     },
 });
 
@@ -117,12 +116,11 @@ export const failFetchingTeamst = error => ({
 });
 
 
-export const startFetchingTeamstSport = (startdate, enddate, sport) => ({
+export const startFetchingTeamstSport = (startdate, enddate) => ({
     type: types.TEAMST_SPORT_FETCH_STARTED,
     payload: {
         startdate, 
-        enddate,
-        sport
+        enddate
     },
 });
 
@@ -164,12 +162,11 @@ export const failFetchingGendert = error => ({
 });
 
 
-export const startFetchingGendertSport = (startdate, enddate, sport) => ({
+export const startFetchingGendertSport = (startdate, enddate) => ({
     type: types.GENDERT_SPORT_FETCH_STARTED,
     payload: {
         startdate, 
-        enddate,
-        sport
+        enddate
     },
 });
 

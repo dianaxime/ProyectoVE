@@ -153,7 +153,7 @@ function* fetchPlayersSport(action) {
             const token = yield select(selectors.getAuthToken);
             const response = yield call(
                 fetch,
-                `${API_BASE_URL}/statistics/players-of-sport-tournament/${action.payload.startdate}/${action.payload.enddate}/${action.payload.sport}`,
+                `${API_BASE_URL}/statistics/players-of-sport-tournament/${action.payload.startdate}/${action.payload.enddate}`,
                 {
                     method: 'GET',
                     headers: {
@@ -167,7 +167,7 @@ function* fetchPlayersSport(action) {
 
                 yield put(
                     actions.completeFetchingPlayersSport(
-                        jsonResult.data[0],
+                        jsonResult.data,
                     ),
                 );
             } else {
@@ -239,7 +239,7 @@ function* fetchTeamstSport(action) {
             const token = yield select(selectors.getAuthToken);
             const response = yield call(
                 fetch,
-                `${API_BASE_URL}/statistics/teams-of-sport-tournament/${action.payload.startdate}/${action.payload.enddate}/${action.payload.sport}`,
+                `${API_BASE_URL}/statistics/teams-of-sport-tournament/${action.payload.startdate}/${action.payload.enddate}`,
                 {
                     method: 'GET',
                     headers: {
@@ -253,7 +253,7 @@ function* fetchTeamstSport(action) {
 
                 yield put(
                     actions.completeFetchingTeamstSport(
-                        jsonResult.data,
+                        jsonResult.data[0],
                     ),
                 );
             } else {
@@ -296,7 +296,7 @@ function* fetchGendert(action) {
 
                 yield put(
                     actions.completeFetchingGendert(
-                        jsonResult.data[0],
+                        jsonResult.data,
                     ),
                 );
             } else {
@@ -325,7 +325,7 @@ function* fetchGendertSport(action) {
             const token = yield select(selectors.getAuthToken);
             const response = yield call(
                 fetch,
-                `${API_BASE_URL}/statistics/genders-of-sport-tournament/${action.payload.startdate}/${action.payload.enddate}/${action.payload.sport}`,
+                `${API_BASE_URL}/statistics/genders-of-sport-tournament/${action.payload.startdate}/${action.payload.enddate}`,
                 {
                     method: 'GET',
                     headers: {
@@ -339,7 +339,7 @@ function* fetchGendertSport(action) {
 
                 yield put(
                     actions.completeFetchingGendertSport(
-                        jsonResult.data[0],
+                        jsonResult.data,
                     ),
                 );
             } else {
