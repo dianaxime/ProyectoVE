@@ -229,10 +229,11 @@ export const failFetchingParticipationWKTime = error => ({
 });
 
 
-export const startFetchingParticipationWK = (idw) => ({
+export const startFetchingParticipationWK = (startdate, enddate) => ({
     type: types.PARTICIPATIONWK_FETCH_STARTED,
     payload: {
-        idw
+        startdate, 
+        enddate
     },
 });
 
@@ -274,10 +275,11 @@ export const failFetchingParticipationWKTimeG = error => ({
 });
 
 
-export const startFetchingParticipationWKG = (idw) => ({
+export const startFetchingParticipationWKG = (startdate, enddate) => ({
     type: types.PARTICIPATIONWK_G_FETCH_STARTED,
     payload: {
-        idw
+        startdate, 
+        enddate
     },
 });
 

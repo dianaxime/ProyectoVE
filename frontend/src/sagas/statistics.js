@@ -454,7 +454,7 @@ function* fetchParticipationWK(action) {
             const token = yield select(selectors.getAuthToken);
             const response = yield call(
                 fetch,
-                `${API_BASE_URL}/statistics/participation-workshop/${action.payload.idw}`,
+                `${API_BASE_URL}/statistics/participation-workshop/${action.payload.startdate}/${action.payload.enddate}`,
                 {
                     method: 'GET',
                     headers: {
@@ -540,7 +540,7 @@ function* fetchParticipationWKG(action) {
             const token = yield select(selectors.getAuthToken);
             const response = yield call(
                 fetch,
-                `${API_BASE_URL}/statistics/gender-participation-workshop/${action.payload.idw}`,
+                `${API_BASE_URL}/statistics/gender-participation-workshop/${action.payload.startdate}/${action.payload.enddate}`,
                 {
                     method: 'GET',
                     headers: {
