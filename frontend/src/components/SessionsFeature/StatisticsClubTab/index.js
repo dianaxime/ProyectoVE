@@ -5,6 +5,7 @@ import StatisticsClubForm from '../StatisticsClubForm';
 import React, { useState } from "react";
 import { MDBContainer, MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink } from "mdbreact";
 import { VictoryPie } from 'victory';
+import './styles.css';
 
 let StatisticsClubTab = ({ statistics }) => {
   const [activeItem, changeActiveItem] = useState('1');
@@ -23,6 +24,7 @@ let StatisticsClubTab = ({ statistics }) => {
             <StatisticsClubForm />
           </div>
           <MDBContainer>
+          <h3 className="title-assis">Asistencia</h3>
             <div style={{ width: "450px", height: "400px" }}>
               {
                 statistics !== null && (

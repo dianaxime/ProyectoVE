@@ -52,7 +52,7 @@ const StatisticsTeamsPage = ({open}) => {
                 })}
             >
                 <div className={classes.drawerHeader} />
-                <div style={{ height: "1000px" }}>
+                <div style={{ height: "1300px" }}>
                     <StatisticsTeamsTab/>
                 </div>
             </main>
