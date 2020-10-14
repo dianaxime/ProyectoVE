@@ -34,6 +34,7 @@ let StatisticsWorkshopsTab = ({partwk, partwkTime, wkGF, wkTimeGM}) => {
             <StatisticsWorkshopsForm />
           </div>
           <MDBContainer>
+          <h3 className="title-graphs">Participación Talleres | {partwkTime.count}</h3>
           <div style={{ width: "500px", height: "400px" }} className="grafs">
             {
               partwk !== null && (
@@ -73,6 +74,7 @@ let StatisticsWorkshopsTab = ({partwk, partwkTime, wkGF, wkTimeGM}) => {
             <StatisticsWorkshopsForm />
           </div>
           <MDBContainer>
+          <h3 className="title-graphs">Participación Talleres | {partwkTime.count}</h3>
           <div style={{ width: "500px", height: "400px" }}>
             {
               wkGF !== null && wkTimeGM !== null && (

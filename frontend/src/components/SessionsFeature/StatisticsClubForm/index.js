@@ -96,7 +96,6 @@ SearchClubStatistics = connect(
                     moment(enddate).format('YYYY-MM-DD'),
                 )
             );
-            dispatch(reset('sessionStatsForm'));
         },
     }),
     (stateProps, dispatchProps, ownProps) => {

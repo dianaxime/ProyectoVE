@@ -15,6 +15,7 @@ import StatisticsTeamsSportForm from '../StatisticsTeamsSportForm';
 import React, { useState } from "react";
 import { MDBContainer, MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink } from "mdbreact";
 import { VictoryChart, VictoryBar, VictoryGroup, VictoryLabel, VictoryLegend, VictoryAxis } from 'victory';
+import './styles.css';
 
 
 let StatisticsTeamsTab = ({ players, playersSport, teamsT, teamstSport, genderM, genderF }) => {
@@ -38,11 +39,12 @@ let StatisticsTeamsTab = ({ players, playersSport, teamsT, teamstSport, genderM,
           <div className="mt-2">
             <StatisticsTeamsForm />
           </div>
-          <div style={{ width: "500px", height: "400px" }}>
+          <h3 className="title-graphs">Torneos Internos | {players.count}</h3>
+          <div className="estadisticas" style={{ width: "500px", height: "400px" }}>
             {
               playersSport !== null && (
                 <VictoryChart 
-                  domainPadding={25} >
+                  domainPadding={30} >
                     <VictoryAxis
                       label="deporte"
                       style={{
@@ -70,11 +72,12 @@ let StatisticsTeamsTab = ({ players, playersSport, teamsT, teamstSport, genderM,
               )
             }
           </div>
-          <div style={{ width: "500px", height: "400px" }}>
+          <h3 className="title-graphs2">Equipos | {teamstSport.count}</h3>
+          <div className="estadisticas" style={{ width: "500px", height: "400px" }}>
             {
               teamsT !== null && (
                 <VictoryChart 
-                  domainPadding={25} >
+                  domainPadding={30} >
                     <VictoryAxis
                       label="deporte"
                       style={{
@@ -109,6 +112,7 @@ let StatisticsTeamsTab = ({ players, playersSport, teamsT, teamstSport, genderM,
           <div className="mt-2">
             <StatisticsTeamsSportForm />
           </div>
+          <h3 className="title-graphs">Torneos Internos | {players.count}</h3>
           <div style={{ width: "500px", height: "400px" }}>
             {
               genderF !== null && genderM !== null && (
