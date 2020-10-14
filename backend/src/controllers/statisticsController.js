@@ -20,6 +20,9 @@ const {
     getGenderOfTournamentQuery,
     getGenderOfSportInTournamentQuery,
     getAllScholarsQuery,
+    getAllScholarsFemaleQuery,
+    getAllScholarsMaleQuery,
+    getCountEventsQuery,
     getParticipactionWorkshopsInTimeQuery,
     getParticipactionWorkshopQuery,
     getGenderParticipactionWorkshopsInTimeQuery,
@@ -319,12 +322,129 @@ const getGenderOfSportInTournament = async (req, res) => {
 */
 
 const getAllScholars = async (req, res) => {
+
+    const startdate = req.params.startdate;
+    const enddate = req.params.enddate;
     
-    getAllScholarsQuery()
+    if (empty(startdate) || empty(enddate)) {
+        errorMessage.error = 'Startdate or enddate detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    
+    getAllScholarsQuery({startdate, enddate})
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
-            errorMessage.error = 'No scholars';
+            errorMessage.error = 'No scholars in that time range';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Get Female Scholars
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getFemaleScholars = async (req, res) => {
+
+    const startdate = req.params.startdate;
+    const enddate = req.params.enddate;
+    
+    if (empty(startdate) || empty(enddate)) {
+        errorMessage.error = 'Startdate or enddate detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    
+    getAllScholarsFemaleQuery({startdate, enddate})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'No female scholars in that time range';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Get Male Scholars
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getMaleScholars = async (req, res) => {
+
+    const startdate = req.params.startdate;
+    const enddate = req.params.enddate;
+    
+    if (empty(startdate) || empty(enddate)) {
+        errorMessage.error = 'Startdate or enddate detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    
+    getAllScholarsMaleQuery({startdate, enddate})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'No Male scholars in that time range';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Get Events count
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getEventCount = async (req, res) => {
+
+    const startdate = req.params.startdate;
+    const enddate = req.params.enddate;
+    
+    if (empty(startdate) || empty(enddate)) {
+        errorMessage.error = 'Startdate or enddate detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    
+    getCountEventsQuery({startdate, enddate})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'No events in that time range';
             return res.status(status.notfound).send(errorMessage);
         }
     
@@ -491,6 +611,9 @@ module.exports = {
     getGenderOfTournament,
     getGenderOfSportInTournament,
     getAllScholars,
+    getFemaleScholars,
+    getMaleScholars,
+    getEventCount,
     getParticipactionWorkshopsInTime,
     getParticipactionWorkshop,
     getGenderParticipactionWorkshopsInTime,

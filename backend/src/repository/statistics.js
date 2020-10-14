@@ -50,7 +50,10 @@ from tournament join users on tournament.userid = users.id join team on tourname
 where tournament.startdate >= $1 and tournament.enddate <= $2 
 and users.sex = 'F' group by users.sex, team.sport`;
 
-const GET_COUNT_OF_SCHOLARS=`select cast(COUNT(*) as int) from scholars`;
+const GET_COUNT_OF_SCHOLARS=`select cast(COUNT(distinct(userid)) as int) from event_participation 
+join users on event_participation.userid = users.id 
+join event on event_participation.ide = event.id 
+where event.date>=$1 and event.date<=$2`;
 
 /*Este si */
 const GET_PARTICIPATION_IN_WORKSHOPS_ON_RANGE_OF_TIME=`select cast(COUNT(distinct(userid)) as int) from participation where participation.startdate>=$1 and participation.enddate<=$2`;
@@ -68,6 +71,23 @@ where participation.startdate >= $1 and participation.enddate <= $2 and users.se
 const GET_PORCENTAGE_OF_GENDERS_IN_A_WORKSHOP=`select workshop.name, users.sex , cast(COUNT(*) as int) from participation 
 join users on participation.userid = users.id join workshop on workshop.id = participation.idw 
 where participation.startdate >= $1 and participation.enddate <= $2 and users.sex = 'F'  group by users.sex, workshop.id`;
+
+/*New for scholars by gender*/
+
+const GET_COUNT_OF_SCHOLARS_FEMALE=`select users.sex, cast(COUNT(distinct(userid)) as int) from event_participation 
+join users on event_participation.userid = users.id 
+join event on event_participation.ide = event.id 
+where event.date>=$1 and event.date<=$2 and users.sex = 'F' group by users.sex`;
+
+const GET_COUNT_OF_SCHOLARS_MALE=`select users.sex, cast(COUNT(distinct(userid)) as int) from event_participation 
+join users on event_participation.userid = users.id 
+join event on event_participation.ide = event.id 
+where event.date>=$1 and event.date<=$2 and users.sex = 'M' group by users.sex`;
+
+//get events of a range of time
+const GET_COUNT_EVENTS_RANGE_TIME=`select  cast(COUNT(*) as int) from event
+where event.date>=$1 and event.date<=$2`;
+
 
 async function getAssistanceOfClubQuery({ idc, startdate, enddate }){
     const values = [
@@ -150,9 +170,43 @@ async function getGenderOfSportInTournamentQuery({ startdate, enddate }){
     return data;
 };
 
-async function getAllScholarsQuery(){
+async function getAllScholarsQuery({ startdate, enddate }){
+    const values = [
+        startdate,
+        enddate
+    ];
     
-    const data = await db.query(GET_COUNT_OF_SCHOLARS);
+    const data = await db.query(GET_COUNT_OF_SCHOLARS, values);
+    return data;
+};
+
+async function getAllScholarsFemaleQuery({ startdate, enddate }){
+    const values = [
+        startdate,
+        enddate
+    ];
+    
+    const data = await db.query(GET_COUNT_OF_SCHOLARS_FEMALE, values);
+    return data;
+};
+
+async function getAllScholarsMaleQuery({ startdate, enddate }){
+    const values = [
+        startdate,
+        enddate
+    ];
+    
+    const data = await db.query(GET_COUNT_OF_SCHOLARS_MALE, values);
+    return data;
+};
+
+async function getCountEventsQuery({ startdate, enddate }){
+    const values = [
+        startdate,
+        enddate
+    ];
+    
+    const data = await db.query(GET_COUNT_EVENTS_RANGE_TIME, values);
     return data;
 };
 
@@ -206,6 +260,9 @@ module.exports = {
     getGenderOfTournamentQuery,
     getGenderOfSportInTournamentQuery,
     getAllScholarsQuery,
+    getAllScholarsFemaleQuery,
+    getAllScholarsMaleQuery,
+    getCountEventsQuery,
     getParticipactionWorkshopsInTimeQuery,
     getParticipactionWorkshopQuery,
     getGenderParticipactionWorkshopsInTimeQuery,
