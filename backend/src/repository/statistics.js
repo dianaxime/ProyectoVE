@@ -20,7 +20,7 @@ select assistance.late, CAST(COUNT(*) as FLOAT)/(select cast(COUNT(*) as float )
 from association_club join sessions on association_club.id = sessions.idac join assistance on sessions.id= assistance.ids where assistance.late='t' and sessions.date>=$1 and sessions.date<=$2 group by assistance.late`;
 
 /* Este si */
-const GET_PLAYERS_COUNT_IN_TOURNAMENT=`select cast(COUNT(*) as int) from tournament join users on tournament.userid = users.id 
+const GET_PLAYERS_COUNT_IN_TOURNAMENT=`select cast(COUNT(distinct(userid)) as int) from tournament join users on tournament.userid = users.id 
 where tournament.startdate>=$1 and tournament.enddate<=$2`;
 
 /* Este si */
@@ -53,7 +53,7 @@ and users.sex = 'F' group by users.sex, team.sport`;
 const GET_COUNT_OF_SCHOLARS=`select cast(COUNT(*) as int) from scholars`;
 
 /*Este si */
-const GET_PARTICIPATION_IN_WORKSHOPS_ON_RANGE_OF_TIME=`select cast(COUNT(*) as int) from participation where participation.startdate>=$1 and participation.enddate<=$2`;
+const GET_PARTICIPATION_IN_WORKSHOPS_ON_RANGE_OF_TIME=`select cast(COUNT(distinct(userid)) as int) from participation where participation.startdate>=$1 and participation.enddate<=$2`;
 
 /*Este si */
 const GET_PARTICIPATION_IN_A_WORKSHOP=`select workshop.name, cast(COUNT(*) as int) from participation 
