@@ -94,7 +94,6 @@ SearchTeamsStatistics = connect(
             dispatch(
                 actions.startFetchingGendert(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
             );
-            dispatch(reset('teamsStatisticsForm'));
         },
     }),
     (stateProps, dispatchProps, ownProps) => {
