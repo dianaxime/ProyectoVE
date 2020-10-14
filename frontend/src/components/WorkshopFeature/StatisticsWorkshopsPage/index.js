@@ -52,7 +52,7 @@ const StatisticsWorkshopsPage = ({open}) => {
                 })}
             >
                 <div className={classes.drawerHeader} />
-                <div className="contenedorST">
+                <div style={{ height: "1000px" }}>
                     <StatisticsWorkshopsTab/>
                 </div>
             </main>
