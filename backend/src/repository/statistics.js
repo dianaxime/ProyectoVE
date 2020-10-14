@@ -20,52 +20,52 @@ select assistance.late, CAST(COUNT(*) as FLOAT)/(select cast(COUNT(*) as float )
 from association_club join sessions on association_club.id = sessions.idac join assistance on sessions.id= assistance.ids where assistance.late='t' and sessions.date>=$1 and sessions.date<=$2 group by assistance.late`;
 
 /* Este si */
-const GET_PLAYERS_COUNT_IN_TOURNAMENT=`select COUNT(*) from tournament join users on tournament.userid = users.id 
+const GET_PLAYERS_COUNT_IN_TOURNAMENT=`select cast(COUNT(*) as int) from tournament join users on tournament.userid = users.id 
 where tournament.startdate>=$1 and tournament.enddate<=$2`;
 
 /* Este si */
-const GET_PLAYERS_COUNT_ON_SPORT_IN_TOURNAMENT=`select team.sport, COUNT(*) from tournament 
+const GET_PLAYERS_COUNT_ON_SPORT_IN_TOURNAMENT=`select team.sport, cast(COUNT(*) as int) from tournament 
 join users on tournament.userid = users.id 
 join team on tournament.idt = team.id 
 where tournament.startdate>=$1 and tournament.enddate<=$2 
 GROUP BY team.sport`;
 
 /* Este si*/
-const GET_TEAMS_ON_RANGE_OF_TIME=`select team.sport, COUNT(*) from team 
+const GET_TEAMS_ON_RANGE_OF_TIME=`select team.sport, cast(COUNT(*) as int) from team 
 where team.startdate >= $1 and team.enddate <= $2 group by team.sport`;
 
 /* Este si */
-const GET_TEAMS_OF_SPORT_ON_RANGE_OF_TIME=`select count(*) from team
+const GET_TEAMS_OF_SPORT_ON_RANGE_OF_TIME=`select cast(COUNT(*) as int) from team
 where team.startdate >= $1 and team.enddate <= $2`;
 
 /* Este si */
-const GET_PORCENTAGE_OF_GENDERS_IN_TOURNAMENTS_IN_RANGE_OF_TIME=`select team.sport, users.sex , COUNT(*) 
+const GET_PORCENTAGE_OF_GENDERS_IN_TOURNAMENTS_IN_RANGE_OF_TIME=`select team.sport, users.sex , cast(COUNT(*) as int) 
 from tournament join users on tournament.userid = users.id join team on tournament.idt = team.id
 where tournament.startdate >= $1 and tournament.enddate <= $2 
 and users.sex = 'M' group by users.sex, team.sport`;
 
 /* Este si */
-const GET_PORCENTAGE_OF_GENDERS_IN_A_SPORT_IN_TOURNAMENTS_IN_RANGE_OF_TIME=` select team.sport, users.sex , COUNT(*) 
+const GET_PORCENTAGE_OF_GENDERS_IN_A_SPORT_IN_TOURNAMENTS_IN_RANGE_OF_TIME=` select team.sport, users.sex , cast(COUNT(*) as int) 
 from tournament join users on tournament.userid = users.id join team on tournament.idt = team.id
 where tournament.startdate >= $1 and tournament.enddate <= $2 
 and users.sex = 'F' group by users.sex, team.sport`;
 
-const GET_COUNT_OF_SCHOLARS=`select COUNT(*) from scholars`;
+const GET_COUNT_OF_SCHOLARS=`select cast(COUNT(*) as int) from scholars`;
 
 /*Este si */
-const GET_PARTICIPATION_IN_WORKSHOPS_ON_RANGE_OF_TIME=`select COUNT(*) from participation where participation.startdate>=$1 and participation.enddate<=$2`;
+const GET_PARTICIPATION_IN_WORKSHOPS_ON_RANGE_OF_TIME=`select cast(COUNT(*) as int) from participation where participation.startdate>=$1 and participation.enddate<=$2`;
 
 /*Este si */
-const GET_PARTICIPATION_IN_A_WORKSHOP=`select workshop.name, COUNT(*) from participation 
+const GET_PARTICIPATION_IN_A_WORKSHOP=`select workshop.name, cast(COUNT(*) as int) from participation 
 join workshop on participation.idw = workshop.id where 
 workshop.startdate >= $1 and workshop.enddate <= $2
 group by workshop.id`;
 
-const GET_PORCENTAGE_OF_GENDERS_WORKSHOPS_IN_RANGE_OF_TIME=`select workshop.name, users.sex , COUNT(*) from participation 
+const GET_PORCENTAGE_OF_GENDERS_WORKSHOPS_IN_RANGE_OF_TIME=`select workshop.name, users.sex , cast(COUNT(*) as int) from participation 
 join users on participation.userid = users.id join workshop on workshop.id = participation.idw 
 where participation.startdate >= $1 and participation.enddate <= $2 and users.sex = 'M'  group by users.sex, workshop.id`;
 
-const GET_PORCENTAGE_OF_GENDERS_IN_A_WORKSHOP=`select workshop.name, users.sex , COUNT(*) from participation 
+const GET_PORCENTAGE_OF_GENDERS_IN_A_WORKSHOP=`select workshop.name, users.sex , cast(COUNT(*) as int) from participation 
 join users on participation.userid = users.id join workshop on workshop.id = participation.idw 
 where participation.startdate >= $1 and participation.enddate <= $2 and users.sex = 'F'  group by users.sex, workshop.id`;
 
