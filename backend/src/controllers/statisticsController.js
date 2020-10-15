@@ -26,7 +26,15 @@ const {
     getParticipactionWorkshopsInTimeQuery,
     getParticipactionWorkshopQuery,
     getGenderParticipactionWorkshopsInTimeQuery,
-    getGenderParticipactionOfWorkshopQuery
+    getGenderParticipactionOfWorkshopQuery,
+    getMaleUsersQuery,
+    getFemaleUsersQuery,
+    getUsersByFacultyQuery,
+    getUsersByCareerQuery,
+    getUsersByFacultyFemaleQuery,
+    getUsersByFacultyMaleQuery,
+    getUsersByCareerFemaleQuery,
+    getUsersByCareerMaleQuery
 } = require('../repository/statistics');
 
 /**
@@ -601,6 +609,158 @@ const getGenderParticipactionOfWorkshop = async (req, res) => {
     })
 };
 
+const getMaleUsers = async (req, res) => {
+    getMaleUsersQuery()
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no male users found found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+const getFemaleUsers = async (req, res) => {
+    getFemaleUsersQuery()
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no female users found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+const getUsersByFaculty = async (req, res) => {
+    getUsersByFacultyQuery()
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no users found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+const getUsersByCareer = async (req, res) => {
+    getUsersByCareerQuery()
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no users found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+const getUsersByFacultyFemale = async (req, res) => {
+    getUsersByFacultyFemaleQuery()
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no users found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+const getUsersByFacultyMale = async (req, res) => {
+    getUsersByFacultyMaleQuery()
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no users found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+const getUsersByCareerFemale = async (req, res) => {
+    getUsersByCareerFemaleQuery()
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no users found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+const getUsersByCareerMale = async (req, res) => {
+    getUsersByCareerMaleQuery()
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no users found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
 module.exports = {
     getAssistanceOfClub,
     getAssistanceOfClubs,
@@ -617,5 +777,14 @@ module.exports = {
     getParticipactionWorkshopsInTime,
     getParticipactionWorkshop,
     getGenderParticipactionWorkshopsInTime,
-    getGenderParticipactionOfWorkshop
+    getGenderParticipactionOfWorkshop,
+    getMaleUsers,
+    getFemaleUsers,
+    getUsersByFaculty,
+    getUsersByCareer,
+    getUsersByFacultyFemale,
+    getUsersByFacultyMale,
+    getUsersByCareerFemale,
+    getUsersByCareerMale
+
 };

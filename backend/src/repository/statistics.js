@@ -88,6 +88,22 @@ where event.date>=$1 and event.date<=$2 and users.sex = 'M' group by users.sex`;
 const GET_COUNT_EVENTS_RANGE_TIME=`select  cast(COUNT(*) as int) from event
 where event.date>=$1 and event.date<=$2`;
 
+//Querys for users stadistics
+const GET_MALE_USERS=`select users.sex, cast(COUNT(*) as int) from users 
+where users.sex = 'M' group by users.sex`;
+const GET_FEMALE_USERS=`select users.sex, cast(COUNT(*) as int) from users 
+where users.sex = 'F' group by users.sex`;
+
+const GET_USERS_BY_FACULTY=`select users.faculty, cast(COUNT(*) as int) from users group by users.faculty`;
+const GET_USERS_BY_CAREER=`select users.career, cast(COUNT(*) as int) from users group by users.career`;
+
+const GET_USERS_BY_FACULTY_AND_MALE=`select users.sex, users.faculty, cast(COUNT(*) as int) from users where users.sex = 'M' group by users.faculty, users.sex`;
+const GET_USERS_BY_FACULTY_AND_FEMALE=`select users.sex, users.faculty, cast(COUNT(*) as int) from users where users.sex = 'F' group by users.faculty, users.sex`;
+
+const GET_USERS_BY_CAREER_AND_MALE=`select users.sex, users.career, cast(COUNT(*) as int) from users where users.sex = 'M' group by users.career, users.sex`;
+const GET_USERS_BY_CAREER_AND_FEMALE=`select users.sex, users.career, cast(COUNT(*) as int) from users where users.sex = 'F' group by users.career, users.sex`;
+
+
 
 async function getAssistanceOfClubQuery({ idc, startdate, enddate }){
     const values = [
@@ -250,6 +266,46 @@ async function getGenderParticipactionOfWorkshopQuery({ startdate, enddate }){
     return data;
 };
 
+async function getMaleUsersQuery(){
+    const data = await db.query(GET_MALE_USERS);
+    return data;
+};
+
+async function getFemaleUsersQuery(){
+    const data = await db.query(GET_FEMALE_USERS);
+    return data;
+};
+
+async function getUsersByFacultyQuery(){
+    const data = await db.query(GET_USERS_BY_FACULTY);
+    return data;
+};
+
+async function getUsersByCareerQuery(){
+    const data = await db.query(GET_USERS_BY_CAREER);
+    return data;
+};
+
+async function getUsersByFacultyFemaleQuery(){
+    const data = await db.query(GET_USERS_BY_FACULTY_AND_FEMALE);
+    return data;
+};
+
+async function getUsersByFacultyMaleQuery(){
+    const data = await db.query(GET_USERS_BY_FACULTY_AND_MALE);
+    return data;
+};
+
+async function getUsersByCareerFemaleQuery(){
+    const data = await db.query(GET_USERS_BY_CAREER_AND_FEMALE);
+    return data;
+};
+
+async function getUsersByCareerMaleQuery(){
+    const data = await db.query(GET_USERS_BY_CAREER_AND_MALE);
+    return data;
+};
+
 module.exports = {
     getAssistanceOfClubQuery,
     getAssistanceOfAllClubsQuery,
@@ -266,6 +322,13 @@ module.exports = {
     getParticipactionWorkshopsInTimeQuery,
     getParticipactionWorkshopQuery,
     getGenderParticipactionWorkshopsInTimeQuery,
-    getGenderParticipactionOfWorkshopQuery
-
+    getGenderParticipactionOfWorkshopQuery,
+    getMaleUsersQuery,
+    getFemaleUsersQuery,
+    getUsersByFacultyQuery,
+    getUsersByCareerQuery,
+    getUsersByFacultyFemaleQuery,
+    getUsersByFacultyMaleQuery,
+    getUsersByCareerFemaleQuery,
+    getUsersByCareerMaleQuery
 };

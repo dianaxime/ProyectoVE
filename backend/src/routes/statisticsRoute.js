@@ -17,7 +17,15 @@ const {
     getParticipactionWorkshopsInTime,
     getParticipactionWorkshop,
     getGenderParticipactionWorkshopsInTime,
-    getGenderParticipactionOfWorkshop
+    getGenderParticipactionOfWorkshop,
+    getMaleUsers,
+    getFemaleUsers,
+    getUsersByFaculty,
+    getUsersByCareer,
+    getUsersByFacultyFemale,
+    getUsersByFacultyMale,
+    getUsersByCareerFemale,
+    getUsersByCareerMale
 } = require('../controllers/statisticsController');
 
 const router = express.Router();
@@ -40,5 +48,13 @@ router.get('/statistics/gender-participation-workshop/:startdate/:enddate', veri
 router.get('/statistics/female-scholars/:startdate/:enddate', verifyAuth, getFemaleScholars);
 router.get('/statistics/male-scholars/:startdate/:enddate', verifyAuth, getMaleScholars);
 router.get('/statistics/count-events/:startdate/:enddate', verifyAuth, getEventCount);
+router.get('/statistics/male_users', verifyAuth, getMaleUsers);
+router.get('/statistics/female_users', verifyAuth, getFemaleUsers);
+router.get('/statistics/users_by_faculty', verifyAuth, getUsersByFaculty);
+router.get('/statistics/users_by_faculty_female', verifyAuth, getUsersByFacultyFemale);
+router.get('/statistics/users_by_faculty_male', verifyAuth, getUsersByFacultyMale);
+router.get('/statistics/users_by_career', verifyAuth, getUsersByCareer);
+router.get('/statistics/users_by_career_female', verifyAuth, getUsersByCareerFemale);
+router.get('/statistics/users_by_career_male', verifyAuth, getUsersByCareerMale);
 
 module.exports = router;
