@@ -87,7 +87,10 @@ let AddAssociationClub = ({
                 <div className="div-field">
                     <Field name="type" component={renderSelectField} label="Tipo" className="selectType_">
                         <MenuItem value="Asociacion">Asociación</MenuItem>
-                        <MenuItem value="Club">Club</MenuItem>
+                        <MenuItem value="Club_artistico">Club artístico</MenuItem>
+                        <MenuItem value="Club_academico">Club académico</MenuItem>
+                        <MenuItem value="Club_deportivo">Club deportivo</MenuItem>
+                        <MenuItem value="Agrupacion">Agrupación</MenuItem>
                     </Field>
                 </div>
                 <div className="div-field">
