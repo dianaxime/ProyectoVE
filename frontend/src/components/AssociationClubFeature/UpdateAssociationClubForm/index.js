@@ -87,7 +87,10 @@ let UpdateAssociationClub = ({
                 <div className="div-field">
                     <Field name="type" component={renderSelectField} label="Tipo" className="selectType_">
                         <MenuItem value="Asociacion">Asociación</MenuItem>
-                        <MenuItem value="Club">Club</MenuItem>
+                        <MenuItem value="Club artistico">Club artístico</MenuItem>
+                        <MenuItem value="Club academico">Club académico</MenuItem>
+                        <MenuItem value="Club deportivo">Club deportivo</MenuItem>
+                        <MenuItem value="Agrupacion">Agrupación</MenuItem>
                     </Field>
                 </div>
                 <div className="div-field">

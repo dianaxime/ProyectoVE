@@ -22,7 +22,7 @@ export const failFetchingUsersByEmail = error => ({
     },
 });
 
-export const startAddingAssociationClubRelationship = (id, userid, idac, startdate, enddate) => ({
+export const startAddingAssociationClubRelationship = (id, userid, idac, startdate, enddate, type) => ({
     type: types.ASSOCIATION_CLUB_RELATIONSHIP_ADD_STARTED,
     payload: {
         id,
@@ -30,6 +30,7 @@ export const startAddingAssociationClubRelationship = (id, userid, idac, startda
         idac,
         startdate,
         enddate,
+        type,
     },
 });
 
