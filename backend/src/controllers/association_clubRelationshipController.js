@@ -29,10 +29,11 @@ const createACParticipation = async (req, res) => {
         userid,
         idac,
         startdate,
-        enddate
+        enddate,
+        type
     } = req.body;
 
-    if (empty(userid) || empty(idac)  || empty(startdate) || empty(enddate) ) {
+    if (empty(userid) || empty(idac)  || empty(startdate) || empty(enddate) || empty(type)) {
         errorMessage.error = 'User id, id of association/club, startdate, enddate field cannot be empty';
         return res.status(status.bad).send(errorMessage);
     }
