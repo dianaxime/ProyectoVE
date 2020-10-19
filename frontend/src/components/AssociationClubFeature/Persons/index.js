@@ -16,7 +16,8 @@ import * as actions from '../../../actions/associationClubRelationship';
 const Person = ({
   users,
   isLoading,
-  onAssign,
+  onAssign_J,
+  onAssign_M,
 }) => (
     <div className='personaIn'>
       {
@@ -30,10 +31,13 @@ const Person = ({
                       variant="body2" className="inputPersonaS">{email}</Typography>
                     }/>
                   <ListItemSecondaryAction>
-                    <IconButton edge="end" aria-label="agregar" onClick={() => onAssign(id)}>
-                      <PersonAddIcon className="inputPersona" />
-                    </IconButton>
-                  </ListItemSecondaryAction>
+                    <button className="boton_persona" onClick={() => onAssign_M(id)}>
+                      Miembro
+                    </button>
+                    <button className="boton_persona" onClick={() => onAssign_J(id)}>
+                      Junta
+                    </button>
+                    </ListItemSecondaryAction>
                 </ListItem>
               )
             }
@@ -53,18 +57,28 @@ export default connect(
     associationClub: selectors.getAssociationClub(state, selectors.getSelectedAssociationClub(state)),
   }),
   dispatch => ({
-    onAssign(userid, idac, date1, date2) {
+    onAssign_J(userid, idac, date1, date2) {
       const startdate = moment(date1);
       const enddate = moment(date2);
-      dispatch(actions.startAddingAssociationClubRelationship(uuidv4(), userid, idac, startdate.format("YYYY-MM-DD"), enddate.format("YYYY-MM-DD")));
-    }
+      const type = "J";
+      dispatch(actions.startAddingAssociationClubRelationship(uuidv4(), userid, idac, startdate.format("YYYY-MM-DD"), enddate.format("YYYY-MM-DD"), type));
+    },
+    onAssign_M(userid, idac, date1, date2) {
+      const startdate = moment(date1);
+      const enddate = moment(date2);
+      const type = "M";
+      dispatch(actions.startAddingAssociationClubRelationship(uuidv4(), userid, idac, startdate.format("YYYY-MM-DD"), enddate.format("YYYY-MM-DD"), type));
+    },
   }),
   (stateProps, dispatchProps, ownProps) => ({
     ...ownProps,
     ...stateProps,
     ...dispatchProps,
-    onAssign(id) {
-      dispatchProps.onAssign(id, stateProps.selectAC, stateProps.associationClub.startdate, stateProps.associationClub.enddate);
+    onAssign_J(id) {
+      dispatchProps.onAssign_J(id, stateProps.selectAC, stateProps.associationClub.startdate, stateProps.associationClub.enddate, stateProps.associationClub.type);
+    },
+    onAssign_M(id) {
+      dispatchProps.onAssign_M(id, stateProps.selectAC, stateProps.associationClub.startdate, stateProps.associationClub.enddate, stateProps.associationClub.type );
     },
   })
 )(Person);

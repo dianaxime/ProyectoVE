@@ -339,6 +339,7 @@ const createAssociationClubRelationshipTable = () => {
         idAC INT NOT NULL,
         startdate DATE NOT NULL,
         enddate DATE NOT NULL,
+        type VARCHAR(5),
         FOREIGN KEY (userID) REFERENCES users(id),
         FOREIGN KEY (idAC) REFERENCES association_club(id),
         UNIQUE(userID, idAC)
@@ -622,6 +623,23 @@ const dropACrelationshipTable = () => {
 };
 
 /**
+ * Drop Assistance Table
+*/
+
+const dropAssistanceTable = () => {
+    const usersDropQuery = `DROP TABLE IF EXISTS assistance`;
+    pool.query(usersDropQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+/**
  * Create All Tables
 */
 
@@ -631,6 +649,9 @@ const createAllTables = () => {
     createWorkshoTable();
     createScholarsTable();
     createTeamTable();
+    createWorkshoTable();*/
+    //createScholarsTable();
+    /*createTeamTable();
     createParticipationTable();
     createTournamentTable();
     createEventTable();
@@ -640,8 +661,11 @@ const createAllTables = () => {
     createScholarsTable();
     createAssociationClubTable();
     createAssociationClubRelationshipTable();
-    createSessionsTable();*/
+    createSessionsTable();
     createAssistanceTable();
+    createAssociationClubRelationshipTable();*/
+    createAssociationClubRelationshipTable();
+
 };
 
 /**
@@ -649,7 +673,7 @@ const createAllTables = () => {
 */
 
 const dropAllTables = () => {
-    dropUserTable();
+    /*dropUserTable();
     dropRegisterTable();
     dropWorkshopTable();
     dropParticipationTable();
@@ -661,7 +685,8 @@ const dropAllTables = () => {
     dropTeamTable();
     dropACTable();
     dropACrelationshipTable();
-    dropScholarsTable();
+    dropScholarsTable();*/
+    dropAssistanceTable();
 };
 
 pool.on('remove', () => {

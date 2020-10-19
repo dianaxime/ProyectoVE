@@ -127,6 +127,13 @@ let SigninForm = ({ onSubmit, handleSubmit }) => {
                                 <MenuItem value="Arqueología">Arqueología</MenuItem>
                                 <MenuItem value="Psicología">Psicología</MenuItem>
                                 <MenuItem value="Relaciones_Internacionales">Relaciones Internacionales y Master of Arts in Global Affairs</MenuItem>
+                                <MenuItem value="Administración">Administración de Empresas con Especialización en Transformación Digital</MenuItem>
+                                <MenuItem value="Food">Food Business and Marketing</MenuItem>
+                                <MenuItem value="International">International Marketing and Business Analytics</MenuItem>
+                                <MenuItem value="Baccalaureatus_en_Artibus">Baccalaureatus en Artibus</MenuItem>
+                                <MenuItem value="Baccalaureatus_en_Scientiis">Baccalaureatus en Scientiis</MenuItem>
+                                <MenuItem value="Composición">Composición y Producción Musical</MenuItem>
+                                <MenuItem value="Diseño">Diseño de Producto e Innovación</MenuItem>
                             </Field>
                         </div>
                         <div>
@@ -135,6 +142,9 @@ let SigninForm = ({ onSubmit, handleSubmit }) => {
                                 <MenuItem value="ciencias_y_humanidades">Ciencias y Humanidades</MenuItem>
                                 <MenuItem value="Ciencias_Sociales">Ciencias Sociales</MenuItem>
                                 <MenuItem value="Ciencias_Sociales">Educación</MenuItem>
+                                <MenuItem value="Ciencias_Sociales">Colegio Universitario</MenuItem>
+                                <MenuItem value="Ciencias_Sociales">BUSINESS and MANAGEMENT SCHOOL</MenuItem>
+                                <MenuItem value="Ciencias_Sociales">DESIGN INNOVATION AND ARTS SCHOOL</MenuItem>
                             </Field>
 
                         </div>
