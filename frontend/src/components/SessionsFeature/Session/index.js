@@ -46,7 +46,7 @@ const AssociationClubSession = ({
               </Link>
             </MDBCol>
             <MDBCol md='6'>
-              <Link to='/session'>
+              <Link to='/statisticsclub'>
                 <button className='all-sessions' onClick={onEdit}>
                   <BarChartIcon className="iconosessions"/>
                 </button>

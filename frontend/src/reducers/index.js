@@ -14,6 +14,7 @@ import associationClubRelationship, * as associationClubRelationshipSelectors fr
 import sessions, * as sessionsSelectors from './sessions';
 import associationClub, * as associationClubSelectors from './associationClub'; 
 import assistances, * as assistancesSelectors from './assistances'; 
+import statistics, * as statisticsSelectors from './statistics'; 
 
 import changeDrawer, * as changeDrawerSelectors from './changeDrawer';
 import changeForgot, * as changeForgotSelectors from './modalForgot';
@@ -59,6 +60,7 @@ const reducer = combineReducers({
   sessions,
   selectedSession,
   assistances,
+  statistics,
   form: formReducer,
 });
 
@@ -212,3 +214,43 @@ export const getAssistance = (state, id) => assistancesSelectors.getAssistance(s
 export const getAssistances = state => assistancesSelectors.getAssistances(state.assistances);
 export const isFetchingAssistances = state => assistancesSelectors.isFetchingAssistances(state.assistances);
 export const getFetchingAssistanceError = state => assistancesSelectors.getFetchingAssistanceError(state.assistances);
+/* Statistics */
+export const getAssistanceClub = state => statisticsSelectors.getAssistanceClub(state.statistics);
+export const getIsFetchingAssistanceClub = state => statisticsSelectors.getIsFetchingAssistanceClub(state.statistics);
+export const getFetchingAssistanceClubError = state => statisticsSelectors.getFetchingAssistanceClubError(state.statistics);
+export const getAssistanceClubs = state => statisticsSelectors.getAssistanceClubs(state.statistics);
+export const getIsFetchingAssistanceClubs = state => statisticsSelectors.getIsFetchingAssistanceClubs(state.statistics);
+export const getFetchingAssistanceClubsError = state => statisticsSelectors.getFetchingAssistanceClubsError(state.statistics);
+export const getPlayers = state => statisticsSelectors.getPlayers(state.statistics);
+export const getIsFetchingPlayers = state => statisticsSelectors.getIsFetchingPlayers(state.statistics);
+export const getFetchingPlayersError = state => statisticsSelectors.getFetchingPlayersError(state.statistics);
+export const getPlayersSport = state => statisticsSelectors.getPlayersSport(state.statistics);
+export const getIsFetchingPlayersSport = state => statisticsSelectors.getIsFetchingPlayersSport(state.statistics);
+export const getFetchingPlayersSportError = state => statisticsSelectors.getFetchingPlayersSportError(state.statistics);
+export const getTeamsT = state => statisticsSelectors.getTeamsT(state.statistics);
+export const getIsFetchingTeamsT = state => statisticsSelectors.getIsFetchingTeamsT(state.statistics);
+export const getFetchingTeamsTError = state => statisticsSelectors.getFetchingTeamsTError(state.statistics);
+export const getTeamsTSport = state => statisticsSelectors.getTeamsTSport(state.statistics);
+export const getIsFetchingTeamsTSport = state => statisticsSelectors.getIsFetchingTeamsTSport(state.statistics);
+export const getFetchingTeamsTSportError = state => statisticsSelectors.getFetchingTeamsTSportError(state.statistics);
+export const getGendert = state => statisticsSelectors.getGendert(state.statistics);
+export const getIsFetchingGendert= state => statisticsSelectors.getIsFetchingGendert(state.statistics);
+export const getFetchingGendertError = state => statisticsSelectors.getFetchingGendertError(state.statistics);
+export const getGendertSport = state => statisticsSelectors.getGendertSport(state.statistics);
+export const getIsFetchingGendertSport = state => statisticsSelectors.getIsFetchingGendertSport(state.statistics);
+export const getFetchingGendertSportError = state => statisticsSelectors.getFetchingGendertSportError(state.statistics);
+export const getScholarss = state => statisticsSelectors.getScholarss(state.statistics);
+export const getIsFetchingScholarss = state => statisticsSelectors.getIsFetchingScholarss(state.statistics);
+export const getFetchingScholarssError = state => statisticsSelectors.getFetchingScholarssError(state.statistics);
+export const getParticipationwk = state => statisticsSelectors.getParticipationwk(state.statistics);
+export const getIsFetchingParticipationwk = state => statisticsSelectors.getIsFetchingParticipationwk(state.statistics);
+export const getFetchingParticipationwkError = state => statisticsSelectors.getFetchingParticipationwkError(state.statistics);
+export const getParticipationwkTimeg = state => statisticsSelectors.getParticipationwkTimeg(state.statistics);
+export const getIsFetchingParticipationwkTimeg = state => statisticsSelectors.getIsFetchingParticipationwkTimeg(state.statistics);
+export const getFetchingParticipationwkTimegError = state => statisticsSelectors.getFetchingParticipationwkTimegError(state.statistics);
+export const getParticipationwkTime = state => statisticsSelectors.getParticipationwkTime(state.statistics);
+export const getIsFetchingParticipationwkTime = state => statisticsSelectors.getIsFetchingParticipationwkTime(state.statistics);
+export const getFetchingParticipationwkTimeError = state => statisticsSelectors.getFetchingParticipationwkTimeError(state.statistics);
+export const getParticipationwkG = state => statisticsSelectors.getParticipationwkG(state.statistics);
+export const getIsFetchingParticipationwkG = state => statisticsSelectors.getIsFetchingParticipationwkG(state.statistics);
+export const getFetchingParticipationwkGError = state => statisticsSelectors.getFetchingParticipationwkGError(state.statistics);

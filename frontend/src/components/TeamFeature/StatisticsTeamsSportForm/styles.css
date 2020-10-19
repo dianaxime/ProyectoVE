@@ -1,0 +1,47 @@
+.datosStatic{
+    background-color: white;
+}
+
+.formStatistic{
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+    justify-content: space-evenly;
+    width: 1200px;
+    max-width: 1300px;
+}
+
+.div-inputs{
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+    width: 600px;
+}
+
+.div-sport{
+    margin-top: 15px;
+    width: 270px;
+    
+}
+
+.space{
+    color: white;
+}
+
+.subtittle{
+    margin-top: 25px;
+}
+
+.buttonformST{
+    width: 50px;
+    margin-right: 45px;
+    margin-top: 25px;
+    border-radius: 5px;
+    height: 45px;
+    font-size: 15px;
+    background-color:  rgb(7, 107, 50);
+    color: white;
+    border-style: none;
+    margin-top: 15px;
+    transition-duration: 0.4s;
+}

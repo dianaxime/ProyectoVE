@@ -86,7 +86,23 @@ import {
     watchAssistancesFetch,
     watchAddAssistance,
     watchDeleteAssistance,
-} from './assistances'; 
+} from './assistances';
+
+import {
+    watchAssistanceClubFetch,
+    watchAssistanceClubsFetch,
+    watchPlayersFetch,
+    watchPlayersSportFetch,
+    watchTeamstFetch,
+    watchTeamstSportFetch,
+    watchGendertFetch,
+    watchGendertSportFetch,
+    watchScholarssFetch,
+    watchParticipationWKTimeFetch,
+    watchParticipationWKFetch,
+    watchParticipationWKTimeGFetch,
+    watchParticipationWKGFetch,
+} from './statistics'; 
 
 function* mainSaga() {
     yield all([
@@ -153,6 +169,20 @@ function* mainSaga() {
         fork(watchAssistancesFetch),
         fork(watchAddAssistance),
         fork(watchDeleteAssistance),
+        /* Estadistics */
+        fork(watchAssistanceClubFetch),
+        fork(watchAssistanceClubsFetch),
+        fork(watchPlayersFetch),
+        fork(watchPlayersSportFetch),
+        fork(watchTeamstFetch),
+        fork(watchTeamstSportFetch),
+        fork(watchGendertFetch),
+        fork(watchGendertSportFetch),
+        fork(watchScholarssFetch),
+        fork(watchParticipationWKTimeFetch),
+        fork(watchParticipationWKFetch),
+        fork(watchParticipationWKTimeGFetch),
+        fork(watchParticipationWKGFetch),
     ]);
 }
 

@@ -623,6 +623,23 @@ const dropACrelationshipTable = () => {
 };
 
 /**
+ * Drop Assistance Table
+*/
+
+const dropAssistanceTable = () => {
+    const usersDropQuery = `DROP TABLE IF EXISTS assistance`;
+    pool.query(usersDropQuery)
+    .then((res) => {
+        console.log(res);
+        pool.end();
+    })
+    .catch((err) => {
+        console.log(err);
+        pool.end();
+    });
+};
+
+/**
  * Create All Tables
 */
 
@@ -656,7 +673,7 @@ const createAllTables = () => {
 */
 
 const dropAllTables = () => {
-    dropUserTable();
+    /*dropUserTable();
     dropRegisterTable();
     dropWorkshopTable();
     dropParticipationTable();
@@ -668,7 +685,8 @@ const dropAllTables = () => {
     dropTeamTable();
     dropACTable();
     dropACrelationshipTable();
-    dropScholarsTable();
+    dropScholarsTable();*/
+    dropAssistanceTable();
 };
 
 pool.on('remove', () => {

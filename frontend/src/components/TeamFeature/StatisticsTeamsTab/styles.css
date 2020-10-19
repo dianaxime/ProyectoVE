@@ -1,0 +1,20 @@
+.chart-background {
+    background-color: white;
+}
+
+.title-graphs{
+    margin-top: 30px;
+    margin-bottom: -10px;
+    margin-left: 130px;
+    font-weight: inherit;
+}
+
+.title-graphs2{
+    margin-top: 10px;
+    margin-left: 185px;
+    font-weight: inherit;
+}
+
+.estadisticas{
+    margin-top: -10px;
+}
