@@ -34,7 +34,23 @@ const {
     getUsersByFacultyFemaleQuery,
     getUsersByFacultyMaleQuery,
     getUsersByCareerFemaleQuery,
-    getUsersByCareerMaleQuery
+    getUsersByCareerMaleQuery,
+    getParticipationArtisticClubsQuery,
+    getParticipationArtisticClubsByClubQuery,
+    getFemaleParticipationArtisticClubsByClubQuery,
+    getMaleParticipationArtisticClubsByClubQuery,
+    getParticipationSportClubsQuery,
+    getParticipationSportClubsByClubQuery,
+    getFemaleParticipationSportClubsByClubQuery,
+    getMaleParticipationSportClubsByClubQuery,
+    getParticipationAcademicClubsQuery,
+    getParticipationAcademicClubsByClubQuery,
+    getFemaleParticipationAcademicClubsByClubQuery,
+    getMaleParticipationAcademicClubsByClubQuery,
+    getParticipationAgrupationQuery,
+    getParticipationAgrupationByClubQuery,
+    getFemaleParticipationAgrupationByClubQuery,
+    getMaleParticipationAgrupationByClubQuery,
 } = require('../repository/statistics');
 
 /**
@@ -761,6 +777,566 @@ const getUsersByCareerMale = async (req, res) => {
     })
 };
 
+/**
+ * Get participation on artisc clubs
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getParticipationArtisticClubs = async (req, res) => {
+    
+    const startdate = req.params.startdate;
+    const enddate = req.params.enddate; 
+
+    if (empty(startdate) || empty(enddate)) {
+        errorMessage.error = ' startdate or enddate detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    getParticipationArtisticClubsQuery({startdate, enddate})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no participations in artistic clubs found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Get participation on artisc clubs by club
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getParticipationArtisticClubsByClub = async (req, res) => {
+    
+    const startdate = req.params.startdate;
+    const enddate = req.params.enddate; 
+
+    if (empty(startdate) || empty(enddate)) {
+        errorMessage.error = ' startdate or enddate detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    getParticipationArtisticClubsByClubQuery({startdate, enddate})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no participations in artistic clubs found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Get female participation on artisc clubs by club
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getFemaleParticipationArtisticClubsByClub = async (req, res) => {
+    
+    const startdate = req.params.startdate;
+    const enddate = req.params.enddate; 
+
+    if (empty(startdate) || empty(enddate)) {
+        errorMessage.error = ' startdate or enddate detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    getFemaleParticipationArtisticClubsByClubQuery({startdate, enddate})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no participations in artistic clubs found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Get male participation on artisc clubs by club
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getMaleParticipationArtisticClubsByClub = async (req, res) => {
+    
+    const startdate = req.params.startdate;
+    const enddate = req.params.enddate; 
+
+    if (empty(startdate) || empty(enddate)) {
+        errorMessage.error = 'startdate or enddate detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    getMaleParticipationArtisticClubsByClubQuery({startdate, enddate})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no participations in artistic clubs found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Get participation on sport clubs
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getParticipationSportClubs = async (req, res) => {
+    
+    const startdate = req.params.startdate;
+    const enddate = req.params.enddate; 
+
+    if (empty(startdate) || empty(enddate)) {
+        errorMessage.error = 'startdate or enddate detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    getParticipationSportClubsQuery({startdate, enddate})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no participations in sport clubs found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Get participation on sport clubs by club
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getParticipationSportClubsByClub = async (req, res) => {
+    
+    const startdate = req.params.startdate;
+    const enddate = req.params.enddate; 
+
+    if (empty(startdate) || empty(enddate)) {
+        errorMessage.error = 'startdate or enddate detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    getParticipationSportClubsByClubQuery({startdate, enddate})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no participations in sport clubs found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Get female participation on sport clubs by club
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getFemaleParticipationSportClubsByClub = async (req, res) => {
+    
+    const startdate = req.params.startdate;
+    const enddate = req.params.enddate; 
+
+    if (empty(startdate) || empty(enddate)) {
+        errorMessage.error = 'startdate or enddate detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    getFemaleParticipationSportClubsByClubQuery({startdate, enddate})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no participations in sport clubs found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Get male participation on sport clubs by club
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getMaleParticipationSportClubsByClub = async (req, res) => {
+    
+    const startdate = req.params.startdate;
+    const enddate = req.params.enddate; 
+
+    if (empty(startdate) || empty(enddate)) {
+        errorMessage.error = 'startdate or enddate detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    getMaleParticipationSportClubsByClubQuery({startdate, enddate})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no participations in sport clubs found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Get participation on academic clubs
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getParticipationAcademicClubs = async (req, res) => {
+    
+    const startdate = req.params.startdate;
+    const enddate = req.params.enddate; 
+
+    if (empty(startdate) || empty(enddate)) {
+        errorMessage.error = 'startdate or enddate detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    getParticipationAcademicClubsQuery({startdate, enddate})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no participations in academic clubs found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Get participation on academic clubs by club
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getParticipationAcademicClubsByClub = async (req, res) => {
+    
+    const startdate = req.params.startdate;
+    const enddate = req.params.enddate; 
+
+    if (empty(startdate) || empty(enddate)) {
+        errorMessage.error = 'startdate or enddate detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    getParticipationAcademicClubsByClubQuery({startdate, enddate})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no participations in academic clubs found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Get female participation on academic clubs by club
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getFemaleParticipationAcademicClubsByClub = async (req, res) => {
+    
+    const startdate = req.params.startdate;
+    const enddate = req.params.enddate; 
+
+    if (empty(startdate) || empty(enddate)) {
+        errorMessage.error = 'startdate or enddate detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    getFemaleParticipationAcademicClubsByClubQuery({startdate, enddate})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no participations in academic clubs found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Get male participation on academic clubs by club
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getMaleParticipationAcademicClubsByClub = async (req, res) => {
+    
+    const startdate = req.params.startdate;
+    const enddate = req.params.enddate; 
+
+    if (empty(startdate) || empty(enddate)) {
+        errorMessage.error = 'startdate or enddate detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    getMaleParticipationAcademicClubsByClubQuery({startdate, enddate})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no participations in academic clubs found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Get participation on agrupations
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getParticipationAgrupation = async (req, res) => {
+    
+    const startdate = req.params.startdate;
+    const enddate = req.params.enddate; 
+
+    if (empty(startdate) || empty(enddate)) {
+        errorMessage.error = 'startdate or enddate detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    getParticipationAgrupationQuery({startdate, enddate})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no participations in agrupations found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Get participation on agrupations by agrupation
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getParticipationAgrupationByClub = async (req, res) => {
+    
+    const startdate = req.params.startdate;
+    const enddate = req.params.enddate; 
+
+    if (empty(startdate) || empty(enddate)) {
+        errorMessage.error = 'startdate or enddate detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    getParticipationAgrupationByClubQuery({startdate, enddate})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no participations in agrupations found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Get female participation on agrupations by agrupation
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getFemaleParticipationAgrupationByClub = async (req, res) => {
+    
+    const startdate = req.params.startdate;
+    const enddate = req.params.enddate; 
+
+    if (empty(startdate) || empty(enddate)) {
+        errorMessage.error = 'startdate or enddate detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    getFemaleParticipationAgrupationByClubQuery({startdate, enddate})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no participations in agrupations found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Get male participation on agrupations by agrupation
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getMaleParticipationAgrupationByClub = async (req, res) => {
+    
+    const startdate = req.params.startdate;
+    const enddate = req.params.enddate; 
+
+    if (empty(startdate) || empty(enddate)) {
+        errorMessage.error = 'startdate or enddate detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    getMaleParticipationAgrupationByClubQuery({startdate, enddate})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no participations in agrupations found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
 module.exports = {
     getAssistanceOfClub,
     getAssistanceOfClubs,
@@ -785,6 +1361,21 @@ module.exports = {
     getUsersByFacultyFemale,
     getUsersByFacultyMale,
     getUsersByCareerFemale,
-    getUsersByCareerMale
-
+    getUsersByCareerMale,
+    getParticipationArtisticClubs,
+    getParticipationArtisticClubsByClub,
+    getFemaleParticipationArtisticClubsByClub,
+    getMaleParticipationArtisticClubsByClub,
+    getParticipationSportClubs,
+    getParticipationSportClubsByClub,
+    getFemaleParticipationSportClubsByClub,
+    getMaleParticipationSportClubsByClub,
+    getParticipationAcademicClubs,
+    getParticipationAcademicClubsByClub,
+    getFemaleParticipationAcademicClubsByClub,
+    getMaleParticipationAcademicClubsByClub,
+    getParticipationAgrupation,
+    getParticipationAgrupationByClub,
+    getFemaleParticipationAgrupationByClub,
+    getMaleParticipationAgrupationByClub,
 };

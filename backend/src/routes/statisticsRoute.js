@@ -25,7 +25,23 @@ const {
     getUsersByFacultyFemale,
     getUsersByFacultyMale,
     getUsersByCareerFemale,
-    getUsersByCareerMale
+    getUsersByCareerMale,
+    getParticipationArtisticClubs,
+    getParticipationArtisticClubsByClub,
+    getFemaleParticipationArtisticClubsByClub,
+    getMaleParticipationArtisticClubsByClub,
+    getParticipationSportClubs,
+    getParticipationSportClubsByClub,
+    getFemaleParticipationSportClubsByClub,
+    getMaleParticipationSportClubsByClub,
+    getParticipationAcademicClubs,
+    getParticipationAcademicClubsByClub,
+    getFemaleParticipationAcademicClubsByClub,
+    getMaleParticipationAcademicClubsByClub,
+    getParticipationAgrupation,
+    getParticipationAgrupationByClub,
+    getFemaleParticipationAgrupationByClub,
+    getMaleParticipationAgrupationByClub
 } = require('../controllers/statisticsController');
 
 const router = express.Router();
@@ -56,5 +72,30 @@ router.get('/statistics/users_by_faculty_male', verifyAuth, getUsersByFacultyMal
 router.get('/statistics/users_by_career', verifyAuth, getUsersByCareer);
 router.get('/statistics/users_by_career_female', verifyAuth, getUsersByCareerFemale);
 router.get('/statistics/users_by_career_male', verifyAuth, getUsersByCareerMale);
+/*Artistic club statistics */
+router.get('/statistics/participations-artistic-clubs/:startdate/:enddate', verifyAuth, getParticipationArtisticClubs);
+router.get('/statistics/participations-artistic-clubs-by-club/:startdate/:enddate', verifyAuth, getParticipationArtisticClubsByClub);
+router.get('/statistics/female-participations-artistic-clubs-by-club/:startdate/:enddate', verifyAuth, getFemaleParticipationArtisticClubsByClub);
+router.get('/statistics/male-participations-artistic-clubs-by-club/:startdate/:enddate', verifyAuth, getMaleParticipationArtisticClubsByClub);
+/*Sport club statistics */
+router.get('/statistics/participations-sport-clubs/:startdate/:enddate', verifyAuth, getParticipationSportClubs);
+router.get('/statistics/participations-sport-clubs-by-club/:startdate/:enddate', verifyAuth, getParticipationSportClubsByClub);
+router.get('/statistics/female-participations-sport-clubs-by-club/:startdate/:enddate', verifyAuth, getFemaleParticipationSportClubsByClub);
+router.get('/statistics/male-participations-sport-clubs-by-club/:startdate/:enddate', verifyAuth, getMaleParticipationSportClubsByClub);
+/*Academic club statistics */
+router.get('/statistics/participations-academic-clubs/:startdate/:enddate', verifyAuth, getParticipationAcademicClubs);
+router.get('/statistics/participations-academic-clubs-by-club/:startdate/:enddate', verifyAuth, getParticipationAcademicClubsByClub);
+router.get('/statistics/female-participations-academic-clubs-by-club/:startdate/:enddate', verifyAuth, getFemaleParticipationAcademicClubsByClub);
+router.get('/statistics/male-participations-academic-clubs-by-club/:startdate/:enddate', verifyAuth, getMaleParticipationAcademicClubsByClub);
+/*Agrupations statistics */
+router.get('/statistics/participations-agrupations/:startdate/:enddate', verifyAuth, getParticipationAgrupation);
+router.get('/statistics/participations-agrupations-by-agrupation/:startdate/:enddate', verifyAuth, getParticipationAgrupationByClub);
+router.get('/statistics/female-participations-agrupations-by-agrupation/:startdate/:enddate', verifyAuth, getFemaleParticipationAgrupationByClub);
+router.get('/statistics/male-participations-agrupations-by-agrupation/:startdate/:enddate', verifyAuth, getMaleParticipationAgrupationByClub);
+
+
+
+
+
 
 module.exports = router;
