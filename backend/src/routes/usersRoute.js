@@ -15,7 +15,8 @@ const {
     getStudentsWSById,
     getStudentsCbyId,
     getStudentsAbyId,
-    getStudentsSessionsById
+    getStudentsSessionsById,
+    getScholarHours
 } = require('../controllers/usersController');
 const verifyAuth = require('../middleware/verifyAuth');
 
@@ -38,5 +39,6 @@ router.get('/auth/students-workshops', verifyAuth, getStudentsWSById);
 router.get('/auth/students-associations/:id', verifyAuth, getStudentsAbyId);
 router.get('/auth/students-clubs/:id', verifyAuth, getStudentsCbyId);
 router.get('/auth/students-sessions/:id', verifyAuth, getStudentsSessionsById);
+router.get('/auth/scholars-hours/:startdate/:enddate', verifyAuth, getScholarHours);
 
 module.exports = router;

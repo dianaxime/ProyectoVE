@@ -31,7 +31,8 @@ const {
     getStudentsWSByIdQuery,
     getStudentsAByIdQuery,
     getStudentsCByIdQuery,
-    getStudentsSessionsByIdQuery
+    getStudentsSessionsByIdQuery,
+    getScholarHourseQuery
 } = require('../repository/users');
 
 /**
@@ -657,6 +658,44 @@ const getPending = async (req, res) => {
     })
 };
 
+/**
+ * Get scholar hours of user
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getScholarHours = async (req, res) => {
+    
+    const startdate = req.params.startdate;
+    const enddate = req.params.enddate; 
+    var userid=req.user;
+    userid=userid.userid
+    
+
+    if (empty(startdate) || empty(enddate)) {
+        errorMessage.error = 'startdate or enddate detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    getScholarHourseQuery({startdate, enddate, userid})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no participations in agrupations found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
 module.exports = {
     createUser,
     loginUser,
@@ -672,5 +711,6 @@ module.exports = {
     getStudentsWSById,
     getStudentsCbyId,
     getStudentsAbyId,
-    getStudentsSessionsById
+    getStudentsSessionsById,
+    getScholarHours
 };
