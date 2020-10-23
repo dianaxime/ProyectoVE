@@ -155,3 +155,46 @@ export function* watchUpdateEvent() {
     updateEvent,
   );
 }
+
+function* fetchScholarsHours(action) {
+  try {
+      const isAuth = yield select(selectors.isAuthenticated);
+
+      if (isAuth) {
+          const token = yield select(selectors.getAuthToken);
+          const response = yield call(
+              fetch,
+              `${API_BASE_URL}/auth/scholars-hours/${action.payload.startdate}/${action.payload.enddate}`,
+              {
+                  method: 'GET',
+                  headers: {
+                      'Content-Type': 'application/json',
+                      'token': `${token}`,
+                  },
+              }
+          );
+          if (response.status === 200) {
+              const jsonResult = yield response.json();
+
+              yield put(
+                  actions.completeFetchingScholarsHours(
+                      jsonResult.data,
+                  ),
+              );
+          } else {
+              const errors = yield response.json();
+              yield put(actions.failFetchingScholarsHours(errors.error));
+          }
+      }
+  } catch (error) {
+      yield put(actions.failFetchingScholarsHours("Error de conexión"));
+      console.log("ERROR", error);
+  }
+}
+
+export function* watchScholarsHoursFetch() {
+  yield takeEvery(
+      types.SCHOLARS_HOURS_FETCH_STARTED,
+      fetchScholarsHours,
+  );
+}

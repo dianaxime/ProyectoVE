@@ -147,6 +147,9 @@ export const getEvents = state => eventsSelectors.getEvents(state.events);
 export const isFetchingEvents = state => eventsSelectors.isFetchingEvents(state.events);
 export const getFetchingEventsError = state => eventsSelectors.getFetchingEventsError(state.events);
 export const getEventStatus = state => eventsSelectors.getEventStatus(state.events);
+export const getScholarsHours = state => eventsSelectors.getScholarsHours(state.events);
+export const getIsFetchingScholarsHours = state => eventsSelectors.getIsFetchingScholarsHours(state.events);
+export const getFetchingScholarsHoursError = state => eventsSelectors.getFetchingScholarsHoursError(state.events);
 /* events participation */
 export const getUserByEmailEventParticipation = (state, id) => eventParticipationSelectors.getUserByEmailEventParticipation(state.eventParticipation, id);
 export const getUsersByEmailEventParticipation = state => eventParticipationSelectors.getUsersByEmailEventParticipation(state.eventParticipation);

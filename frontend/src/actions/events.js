@@ -76,3 +76,26 @@ export const failUpdatingEvent = (id, error) => ({
 export const changeEventStatus = () => ({
   type: types.SET_EVENT_STATUS,
 });
+
+
+export const startFetchingScholarsHours = (startdate, enddate) => ({
+  type: types.SCHOLARS_HOURS_FETCH_STARTED,
+  payload: {
+      startdate, 
+      enddate
+  },
+});
+
+export const completeFetchingScholarsHours = (entities) => ({
+  type: types.SCHOLARS_HOURS_FETCH_COMPLETED,
+  payload: {
+      entities,
+  },
+});
+
+export const failFetchingScholarsHours = error => ({
+  type: types.SCHOLARS_HOURS_FETCH_FAILED,
+  payload: {
+      error,
+  },
+});

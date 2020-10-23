@@ -132,12 +132,61 @@ const status = (state = null, action) => {
   }
 };
 
+
+const byIdScholarsHours = (state = [], action) => {
+  switch (action.type) {
+    case types.SCHOLARS_HOURS_FETCH_COMPLETED: {
+      return action.payload.entities;
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
+const isFetchingScholarsHours = (state = false, action) => {
+  switch (action.type) {
+    case types.SCHOLARS_HOURS_FETCH_STARTED: {
+      return true;
+    }
+    case types.SCHOLARS_HOURS_FETCH_COMPLETED: {
+      return false;
+    }
+    case types.SCHOLARS_HOURS_FETCH_FAILED: {
+      return false;
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
+const errorScholarsHours = (state = null, action) => {
+  switch (action.type) {
+    case types.SCHOLARS_HOURS_FETCH_FAILED: {
+      return action.payload.error;
+    }
+    case types.SCHOLARS_HOURS_FETCH_STARTED: {
+      return null;
+    }
+    case types.SCHOLARS_HOURS_FETCH_COMPLETED: {
+      return null;
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
 export default combineReducers({
   byId,
   order,
   isFetching,
   error,
   status,
+  byIdScholarsHours,
+  isFetchingScholarsHours,
+  errorScholarsHours,
 });
 
 export const getEvent = (state, id) => state.byId[id];
@@ -145,3 +194,6 @@ export const getEvents = state => state.order.map(id => getEvent(state, id));
 export const isFetchingEvents = state => state.isFetching;
 export const getFetchingEventsError = state => state.error;
 export const getEventStatus = state => state.status;
+export const getScholarsHours = state => state.byIdScholarsHours;
+export const getIsFetchingScholarsHours = state => state.isFetchingScholarsHours;
+export const getFetchingScholarsHoursError = state => state.errorScholarsHours;

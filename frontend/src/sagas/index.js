@@ -45,6 +45,7 @@ import {
     watchAddEvent,
     watchEventsFetch,
     watchUpdateEvent,
+    watchScholarsHoursFetch,
 } from './events';
 
 import {
@@ -136,10 +137,11 @@ function* mainSaga() {
         fork(watchTournamentFetch),
         fork(watchAddTournament),
         fork(watchDeleteTournament),
-        /* Events */
+        /* Events */ 
         fork(watchAddEvent),
         fork(watchEventsFetch),
         fork(watchUpdateEvent),
+        fork(watchScholarsHoursFetch),
         /* events participations */
         fork(watchUsersFetchEventParticipation),
         fork(watchEventParticipationFetch),
