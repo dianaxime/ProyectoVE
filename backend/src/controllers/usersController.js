@@ -32,7 +32,8 @@ const {
     getStudentsAByIdQuery,
     getStudentsCByIdQuery,
     getStudentsSessionsByIdQuery,
-    getScholarHourseQuery
+    getScholarHourseQuery,
+    getRoleQuery
 } = require('../repository/users');
 
 /**
@@ -696,6 +697,35 @@ const getScholarHours = async (req, res) => {
     })
 };
 
+/**
+ * Get role user
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getRole = async (req, res) => { 
+    var userid=req.user;
+    userid=userid.userid
+    
+    getRoleQuery({userid})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no user found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
 module.exports = {
     createUser,
     loginUser,
@@ -712,5 +742,6 @@ module.exports = {
     getStudentsCbyId,
     getStudentsAbyId,
     getStudentsSessionsById,
-    getScholarHours
+    getScholarHours,
+    getRole
 };
