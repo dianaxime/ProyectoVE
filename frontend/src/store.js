@@ -44,6 +44,7 @@ export const configureStore = () => {
                 'selectedSession',
                 'assistances',
                 'statistics',
+                'roles',
             ],
         },
         reducer,

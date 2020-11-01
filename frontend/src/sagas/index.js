@@ -89,6 +89,10 @@ import {
 } from './assistances';
 
 import {
+    watchFetchUserRolesStarted,
+} from './roles';
+
+import {
     watchAssistanceClubFetch,
     watchAssistanceClubsFetch,
     watchPlayersFetch,
@@ -183,6 +187,8 @@ function* mainSaga() {
         fork(watchParticipationWKFetch),
         fork(watchParticipationWKTimeGFetch),
         fork(watchParticipationWKGFetch),
+        /* Roles */
+        fork(watchFetchUserRolesStarted),
     ]);
 }
 
