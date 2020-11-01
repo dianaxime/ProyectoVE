@@ -12,7 +12,7 @@ import * as selectors from '../reducers';
 import * as actions from '../actions/roles';
 import * as types from '../types/roles';
 
-import { API_BASE_URL, URL } from '../settings';
+import { API_BASE_URL } from '../settings';
 
 function* fetchUserRoles(action) {
     const isAuth = yield select(selectors.isAuthenticated);
