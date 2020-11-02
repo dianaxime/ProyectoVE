@@ -360,15 +360,18 @@ const getStudentsAbyId = async (req, res) => {
 };
 
 const getStudentsCbyId = async (req, res) => {
-    
-    const id = req.params.id;
+    var userid=req.user;
+    const id = userid.userid
+
+    const date = new Date()
+    //console.log(date)
 
     if (empty(id)) {
         errorMessage.error = 'ID of user detail is missing';
         return res.status(status.bad).send(errorMessage);
     }
     
-    getStudentsCByIdQuery(id)
+    getStudentsCByIdQuery({id, date})
     .then(data => {
         console.log('DATA:', data); // print data;
         if (!data) {
