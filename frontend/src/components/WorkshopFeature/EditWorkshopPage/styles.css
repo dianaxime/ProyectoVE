@@ -8,6 +8,23 @@
     text-align: center;*/
 }
 
+.title {
+    font-size: 60px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: white;
+    background-color: #0a4a0a;
+}
+
+#visor_imagenes {
+  text-align: center;
+}
+
+.blanco-rojo {
+  background-color: white;
+}
+
+
 .bgew {
     background-image: url(jazz1.jpg);
     height: 100vh;

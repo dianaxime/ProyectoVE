@@ -54,7 +54,9 @@ const AddEventPage = ({open}) => {
                 })}
             >
                 <div className={classes.drawerHeader} />
-                <center><b><h2 className="tituloformE">{'Nuevo Evento'}</h2></b></center>
+                <h1 id='visor_imagenes' className="title">
+                    <spam classname="blanco-rojo">  Nuevo Evento</spam>
+                </h1>
                 <div className="addEvent">
                     <AddEvent />
                     <SearchPersons />
