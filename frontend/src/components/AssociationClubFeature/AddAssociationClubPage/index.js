@@ -53,7 +53,9 @@ const AddAssociationClubPage = ({open}) => {
                 })}
             >
                 <div className={classes.drawerHeader} />
-                <center><b><h2 className="tituloformW">{'Nueva Asociación o Club'}</h2></b></center>
+                <h1 id='visor_imagenes' className="title">
+                    <spam classname="blanco-rojo">  Nueva asociación-club</spam>
+                </h1>
                 <div className="addAssociationClub">
                     <AddAssociationClub />
                     <SearchPersons />
