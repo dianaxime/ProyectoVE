@@ -148,7 +148,7 @@ let UpdateUserForm = ({ open, onHandle, onSubmit, handleSubmit, }) => {
                             <MenuItem value="Psicología">Psicología</MenuItem>
                             <MenuItem value="Relaciones_Internacionales">Relaciones Internacionales y Master of Arts in Global Affairs</MenuItem>
                         </Field>
-                        <Field name="faculty" component={renderSelectField} label="Faculty" className="input_">
+                        <Field name="faculty" component={renderSelectField} label="Facultad" className="input_">
                             <MenuItem value="ingenieria">Ingeniería</MenuItem>
                             <MenuItem value="ciencias_y_humanidades">Ciencias y Humanidades</MenuItem>
                             <MenuItem value="Ciencias_Sociales">Ciencias Sociales</MenuItem>
