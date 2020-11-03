@@ -54,7 +54,9 @@ const AddWorkshopPage = ({open}) => {
                 })}
             >
                 <div className={classes.drawerHeader} />
-                <center><b><h2 className="tituloformW">{'Nuevo Taller'}</h2></b></center>
+                <h1 id='visor_imagenes' className="title">
+                    <spam classname="blanco-rojo">  Nuevo Taller</spam>
+                </h1>
                 <div className="addWorkshop">
                     <AddWorkshop />
                     <SearchPersons />

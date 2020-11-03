@@ -7,11 +7,23 @@
     text-align: center;
 }
 
-.tituloformW{
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    color: black;
+.title{
+    font-size: 45px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: white;
+    background-color: #0a4a0a;
 }
 
+#visor_imagenes {
+    text-align: center;
+  }
+  
+  .blanco-rojo {
+    background-color: white;
+    color: white !important;
+  }
+  
 .footer {
     position: fixed;
     left: 0;
