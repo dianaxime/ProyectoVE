@@ -24,3 +24,28 @@ body.modal-open{
     background-size: cover;
     display: flex;
 }
+
+.title {
+    font-size: 60px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    color: white;
+    background-color: #0a4a0a;
+}
+
+#visor_imagenes {
+  text-align: center;
+}
+
+.blanco-rojo {
+  background-color: red;
+}
+
+.bgmessage {
+    background-image: url(mensaje.png);
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+}
