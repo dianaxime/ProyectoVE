@@ -85,7 +85,16 @@ SearchEventsStatistics = connect(
     }),
     dispatch => ({
         onSubmit({ startdate, enddate }) {
-            dispatch(reset('eventsStatisticsForm'));
+            dispatch(
+                actions.startFetchingFemaleScholars(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
+            );
+            dispatch(
+                actions.startFetchingMaleScholars(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
+            );
+            dispatch(
+                actions.startFetchingCountEvents(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
+            );
+            //dispatch(reset('eventsStatisticsForm'));
         },
     }),
     (stateProps, dispatchProps, ownProps) => {

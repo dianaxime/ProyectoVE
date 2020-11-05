@@ -94,7 +94,7 @@ SearchTeamsSportStatistics = connect(
             dispatch(
                 actions.startFetchingTeamstSport(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
             );
-            dispatch(reset('teamsStatisticsFormSport'));
+            //dispatch(reset('teamsStatisticsFormSport'));
         },
     }),
     (stateProps, dispatchProps, ownProps) => {
