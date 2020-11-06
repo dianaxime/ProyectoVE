@@ -104,22 +104,22 @@ const GET_USERS_BY_CAREER_AND_MALE=`select users.sex, users.career, cast(COUNT(*
 const GET_USERS_BY_CAREER_AND_FEMALE=`select users.sex, users.career, cast(COUNT(*) as int) from users where users.sex = 'F' group by users.career, users.sex`;
 
 /*statisticS of participation for artistic club */
-const GET_PARTICIPATION_OF_ARTISTIC_CLUB=`select cast(COUNT(distinct(userid)) as int) from association_club_relationship 
+const GET_PARTICIPATION_OF_ARTISTIC_CLUB=`select cast(COALESCE(COUNT(distinct(userid)), 0) as int) as count from association_club_relationship 
 join users on users.id = association_club_relationship.userid 
 join association_club on association_club.id = association_club_relationship.idac 
 where association_club.type='Club artistico' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2`;
 
-const GET_PARTICIPATION_OF_ARTISTIC_CLUB_BY_CLUB=`select association_club.name, cast(COUNT(distinct(userid)) as int) from association_club_relationship 
+const GET_PARTICIPATION_OF_ARTISTIC_CLUB_BY_CLUB=`select association_club.name, cast(COALESCE(COUNT(distinct(userid)), 0) as int) as count from association_club_relationship 
 join users on users.id = association_club_relationship.userid 
 join association_club on association_club.id = association_club_relationship.idac 
 where association_club.type='Club artistico' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 group by association_club.name`;
 
-const GET_PARTICIPATION_OF_FEMALE_ARTISTIC_CLUB_BY_CLUB=`select association_club.name, users.sex, cast(COUNT(distinct(userid)) as int) from association_club_relationship 
+const GET_PARTICIPATION_OF_FEMALE_ARTISTIC_CLUB_BY_CLUB=`select association_club.name, users.sex, cast(COALESCE(COUNT(distinct(userid)), 0) as int) as count from association_club_relationship 
 join users on users.id = association_club_relationship.userid 
 join association_club on association_club.id = association_club_relationship.idac 
 where association_club.type='Club artistico' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 and users.sex='F' group by association_club.name, users.sex`;
 
-const GET_PARTICIPATION_OF_MALE_ARTISTIC_CLUB_BY_CLUB=`select association_club.name, users.sex, cast(COUNT(distinct(userid)) as int) from association_club_relationship 
+const GET_PARTICIPATION_OF_MALE_ARTISTIC_CLUB_BY_CLUB=`select association_club.name, users.sex, cast(COALESCE(COUNT(distinct(userid)), 0) as int) as count from association_club_relationship 
 join users on users.id = association_club_relationship.userid 
 join association_club on association_club.id = association_club_relationship.idac 
 where association_club.type='Club artistico' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 and users.sex='M' group by association_club.name, users.sex`;
