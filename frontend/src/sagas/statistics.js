@@ -1070,7 +1070,7 @@ function* fetchParticipationArtClubs(action) {
 
                 yield put(
                     actions.completeFetchingParticipationArtClubs(
-                        jsonResult.data,
+                        jsonResult.data[0],
                     ),
                 );
             } else {

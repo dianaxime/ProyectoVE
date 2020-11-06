@@ -1,5 +1,11 @@
 import { connect } from 'react-redux';
-import { getAuthToken, getIsOpen } from '../../../reducers';
+import { getAuthToken, 
+  getIsOpen,
+  getParticipationArtClub,
+  getParticipationArtClubs,
+  getParticipationArtClubF,
+  getParticipationArtClubM, 
+} from '../../../reducers';
 import { URL } from '../../../settings';
 import StatisticsACForm from '../StatisticsACForm';
 import ArtForm from '../ArtForm';
@@ -8,8 +14,9 @@ import DeportForm from '../DeportForm';
 import AcadForm from '../AcadForm';
 import React, { useState } from "react";
 import { MDBContainer, MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink } from "mdbreact";
+import { VictoryChart, VictoryBar, VictoryGroup, VictoryLabel, VictoryLegend, VictoryAxis } from 'victory';
 
-let StatisticsACTab = () => {
+let StatisticsACTab = ({artClub, artClubs, artClubF, artClubM}) => {
   const [activeItem, changeActiveItem] = useState('1');
   return (
       <MDBContainer className="chart-background">
@@ -55,6 +62,39 @@ let StatisticsACTab = () => {
             </div>
             <MDBContainer>
               <h3 className="mt-5">Clubes Artísticos</h3>
+              <h3 className="title-graphs">Participación | {artClubs.count}</h3>
+          <div className="estadisticas" style={{ width: "500px", height: "400px" }}>
+            {
+              artClub !== null && (
+                <VictoryChart 
+                  domainPadding={30} >
+                    <VictoryAxis
+                      label="clubes artísticos"
+                      style={{
+                        axisLabel: { padding: 30 }
+                      }}
+                    />
+                    <VictoryAxis dependentAxis
+                      label="participantes"
+                      style={{
+                        axisLabel: { padding: 40 }
+                      }}
+                    />
+                    <VictoryGroup offset={25}
+                    colorScale={["green"]}>
+                      <VictoryBar
+                      data={artClub}
+                      x={"name"}
+                      y={"count"}
+                      labels={({ datum }) => datum.count}
+                      style={{ labels: { fill: "white" } }}
+                      labelComponent={<VictoryLabel dy={30} />}
+                      />
+                    </VictoryGroup>  
+                </VictoryChart>
+              )
+            }
+          </div>
             </MDBContainer>
           </MDBTabPane>
           <MDBTabPane tabId="3" role="tabpanel" >
@@ -90,6 +130,10 @@ export default connect(
   state => ({
       isAuth: getAuthToken(state) !== null,
       open: getIsOpen(state),
+      artClubs: getParticipationArtClubs(state),
+      artClub: getParticipationArtClub(state),
+      artClubF: getParticipationArtClubF(state),
+      artClubM: getParticipationArtClub(state),
   }),
   undefined,
   (stateProps, disptachProps, ownProps) => {
