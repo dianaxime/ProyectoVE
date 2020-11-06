@@ -2,6 +2,10 @@ import { connect } from 'react-redux';
 import { getAuthToken, getIsOpen } from '../../../reducers';
 import { URL } from '../../../settings';
 import StatisticsACForm from '../StatisticsACForm';
+import ArtForm from '../ArtForm';
+import AgrupForm from '../AgrupForm';
+import DeportForm from '../DeportForm';
+import AcadForm from '../AcadForm';
 import React, { useState } from "react";
 import { MDBContainer, MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink } from "mdbreact";
 
@@ -42,16 +46,40 @@ let StatisticsACTab = () => {
               <StatisticsACForm />
             </div>
             <MDBContainer>
-              <h3 className="mt-5">Bar chart</h3>
+              <h3 className="mt-5">Asociaciones</h3>
             </MDBContainer>
           </MDBTabPane>
           <MDBTabPane tabId="2" role="tabpanel" >
+          <div className="mt-2">
+              <ArtForm />
+            </div>
+            <MDBContainer>
+              <h3 className="mt-5">Clubes Artísticos</h3>
+            </MDBContainer>
           </MDBTabPane>
           <MDBTabPane tabId="3" role="tabpanel" >
+          <div className="mt-2">
+              <AcadForm />
+            </div>
+            <MDBContainer>
+              <h3 className="mt-5">Clubes Académicos</h3>
+            </MDBContainer>
           </MDBTabPane>
           <MDBTabPane tabId="4" role="tabpanel" >
+          <div className="mt-2">
+              <DeportForm />
+            </div>
+            <MDBContainer>
+              <h3 className="mt-5">Clubes Deportivos</h3>
+            </MDBContainer>
           </MDBTabPane>
           <MDBTabPane tabId="5" role="tabpanel" >
+          <div className="mt-2">
+              <AgrupForm />
+            </div>
+            <MDBContainer>
+              <h3 className="mt-5">Agrupaciones</h3>
+            </MDBContainer>
           </MDBTabPane>
         </MDBTabContent>
       </MDBContainer>
