@@ -1242,7 +1242,7 @@ function* fetchParticipationSportClubs(action) {
 
                 yield put(
                     actions.completeFetchingParticipationSportClubs(
-                        jsonResult.data,
+                        jsonResult.data[0],
                     ),
                 );
             } else {
@@ -1414,7 +1414,7 @@ function* fetchParticipationAcadClubs(action) {
 
                 yield put(
                     actions.completeFetchingParticipationAcadClubs(
-                        jsonResult.data,
+                        jsonResult.data[0],
                     ),
                 );
             } else {
@@ -1586,7 +1586,7 @@ function* fetchParticipationAgrupations(action) {
 
                 yield put(
                     actions.completeFetchingParticipationAgrupations(
-                        jsonResult.data,
+                        jsonResult.data[0],
                     ),
                 );
             } else {
