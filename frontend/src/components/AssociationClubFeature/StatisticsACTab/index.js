@@ -12,7 +12,27 @@ let StatisticsACTab = () => {
         <MDBNav className="nav-tabs mt-5">
           <MDBNavItem>
             <MDBNavLink link to="#" active={activeItem === "1"} onClick={() => changeActiveItem("1")} role="tab">
-              Asistencia
+              Asociaciones
+            </MDBNavLink>
+          </MDBNavItem>
+          <MDBNavItem>
+            <MDBNavLink link to="#" active={activeItem === "2"} onClick={() => changeActiveItem("2")} role="tab">
+              Clubes Artísticos
+            </MDBNavLink>
+          </MDBNavItem>
+          <MDBNavItem>
+            <MDBNavLink link to="#" active={activeItem === "3"} onClick={() => changeActiveItem("3")} role="tab">
+              Clubes Académicos
+            </MDBNavLink>
+          </MDBNavItem>
+          <MDBNavItem>
+            <MDBNavLink link to="#" active={activeItem === "4"} onClick={() => changeActiveItem("4")} role="tab">
+              Clubes Deportivos
+            </MDBNavLink>
+          </MDBNavItem>
+          <MDBNavItem>
+            <MDBNavLink link to="#" active={activeItem === "5"} onClick={() => changeActiveItem("5")} role="tab">
+              Agrupaciones
             </MDBNavLink>
           </MDBNavItem>
         </MDBNav>
@@ -24,6 +44,14 @@ let StatisticsACTab = () => {
             <MDBContainer>
               <h3 className="mt-5">Bar chart</h3>
             </MDBContainer>
+          </MDBTabPane>
+          <MDBTabPane tabId="2" role="tabpanel" >
+          </MDBTabPane>
+          <MDBTabPane tabId="3" role="tabpanel" >
+          </MDBTabPane>
+          <MDBTabPane tabId="4" role="tabpanel" >
+          </MDBTabPane>
+          <MDBTabPane tabId="5" role="tabpanel" >
           </MDBTabPane>
         </MDBTabContent>
       </MDBContainer>
