@@ -85,55 +85,7 @@ SearchACStatistics = connect(
     }),
     dispatch => ({
         onSubmit({ startdate, enddate }) {
-            dispatch(
-                actions.startFetchingParticipationArtClubs(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingParticipationArtClub(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingParticipationArtClubF(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingParticipationArtClubM(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingParticipationSportClubs(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingParticipationSportClub(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingParticipationSportClubF(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingParticipationSportClubM(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingParticipationAcadClubs(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingParticipationAcadClub(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingParticipationAcadClubF(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingParticipationAcadClubM(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingParticipationAgrupations(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingParticipationAgrupation(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingParticipationAgrupationF(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingParticipationAgrupationM(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            //dispatch(reset('acStatisticsForm'));
+            dispatch(reset('acStatisticsForm'));
         },
     }),
     (stateProps, dispatchProps, ownProps) => {

@@ -45,7 +45,7 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, meta: { touch
     </MuiPickersUtilsProvider>
 );
 
-let SearchACStatistics = ({
+let SearchAcad = ({
     onSubmit,
     isLoading,
     handleSubmit, }) => {
@@ -73,42 +73,18 @@ let SearchACStatistics = ({
     );
 }
 
-SearchACStatistics = reduxForm({
-    form: 'acStatisticsForm',
+SearchAcad = reduxForm({
+    form: 'AcadForm',
     validate
-})(SearchACStatistics);
+})(SearchAcad);
 
-SearchACStatistics = connect(
+SearchAcad = connect(
     state => ({
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
     }),
     dispatch => ({
         onSubmit({ startdate, enddate }) {
-            dispatch(
-                actions.startFetchingParticipationArtClubs(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingParticipationArtClub(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingParticipationArtClubF(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingParticipationArtClubM(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingParticipationSportClubs(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingParticipationSportClub(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingParticipationSportClubF(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingParticipationSportClubM(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
             dispatch(
                 actions.startFetchingParticipationAcadClubs(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
             );
@@ -121,18 +97,6 @@ SearchACStatistics = connect(
             dispatch(
                 actions.startFetchingParticipationAcadClubM(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
             );
-            dispatch(
-                actions.startFetchingParticipationAgrupations(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingParticipationAgrupation(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingParticipationAgrupationF(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
-            dispatch(
-                actions.startFetchingParticipationAgrupationM(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
-            );
             //dispatch(reset('acStatisticsForm'));
         },
     }),
@@ -143,6 +107,6 @@ SearchACStatistics = connect(
             ...ownProps,
         });
     },
-)(SearchACStatistics);
+)(SearchAcad);
 
-export default SearchACStatistics;
+export default SearchAcad;
