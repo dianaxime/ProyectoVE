@@ -1,3 +1,14 @@
 .chart-background {
     background-color: white;
 }
+
+.space {
+    margin-top: 10px;
+    padding-top: 10px;
+}
+
+.letra {
+    color: black;
+    padding-top: 10px;
+    padding-left: 20px;
+}

@@ -597,7 +597,7 @@ function* fetchFemaleScholars(action) {
 
                 yield put(
                     actions.completeFetchingFemaleScholars(
-                        jsonResult.data,
+                        jsonResult.data[0],
                     ),
                 );
             } else {
@@ -640,7 +640,7 @@ function* fetchMaleScholars(action) {
 
                 yield put(
                     actions.completeFetchingMaleScholars(
-                        jsonResult.data,
+                        jsonResult.data[0],
                     ),
                 );
             } else {
@@ -683,7 +683,7 @@ function* fetchCountEvents(action) {
 
                 yield put(
                     actions.completeFetchingCountEvents(
-                        jsonResult.data,
+                        jsonResult.data[0],
                     ),
                 );
             } else {

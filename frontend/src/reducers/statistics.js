@@ -600,7 +600,7 @@ import * as types from '../types/statistics';
   };
 
 
-  const byIdFemaleScholars = (state = [], action) => {
+  const byIdFemaleScholars = (state = {}, action) => {
     switch (action.type) {
       case types.FEMALE_SCHOLARS_FETCH_COMPLETED: {
         return action.payload.entities;
@@ -646,7 +646,7 @@ import * as types from '../types/statistics';
   };
 
 
-  const byIdMaleScholars = (state = [], action) => {
+  const byIdMaleScholars = (state = {}, action) => {
     switch (action.type) {
       case types.MALE_SCHOLARS_FETCH_COMPLETED: {
         return action.payload.entities;
@@ -692,7 +692,7 @@ import * as types from '../types/statistics';
   };
   
 
-  const byIdCountEvents = (state = [], action) => {
+  const byIdCountEvents = (state = {}, action) => {
     switch (action.type) {
       case types.COUNT_EVENTS_FETCH_COMPLETED: {
         return action.payload.entities;
