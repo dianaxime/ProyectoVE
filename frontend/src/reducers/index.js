@@ -22,6 +22,7 @@ import changeRole, * as changeRoleSelectors from './modalRoles';
 import changeChange, * as changeChangeSelectors from './modalChange';
 import changeUpdate, * as changeUpdateSelectors from './modalUpdate';
 import changeScholar, * as changeScholarSelectors from './modalScholarship';
+import checkScholarHours, * as checkScholarHoursSelectors from './modalUserScholarHours';
 import changeAssign, * as changeAssignSelectors from './modalAssign';
 
 import selectedWorkshop, * as selectedWorkshopSelectors from './selectedWorkshop';
@@ -43,6 +44,7 @@ const reducer = combineReducers({
   teams, 
   scholars,
   changeScholar,
+  checkScholarHours,
   selectedWorkshop,
   selectedTeam,
   participation,
@@ -97,6 +99,8 @@ export const getIsChangeOpen = state => changeChangeSelectors.getIsChangeOpen(st
 export const getIsUpdateOpen = state => changeUpdateSelectors.getIsUpdateOpen(state.changeUpdate);
 /* Assign Password Modal */
 export const getIsAssignOpen = state => changeAssignSelectors.getIsAssignOpen(state.changeAssign);
+/* User Scholar Hours Modal */
+export const getIsScholarHoursOpen = state => checkScholarHoursSelectors.getIsScholarHoursOpen(state.checkScholarHours);
 /* Workshops */
 export const getWorkshop = (state, id) => workshopsSelectors.getWorkshop(state.workshops, id);
 export const getWorkshops = state => workshopsSelectors.getWorkshops(state.workshops);

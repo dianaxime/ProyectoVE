@@ -645,7 +645,7 @@ const dropAssistanceTable = () => {
 const createAllTables = () => {
     /*createUserTable();
     createRegisterTable();
-    createWorkshoTable();
+    createWorkshopTable();
     createScholarsTable();
     createTeamTable();
     createParticipationTable();

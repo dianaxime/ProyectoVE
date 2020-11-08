@@ -38,8 +38,10 @@ import * as actionsAuth from '../../actions/auth';
 import * as actionsModal from '../../actions/modalChange';
 import * as actionsUpdate from '../../actions/modalUpdate';
 import * as actionsScholar from '../../actions/modalScholarship';
+import * as actionsScholarHours from '../../actions/modalUserScholarHours';
 import ChangeModal from '../ChangeModal';
 import UpdateModal from '../UpdateModal';
+import UserScholarHoursModal from '../UserScholarHoursModal';
 import ScholarshipHoursModal from '../scholarshipHoursModal';
 import './styles.css';
 import { Link } from "react-router-dom";
@@ -120,7 +122,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) => {
+const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar, onScholarHours }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -159,6 +161,11 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
   const scholar = () => {
     handleClose();
     onScholar();
+  }
+
+  const scholarhours = () => {
+    handleClose();
+    onScholarHours();
   }
 
   const handle = () => {
@@ -243,6 +250,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
                 <MenuItem onClick={update}>Actualizar Perfil</MenuItem>
                 <MenuItem onClick={handle}>Cambiar Contraseña</MenuItem>
                 <MenuItem onClick={scholar}>Voluntariado</MenuItem>
+                <MenuItem onClick={scholarhours}>Mis horas beca</MenuItem>
                 <MenuItem onClick={() => logout()}>Salir</MenuItem>
               </Menu>
             </div>
@@ -510,6 +518,7 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
       <ChangeModal />
       <UpdateModal />
       <ScholarshipHoursModal />
+      <UserScholarHoursModal />
     </div>
   );
 }
@@ -535,6 +544,9 @@ export default connect(
     },
     onScholar() {
       dispatch(actionsScholar.changeScholar(true));
+    },
+    onScholarHours() {
+      dispatch(actionsScholarHours.checkScholarHours(true));
     },
   }),
 )(Nav);

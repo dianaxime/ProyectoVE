@@ -178,7 +178,7 @@ function* fetchScholarsHours(action) {
 
               yield put(
                   actions.completeFetchingScholarsHours(
-                      jsonResult.data,
+                      jsonResult.data[0],
                   ),
               );
           } else {
