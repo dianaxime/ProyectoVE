@@ -24,3 +24,8 @@ body.modal-open{
     background-size: cover;
     display: flex;
 }
+
+.CarouselDiv{
+    height: 300rem;
+    margin-top: 5rem;
+}
