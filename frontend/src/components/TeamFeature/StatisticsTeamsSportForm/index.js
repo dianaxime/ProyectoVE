@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {
     getAuthToken,
 } from '../../../reducers';
-import { reset, Field, reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import * as actions from '../../../actions/statistics';
 import './styles.css';
 import DateFnsUtils from '@date-io/date-fns';
@@ -94,7 +94,7 @@ SearchTeamsSportStatistics = connect(
             dispatch(
                 actions.startFetchingTeamstSport(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
             );
-            dispatch(reset('teamsStatisticsFormSport'));
+            //dispatch(reset('teamsStatisticsFormSport'));
         },
     }),
     (stateProps, dispatchProps, ownProps) => {

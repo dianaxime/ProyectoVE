@@ -45,7 +45,7 @@ const renderDateTimePicker = ({ input: { onChange, value }, label, meta: { touch
     </MuiPickersUtilsProvider>
 );
 
-let SearchWorkshopsStatistics = ({
+let SearchDeport = ({
     onSubmit,
     isLoading,
     handleSubmit, }) => {
@@ -73,22 +73,31 @@ let SearchWorkshopsStatistics = ({
     );
 }
 
-SearchWorkshopsStatistics = reduxForm({
-    form: 'workshopsStatisticsForm',
+SearchDeport = reduxForm({
+    form: 'DeportForm',
     validate
-})(SearchWorkshopsStatistics);
+})(SearchDeport);
 
-SearchWorkshopsStatistics = connect(
+SearchDeport = connect(
     state => ({
         isLoading: false,
         isAuth: getAuthToken(state) !== null,
     }),
     dispatch => ({
         onSubmit({ startdate, enddate }) {
-            dispatch(actions.startFetchingParticipationWK(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD')));
-            dispatch(actions.startFetchingParticipationWKG(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD')));
-            dispatch(actions.startFetchingParticipationWKTime(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD')));
-            dispatch(actions.startFetchingParticipationWKTimeG(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD')));
+            dispatch(
+                actions.startFetchingParticipationSportClubs(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
+            );
+            dispatch(
+                actions.startFetchingParticipationSportClub(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
+            );
+            dispatch(
+                actions.startFetchingParticipationSportClubF(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
+            );
+            dispatch(
+                actions.startFetchingParticipationSportClubM(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
+            );
+            //dispatch(reset('acStatisticsForm'));
         },
     }),
     (stateProps, dispatchProps, ownProps) => {
@@ -98,6 +107,6 @@ SearchWorkshopsStatistics = connect(
             ...ownProps,
         });
     },
-)(SearchWorkshopsStatistics);
+)(SearchDeport);
 
-export default SearchWorkshopsStatistics;
+export default SearchDeport;

@@ -41,7 +41,11 @@ const {
     getParticipationAgrupation,
     getParticipationAgrupationByClub,
     getFemaleParticipationAgrupationByClub,
-    getMaleParticipationAgrupationByClub
+    getMaleParticipationAgrupationByClub,
+    getParticipationAssociation,
+    getParticipationAssociationByClub,
+    getFemaleParticipationAssociationByClub,
+    getMaleParticipationAssociationByClub,
 } = require('../controllers/statisticsController');
 
 const router = express.Router();
@@ -84,7 +88,7 @@ router.get('/statistics/female-participations-sport-clubs-by-club/:startdate/:en
 router.get('/statistics/male-participations-sport-clubs-by-club/:startdate/:enddate', verifyAuth, getMaleParticipationSportClubsByClub);
 /*Academic club statistics */
 router.get('/statistics/participations-academic-clubs/:startdate/:enddate', verifyAuth, getParticipationAcademicClubs);
-router.get('/statistics/participations-academic-clubs-by-club/:startdate/:enddate', verifyAuth, getParticipationAcademicClubsByClub);
+router.get('/statistics/participations-academic-clubs/:startdate/:enddate', verifyAuth, getParticipationAcademicClubsByClub);
 router.get('/statistics/female-participations-academic-clubs-by-club/:startdate/:enddate', verifyAuth, getFemaleParticipationAcademicClubsByClub);
 router.get('/statistics/male-participations-academic-clubs-by-club/:startdate/:enddate', verifyAuth, getMaleParticipationAcademicClubsByClub);
 /*Agrupations statistics */
@@ -92,7 +96,11 @@ router.get('/statistics/participations-agrupations/:startdate/:enddate', verifyA
 router.get('/statistics/participations-agrupations-by-agrupation/:startdate/:enddate', verifyAuth, getParticipationAgrupationByClub);
 router.get('/statistics/female-participations-agrupations-by-agrupation/:startdate/:enddate', verifyAuth, getFemaleParticipationAgrupationByClub);
 router.get('/statistics/male-participations-agrupations-by-agrupation/:startdate/:enddate', verifyAuth, getMaleParticipationAgrupationByClub);
-
+/**ASSOCIATION STATISTICS */
+router.get('/statistics/participations-associations/:startdate/:enddate', verifyAuth, getParticipationAssociation);
+router.get('/statistics/participations-associations-by-association/:startdate/:enddate', verifyAuth, getParticipationAssociationByClub);
+router.get('/statistics/female-participations-associations-by-association/:startdate/:enddate', verifyAuth, getFemaleParticipationAssociationByClub);
+router.get('/statistics/male-participations-associations-by-association/:startdate/:enddate', verifyAuth, getMaleParticipationAssociationByClub);
 
 
 

@@ -13,6 +13,13 @@
     height: 70px;
 }*/
 
+.boton_persona{
+    background-color: transparent;
+    border:solid rgb(209, 209, 209) 0.4px;
+    margin-left: 2px;
+    color: rgb(209, 209, 209);
+}
+
 .inputPersonaS{
     color: rgb(170, 169, 169);
     font-size: 10px;
