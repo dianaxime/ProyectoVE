@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {
     getAuthToken,
 } from '../../../reducers';
-import { reset, Field, reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import * as actions from '../../../actions/statistics';
 import './styles.css';
 import DateFnsUtils from '@date-io/date-fns';
@@ -85,7 +85,16 @@ SearchEventsStatistics = connect(
     }),
     dispatch => ({
         onSubmit({ startdate, enddate }) {
-            dispatch(reset('eventsStatisticsForm'));
+            dispatch(
+                actions.startFetchingFemaleScholars(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
+            );
+            dispatch(
+                actions.startFetchingMaleScholars(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
+            );
+            dispatch(
+                actions.startFetchingCountEvents(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
+            );
+            //dispatch(reset('eventsStatisticsForm'));
         },
     }),
     (stateProps, dispatchProps, ownProps) => {

@@ -1,0 +1,27 @@
+.datosStatic{
+    background-color: white;
+}
+
+.formStatistic{
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+    justify-content: space-evenly;
+    width: 1200px;
+    max-width: 1300px;
+}
+
+.div-inputs{
+    display: flex;
+    flex-direction: row;
+    align-content: space-between;
+    width: 600px;
+}
+
+.space{
+    color: white;
+}
+
+.subtittle{
+    margin-top: 25px;
+}

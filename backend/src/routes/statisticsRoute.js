@@ -84,7 +84,7 @@ router.get('/statistics/female-participations-sport-clubs-by-club/:startdate/:en
 router.get('/statistics/male-participations-sport-clubs-by-club/:startdate/:enddate', verifyAuth, getMaleParticipationSportClubsByClub);
 /*Academic club statistics */
 router.get('/statistics/participations-academic-clubs/:startdate/:enddate', verifyAuth, getParticipationAcademicClubs);
-router.get('/statistics/participations-academic-clubs-by-club/:startdate/:enddate', verifyAuth, getParticipationAcademicClubsByClub);
+router.get('/statistics/participations-academic-clubs/:startdate/:enddate', verifyAuth, getParticipationAcademicClubsByClub);
 router.get('/statistics/female-participations-academic-clubs-by-club/:startdate/:enddate', verifyAuth, getFemaleParticipationAcademicClubsByClub);
 router.get('/statistics/male-participations-academic-clubs-by-club/:startdate/:enddate', verifyAuth, getMaleParticipationAcademicClubsByClub);
 /*Agrupations statistics */

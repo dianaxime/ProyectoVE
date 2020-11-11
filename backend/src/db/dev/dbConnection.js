@@ -683,10 +683,11 @@ const dropAllTables = () => {
     dropRolesTable();
     dropRolesRelationshipTable();
     dropTeamTable();
+    dropScholarsTable();
     dropACTable();
-    dropACrelationshipTable();
-    dropScholarsTable();*/
     dropAssistanceTable();
+    */
+   dropACrelationshipTable();
 };
 
 pool.on('remove', () => {
