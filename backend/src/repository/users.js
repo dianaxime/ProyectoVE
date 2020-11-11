@@ -43,6 +43,16 @@ JOIN sessions ON assistance.ids=sessions.id
 JOIN association_club on association_club.id=sessions.idac 
 WHERE users.id=$1`;
 
+const GET_SCHOLAR_HOURS=`select cast(SUM(event_participation.hours) as int) from event_participation 
+join users on event_participation.userid = users.id 
+join event on event_participation.ide = event.id 
+where event.date>=$1 and event.date<=$2 and users.id=$3;`;
+
+const GET_ROLE=`select roles.id, roles.role from roles_relationship
+join users on roles_relationship.userid = users.id 
+join roles on roles_relationship.idr = roles.id 
+where users.id=$1`;
+
 async function createUserQuery({email, password}) {
     
     const created_on = moment(new Date());
@@ -248,6 +258,26 @@ async function getPendingQuery() {
     return data;
 };
 
+async function getScholarHourseQuery({ startdate, enddate, userid }){
+    const values = [
+        startdate,
+        enddate,
+        userid
+    ];
+
+    const data = await db.query(GET_SCHOLAR_HOURS, values);
+    return data;
+};
+
+async function getRoleQuery({ userid }){
+    const values = [
+        userid
+    ];
+
+    const data = await db.query(GET_ROLE, values);
+    return data;
+};
+
 module.exports = {
     createUserQuery,
     loginUserQuery,
@@ -262,5 +292,7 @@ module.exports = {
     getStudentsWSByIdQuery,
     getStudentsCByIdQuery,
     getStudentsAByIdQuery,
-    getStudentsSessionsByIdQuery
+    getStudentsSessionsByIdQuery,
+    getScholarHourseQuery,
+    getRoleQuery
 };

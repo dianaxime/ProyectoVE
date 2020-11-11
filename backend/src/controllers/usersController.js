@@ -31,7 +31,9 @@ const {
     getStudentsWSByIdQuery,
     getStudentsAByIdQuery,
     getStudentsCByIdQuery,
-    getStudentsSessionsByIdQuery
+    getStudentsSessionsByIdQuery,
+    getScholarHourseQuery,
+    getRoleQuery
 } = require('../repository/users');
 
 /**
@@ -657,6 +659,80 @@ const getPending = async (req, res) => {
     })
 };
 
+/**
+ * Get scholar hours of user
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getScholarHours = async (req, res) => {
+    
+    const startdate = req.params.startdate;
+    const enddate = req.params.enddate; 
+    var userid=req.user;
+    userid=userid.userid
+    
+
+    if (empty(startdate) || empty(enddate)) {
+        errorMessage.error = 'startdate or enddate detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    getScholarHourseQuery({startdate, enddate, userid})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no participations in agrupations found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Get role user
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getRole = async (req, res) => { 
+    var userid=req.user;
+    userid=userid.userid
+    
+    getRoleQuery({userid})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no user found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+        let seen = {};
+        for (let i = 0; i < data.length; i++) {
+            let title = data[i].role.replace(/ /g, '')
+            seen[title] = true
+        }
+           
+        successMessage.data = seen;
+        return res.status(status.success).send(successMessage);
+    })
+        .catch(error => {
+            console.log('ERROR:', error); // print the error;
+            errorMessage.error = 'Operation was not successful';
+            return res.status(status.error).send(errorMessage);
+        })
+    };
+    
+var merge = function() { var destination = {}, sources = [].slice.call( arguments, 0 ); sources.forEach(function( source ) { var prop; for ( prop in source ) { if ( prop in destination && Array.isArray( destination[ prop ] ) ) {  destination[ prop ] = destination[ prop ].concat( source[ prop ] ); } else if ( prop in destination && typeof destination[ prop ] === "object" ) { destination[ prop ] = merge( destination[ prop ], source[ prop ] ); } else {  destination[ prop ] = source[ prop ]; } } }); return destination; }; 
+
 module.exports = {
     createUser,
     loginUser,
@@ -672,5 +748,7 @@ module.exports = {
     getStudentsWSById,
     getStudentsCbyId,
     getStudentsAbyId,
-    getStudentsSessionsById
+    getStudentsSessionsById,
+    getScholarHours,
+    getRole
 };

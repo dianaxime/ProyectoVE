@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import clsx from 'clsx';
 import { getAuthToken, getIsOpen } from '../../reducers';
@@ -7,6 +7,7 @@ import Nav from '../Nav';
 import { makeStyles } from '@material-ui/core/styles';
 import './style_home.css';
 import Footer from '../Footer';
+import * as actions from '../../actions/roles';
 
 const drawerWidth = 240;
 
@@ -40,8 +41,9 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Home = ({ open }) => {
+const Home = ({ open, onLoad }) => {
     const classes = useStyles();
+    useEffect(onLoad, []);
     return (
         <div className="bghome">
             <Nav />
@@ -88,7 +90,11 @@ export default connect(
         isAuth: getAuthToken(state) !== null,
         open: getIsOpen(state),
     }),
-    undefined,
+    dispatch => ({
+        onLoad() {
+            dispatch(actions.startFetchRoles());
+        },
+    }),
     (stateProps, disptachProps, ownProps) => {
         if (!stateProps.isAuth) {
             window.location.href = URL + 'auth';

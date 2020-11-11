@@ -32,7 +32,7 @@ import SecurityIcon from '@material-ui/icons/Security';
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import Collapse from '@material-ui/core/Collapse';
 import { connect } from 'react-redux';
-import { getAuthToken, getIsOpen } from '../../reducers';
+import { getAuthToken, getIsOpen, getUserRoles } from '../../reducers';
 import * as actions from '../../actions/changeDrawer';
 import * as actionsAuth from '../../actions/auth';
 import * as actionsModal from '../../actions/modalChange';
@@ -120,7 +120,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) => {
+const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar, userRoles }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -275,236 +275,249 @@ const Nav = ({ isAuth, open, setOpen, logout, onHandle, onUpdate, onScholar }) =
           </Link>
         </List>
         <Divider />
-        <List>
-          <ListItem button onClick={handleClickWorkshop}>
-            <ListItemIcon>
-              <BrushIcon />
-            </ListItemIcon>
-            <ListItemText primary="Talleres" />
-            {openW ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={openW} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <Link to="/creartaller" className={classes.link} onClick={handleDrawerClose}>
-                <ListItem button className={classes.nested}>
-                  <ListItemIcon>
-                    <ListItemText primary={"Crear"} />
-                    <ListItemSecondaryAction>
-                      <NoteAddIcon />
-                    </ListItemSecondaryAction>
-                  </ListItemIcon>
-                </ListItem>
-              </Link>
-              <Link to="/talleres" className={classes.link} onClick={handleDrawerClose}>
-                <ListItem button className={classes.nested}>
-                  <ListItemIcon>
-                    <ListItemText primary={"Ver todos"} />
-                    <ListItemSecondaryAction>
-                      <ViewModuleRoundedIcon />
-                    </ListItemSecondaryAction>
-                  </ListItemIcon>
-                </ListItem>
-              </Link>
-              <Link to="/estadisticasTalleres" className={classes.link} onClick={handleDrawerClose}>
-                <ListItem button className={classes.nested}>
-                  <ListItemIcon>
-                    <ListItemText primary={"Estadísticas"} />
-                    <ListItemSecondaryAction>
-                      <InsertChartIcon />
-                    </ListItemSecondaryAction>
-                  </ListItemIcon>
-                </ListItem>
-              </Link>
-            </List>
-          </Collapse>
-        </List>
-        <Divider />
-        <List>
-          <ListItem button onClick={handleClickTeam}>
-            <ListItemIcon>
-              <SportsIcon />
-            </ListItemIcon>
-            <ListItemText primary="Equipos" />
-            {openT ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={openT} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <Link to="/crearequipo" className={classes.link} onClick={handleDrawerClose}>
-                <ListItem button className={classes.nested}>
-                  <ListItemIcon>
-                    <ListItemText primary={"Crear"} />
-                    <ListItemSecondaryAction>
-                      <NoteAddIcon />
-                    </ListItemSecondaryAction>
-                  </ListItemIcon>
-                </ListItem>
-              </Link>
-              <Link to="/equipos" className={classes.link} onClick={handleDrawerClose}>
-                <ListItem button className={classes.nested}>
-                  <ListItemIcon>
-                    <ListItemText primary={"Ver todos"} />
-                    <ListItemSecondaryAction>
-                      <ViewModuleRoundedIcon />
-                    </ListItemSecondaryAction>
-                  </ListItemIcon>
-                </ListItem>
-              </Link>
-              <Link to="/estadisticasEquipos" className={classes.link} onClick={handleDrawerClose}>
-                <ListItem button className={classes.nested}>
-                  <ListItemIcon>
-                    <ListItemText primary={"Estadísticas"} />
-                    <ListItemSecondaryAction>
-                      <InsertChartIcon />
-                    </ListItemSecondaryAction>
-                  </ListItemIcon>
-                </ListItem>
-              </Link>
-            </List>
-          </Collapse>
-        </List>
-        <Divider />
-        <List>
-          <ListItem button onClick={handleClickEvent}>
-            <ListItemIcon>
-              <EventNoteIcon />
-            </ListItemIcon>
-            <ListItemText primary="Eventos" />
-            {openE ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={openE} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <Link to="/crearevento" className={classes.link} onClick={handleDrawerClose}>
-                <ListItem button className={classes.nested}>
-                  <ListItemIcon>
-                    <ListItemText primary={"Crear"} />
-                    <ListItemSecondaryAction>
-                      <NoteAddIcon />
-                    </ListItemSecondaryAction>
-                  </ListItemIcon>
-                </ListItem>
-              </Link>
-              <Link to="/eventos" className={classes.link} onClick={handleDrawerClose}>
-                <ListItem button className={classes.nested}>
-                  <ListItemIcon>
-                    <ListItemText primary={"Ver todos"} />
-                    <ListItemSecondaryAction>
-                      <ViewModuleRoundedIcon />
-                    </ListItemSecondaryAction>
-                  </ListItemIcon>
-                </ListItem>
-              </Link>
-              <Link to="/estadisticasEventos" className={classes.link} onClick={handleDrawerClose}>
-                <ListItem button className={classes.nested}>
-                  <ListItemIcon>
-                    <ListItemText primary={"Estadísticas"} />
-                    <ListItemSecondaryAction>
-                      <InsertChartIcon />
-                    </ListItemSecondaryAction>
-                  </ListItemIcon>
-                </ListItem>
-              </Link>
-            </List>
-          </Collapse>
-        </List>
-        <Divider />
-        <List>
-          <ListItem button onClick={handleClickAssociationClub}>
-            <ListItemIcon>
-              <WcIcon />
-            </ListItemIcon>
-            <ListItemText primary="Asociaciones y Clubes" />
-            {openAC ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={openAC} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <Link to="/crearAsociacionClub" className={classes.link} onClick={handleDrawerClose}>
-                <ListItem button className={classes.nested}>
-                  <ListItemIcon>
-                    <ListItemText primary={"Crear"} />
-                    <ListItemSecondaryAction>
-                      <NoteAddIcon />
-                    </ListItemSecondaryAction>
-                  </ListItemIcon>
-                </ListItem>
-              </Link>
-              <Link to="/asociacionesClubs" className={classes.link} onClick={handleDrawerClose}>
-                <ListItem button className={classes.nested}>
-                  <ListItemIcon>
-                    <ListItemText primary={"Ver todos"} />
-                    <ListItemSecondaryAction>
-                      <ViewModuleRoundedIcon />
-                    </ListItemSecondaryAction>
-                  </ListItemIcon>
-                </ListItem>
-              </Link>
-              <Link to="/estadisticasAsociacionClub" className={classes.link} onClick={handleDrawerClose}>
-                <ListItem button className={classes.nested}>
-                  <ListItemIcon>
-                    <ListItemText primary={"Estadísticas"} />
-                    <ListItemSecondaryAction>
-                      <InsertChartIcon />
-                    </ListItemSecondaryAction>
-                  </ListItemIcon>
-                </ListItem>
-              </Link>
-            </List>
-          </Collapse>
-        </List>
-        <Divider />
-        <List>
-          <Link to="/sessions" className={classes.link} onClick={handleDrawerClose}>
-            <ListItem button>
+        {(userRoles.Miembrotaller || userRoles.Asistentes || userRoles.Administrador) && (
+          <List>
+            <ListItem button onClick={handleClickWorkshop}>
               <ListItemIcon>
-                <ViewModuleRoundedIcon />
+                <BrushIcon />
               </ListItemIcon>
-              <ListItemText primary={"Asistencia"} />
+              <ListItemText primary="Talleres" />
+              {openW ? <ExpandLess /> : <ExpandMore />}
             </ListItem>
-          </Link>
-        </List>
+            <Collapse in={openW} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <Link to="/creartaller" className={classes.link} onClick={handleDrawerClose}>
+                  <ListItem button className={classes.nested}>
+                    <ListItemIcon>
+                      <ListItemText primary={"Crear"} />
+                      <ListItemSecondaryAction>
+                        <NoteAddIcon />
+                      </ListItemSecondaryAction>
+                    </ListItemIcon>
+                  </ListItem>
+                </Link>
+                <Link to="/talleres" className={classes.link} onClick={handleDrawerClose}>
+                  <ListItem button className={classes.nested}>
+                    <ListItemIcon>
+                      <ListItemText primary={"Ver todos"} />
+                      <ListItemSecondaryAction>
+                        <ViewModuleRoundedIcon />
+                      </ListItemSecondaryAction>
+                    </ListItemIcon>
+                  </ListItem>
+                </Link>
+                <Link to="/estadisticasTalleres" className={classes.link} onClick={handleDrawerClose}>
+                  <ListItem button className={classes.nested}>
+                    <ListItemIcon>
+                      <ListItemText primary={"Estadísticas"} />
+                      <ListItemSecondaryAction>
+                        <InsertChartIcon />
+                      </ListItemSecondaryAction>
+                    </ListItemIcon>
+                  </ListItem>
+                </Link>
+              </List>
+            </Collapse>
+          </List>
+        )
+        }
         <Divider />
-        <List>
-          <ListItem button onClick={handleClickRT}>
-            <ListItemIcon>
-              <SecurityIcon />
-            </ListItemIcon>
-            <ListItemText primary="Autorización" />
-            {openRT ? <ExpandLess /> : <ExpandMore />}
-          </ListItem>
-          <Collapse in={openRT} timeout="auto" unmountOnExit>
-            <List component="div" disablePadding>
-              <Link to="/authorization" className={classes.link} onClick={handleDrawerClose}>
-                <ListItem button className={classes.nested}>
-                  <ListItemIcon>
-                    <ListItemText primary={"Autorización de usuarios"} />
-                    <ListItemSecondaryAction>
-                      <VerifiedUserIcon />
-                    </ListItemSecondaryAction>
-                  </ListItemIcon>
-                </ListItem>
-              </Link>
-              <Link to="/roles" className={classes.link} onClick={handleDrawerClose}>
-                <ListItem button className={classes.nested}>
-                  <ListItemIcon>
-                    <ListItemText primary={"Roles de usuario"} />
-                    <ListItemSecondaryAction>
-                      <AssignmentIndIcon />
-                    </ListItemSecondaryAction>
-                  </ListItemIcon>
-                </ListItem>
-              </Link>
-              <Link to="/asignaroles" className={classes.link} onClick={handleDrawerClose}>
-                <ListItem button className={classes.nested}>
-                  <ListItemIcon>
-                    <ListItemText primary={"Asignación de Roles"} />
-                    <ListItemSecondaryAction>
-                      <SupervisedUserCircleIcon />
-                    </ListItemSecondaryAction>
-                  </ListItemIcon>
-                </ListItem>
-              </Link>
-            </List>
-          </Collapse>
-        </List>
+        {(userRoles.Miembroequipo || userRoles.Asistentes || userRoles.Administrador) && (
+          <List>
+            <ListItem button onClick={handleClickTeam}>
+              <ListItemIcon>
+                <SportsIcon />
+              </ListItemIcon>
+              <ListItemText primary="Equipos" />
+              {openT ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+            <Collapse in={openT} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <Link to="/crearequipo" className={classes.link} onClick={handleDrawerClose}>
+                  <ListItem button className={classes.nested}>
+                    <ListItemIcon>
+                      <ListItemText primary={"Crear"} />
+                      <ListItemSecondaryAction>
+                        <NoteAddIcon />
+                      </ListItemSecondaryAction>
+                    </ListItemIcon>
+                  </ListItem>
+                </Link>
+                <Link to="/equipos" className={classes.link} onClick={handleDrawerClose}>
+                  <ListItem button className={classes.nested}>
+                    <ListItemIcon>
+                      <ListItemText primary={"Ver todos"} />
+                      <ListItemSecondaryAction>
+                        <ViewModuleRoundedIcon />
+                      </ListItemSecondaryAction>
+                    </ListItemIcon>
+                  </ListItem>
+                </Link>
+                <Link to="/estadisticasEquipos" className={classes.link} onClick={handleDrawerClose}>
+                  <ListItem button className={classes.nested}>
+                    <ListItemIcon>
+                      <ListItemText primary={"Estadísticas"} />
+                      <ListItemSecondaryAction>
+                        <InsertChartIcon />
+                      </ListItemSecondaryAction>
+                    </ListItemIcon>
+                  </ListItem>
+                </Link>
+              </List>
+            </Collapse>
+          </List>
+        )}
+        <Divider />
+        {(userRoles.Auxiliareventos || userRoles.Asistentes || userRoles.Administrador) && (
+          <List>
+            <ListItem button onClick={handleClickEvent}>
+              <ListItemIcon>
+                <EventNoteIcon />
+              </ListItemIcon>
+              <ListItemText primary="Eventos" />
+              {openE ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+            <Collapse in={openE} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <Link to="/crearevento" className={classes.link} onClick={handleDrawerClose}>
+                  <ListItem button className={classes.nested}>
+                    <ListItemIcon>
+                      <ListItemText primary={"Crear"} />
+                      <ListItemSecondaryAction>
+                        <NoteAddIcon />
+                      </ListItemSecondaryAction>
+                    </ListItemIcon>
+                  </ListItem>
+                </Link>
+                <Link to="/eventos" className={classes.link} onClick={handleDrawerClose}>
+                  <ListItem button className={classes.nested}>
+                    <ListItemIcon>
+                      <ListItemText primary={"Ver todos"} />
+                      <ListItemSecondaryAction>
+                        <ViewModuleRoundedIcon />
+                      </ListItemSecondaryAction>
+                    </ListItemIcon>
+                  </ListItem>
+                </Link>
+                <Link to="/estadisticasEventos" className={classes.link} onClick={handleDrawerClose}>
+                  <ListItem button className={classes.nested}>
+                    <ListItemIcon>
+                      <ListItemText primary={"Estadísticas"} />
+                      <ListItemSecondaryAction>
+                        <InsertChartIcon />
+                      </ListItemSecondaryAction>
+                    </ListItemIcon>
+                  </ListItem>
+                </Link>
+              </List>
+            </Collapse>
+          </List>
+        )}
+        <Divider />
+        {(userRoles.Miembroasociacion || userRoles.Miembroclub || userRoles.Asistentes || userRoles.Administrador) &&(
+          <List>
+            <ListItem button onClick={handleClickAssociationClub}>
+              <ListItemIcon>
+                <WcIcon />
+              </ListItemIcon>
+              <ListItemText primary="Asociaciones y Clubes" />
+              {openAC ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+            <Collapse in={openAC} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <Link to="/crearAsociacionClub" className={classes.link} onClick={handleDrawerClose}>
+                  <ListItem button className={classes.nested}>
+                    <ListItemIcon>
+                      <ListItemText primary={"Crear"} />
+                      <ListItemSecondaryAction>
+                        <NoteAddIcon />
+                      </ListItemSecondaryAction>
+                    </ListItemIcon>
+                  </ListItem>
+                </Link>
+                <Link to="/asociacionesClubs" className={classes.link} onClick={handleDrawerClose}>
+                  <ListItem button className={classes.nested}>
+                    <ListItemIcon>
+                      <ListItemText primary={"Ver todos"} />
+                      <ListItemSecondaryAction>
+                        <ViewModuleRoundedIcon />
+                      </ListItemSecondaryAction>
+                    </ListItemIcon>
+                  </ListItem>
+                </Link>
+                <Link to="/estadisticasAsociacionClub" className={classes.link} onClick={handleDrawerClose}>
+                  <ListItem button className={classes.nested}>
+                    <ListItemIcon>
+                      <ListItemText primary={"Estadísticas"} />
+                      <ListItemSecondaryAction>
+                        <InsertChartIcon />
+                      </ListItemSecondaryAction>
+                    </ListItemIcon>
+                  </ListItem>
+                </Link>
+              </List>
+            </Collapse>
+          </List>
+        )}
+        <Divider />
+        {(userRoles.Miembroclub || userRoles.Asistentes || userRoles.Administrador) && (
+          <List>
+            <Link to="/sessions" className={classes.link} onClick={handleDrawerClose}>
+              <ListItem button>
+                <ListItemIcon>
+                  <ViewModuleRoundedIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Asistencia"} />
+              </ListItem>
+            </Link>
+          </List>
+        )}
+        <Divider />
+        {userRoles.Administrador && (
+          <List>
+            <ListItem button onClick={handleClickRT}>
+              <ListItemIcon>
+                <SecurityIcon />
+              </ListItemIcon>
+              <ListItemText primary="Autorización" />
+              {openRT ? <ExpandLess /> : <ExpandMore />}
+            </ListItem>
+            <Collapse in={openRT} timeout="auto" unmountOnExit>
+              <List component="div" disablePadding>
+                <Link to="/authorization" className={classes.link} onClick={handleDrawerClose}>
+                  <ListItem button className={classes.nested}>
+                    <ListItemIcon>
+                      <ListItemText primary={"Autorización de usuarios"} />
+                      <ListItemSecondaryAction>
+                        <VerifiedUserIcon />
+                      </ListItemSecondaryAction>
+                    </ListItemIcon>
+                  </ListItem>
+                </Link>
+                <Link to="/roles" className={classes.link} onClick={handleDrawerClose}>
+                  <ListItem button className={classes.nested}>
+                    <ListItemIcon>
+                      <ListItemText primary={"Roles de usuario"} />
+                      <ListItemSecondaryAction>
+                        <AssignmentIndIcon />
+                      </ListItemSecondaryAction>
+                    </ListItemIcon>
+                  </ListItem>
+                </Link>
+                <Link to="/asignaroles" className={classes.link} onClick={handleDrawerClose}>
+                  <ListItem button className={classes.nested}>
+                    <ListItemIcon>
+                      <ListItemText primary={"Asignación de Roles"} />
+                      <ListItemSecondaryAction>
+                        <SupervisedUserCircleIcon />
+                      </ListItemSecondaryAction>
+                    </ListItemIcon>
+                  </ListItem>
+                </Link>
+              </List>
+            </Collapse>
+          </List>
+        )}
         <Divider />
       </Drawer>
       <ChangeModal />
@@ -518,6 +531,7 @@ export default connect(
   state => ({
     isAuth: getAuthToken(state) !== null,
     open: getIsOpen(state),
+    userRoles: getUserRoles(state),
   }),
   dispatch => ({
     logout() {

@@ -14,7 +14,8 @@ import associationClubRelationship, * as associationClubRelationshipSelectors fr
 import sessions, * as sessionsSelectors from './sessions';
 import associationClub, * as associationClubSelectors from './associationClub'; 
 import assistances, * as assistancesSelectors from './assistances'; 
-import statistics, * as statisticsSelectors from './statistics'; 
+import statistics, * as statisticsSelectors from './statistics';
+import roles, * as rolesSelectors from './roles'; 
 
 import changeDrawer, * as changeDrawerSelectors from './changeDrawer';
 import changeForgot, * as changeForgotSelectors from './modalForgot';
@@ -61,6 +62,7 @@ const reducer = combineReducers({
   selectedSession,
   assistances,
   statistics,
+  roles,
   form: formReducer,
 });
 
@@ -203,7 +205,7 @@ export const getFetchingSessionError = state => sessionsSelectors.getFetchingSes
 export const getSessionStatus = state => sessionsSelectors.getSessionStatus(state.sessions);
 export const getSessionFormat = state => sessionsSelectors.getSessionFormat(state.sessions);
 /* Selected Session*/
-export const getSelectedSession = (state) => selectedSessionSelectors.getSelectedSession(state.selectedSession)
+export const getSelectedSession = state => selectedSessionSelectors.getSelectedSession(state.selectedSession);
 /* Assistances */
 export const getUserByEmailAssistance = (state, id) => assistancesSelectors.getUserByEmailAssistance(state.assistances, id);
 export const getUsersOrderAssistance = state => assistancesSelectors.getUsersOrderAssistance(state.assistances);
@@ -254,3 +256,5 @@ export const getFetchingParticipationwkTimeError = state => statisticsSelectors.
 export const getParticipationwkG = state => statisticsSelectors.getParticipationwkG(state.statistics);
 export const getIsFetchingParticipationwkG = state => statisticsSelectors.getIsFetchingParticipationwkG(state.statistics);
 export const getFetchingParticipationwkGError = state => statisticsSelectors.getFetchingParticipationwkGError(state.statistics);
+/* Roles */
+export const getUserRoles = state => rolesSelectors.getUserRoles(state.roles)
