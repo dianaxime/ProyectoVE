@@ -38,7 +38,7 @@ router.get('/auth/student-email/:email', verifyAuth, getStudentByEmail);
 router.get('/auth/students-teams', verifyAuth, getStudentsTeamsById);
 router.get('/auth/students-workshops', verifyAuth, getStudentsWSById);
 router.get('/auth/students-associations/:id', verifyAuth, getStudentsAbyId);
-router.get('/auth/students-clubs/:id', verifyAuth, getStudentsCbyId);
+router.get('/auth/students-clubs/', verifyAuth, getStudentsCbyId);
 router.get('/auth/students-sessions/:id', verifyAuth, getStudentsSessionsById);
 router.get('/auth/scholars-hours/:startdate/:enddate', verifyAuth, getScholarHours);
 router.get('/auth/role/', verifyAuth, getRole);

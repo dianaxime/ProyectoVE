@@ -36,7 +36,7 @@ const GET_ASSOCIATION_BY_STUDENT_ID=`SELECT association_club.name, association_c
 JOIN association_club ON association_club.id=association_club_relationship.idac WHERE users.id=$1 and association_club.type='asociación'`;
 
 const GET_CLUB_BY_STUDENT_ID=`SELECT association_club.name, association_club.description FROM users JOIN association_club_relationship ON users.id=association_club_relationship.userid
-JOIN association_club ON association_club.id=association_club_relationship.idac WHERE users.id=$1 and association_club.type='club'`;
+JOIN association_club ON association_club.id=association_club_relationship.idac WHERE users.id=$1 and association_club_relationship.startdate<=$2 and association_club_relationship.enddate>=$2  `;
 
 const GET_SESSIONS_BY_STUDENT_ID=`SELECT sessions.date, association_club.name FROM users JOIN assistance ON users.id=assistance.userid
 JOIN sessions ON assistance.ids=sessions.id
@@ -171,10 +171,12 @@ async function getStudentsAByIdQuery( id ) {
     return data;
 };
 
-async function getStudentsCByIdQuery( id ) {
+async function getStudentsCByIdQuery( {id, date} ) {
 
     const values = [
-        id
+        id,
+        date
+
     ];
 
     const data = await db.query(GET_CLUB_BY_STUDENT_ID, values);
@@ -184,7 +186,7 @@ async function getStudentsCByIdQuery( id ) {
 async function getStudentsSessionsByIdQuery( id ) {
 
     const values = [
-        id
+        id,
     ];
 
     const data = await db.query(GET_SESSIONS_BY_STUDENT_ID, values);
