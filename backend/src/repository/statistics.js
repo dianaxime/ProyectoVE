@@ -104,88 +104,109 @@ const GET_USERS_BY_CAREER_AND_MALE=`select users.sex, users.career, cast(COUNT(*
 const GET_USERS_BY_CAREER_AND_FEMALE=`select users.sex, users.career, cast(COUNT(*) as int) from users where users.sex = 'F' group by users.career, users.sex`;
 
 /*statisticS of participation for artistic club */
-const GET_PARTICIPATION_OF_ARTISTIC_CLUB=`select cast(COUNT(distinct(userid)) as int) from association_club_relationship 
+const GET_PARTICIPATION_OF_ARTISTIC_CLUB=`select cast(COALESCE(COUNT(distinct(userid)), 0) as int) as count from association_club_relationship 
 join users on users.id = association_club_relationship.userid 
 join association_club on association_club.id = association_club_relationship.idac 
-where association_club.type='club académico' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2`;
+where association_club.type='Club artistico' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2`;
 
-const GET_PARTICIPATION_OF_ARTISTIC_CLUB_BY_CLUB=`select association_club.name, cast(COUNT(distinct(userid)) as int) from association_club_relationship 
+const GET_PARTICIPATION_OF_ARTISTIC_CLUB_BY_CLUB=`select association_club.name, cast(COALESCE(COUNT(distinct(userid)), 0) as int) as count from association_club_relationship 
 join users on users.id = association_club_relationship.userid 
 join association_club on association_club.id = association_club_relationship.idac 
-where association_club.type='club académico' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 group by association_club.name`;
+where association_club.type='Club artistico' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 group by association_club.name`;
 
-const GET_PARTICIPATION_OF_FEMALE_ARTISTIC_CLUB_BY_CLUB=`select association_club.name, users.sex, cast(COUNT(distinct(userid)) as int) from association_club_relationship 
+const GET_PARTICIPATION_OF_FEMALE_ARTISTIC_CLUB_BY_CLUB=`select association_club.name, users.sex, cast(COALESCE(COUNT(distinct(userid)), 0) as int) as count from association_club_relationship 
 join users on users.id = association_club_relationship.userid 
 join association_club on association_club.id = association_club_relationship.idac 
-where association_club.type='club académico' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 and users.sex='F' group by association_club.name, users.sex`;
+where association_club.type='Club artistico' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 and users.sex='F' group by association_club.name, users.sex`;
 
-const GET_PARTICIPATION_OF_MALE_ARTISTIC_CLUB_BY_CLUB=`select association_club.name, users.sex, cast(COUNT(distinct(userid)) as int) from association_club_relationship 
+const GET_PARTICIPATION_OF_MALE_ARTISTIC_CLUB_BY_CLUB=`select association_club.name, users.sex, cast(COALESCE(COUNT(distinct(userid)), 0) as int) as count from association_club_relationship 
 join users on users.id = association_club_relationship.userid 
 join association_club on association_club.id = association_club_relationship.idac 
-where association_club.type='club académico' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 and users.sex='M' group by association_club.name, users.sex`;
+where association_club.type='Club artistico' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 and users.sex='M' group by association_club.name, users.sex`;
 
 /*statistic of assistance for sport club */
 const GET_PARTICIPATION_OF_SPORT_CLUB=`select cast(COUNT(distinct(userid)) as int) from association_club_relationship 
 join users on users.id = association_club_relationship.userid 
 join association_club on association_club.id = association_club_relationship.idac 
-where association_club.type='club deportivo' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2`;
+where association_club.type='Club deportivo' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2`;
 
 const GET_PARTICIPATION_OF_SPORT_CLUB_BY_CLUB=`select association_club.name, cast(COUNT(distinct(userid)) as int) from association_club_relationship 
 join users on users.id = association_club_relationship.userid 
 join association_club on association_club.id = association_club_relationship.idac 
-where association_club.type='club deportivo' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 group by association_club.name`;
+where association_club.type='Club deportivo' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 group by association_club.name`;
 
 const GET_PARTICIPATION_OF_FEMALE_SPORT_CLUB_BY_CLUB=`select association_club.name, users.sex, cast(COUNT(distinct(userid)) as int) from association_club_relationship 
 join users on users.id = association_club_relationship.userid 
 join association_club on association_club.id = association_club_relationship.idac 
-where association_club.type='club deportivo' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 and users.sex='F' group by association_club.name, users.sex`;
+where association_club.type='Club deportivo' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 and users.sex='F' group by association_club.name, users.sex`;
 
 const GET_PARTICIPATION_OF_MALE_SPORT_CLUB_BY_CLUB=`select association_club.name, users.sex, cast(COUNT(distinct(userid)) as int) from association_club_relationship 
 join users on users.id = association_club_relationship.userid 
 join association_club on association_club.id = association_club_relationship.idac 
-where association_club.type='club deportivo' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 and users.sex='M' group by association_club.name, users.sex`;
+where association_club.type='Club deportivo' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 and users.sex='M' group by association_club.name, users.sex`;
 
 /*statistic of assistance for academic club */
 const GET_PARTICIPATION_OF_ACADEMIC_CLUB=`select cast(COUNT(distinct(userid)) as int) from association_club_relationship 
 join users on users.id = association_club_relationship.userid 
 join association_club on association_club.id = association_club_relationship.idac 
-where association_club.type='club académico' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2`;
+where association_club.type='Club academico' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2`;
 
 const GET_PARTICIPATION_OF_ACADEMIC_CLUB_BY_CLUB=`select association_club.name, cast(COUNT(distinct(userid)) as int) from association_club_relationship 
 join users on users.id = association_club_relationship.userid 
 join association_club on association_club.id = association_club_relationship.idac 
-where association_club.type='club académico' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 group by association_club.name`;
+where association_club.type='Club academico' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 group by association_club.name`;
 
 const GET_PARTICIPATION_OF_FEMALE_ACADEMIC_CLUB_BY_CLUB=`select association_club.name, users.sex, cast(COUNT(distinct(userid)) as int) from association_club_relationship 
 join users on users.id = association_club_relationship.userid 
 join association_club on association_club.id = association_club_relationship.idac 
-where association_club.type='club académico' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 and users.sex='F' group by association_club.name, users.sex`;
+where association_club.type='Club academico' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 and users.sex='F' group by association_club.name, users.sex`;
 
 const GET_PARTICIPATION_OF_MALE_ACADEMIC_CLUB_BY_CLUB=`select association_club.name, users.sex, cast(COUNT(distinct(userid)) as int) from association_club_relationship 
 join users on users.id = association_club_relationship.userid 
 join association_club on association_club.id = association_club_relationship.idac 
-where association_club.type='club académico' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 and users.sex='M' group by association_club.name, users.sex`;
+where association_club.type='Club academico' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 and users.sex='M' group by association_club.name, users.sex`;
 
 /*statistic of assistance for AGRUPATION */
 const GET_PARTICIPATION_OF_AGRUPATION_CLUB=`select cast(COUNT(distinct(userid)) as int) from association_club_relationship 
 join users on users.id = association_club_relationship.userid 
 join association_club on association_club.id = association_club_relationship.idac 
-where association_club.type='agrupación' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2`;
+where association_club.type='Agrupacion' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2`;
 
 const GET_PARTICIPATION_OF_AGRUPATION_CLUB_BY_CLUB=`select association_club.name, cast(COUNT(distinct(userid)) as int) from association_club_relationship 
 join users on users.id = association_club_relationship.userid 
 join association_club on association_club.id = association_club_relationship.idac 
-where association_club.type='agrupación' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 group by association_club.name`;
+where association_club.type='Agrupacion' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 group by association_club.name`;
 
 const GET_PARTICIPATION_OF_FEMALE_AGRUPATION_CLUB_BY_CLUB=`select association_club.name, users.sex, cast(COUNT(distinct(userid)) as int) from association_club_relationship 
 join users on users.id = association_club_relationship.userid 
 join association_club on association_club.id = association_club_relationship.idac 
-where association_club.type='agrupación' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 and users.sex='F' group by association_club.name, users.sex`;
+where association_club.type='Agrupacion' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 and users.sex='F' group by association_club.name, users.sex`;
 
 const GET_PARTICIPATION_OF_MALE_AGRUPATION_CLUB_BY_CLUB=`select association_club.name, users.sex, cast(COUNT(distinct(userid)) as int) from association_club_relationship 
 join users on users.id = association_club_relationship.userid 
 join association_club on association_club.id = association_club_relationship.idac 
-where association_club.type='agrupación' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 and users.sex='M' group by association_club.name, users.sex`;
+where association_club.type='Agrupacion' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 and users.sex='M' group by association_club.name, users.sex`;
+
+/*Statistics for association */
+const GET_PARTICIPATION_OF_ASSOCIATION_CLUB=`select cast(COUNT(distinct(userid)) as int) from association_club_relationship 
+join users on users.id = association_club_relationship.userid 
+join association_club on association_club.id = association_club_relationship.idac 
+where association_club.type='asociación' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2`;
+
+const GET_PARTICIPATION_OF_ASSOCIATION_CLUB_BY_CLUB=`select association_club.name, cast(COUNT(distinct(userid)) as int) from association_club_relationship 
+join users on users.id = association_club_relationship.userid 
+join association_club on association_club.id = association_club_relationship.idac 
+where association_club.type='asociación' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 group by association_club.name`;
+
+const GET_PARTICIPATION_OF_FEMALE_ASSOCIATION_CLUB_BY_CLUB=`select association_club.name, users.sex, cast(COUNT(distinct(userid)) as int) from association_club_relationship 
+join users on users.id = association_club_relationship.userid 
+join association_club on association_club.id = association_club_relationship.idac 
+where association_club.type='asociación' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 and users.sex='F' group by association_club.name, users.sex`;
+
+const GET_PARTICIPATION_OF_MALE_ASSOCIATION_CLUB_BY_CLUB=`select association_club.name, users.sex, cast(COUNT(distinct(userid)) as int) from association_club_relationship 
+join users on users.id = association_club_relationship.userid 
+join association_club on association_club.id = association_club_relationship.idac 
+where association_club.type='asociación' and association_club_relationship.startdate>=$1 and association_club_relationship.enddate<=$2 and users.sex='M' group by association_club.name, users.sex`;
 
 
 async function getAssistanceOfClubQuery({ idc, startdate, enddate }){
@@ -553,6 +574,47 @@ async function getMaleParticipationAgrupationByClubQuery({ startdate, enddate })
     return data;
 };
 
+/**STATISTICS FOR ASSOCIATION */
+async function getParticipationAssociationQuery({ startdate, enddate }){
+    const values = [
+        startdate,
+        enddate
+    ];
+
+    const data = await db.query(GET_PARTICIPATION_OF_ASSOCIATION_CLUB, values);
+    return data;
+};
+
+async function getParticipationAssociationByClubQuery({ startdate, enddate }){
+    const values = [
+        startdate,
+        enddate
+    ];
+
+    const data = await db.query(GET_PARTICIPATION_OF_ASSOCIATION_CLUB_BY_CLUB, values);
+    return data;
+};
+
+async function getFemaleParticipationAssociationByClubQuery({ startdate, enddate }){
+    const values = [
+        startdate,
+        enddate
+    ];
+
+    const data = await db.query(GET_PARTICIPATION_OF_FEMALE_ASSOCIATION_CLUB_BY_CLUB, values);
+    return data;
+};
+
+async function getMaleParticipationAssociationByClubQuery({ startdate, enddate }){
+    const values = [
+        startdate,
+        enddate
+    ];
+
+    const data = await db.query(GET_PARTICIPATION_OF_MALE_ASSOCIATION_CLUB_BY_CLUB, values);
+    return data;
+};
+
 
 module.exports = {
     getAssistanceOfClubQuery,
@@ -595,4 +657,10 @@ module.exports = {
     getParticipationAgrupationByClubQuery,
     getFemaleParticipationAgrupationByClubQuery,
     getMaleParticipationAgrupationByClubQuery,
+    getParticipationAssociationQuery,
+    getParticipationAssociationByClubQuery,
+    getFemaleParticipationAssociationByClubQuery,
+    getMaleParticipationAssociationByClubQuery
+
+
 };

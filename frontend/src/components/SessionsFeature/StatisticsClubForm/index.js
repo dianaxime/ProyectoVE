@@ -4,7 +4,7 @@ import {
     getAuthToken,
     getSelectedAssociationClub,
 } from '../../../reducers';
-import { reset, Field, reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import * as actions from '../../../actions/statistics';
 import './styles.css';
 import DateFnsUtils from '@date-io/date-fns';
