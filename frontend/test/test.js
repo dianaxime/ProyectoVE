@@ -83,6 +83,47 @@ const stateW = {
     errorParticipation: null,
 }
 
+const startAddingMember = (id, userid, idca, startdate, enddate) => ({
+    type: 'MEMBER_ADD_STARTED',
+    payload: {
+        id,
+        userid,
+        idca,
+        startdate,
+        enddate,
+    },
+});
+
+const completeAddingMember = (oldId, tournament) => ({
+    type: 'MEMBER_ADD_COMPLETED',
+    payload: {
+        oldId,
+        tournament,
+    },
+});
+
+const failAddingMember = (oldId, error) => ({
+    type: 'MEMBER_ADD_FAILED',
+    payload: {
+        oldId,
+        error,
+    },
+});
+
+const selectedMember = index => ({
+    type: 'MEMBER_SELECTED',
+    payload: {
+        index,
+    },
+});
+
+const stateCA = {
+    byIdMember: {},
+    orderMember: [],
+    isFetchingMember: false,
+    errorMember: null,
+}
+
 describe('Participation', () => {
 
     it('should handle PARTICIPATION_ADD_STARTED', () => {
@@ -166,6 +207,50 @@ describe('Tournament', () => {
 
     it('should handle TOURNAMENT_SELECTED', () => {
         const action = selectedTournament(10);
+        assert.equal(action.payload.index, 10);
+    });
+
+});
+
+describe('Members', () => {
+
+    it('should handle MEMBER_ADD_STARTED', () => {
+        const action = startAddingMember(1, 5, 8, '04/09/2020', '20/09/2020');
+        assert.equal(action.type, 'MEMBER_ADD_STARTED');
+    });
+
+    it('should handle MEMBER_ADD_STARTED', () => {
+        const action = startAddingMember(1, 5, 8, '04/09/2020', '20/09/2020');
+        assert.equal(action.payload.startdate, '04/09/2020');
+    });
+
+    it('should handle MEMBER_ADD_COMPLETED', () => {
+        const action = completeAddingMember(1, {id: 1, userid: 5, idca: 8, startdate: '04/09/2020', enddate: '20/09/2020'});
+        assert.equal(action.type, 'MEMBER_ADD_COMPLETED');
+    });
+
+    it('should handle MEMBER_ADD_COMPLETED', () => {
+        const action = completeAddingMember(1, {id: 1, userid: 5, idca: 8, startdate: '04/09/2020', enddate: '20/09/2020'});
+        assert.equal(action.payload.tournament.userid, 5);
+    });
+
+    it('should handle MEMBER_ADD_FAILED', () => {
+        const action = failAddingMember(1, 'UNEXPECTED ERROR');
+        assert.equal(action.type, 'MEMBER_ADD_FAILED');
+    });
+
+    it('should handle MEMBER_ADD_FAILED', () => {
+        const action = failAddingMember(1, 'UNEXPECTED ERROR');
+        assert.equal(action.payload.error, 'UNEXPECTED ERROR');
+    });
+
+    it('should handle MEMBER_SELECTED', () => {
+        const action = selectedMember(10);
+        assert.equal(action.type, 'MEMBER_SELECTED');
+    });
+
+    it('should handle MEMBER_SELECTED', () => {
+        const action = selectedMember(10);
         assert.equal(action.payload.index, 10);
     });
 
