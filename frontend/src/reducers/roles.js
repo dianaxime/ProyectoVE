@@ -1,6 +1,6 @@
 import * as types from '../types/roles';
 
-const userRoles = (state = null, action) => {
+const userRoles = (state = {}, action) => {
     switch (action.type) {
         case types.FETCH_ROLES_COMPLETED: {
             return action.payload;
