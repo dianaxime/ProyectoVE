@@ -258,7 +258,6 @@ export const getIsFetchingParticipationwkG = state => statisticsSelectors.getIsF
 export const getFetchingParticipationwkGError = state => statisticsSelectors.getFetchingParticipationwkGError(state.statistics);
 /* Roles */
 export const getUserRoles = state => rolesSelectors.getUserRoles(state.roles)
-export const getFetchingParticipationwkGError = state => statisticsSelectors.getFetchingParticipationwkGError(state.statistics);
 export const getFemaleScholars = state => statisticsSelectors.getFemaleScholars(state.statistics);
 export const getIsFetchingFemaleScholars = state => statisticsSelectors.getIsFetchingFemaleScholars(state.statistics);
 export const getFetchingFemaleScholarsError = state => statisticsSelectors.getFetchingFemaleScholarsError(state.statistics);
