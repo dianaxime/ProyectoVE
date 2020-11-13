@@ -23,9 +23,13 @@ body.modal-open{
     background-repeat: no-repeat;
     background-size: cover;
     display: flex;
+    align-content: center;
 }
 
 .CarouselDiv{
-    height: 300rem;
-    margin-top: 5rem;
+    height: 375px;
+    width: 1200px;
+    align-self: center;
+    align-content: center;
+    margin-left: 35px;
 }

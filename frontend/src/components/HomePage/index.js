@@ -45,6 +45,7 @@ const useStyles = makeStyles((theme) => ({
 const Home = ({ open}) => {
     const classes = useStyles();
     
+    
     return (
         <div className="bghome">
             <Nav />
@@ -57,39 +58,41 @@ const Home = ({ open}) => {
                 <h1>Home de Prueba</h1>
                 <div className="CarouselDiv"> 
                 <Carousel>
-                    <Carousel.Item style={{'height':"300px"}} >
-                        <img
+                    <Carousel.Item style={{'height':"375px"}} >
+                        <img style={{'height':"350px"}}
                         className="d-block w-100"
-                        src="holder.js/800x400?text=First slide&bg=373940"
+                        src="https://www.htmlcsscolor.com/preview/gallery/008F2E.png"
                         alt="First slide"
                         />
                         <Carousel.Caption>
-                        <h3>First slide label</h3>
-                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        <h3>Clubes</h3>
+                        <p>Únete a los clubes artísticos, deportivos y académicos</p>
                         </Carousel.Caption>
                     </Carousel.Item>
-                    <Carousel.Item style={{'height':"300px"}} >
-                        <img
+                    <Carousel.Item style={{'height':"375px"}} >
+                        <img style={{'height':"350px"}}
                         className="d-block w-100"
-                        src="holder.js/800x400?text=Second slide&bg=282c34"
+                        src="https://www.htmlcsscolor.com/preview/gallery/008F2E.png"
                         alt="Third slide"
                         />
 
                         <Carousel.Caption>
-                        <h3>Second slide label</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            <a href="/asociacionesClubs"> 
+                        <h3>Asociaciones</h3>
+                        <p>Si eres líder, las asociaciones estudiantiles son para ti</p>
+                        </a>
                         </Carousel.Caption>
                     </Carousel.Item>
-                    <Carousel.Item style={{'height':"300px"}} >
-                        <img
+                    <Carousel.Item style={{'height':"375px"}} >
+                        <img style={{'height':"350px"}}
                         className="d-block w-100"
-                        src="holder.js/800x400?text=Third slide&bg=20232a"
+                        src="https://www.htmlcsscolor.com/preview/gallery/008F2E.png"
                         alt="Third slide"
                         />
 
                         <Carousel.Caption>
-                        <h3>Third slide label</h3>
-                        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                        <h3>Talleres</h3>
+                        <p>¿Ya conoces los talleres disponibles este semestre?</p>
                         </Carousel.Caption>
                     </Carousel.Item>
                 </Carousel>
