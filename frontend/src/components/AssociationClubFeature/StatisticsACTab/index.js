@@ -103,7 +103,7 @@ let StatisticsACTab = ({
                   <VictoryChart
                     domainPadding={30} >
                     <VictoryAxis
-                      label="agrupaciones"
+                      label="asociaciones"
                       style={{
                         axisLabel: { padding: 30 }
                       }}
@@ -135,7 +135,7 @@ let StatisticsACTab = ({
                 associationF !== null && associationM !== null && (
                   <VictoryChart domainPadding={30} >
                     <VictoryAxis
-                      label="agrupaciones"
+                      label="asociaciones"
                       style={{
                         axisLabel: { padding: 30 }
                       }}
