@@ -65,21 +65,21 @@ const Home = ({ open}) => {
                         alt="First slide"
                         />
                         <Carousel.Caption>
-                        <h3>Clubes</h3>
-                        <p>Únete a los clubes artísticos, deportivos y académicos</p>
+                        <h3>Equipos</h3>
+                        <p>Evalúa las estadísticas de los torneos deportivos</p>
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item style={{'height':"375px"}} >
                         <img style={{'height':"350px"}}
                         className="d-block w-100"
                         src="https://www.htmlcsscolor.com/preview/gallery/008F2E.png"
-                        alt="Third slide"
+                        alt="Second slide"
                         />
 
                         <Carousel.Caption>
-                            <a href="/asociacionesClubs"> 
-                        <h3>Asociaciones</h3>
-                        <p>Si eres líder, las asociaciones estudiantiles son para ti</p>
+                        <a href="/asociacionesClubs"> 
+                            <h3>Clubes y Asociaciones</h3>
+                            <p>Conoce sus estadísticas del mes para saber su nivel de participación</p>
                         </a>
                         </Carousel.Caption>
                     </Carousel.Item>
@@ -91,8 +91,8 @@ const Home = ({ open}) => {
                         />
 
                         <Carousel.Caption>
-                        <h3>Talleres</h3>
-                        <p>¿Ya conoces los talleres disponibles este semestre?</p>
+                        <h3>Asistencia</h3>
+                        <p>Toma asistencia o revisa la asistencia de una reunión realizada anteriormente</p>
                         </Carousel.Caption>
                     </Carousel.Item>
                 </Carousel>
