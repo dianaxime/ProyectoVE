@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {
     getAuthToken,
 } from '../../../reducers';
-import { reset, Field, reduxForm } from 'redux-form';
+import { Field, reduxForm } from 'redux-form';
 import * as actions from '../../../actions/statistics';
 import './styles.css';
 import DateFnsUtils from '@date-io/date-fns';
@@ -85,7 +85,19 @@ SearchACStatistics = connect(
     }),
     dispatch => ({
         onSubmit({ startdate, enddate }) {
-            dispatch(reset('acStatisticsForm'));
+            dispatch(
+                actions.startFetchingParticipationAssociations(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
+            );
+            dispatch(
+                actions.startFetchingParticipationAssociation(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
+            );
+            dispatch(
+                actions.startFetchingParticipationAssociationF(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
+            );
+            dispatch(
+                actions.startFetchingParticipationAssociationM(moment(startdate).format('YYYY-MM-DD'), moment(enddate).format('YYYY-MM-DD'))
+            );
+            // dispatch(reset('acStatisticsForm'));
         },
     }),
     (stateProps, dispatchProps, ownProps) => {
