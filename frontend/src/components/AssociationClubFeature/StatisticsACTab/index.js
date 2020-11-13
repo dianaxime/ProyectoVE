@@ -18,6 +18,10 @@ import {
   getParticipationAgrupations,
   getParticipationAgrupationF,
   getParticipationAgrupationM,
+  getParticipationAssociation,
+  getParticipationAssociations,
+  getParticipationAssociationF,
+  getParticipationAssociationM,
 } from '../../../reducers';
 import { URL } from '../../../settings';
 import StatisticsACForm from '../StatisticsACForm';
@@ -29,25 +33,25 @@ import React, { useState } from "react";
 import { MDBContainer, MDBTabPane, MDBTabContent, MDBNav, MDBNavItem, MDBNavLink } from "mdbreact";
 import { VictoryChart, VictoryBar, VictoryGroup, VictoryLabel, VictoryLegend, VictoryAxis } from 'victory';
 
-let StatisticsACTab = ({ 
-  artClub, 
-  artClubs, 
-  artClubF, 
+let StatisticsACTab = ({
+  artClub,
+  artClubs,
+  artClubF,
   artClubM,
 
-  sportClub, 
-  sportClubs, 
-  sportClubF, 
+  sportClub,
+  sportClubs,
+  sportClubF,
   sportClubM,
 
-  acadClub, 
-  acadClubs, 
-  acadClubF, 
+  acadClub,
+  acadClubs,
+  acadClubF,
   acadClubM,
 
-  agrupation, 
-  agrupations, 
-  agrupationF, 
+  agrupation,
+  agrupations,
+  agrupationF,
   agrupationM
 }) => {
   const [activeItem, changeActiveItem] = useState('1');
@@ -87,6 +91,90 @@ let StatisticsACTab = ({
           </div>
           <MDBContainer>
             <h3 className="mt-5">Asociaciones</h3>
+            <h3 className="title-graphs">Participación | {associations.count}</h3>
+            <div className="estadisticas" style={{ width: "500px", height: "400px" }}>
+              {
+                association !== null && (
+                  <VictoryChart
+                    domainPadding={30} >
+                    <VictoryAxis
+                      label="agrupaciones"
+                      style={{
+                        axisLabel: { padding: 30 }
+                      }}
+                    />
+                    <VictoryAxis dependentAxis
+                      label="participantes"
+                      style={{
+                        axisLabel: { padding: 40 }
+                      }}
+                    />
+                    <VictoryGroup offset={25}
+                      colorScale={["green"]}>
+                      <VictoryBar
+                        data={association}
+                        x={"name"}
+                        y={"count"}
+                        labels={({ datum }) => datum.count}
+                        style={{ labels: { fill: "white" } }}
+                        labelComponent={<VictoryLabel dy={30} />}
+                      />
+                    </VictoryGroup>
+                  </VictoryChart>
+                )
+              }
+            </div>
+            <h3 className="title-graphs">Participación por género | {associations.count}</h3>
+            <div style={{ width: "500px", height: "400px" }}>
+              {
+                associationF !== null && associationM !== null && (
+                  <VictoryChart domainPadding={30} >
+                    <VictoryAxis
+                      label="agrupaciones"
+                      style={{
+                        axisLabel: { padding: 30 }
+                      }}
+                    />
+                    <VictoryAxis dependentAxis
+                      label="participantes"
+                      style={{
+                        axisLabel: { padding: 40 }
+                      }}
+                    />
+                    <VictoryLegend
+                      x={125} y={10}
+                      orientation="horizontal"
+                      gutter={20}
+                      style={{ border: { stroke: "black" } }}
+                      data={[
+                        { name: "F", symbol: { fill: "green" } },
+                        { name: "M", symbol: { fill: "#0C591E" } }
+                      ]}
+                    />
+                    <VictoryGroup offset={25}
+                      colorScale={["green", "#0C591E"]}
+                    >
+                      <VictoryBar
+                        data={associationM}
+                        x={"name"}
+                        y={"count"}
+                        labels={({ datum }) => datum.count}
+                        style={{ labels: { fill: "white" } }}
+                        labelComponent={<VictoryLabel dy={30} />}
+                      />
+                      <VictoryBar
+                        data={associationF}
+                        x={"name"}
+                        y={"count"}
+                        labels={({ datum }) => datum.count}
+                        style={{ labels: { fill: "white" } }}
+                        labelComponent={<VictoryLabel dy={30} />}
+                      />
+                    </VictoryGroup>
+                  </VictoryChart>
+                )
+              }
+            </div>
           </MDBContainer>
         </MDBTabPane>
         <MDBTabPane tabId="2" role="tabpanel" >
@@ -486,6 +574,11 @@ export default connect(
     agrupation: getParticipationAgrupation(state),
     agrupationF: getParticipationAgrupationF(state),
     agrupationM: getParticipationAgrupationM(state),
+
+    associations: getParticipationAssociations(state),
+    association: getParticipationAssociation(state),
+    associationF: getParticipationAssociationF(state),
+    associationM: getParticipationAssociationM(state),
   }),
   undefined,
   (stateProps, disptachProps, ownProps) => {
