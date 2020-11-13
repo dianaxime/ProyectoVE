@@ -65,8 +65,10 @@ const Home = ({ open}) => {
                         alt="First slide"
                         />
                         <Carousel.Caption>
-                        <h3>Equipos</h3>
-                        <p>Evalúa las estadísticas de los torneos deportivos</p>
+                        <a href="/estadisticasEquipos">
+                            <h3>Equipos</h3>
+                            <p>Evalúa las estadísticas de los torneos deportivos</p>
+                        </a>
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item style={{'height':"375px"}} >
@@ -91,8 +93,10 @@ const Home = ({ open}) => {
                         />
 
                         <Carousel.Caption>
-                        <h3>Asistencia</h3>
-                        <p>Toma asistencia o revisa la asistencia de una reunión realizada anteriormente</p>
+                        <a href="/sessions"> 
+                            <h3>Asistencia</h3>
+                            <p>Toma asistencia o revisa la asistencia de una reunión realizada anteriormente</p>
+                        </a>
                         </Carousel.Caption>
                     </Carousel.Item>
                 </Carousel>
