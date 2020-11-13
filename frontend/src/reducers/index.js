@@ -258,6 +258,7 @@ export const getIsFetchingParticipationwkG = state => statisticsSelectors.getIsF
 export const getFetchingParticipationwkGError = state => statisticsSelectors.getFetchingParticipationwkGError(state.statistics);
 /* Roles */
 export const getUserRoles = state => rolesSelectors.getUserRoles(state.roles)
+/* Statistics 2.0 */
 export const getFemaleScholars = state => statisticsSelectors.getFemaleScholars(state.statistics);
 export const getIsFetchingFemaleScholars = state => statisticsSelectors.getIsFetchingFemaleScholars(state.statistics);
 export const getFetchingFemaleScholarsError = state => statisticsSelectors.getFetchingFemaleScholarsError(state.statistics);
@@ -339,3 +340,16 @@ export const getFetchingParticipationAgrupationFError = state => statisticsSelec
 export const getParticipationAgrupationM = state => statisticsSelectors.getParticipationAgrupationM(state.statistics);
 export const getIsFetchingParticipationAgrupationM = state => statisticsSelectors.getIsFetchingParticipationAgrupationM(state.statistics);
 export const getFetchingParticipationAgrupationMError = state => statisticsSelectors.getFetchingParticipationAgrupationMError(state.statistics);
+
+export const getParticipationAssociations = state => statisticsSelectors.getParticipationAssociations(state.statistics);
+export const getIsFetchingParticipationAssociations = state => statisticsSelectors.getIsFetchingParticipationAssociations(state.statistics);
+export const getFetchingParticipationAssociationsError = state => statisticsSelectors.getFetchingParticipationAssociationsError(state.statistics);
+export const getParticipationAssociation = state => statisticsSelectors.getParticipationAssociation(state.statistics);
+export const getIsFetchingParticipationAssociation = state => statisticsSelectors.getIsFetchingParticipationAssociation(state.statistics);
+export const getFetchingParticipationAssociationError = state => statisticsSelectors.getFetchingParticipationAssociationError(state.statistics);
+export const getParticipationAssociationF = state => statisticsSelectors.getParticipationAssociationF(state.statistics);
+export const getIsFetchingParticipationAssociationF = state => statisticsSelectors.getIsFetchingParticipationAssociationF(state.statistics);
+export const getFetchingParticipationAssociationFError = state => statisticsSelectors.getFetchingParticipationAssociationFError(state.statistics);
+export const getParticipationAssociationM = state => statisticsSelectors.getParticipationAssociationM(state.statistics);
+export const getIsFetchingParticipationAssociationM = state => statisticsSelectors.getIsFetchingParticipationAssociationM(state.statistics);
+export const getFetchingParticipationAssociationMError = state => statisticsSelectors.getFetchingParticipationAssociationMError(state.statistics);

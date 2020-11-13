@@ -1736,3 +1736,176 @@ export function* watchParticipationAgrupationMFetch() {
     );
 }
 
+
+function* fetchParticipationAssociations(action) {
+    try {
+        const isAuth = yield select(selectors.isAuthenticated);
+
+        if (isAuth) {
+            const token = yield select(selectors.getAuthToken);
+            const response = yield call(
+                fetch,
+                `${API_BASE_URL}/statistics/participations-associations/${action.payload.startdate}/${action.payload.enddate}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'token': `${token}`,
+                    },
+                }
+            );
+            if (response.status === 200) {
+                const jsonResult = yield response.json();
+
+                yield put(
+                    actions.completeFetchingParticipationAssociations(
+                        jsonResult.data[0],
+                    ),
+                );
+            } else {
+                const errors = yield response.json();
+                yield put(actions.failFetchingParticipationAssociations(errors.error));
+            }
+        }
+    } catch (error) {
+        yield put(actions.failFetchingParticipationAssociations("Error de conexión"));
+        console.log("ERROR", error);
+    }
+}
+
+export function* watchParticipationAssociationsFetch() {
+    yield takeEvery(
+        types.PARTICIPATION_ASSOCIATIONS_FETCH_STARTED,
+        fetchParticipationAssociations,
+    );
+}
+
+function* fetchParticipationAssociation(action) {
+    try {
+        const isAuth = yield select(selectors.isAuthenticated);
+
+        if (isAuth) {
+            const token = yield select(selectors.getAuthToken);
+            const response = yield call(
+                fetch,
+                `${API_BASE_URL}/statistics/participations-associations-by-association/${action.payload.startdate}/${action.payload.enddate}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'token': `${token}`,
+                    },
+                }
+            );
+            if (response.status === 200) {
+                const jsonResult = yield response.json();
+
+                yield put(
+                    actions.completeFetchingParticipationAssociation(
+                        jsonResult.data,
+                    ),
+                );
+            } else {
+                const errors = yield response.json();
+                yield put(actions.failFetchingParticipationAssociation(errors.error));
+            }
+        }
+    } catch (error) {
+        yield put(actions.failFetchingParticipationAssociation("Error de conexión"));
+        console.log("ERROR", error);
+    }
+}
+
+export function* watchParticipationAssociationFetch() {
+    yield takeEvery(
+        types.PARTICIPATION_ASSOCIATION_FETCH_STARTED,
+        fetchParticipationAssociation,
+    );
+}
+
+function* fetchParticipationAssociationF(action) {
+    try {
+        const isAuth = yield select(selectors.isAuthenticated);
+
+        if (isAuth) {
+            const token = yield select(selectors.getAuthToken);
+            const response = yield call(
+                fetch,
+                `${API_BASE_URL}/statistics/female-participations-associations-by-association/${action.payload.startdate}/${action.payload.enddate}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'token': `${token}`,
+                    },
+                }
+            );
+            if (response.status === 200) {
+                const jsonResult = yield response.json();
+
+                yield put(
+                    actions.completeFetchingParticipationAssociationF(
+                        jsonResult.data,
+                    ),
+                );
+            } else {
+                const errors = yield response.json();
+                yield put(actions.failFetchingParticipationAssociationF(errors.error));
+            }
+        }
+    } catch (error) {
+        yield put(actions.failFetchingParticipationAssociationF("Error de conexión"));
+        console.log("ERROR", error);
+    }
+}
+
+export function* watchParticipationAssociationFFetch() {
+    yield takeEvery(
+        types.PARTICIPATION_ASSOCIATION_F_FETCH_STARTED,
+        fetchParticipationAssociationF,
+    );
+}
+
+function* fetchParticipationAssociationM(action) {
+    try {
+        const isAuth = yield select(selectors.isAuthenticated);
+
+        if (isAuth) {
+            const token = yield select(selectors.getAuthToken);
+            const response = yield call(
+                fetch,
+                `${API_BASE_URL}/statistics/male-participations-associations-by-association/${action.payload.startdate}/${action.payload.enddate}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'token': `${token}`,
+                    },
+                }
+            );
+            if (response.status === 200) {
+                const jsonResult = yield response.json();
+
+                yield put(
+                    actions.completeFetchingParticipationAssociationM(
+                        jsonResult.data,
+                    ),
+                );
+            } else {
+                const errors = yield response.json();
+                yield put(actions.failFetchingParticipationAssociationM(errors.error));
+            }
+        }
+    } catch (error) {
+        yield put(actions.failFetchingParticipationAssociationM("Error de conexión"));
+        console.log("ERROR", error);
+    }
+}
+
+export function* watchParticipationAssociationMFetch() {
+    yield takeEvery(
+        types.PARTICIPATION_ASSOCIATION_M_FETCH_STARTED,
+        fetchParticipationAssociationM,
+    );
+}
+
