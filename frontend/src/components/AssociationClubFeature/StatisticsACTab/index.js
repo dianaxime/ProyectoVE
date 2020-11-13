@@ -52,7 +52,12 @@ let StatisticsACTab = ({
   agrupation,
   agrupations,
   agrupationF,
-  agrupationM
+  agrupationM,
+
+  association,
+  associations,
+  associationF,
+  associationM
 }) => {
   const [activeItem, changeActiveItem] = useState('1');
   return (
