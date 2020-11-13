@@ -133,6 +133,10 @@ import {
     watchParticipationAgrupationFetch,
     watchParticipationAgrupationFFetch,
     watchParticipationAgrupationMFetch,
+    watchParticipationAssociationsFetch,
+    watchParticipationAssociationFetch,
+    watchParticipationAssociationFFetch,
+    watchParticipationAssociationMFetch,
 } from './statistics'; 
 
 function* mainSaga() {
@@ -243,6 +247,10 @@ function* mainSaga() {
         fork(watchParticipationAgrupationFetch),
         fork(watchParticipationAgrupationFFetch),
         fork(watchParticipationAgrupationMFetch),
+        fork(watchParticipationAssociationsFetch),
+        fork(watchParticipationAssociationFetch),
+        fork(watchParticipationAssociationFFetch),
+        fork(watchParticipationAssociationMFetch),
     ]);
 }
 
