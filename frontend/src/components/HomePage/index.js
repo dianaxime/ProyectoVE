@@ -65,7 +65,7 @@ const Home = ({ open}) => {
                         alt="First slide"
                         />
                         <Carousel.Caption>
-                        <a href="/estadisticasEquipos">
+                        <a className="carCaption" href="/estadisticasEquipos">
                             <h3>Equipos</h3>
                             <p>Evalúa las estadísticas de los torneos deportivos</p>
                         </a>
@@ -79,7 +79,7 @@ const Home = ({ open}) => {
                         />
 
                         <Carousel.Caption>
-                        <a href="/asociacionesClubs"> 
+                        <a className="carCaption" href="/asociacionesClubs"> 
                             <h3>Clubes y Asociaciones</h3>
                             <p>Conoce sus estadísticas del mes para saber su nivel de participación</p>
                         </a>
@@ -93,7 +93,7 @@ const Home = ({ open}) => {
                         />
 
                         <Carousel.Caption>
-                        <a href="/sessions"> 
+                        <a  className="carCaption" href="/sessions"> 
                             <h3>Asistencia</h3>
                             <p>Toma asistencia o revisa la asistencia de una reunión realizada anteriormente</p>
                         </a>

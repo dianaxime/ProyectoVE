@@ -33,3 +33,11 @@ body.modal-open{
     align-content: center;
     margin-left: 35px;
 }
+
+.carCaption{
+    color: white;
+}
+
+.carCaption:hover{
+    color: rgb(188, 196, 206);
+}
