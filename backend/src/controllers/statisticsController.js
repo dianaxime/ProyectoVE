@@ -55,6 +55,8 @@ const {
     getParticipationAssociationByClubQuery,
     getFemaleParticipationAssociationByClubQuery,
     getMaleParticipationAssociationByClubQuery,
+    getActiveMaleUsersQuery,
+    getActiveFemaleUsersQuery
 } = require('../repository/statistics');
 
 /**
@@ -1483,6 +1485,76 @@ const getMaleParticipationAssociationByClub = async (req, res) => {
     })
 };
 
+/**
+ * Get ACTIVE MALE USERS
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getActiveMaleUsers = async (req, res) => {
+    
+    const startdate = req.params.startdate;
+    const enddate = req.params.enddate; 
+
+    if (empty(startdate) || empty(enddate)) {
+        errorMessage.error = 'startdate or enddate detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    getActiveMaleUsersQuery({startdate, enddate})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no participations in agrupations found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
+/**
+ * Get ACTIVE FEMALE USERS
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} reflection object
+*/
+
+const getActiveFemaleUsers = async (req, res) => {
+    
+    const startdate = req.params.startdate;
+    const enddate = req.params.enddate; 
+
+    if (empty(startdate) || empty(enddate)) {
+        errorMessage.error = 'startdate or enddate detail is missing';
+        return res.status(status.bad).send(errorMessage);
+    }
+    
+    getActiveFemaleUsersQuery({startdate, enddate})
+    .then(data => {
+        console.log('DATA:', data); // print data;
+        if (!data) {
+            errorMessage.error = 'no participations in agrupations found';
+            return res.status(status.notfound).send(errorMessage);
+        }
+    
+        successMessage.data = data;
+        return res.status(status.success).send(successMessage);
+    })
+    .catch(error => {
+        console.log('ERROR:', error); // print the error;
+        errorMessage.error = 'Operation was not successful';
+        return res.status(status.error).send(errorMessage);
+    })
+};
+
 module.exports = {
     getAssistanceOfClub,
     getAssistanceOfClubs,
@@ -1528,4 +1600,6 @@ module.exports = {
     getParticipationAssociationByClub,
     getFemaleParticipationAssociationByClub,
     getMaleParticipationAssociationByClub,
+    getActiveMaleUsers,
+    getActiveFemaleUsers
 };

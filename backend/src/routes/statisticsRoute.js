@@ -46,6 +46,8 @@ const {
     getParticipationAssociationByClub,
     getFemaleParticipationAssociationByClub,
     getMaleParticipationAssociationByClub,
+    getActiveMaleUsers,
+    getActiveFemaleUsers
 } = require('../controllers/statisticsController');
 
 const router = express.Router();
@@ -101,7 +103,9 @@ router.get('/statistics/participations-associations/:startdate/:enddate', verify
 router.get('/statistics/participations-associations-by-association/:startdate/:enddate', verifyAuth, getParticipationAssociationByClub);
 router.get('/statistics/female-participations-associations-by-association/:startdate/:enddate', verifyAuth, getFemaleParticipationAssociationByClub);
 router.get('/statistics/male-participations-associations-by-association/:startdate/:enddate', verifyAuth, getMaleParticipationAssociationByClub);
-
+/*GET ACTIVE USERS */
+router.get('/statistics/active-male-users/:startdate/:enddate', verifyAuth, getActiveMaleUsers);
+router.get('/statistics/active-female-users/:startdate/:enddate', verifyAuth, getActiveFemaleUsers);
 
 
 

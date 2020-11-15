@@ -651,6 +651,26 @@ async function getMaleParticipationAssociationByClubQuery({ startdate, enddate }
     return data;
 };
 
+/**GET ACTIVE USERS */
+async function getActiveMaleUsersQuery({ startdate, enddate }){
+    const values = [
+        startdate,
+        enddate
+    ];
+
+    const data = await db.query(GET_ACTIVE_MALE_USERS, values);
+    return data;
+};
+
+async function getActiveFemaleUsersQuery({ startdate, enddate }){
+    const values = [
+        startdate,
+        enddate
+    ];
+
+    const data = await db.query(GET_ACTIVE_FEMALE_USERS, values);
+    return data;
+};
 
 module.exports = {
     getAssistanceOfClubQuery,
@@ -696,7 +716,7 @@ module.exports = {
     getParticipationAssociationQuery,
     getParticipationAssociationByClubQuery,
     getFemaleParticipationAssociationByClubQuery,
-    getMaleParticipationAssociationByClubQuery
-
-
+    getMaleParticipationAssociationByClubQuery,
+    getActiveMaleUsersQuery,
+    getActiveFemaleUsersQuery
 };
