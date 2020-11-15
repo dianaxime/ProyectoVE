@@ -103,6 +103,42 @@ const GET_USERS_BY_FACULTY_AND_FEMALE=`select users.sex, users.faculty, cast(COU
 const GET_USERS_BY_CAREER_AND_MALE=`select users.sex, users.career, cast(COUNT(*) as int) from users where users.sex = 'M' group by users.career, users.sex`;
 const GET_USERS_BY_CAREER_AND_FEMALE=`select users.sex, users.career, cast(COUNT(*) as int) from users where users.sex = 'F' group by users.career, users.sex`;
 
+/*---------------------------------------------------------------QUERY FOR ACTIVE USERS----------------------------------------------------------------------*/
+const GET_ACTIVE_MALE_USERS=`select users.sex, cast(COUNT(*) as int) from users 
+join tournament on tournament.userid = users.id
+where users.sex = 'M'  and tournament.enddate<=$2 and tournament.startdate>=$1 group by users.sex
+union 
+select users.sex, cast(COUNT(*) as int) from users 
+join event_participation on event_participation.userid = users.id
+join event on event_participation.ide = event.id 
+where users.sex = 'M' and event.date<=$2 and event.date>=$1 group by users.sex
+union 
+select users.sex, cast(COUNT(*) as int) from users 
+join participation on participation.userid = users.id
+where users.sex = 'M' and participation.enddate<=$2 and participation.startdate>=$1 group by users.sex
+union 
+select users.sex, cast(COUNT(*) as int) from users 
+join association_club_relationship on association_club_relationship.userid = users.id
+where users.sex = 'M' and association_club_relationship.enddate<=$2 and association_club_relationship.startdate>=$1 group by users.sex`;
+
+const GET_ACTIVE_FEMALE_USERS=`select users.sex, cast(COUNT(*) as int) from users 
+join tournament on tournament.userid = users.id
+where users.sex = 'F'  and tournament.enddate<=$2 and tournament.startdate>=$1 group by users.sex
+union 
+select users.sex, cast(COUNT(*) as int) from users 
+join event_participation on event_participation.userid = users.id
+join event on event_participation.ide = event.id 
+where users.sex = 'F' and event.date<=$2 and event.date>=$1 group by users.sex
+union 
+select users.sex, cast(COUNT(*) as int) from users 
+join participation on participation.userid = users.id
+where users.sex = 'F' and participation.enddate<=$2 and participation.startdate>=$1 group by users.sex
+union 
+select users.sex, cast(COUNT(*) as int) from users 
+join association_club_relationship on association_club_relationship.userid = users.id
+where users.sex = 'F' and association_club_relationship.enddate<=$2 and association_club_relationship.startdate>=$1 group by users.sex`;
+
+
 /*statisticS of participation for artistic club */
 const GET_PARTICIPATION_OF_ARTISTIC_CLUB=`select cast(COUNT(distinct(userid)) as int) from association_club_relationship 
 join users on users.id = association_club_relationship.userid 
